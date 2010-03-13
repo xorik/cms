@@ -1,4 +1,18 @@
 <?
+	// Загрузить модули с префиксом
+	function load_modules( $mask )
+	{
+		$dh = opendir( "modules" );
+		
+		while ( ($file = readdir($dh)) !== false )
+		{
+			if( strpos( $file, $mask ) === 0 )
+				require( "modules/" . $file );
+		}
+		closedir($dh);
+	}
+	
+	
 	// Возвращает объект для конфига
 	function config_item( $v )
 	{
