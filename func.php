@@ -64,4 +64,25 @@
 		fwrite( $f, "?>\n" );
 		fclose( $f );
 	}
+	
+	
+	// Всё, что в <head>
+	function head()
+	{
+		global $HEAD;
+		global $CSS;
+		global $JS;
+		
+		if( $HEAD )
+			foreach( $HEAD as $v )
+				echo "\t$v\n";
+		
+		if( $CSS )
+			foreach( $CSS as $v )
+				echo "\t<link rel='stylesheet' type='text/css' href='$v'>\n";
+		
+		if( $JS )
+			foreach( $JS as $v )
+				echo "\t<script type='text/javascript' src='$v'></script>\n";
+	}
 ?>
