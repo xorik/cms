@@ -85,4 +85,12 @@
 			foreach( $JS as $v )
 				echo "\t<script type='text/javascript' src='$v'></script>\n";
 	}
+	
+	
+	// Перезагрузить страницу с очисткой post-данных
+	function clear_post()
+	{
+		header( "Location: {$_SERVER["REQUEST_URI"]}" );
+		die;
+	}
 ?>

@@ -21,6 +21,6 @@
 		<a href='?logout=1'>Выйти</a>
 	</div>
 	<div id='content'>
-		
+		<? hook_run( "content" ) ?>
 	</div>
 </body>
