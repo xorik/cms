@@ -13,16 +13,22 @@
 	}
 	
 	// Создать хук
-	function hook_add( $hookname, $func )
+	function hook_add( $hookname, $func, $pos=50 )
 	{
 		global $hook;
-		$hook[$hookname][] = $func;
+		
+		// Пытаемся встать в позицию pos
+		while( @array_key_exists($pos, $hook[$hookname]) )
+			$pos++;
+		$hook[$hookname][$pos] = $func;
 	}
 	
 	// Выполнить все функции из хука
 	function hook_run( $hookname )
 	{
 		global $hook;
+		@ksort( $hook[$hookname] );
+		
 		if( is_array($hook[$hookname])  )
 			foreach( $hook[$hookname] AS $v )
 				$v();
