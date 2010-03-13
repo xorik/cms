@@ -18,6 +18,7 @@
 </head>
 <body>
 	<div id='top'>
+		<? hook_run( "menu" ) ?>
 		<a href='?logout=1'>Выйти</a>
 	</div>
 	<div id='content'>

@@ -24,6 +24,10 @@ img {
 	margin: 0 5px;
 }
 
+#crumb {
+	float: left;
+}
+
 #content {
 	padding: 10px;
 }
