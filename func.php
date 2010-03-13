@@ -12,6 +12,21 @@
 		closedir($dh);
 	}
 	
+	// Создать хук
+	function hook_add( $hookname, $func )
+	{
+		global $hook;
+		$hook[$hookname][] = $func;
+	}
+	
+	// Выполнить все функции из хука
+	function hook_run( $hookname )
+	{
+		global $hook;
+		if( is_array($hook[$hookname])  )
+			foreach( $hook[$hookname] AS $v )
+				$v();
+	}
 	
 	// Возвращает объект для конфига
 	function config_item( $v )
