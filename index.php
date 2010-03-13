@@ -4,6 +4,8 @@
 	
 	session_start();
 	require( "modules/auth.php" );
+	load_modules( "all_" );
+	load_modules( "admin_" );
 	
 	// Кодировка и заголовок страницы
 	$HEAD[] = "<meta http-equiv='content-type' content='text/html; charset=utf-8'>";
