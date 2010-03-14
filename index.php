@@ -11,6 +11,7 @@
 	$HEAD[] = "<meta http-equiv='content-type' content='text/html; charset=utf-8'>";
 	$HEAD[] = "<title>{$config["title"]}</title>";
 	$CSS[] = "admin.css";
+	$JS[] = "jquery.js";
 	
 	hook_run( "init" );
 ?>
