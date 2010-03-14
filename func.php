@@ -78,6 +78,7 @@
 		global $HEAD;
 		global $CSS;
 		global $JS;
+		global $SCRIPT;
 		
 		if( $HEAD )
 			foreach( $HEAD as $v )
@@ -90,6 +91,10 @@
 		if( $JS )
 			foreach( $JS as $v )
 				echo "\t<script type='text/javascript' src='$v'></script>\n";
+		
+		if( $SCRIPT )
+			foreach( $SCRIPT as $v )
+				echo "\t<script type='text/javascript'>\n$v\n</script>\n";
 	}
 	
 	
