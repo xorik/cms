@@ -8,12 +8,23 @@ table {
 	border-collapse: collapse;
 }
 
-td {
-	padding: 0;
+td, th {
+	padding: 0.2em;
+	padding-right: 3em;
+	text-align: left;
+}
+
+th {
+	border-bottom: 1px solid #bcd;
+}
+
+table.noth {
+	border-top: 1px solid #bcd;
 }
 
 img {
 	border-width: 0;
+	vertical-align: middle;
 }
 
 #top {

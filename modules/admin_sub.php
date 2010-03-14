@@ -28,13 +28,19 @@
 			echo "<h3>Разделы</h3>\n";
 		
 		// Список поразделов
+		?>
+			<table class='noth'>
+		<?
 		$query = "SELECT id, title FROM page WHERE gid=$id";
 		$res = mysql_query( $query );
 		while( $row = mysql_fetch_array($res) )
 		{
-			echo "<a href='?id={$row["id"]}'>{$row["title"]}</a><br>\n";
+			echo "<tr><td><a href='?id={$row["id"]}'><img src='modules/img/edit.png'> {$row["title"]}</a></td>";
+			echo "<td><a href='?id=$id&page_del={$row["id"]}'><img src='modules/img/del.png'> Удалить</a></td></tr>\n";
 		}
-		echo "<a href='?page_add=$id'>Добавить страницу</a>\n";
-		
+		?>
+			<tr><td colspan='2'><a href='?page_add=<?= $id ?>'><img src='modules/img/add.png'> Добавить страницу</a></td></tr>
+			</table>
+		<?
 	}
 ?>
