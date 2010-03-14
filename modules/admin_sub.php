@@ -23,9 +23,9 @@
 		global $id;
 		
 		if( $id )
-			echo "<h3>Подразделы</h3>\n";
+			echo "<h3 id='sub_toggle'>Подразделы</h3>\n";
 		else
-			echo "<h3>Разделы</h3>\n";
+			echo "<h3 id='sub_toggle'>Разделы</h3>\n";
 		
 		// Список поразделов
 		?>

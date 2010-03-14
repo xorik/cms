@@ -12,6 +12,7 @@
 	$HEAD[] = "<title>{$config["title"]}</title>";
 	$CSS[] = "admin.css";
 	$JS[] = "jquery.js";
+	$JS[] = "admin.js";
 	
 	hook_run( "init" );
 ?>

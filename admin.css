@@ -27,6 +27,10 @@ img {
 	vertical-align: middle;
 }
 
+h3 {
+	cursor: pointer;
+}
+
 #top {
 	text-align: right;
 	padding: 10px;
@@ -49,6 +53,9 @@ img {
 	background: #bde;
 }
 
+.odd td {
+	background: #f2f8fe;
+}
 
 /* Шрифты */
 

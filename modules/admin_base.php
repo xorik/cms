@@ -34,7 +34,7 @@
 		$query = "SELECT title, text FROM page WHERE id=$id";
 		$row = mysql_fetch_array( mysql_query($query) );
 		?>
-			<h3><?= $row["title"] ?></h3>
+			<h3 id='base_toggle'><?= $row["title"] ?></h3>
 			<form method='post'>
 				Заголовок: <input type='text' name='title' value='<?= $row["title"] ?>'><br>
 				Текст:<br>
