@@ -21,7 +21,7 @@
 			hook_run( "sub_add", $id );
 			
 			// Переход на созданную страницу
-			header( "Location: ?id=$id" );
+			header( "Location: admin.php?id=$id" );
 			die;
 		}
 		
@@ -55,7 +55,7 @@
 			
 			// Переход обратно
 			$id = (int)$_GET["id"];
-			header( "Location: ?id=$id" );
+			header( "Location: admin.php?id=$id" );
 			die;
 		}
 	}
@@ -77,12 +77,12 @@
 		$res = mysql_query( $query );
 		while( $row = mysql_fetch_array($res) )
 		{
-			echo "<tr><td><a href='?id={$row["id"]}'><img src='modules/img/edit.png'> {$row["title"]}</a></td>";
+			echo "<tr><td><a href='admin.php?id={$row["id"]}'><img src='modules/img/edit.png'> {$row["title"]}</a></td>";
 			
 			// Другие операции над страницей
 			hook_run( "sub_action", $row["id"] );
 			
-			echo "<td><a href='?id=$id&page_del={$row["id"]}' onclick='if(confirm(\"Удалить {$row["title"]} вместе с подразделами?\")) return true; return false;'><img src='modules/img/del.png'> Удалить</a></td></tr>\n";
+			echo "<td><a href='admin.php?id=$id&page_del={$row["id"]}' onclick='if(confirm(\"Удалить {$row["title"]} вместе с подразделами?\")) return true; return false;'><img src='modules/img/del.png'> Удалить</a></td></tr>\n";
 		}
 		?>
 			<tr><td colspan='9'>

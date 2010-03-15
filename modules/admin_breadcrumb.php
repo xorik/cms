@@ -19,10 +19,10 @@
 			if( $id == $_GET["id"] && $id )
 				$crumb = " &gt; <b>{$row["title"]}</b>";
 			elseif( $id )
-				$crumb = " &gt; <a href='?id=$id'>{$row["title"]}</a>" . $crumb;
+				$crumb = " &gt; <a href='admin.php?id=$id'>{$row["title"]}</a>" . $crumb;
 			// Корень
 			if( !$row["gid"] && $id )
-				$crumb = "<a href='.'>Разделы</a>" . $crumb;
+				$crumb = "<a href='admin.php'>Разделы</a>" . $crumb;
 			
 			// Переходим вверх
 			$id = $row["gid"];
