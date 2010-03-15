@@ -104,4 +104,26 @@
 		header( "Location: {$_SERVER["REQUEST_URI"]}" );
 		die;
 	}
+	
+	
+	// Добавить свойство
+	function add_prop( $id, $field, $value )
+	{
+		$query = "INSERT INTO prop (id, field, value) VALUES ($id, '$field', '$value')";
+		mysql_query( $query );
+	}
+	
+	// Прочитать свойство
+	function get_prop( $id, $field )
+	{
+		$query = "SELECT value FROM prop WHERE id=$id AND field='$field'";
+		$row = mysql_fetch_array( mysql_query($query) );
+		return $row["value"];
+	}
+	
+	function set_prop( $id, $field, $value )
+	{
+		$query = "UPDATE prop SET value='$value' WHERE id=$id AND field='$field'";
+		mysql_query( $query );
+	}
 ?>
