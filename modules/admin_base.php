@@ -25,7 +25,7 @@
 			hook_add( "base_show", "base_text", 90 );
 			
 			// Обновление данных
-			if( $_POST )
+			if( $_POST["title"] )
 			{
 				$query = "UPDATE page set title='{$_POST["title"]}', text='{$_POST["text"]}' WHERE id=$id";
 				mysql_query( $query );
