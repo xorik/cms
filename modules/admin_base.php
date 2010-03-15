@@ -3,8 +3,6 @@
 	if( $_GET["do"] && $_GET["do"] != "edit" )
 		return;
 	
-	hook_add( "base_show", "base_title", 10 );
-	hook_add( "base_show", "base_text", 90 );
 	hook_add( "init", "base_init", 10 );
 	
 	function base_init()
@@ -23,6 +21,8 @@
 			$row = mysql_fetch_array( $res );
 			$gid = $row["gid"];
 			hook_add( "content", "base_content", 10 );
+			hook_add( "base_show", "base_title", 10 );
+			hook_add( "base_show", "base_text", 90 );
 			
 			// Обновление данных
 			if( $_POST )
