@@ -38,6 +38,10 @@
 			$query = "DELETE FROM page WHERE id=$id";
 			mysql_query( $query );
 			
+			// Доп. поля
+			$query = "DELETE FROM prop WHERE id=$id";
+			mysql_query( $query );
+			
 			// Другие действия при удалении
 			hook_run( "sub_del", $id );
 		}
