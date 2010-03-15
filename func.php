@@ -24,14 +24,14 @@
 	}
 	
 	// Выполнить все функции из хука
-	function hook_run( $hookname )
+	function hook_run( $hookname, $arg = 0 )
 	{
 		global $hook;
 		@ksort( $hook[$hookname] );
 		
 		if( is_array($hook[$hookname])  )
 			foreach( $hook[$hookname] AS $v )
-				$v();
+				$v( $arg );
 	}
 	
 	// Возвращает объект для конфига
