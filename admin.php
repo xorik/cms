@@ -44,7 +44,7 @@
 <body>
 	<div id='top'>
 		<? hook_run( "menu" ) ?>
-		<a href='?logout=1'>Выйти</a>
+		<a href='?logout=1'><img src='modules/img/logout.png'> Выйти</a>
 	</div>
 	<div id='content'>
 		<? hook_run( "content" ) ?>
