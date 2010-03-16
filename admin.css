@@ -47,6 +47,14 @@ h3 {
 	padding: 10px;
 }
 
+#gallery .block {
+	float: left;
+	padding: 5px;
+}
+#gallery .block .pic {
+	height: 64px;
+}
+
 /* Фоны и цвета */
 
 #top {
