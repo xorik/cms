@@ -30,7 +30,7 @@
 		@ksort( $hook[$hookname] );
 		
 		if( is_array($hook[$hookname])  )
-			foreach( $hook[$hookname] AS $v )
+			foreach( $hook[$hookname] AS &$v )
 				$v( $arg );
 	}
 	
