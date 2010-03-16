@@ -126,4 +126,21 @@
 		$query = "UPDATE prop SET value='$value' WHERE id=$id AND field='$field'";
 		mysql_query( $query );
 	}
+	
+	
+	// Удалить загруженный файл
+	function delete_file( $id )
+	{
+		// Ищем тип
+		$query = "SELECT type FROM file WHERE id=$id";
+		$row = mysql_fetch_array( mysql_query($query) );
+		
+		// Удаляем из ФС
+		unlink( "files/$id.{$row["type"]}" );
+		
+		// И из БД
+		$query = "DELETE FROM file WHERE id=$id";
+		mysql_query( $query );
+	}
+	
 ?>

@@ -13,3 +13,11 @@
 	`field` TEXT NOT NULL COMMENT 'Поле',
 	`value` TEXT NOT NULL COMMENT 'Значение'
 );
+
+
+-- Файлы
+ CREATE TABLE `file` (
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`gid` INT NOT NULL COMMENT 'К какой странице относится',
+	`type` TEXT NOT NULL COMMENT 'Тип файла'
+);
