@@ -1,8 +1,4 @@
 <?
-	// Не тот модуль
-	if( $_GET["do"] && $_GET["do"] != "edit" )
-		return;
-	
 	hook_add( "init", "base_init", 10 );
 	
 	function base_init()

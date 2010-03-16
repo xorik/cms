@@ -1,8 +1,4 @@
 <?
-	// Не тот модуль
-	if( $_GET["do"] && $_GET["do"] != "edit" )
-		return;
-	
 	hook_add( "menu", "breadcrumb", 0 );
 	
 	function breadcrumb()

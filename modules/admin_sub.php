@@ -1,8 +1,4 @@
 <?
-	// Не тот модуль
-	if( $_GET["do"] && $_GET["do"] != "edit" )
-		return;
-	
 	hook_add( "content", "sub_content", 60 );
 	hook_add( "init", "sub_init" );
 	

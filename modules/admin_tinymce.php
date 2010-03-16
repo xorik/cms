@@ -1,8 +1,4 @@
 <?
-		// Не тот модуль
-	if( $_GET["do"] && $_GET["do"] != "edit" )
-		return;
-	
 	hook_add( "init", "tinymce_init" );
 	
 	function tinymce_init()

@@ -1,8 +1,4 @@
 <?
-	// Не тот модуль
-	if( $_GET["do"] && $_GET["do"] != "edit" )
-		return;
-	
 	hook_add( "init", "type_init", 1 );
 	hook_add( "sub_action", "type_sub_action" );
 	hook_add( "sub_new", "type_sub_new" );
