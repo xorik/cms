@@ -1,5 +1,13 @@
 <?
+	hook_add( "gallery_show", "default_gallery_show" );
+	
 	load_modules( "gallery_" );
+	
+	// Показать элемент галереи
+	function default_gallery_show( $id )
+	{
+		echo "<img src='files/{$id}_.jpg' class='pic'><br>";
+	}
 	
 	$id = (int)$_GET["id"];
 	
@@ -29,8 +37,7 @@
 	{
 		echo "<div class='block'>";
 			echo "<input type='checkbox' name='{$row["id"]}'>";
-			echo "<img src='files/{$row["id"]}_.jpg' class='pic'><br>";
-			hook_run( "gallery_show" );
+			hook_run( "gallery_show", $row["id"] );
 		echo "</div>\n";
 	}
 	
