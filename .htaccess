@@ -1,0 +1,11 @@
+AddDefaultCharset utf-8
+
+<FilesMatch "\.php$">
+	Order Deny,Allow
+	Deny from all
+</FilesMatch>
+
+<FilesMatch "^(admin.php|index.php)$">
+	Order Allow,Deny
+	Allow from all
+</FilesMatch>
