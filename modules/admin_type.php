@@ -9,8 +9,14 @@
 	{
 		$id = (int)$_GET["id"];
 		global $TYPE;
+		global $PAGE_TYPE;
 		
 		$TYPE = get_prop( $id, "type" );
+		
+		// Список типов страниц
+		$PAGE_TYPE[] = "Страница";
+		// Добавление типов
+		hook_run( "page_type" );
 	}
 	
 	// Написать тип странице в списке разделов
@@ -23,9 +29,7 @@
 	function type_sub_new()
 	{
 		global $PAGE_TYPE;
-		$PAGE_TYPE[] = "Страница";
-		// Добавление типов
-		hook_run( "page_type" );
+		
 		echo "Тип: <select name='type'>\n";
 		foreach( $PAGE_TYPE as $v )
 			echo "<option>$v</option>\n";
@@ -35,7 +39,7 @@
 	// Добавление страницы
 	function type_sub_add( $id )
 	{
-		add_prop( $id, "type", $_GET["type"] );
+		set_prop( $id, "type", $_GET["type"] );
 	}
 	
 ?>

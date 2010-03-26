@@ -106,13 +106,6 @@
 	}
 	
 	
-	// Добавить свойство
-	function add_prop( $id, $field, $value )
-	{
-		$query = "INSERT INTO prop (id, field, value) VALUES ($id, '$field', '$value')";
-		mysql_query( $query );
-	}
-	
 	// Прочитать свойство
 	function get_prop( $id, $field )
 	{
@@ -121,10 +114,19 @@
 		return $row["value"];
 	}
 	
+	// Установить свойство
 	function set_prop( $id, $field, $value )
 	{
 		$query = "UPDATE prop SET value='$value' WHERE id=$id AND field='$field'";
 		mysql_query( $query );
+		
+		// Такого свойства еще нет
+		if( mysql_affected_rows() < 1 )
+		{
+			// Добавить его
+			$query = "INSERT INTO prop (id, field, value) VALUES ($id, '$field', '$value')";
+			mysql_query( $query );
+		}
 	}
 	
 	
