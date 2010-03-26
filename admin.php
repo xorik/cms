@@ -49,4 +49,7 @@
 	<div id='content'>
 		<? hook_run( "content" ) ?>
 	</div>
+	<div id='bottom'>
+		<? require( "version" ) ?>
+	</div>
 </body>
