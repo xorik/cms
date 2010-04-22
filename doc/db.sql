@@ -19,5 +19,6 @@
  CREATE TABLE `file` (
 	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`gid` INT NOT NULL COMMENT 'К какой странице относится',
+	`filename` TEXT NOT NULL COMMENT 'Имя исходного файла',
 	`type` TEXT NOT NULL COMMENT 'Тип файла'
 );

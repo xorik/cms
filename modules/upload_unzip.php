@@ -18,7 +18,7 @@
 				$ext = strtolower( substr(zip_entry_name($zip_entry), 1+strrpos(zip_entry_name($zip_entry), ".")) );
 				
 				// Добавление файла в БД
-				$query = "INSERT INTO file (gid, type) VALUES ($id, '$ext')";
+				$query = "INSERT INTO file (gid, filename, type) VALUES ($id, '".zip_entry_name($zip_entry)."', '$ext')";
 				mysql_query( $query );
 				$new_id = mysql_insert_id();
 				
