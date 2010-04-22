@@ -19,6 +19,7 @@
 			// Пемещение файла
 			$target = "files/$id.$ext";
 			move_uploaded_file( $file["tmp_name"], $target );
+			chmod( $target, 0644 );
 			
 			// Хуки
 			hook_run( "upload", array("path"=>$target, "id"=>$id, "ext"=>$ext, "inputname"=>$name, "filename"=>$file["name"]) );

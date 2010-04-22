@@ -32,6 +32,7 @@
 					fwrite($fp,"$buf");
 					zip_entry_close($zip_entry);
 					fclose($fp);
+					chmod( $target, 0644 );
 					
 					// Хуки
 					hook_run( "upload", array("path"=>$target, "id"=>$new_id, "ext"=>$ext, "inputname"=>$file["inputname"], "filename"=>$file["filename"]) );
