@@ -4,15 +4,15 @@
 	
 	session_start();
 	require( "modules/auth.php" );
-	load_modules( "all_" );
+	load_modules( "all" );
 	
 	$DO = isset( $_GET["do"] ) ? $_GET["do"] : "edit";
 	
 	// Редактирование
 	if( $DO == "edit" )
-		load_modules( "admin_" );
+		load_modules( "admin" );
 	elseif( $DO == "config" )
-		load_modules( "config_" );
+		load_modules( "config" );
 	
 	// Редактирование или настройки
 	if( $DO == "edit" || $DO == "config" )
@@ -28,8 +28,7 @@
 	else
 	{
 		header( "Content-type: text/html; charset=utf-8" );
-		if( is_file("modules/$DO.php") )
-			require( "modules/$DO.php" );
+		@include( "modules/$DO.php" );
 		
 		hook_run( "init" );
 		die();
@@ -50,6 +49,6 @@
 		<? hook_run( "content" ) ?>
 	</div>
 	<div id='bottom'>
-		<? require( "version" ) ?>
+		<? @include( "version" ) ?>
 	</div>
 </body>

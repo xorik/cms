@@ -1,5 +1,5 @@
 <?
-	load_modules( "upload_" );
+	load_modules( "upload" );
 	
 	$id = (int)$_GET["id"];
 	

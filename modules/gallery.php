@@ -1,7 +1,7 @@
 <?
 	hook_add( "gallery_show", "default_gallery_show" );
 	
-	load_modules( "gallery_" );
+	load_modules( "gallery" );
 	
 	// Показать элемент галереи
 	function default_gallery_show( $id )

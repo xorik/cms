@@ -1,13 +1,12 @@
 <?
-	// Загрузить модули с префиксом
+	// Загрузить модули из каталога
 	function load_modules( $mask )
 	{
-		$dh = opendir( "modules" );
+		$dh = opendir( "modules/$mask" );
 		
 		while ( ($file = readdir($dh)) !== false )
 		{
-			if( strpos( $file, $mask ) === 0 )
-				require( "modules/" . $file );
+			@include( "modules/$mask/" . $file );
 		}
 		closedir($dh);
 	}
