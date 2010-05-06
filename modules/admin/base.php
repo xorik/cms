@@ -20,18 +20,24 @@
 			hook_add( "base_show", "base_title", 10 );
 			hook_add( "base_show", "base_text", 90 );
 			
-			// Обновление данных
+			// Обновление данных (в последнюю очередь, после всех init'ов)
 			if( $_POST["title"] )
-			{
-				$query = "UPDATE page set title='{$_POST["title"]}', text='{$_POST["text"]}' WHERE id=$id";
-				mysql_query( $query );
-				
-				// Обновление
-				hook_run( "base_submit", $id );
-				
-				clear_post();
-			}
+				hook_add( "init", "post_base_init", 99 );
 		}
+	}
+	
+	// Обновление данных
+	function post_base_init()
+	{
+		global $id;
+		
+		$query = "UPDATE page set title='{$_POST["title"]}', text='{$_POST["text"]}' WHERE id=$id";
+		mysql_query( $query );
+		
+		// Обновление
+		hook_run( "base_submit", $id );
+		
+		clear_post();
 	}
 	
 	// Редактирование
