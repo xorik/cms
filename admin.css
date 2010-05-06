@@ -50,9 +50,13 @@ h3 {
 #gallery .block {
 	float: left;
 	padding: 5px;
+	line-height: 64px;
 }
 #gallery .block .pic {
 	height: 64px;
+}
+#gallery .block input {
+	vertical-align: middle;
 }
 
 #bottom {

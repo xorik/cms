@@ -42,15 +42,13 @@
 		global $config;
 		
 		$types = array( "png", "jpg", "jpeg", "gif" );
-		if( !in_array($file["ext"], $types) )
-		{
-			delete_file( $file["id"] );
-			// TODO: писать "неправильный формат файла"
-			return;
-		}
 		
-		copy( $file["path"], "files/{$file["id"]}_.jpg" );
-		img_resize( "files/{$file["id"]}_.jpg", $config["preview_w"], $config["preview_h"] );
+		// Ресайз для картинок
+		if( in_array($file["ext"], $types) )
+		{
+			copy( $file["path"], "files/{$file["id"]}_.jpg" );
+			img_resize( "files/{$file["id"]}_.jpg", $config["preview_w"], $config["preview_h"] );
+		}
 		
 		// Защита от мульти-аплоада
 		if( strpos($file["filename"], ".zip") === false )
