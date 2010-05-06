@@ -44,9 +44,13 @@
 		echo "</div>\n";
 	}
 	
+	// Кнопка удаления, если есть хотя бы 1 файл
+	if( mysql_num_rows($res) > 0 )
+	{
+		echo "<div style='clear:both'></div>\n";
+		echo "<input type='submit' name='del' value='Удалить выбранные' onclick='if(confirm(\"Удалить выбранные файлы?\")) return true; return false;'>\n";
+	}
 	?>
-		<div style='clear:both'></div>
-		<input type='submit' name='del' value='Удалить выбранные' onclick='if(confirm("Удалить выбранные файлы?")) return true; return false;'>
 		</form>
 	<?
 ?>
