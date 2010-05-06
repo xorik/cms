@@ -11,7 +11,8 @@
  CREATE TABLE `prop` (
 	`id` INT NOT NULL COMMENT 'К какой странице относится',
 	`field` TEXT NOT NULL COMMENT 'Поле',
-	`value` TEXT NOT NULL COMMENT 'Значение'
+	`value` TEXT NOT NULL COMMENT 'Значение',
+	UNIQUE KEY `field` ( `id`, `field`(20) )
 );
 
 
