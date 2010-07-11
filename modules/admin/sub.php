@@ -9,7 +9,7 @@
 		if( isset($_GET["page_add"]) )
 		{
 			$gid = (int)$_GET["page_add"];
-			$query = "INSERT INTO page (gid, title, text) VALUES ($gid, '{$_GET["title"]}', '')";
+			$query = "INSERT INTO page (gid, title, text, type) VALUES ($gid, '{$_GET["title"]}', '', '{$_GET["type"]}')";
 			mysql_query( $query );
 			$id = mysql_insert_id();
 			
@@ -59,6 +59,7 @@
 	function sub_content()
 	{
 		global $id;
+		global $PAGE_TYPE;
 		
 		if( $id )
 			echo "<h3 id='sub_toggle'>Подразделы</h3>\n";
@@ -69,11 +70,13 @@
 		?>
 			<table class='noth'>
 		<?
-		$query = "SELECT id, title FROM page WHERE gid=$id";
+		$query = "SELECT id, title, type FROM page WHERE gid=$id";
 		$res = mysql_query( $query );
 		while( $row = mysql_fetch_array($res) )
 		{
 			echo "<tr><td><a href='admin.php?id={$row["id"]}'><img src='modules/img/edit.png'> {$row["title"]}</a></td>";
+			
+			echo "<td>{$row["type"]}</td>";
 			
 			// Другие операции над страницей
 			hook_run( "sub_action", $row["id"] );
@@ -86,6 +89,12 @@
 					<input type='hidden' name='page_add' value='<?= $id ?>'>
 					<img src='modules/img/add.png'> Добавить:
 					<input type='text' name='title'>
+					<select name='type'>
+					<?
+						foreach( $PAGE_TYPE as $v )
+							echo "<option>$v</option>\n";
+					?>
+					</select>
 					<?
 						// Другие поля для добавления
 						hook_run( "sub_new" );

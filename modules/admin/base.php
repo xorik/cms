@@ -5,19 +5,26 @@
 	{
 		global $id;
 		global $gid;
+		global $TYPE;
+		global $PAGE_TYPE;
 		
 		$id = (int)$_GET["id"];
 		
+		// Список типов страниц
+		$PAGE_TYPE[] = "Страница";
+		
 		// Проверка есть ли страница
-		$query = "SELECT gid FROM page WHERE id=$id";
+		$query = "SELECT gid, type FROM page WHERE id=$id";
 		$res = mysql_query( $query );
 		// Есть страница
 		if( mysql_num_rows($res) )
 		{
 			$row = mysql_fetch_array( $res );
 			$gid = $row["gid"];
+			$TYPE = $row["type"];
 			hook_add( "content", "base_content", 10 );
 			hook_add( "base_show", "base_title", 10 );
+			hook_add( "base_show", "base_type", 15 );
 			hook_add( "base_show", "base_text", 90 );
 			
 			// Обновление данных (в последнюю очередь, после всех init'ов)
@@ -31,7 +38,7 @@
 	{
 		global $id;
 		
-		$query = "UPDATE page set title='{$_POST["title"]}', text='{$_POST["text"]}' WHERE id=$id";
+		$query = "UPDATE page set title='{$_POST["title"]}', text='{$_POST["text"]}', type='{$_POST["type"]}' WHERE id=$id";
 		mysql_query( $query );
 		
 		// Обновление
@@ -77,4 +84,19 @@
 		<?
 	}
 	
+	// Выбор типа в редактировании
+	function base_type( $id )
+	{
+		global $TYPE;
+		global $PAGE_TYPE;
+		
+		echo "Тип: <select name='type'>\n";
+		foreach( $PAGE_TYPE as $v )
+			if( $v == $TYPE )
+				echo "<option selected>$v</option>\n";
+			else
+				echo "<option>$v</option>\n";
+		
+		echo "</select><br>\n";
+	}
 ?>
