@@ -1,14 +1,14 @@
 <?
-	hook_add( "init", "gallery_init" );
+	hook_add( "init", "files_init" );
 	
 	// Загрузка галереи аяксом
-	function gallery_init()
+	function files_init()
 	{
 		global $gid;
 		
 		// Если страница существует
 		if( isset($gid) )
-			hook_add( "content", "gallery_content", 30 );
+			hook_add( "content", "files_content", 30 );
 		else
 			return;
 		
@@ -16,25 +16,25 @@
 		global $SCRIPT;
 		
 		$SCRIPT[] = '
-			function update_gallery()
+			function update_files()
 			{
-				$.ajax({url: "admin.php?do=gallery&id='.$id.'", cache: false, success: function(html)
+				$.ajax({url: "admin.php?do=files&id='.$id.'", cache: false, success: function(html)
 				{
 					$("#gallery").html(html);
 				}});
 			}
 			$(document).ready(function()
 			{
-				update_gallery();
+				update_files();
 			});';
 	}
 	
 	// Показать галерею
-	function gallery_content()
+	function files_content()
 	{
 		global $id;
 		?>
-			<h3 id='gallery_toggle'>Галерея</h3>
+			<h3 id='gallery_toggle'>Изображения и файлы</h3>
 			<div>
 				<form action='admin.php?do=upload&id=<?= $id ?>' method='post' enctype='multipart/form-data' target='upload'>
 					Загрузить: <input type='file' name='gallery'>

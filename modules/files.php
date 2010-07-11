@@ -1,10 +1,10 @@
 <?
-	hook_add( "gallery_show", "default_gallery_show" );
+	hook_add( "files_show", "default_files_show" );
 	
-	load_modules( "gallery" );
+	load_modules( "files" );
 	
 	// Показать элемент галереи
-	function default_gallery_show( $f )
+	function default_files_show( $f )
 	{
 		if( $f["type"]=="png" || $f["type"]=="jpg" || $f["type"]=="jpeg" || $f["type"]=="gif" )
 			echo "<img src='files/{$f["id"]}_.jpg' class='pic'><br>";
@@ -25,13 +25,13 @@
 			}
 		// Обновление через аякс
 		global $SCRIPT;
-		$SCRIPT[] = 'window.top.window.update_gallery();';
+		$SCRIPT[] = 'window.top.window.update_files();';
 		head();
 		die();
 	}
 	
 	?>
-		<form action='admin.php?do=gallery&id=<?= $id ?>' method='post' target='upload'>
+		<form action='admin.php?do=files&id=<?= $id ?>' method='post' target='upload'>
 	<?
 	
 	$query = "SELECT id, type, filename FROM file WHERE gid=$id ORDER BY id DESC";
@@ -40,7 +40,7 @@
 	{
 		echo "<div class='block'>";
 			echo "<input type='checkbox' name='{$row["id"]}'>";
-			hook_run( "gallery_show", array("id"=>$row["id"], "type"=>$row["type"], "filename"=>$row["filename"]) );
+			hook_run( "files_show", array("id"=>$row["id"], "type"=>$row["type"], "filename"=>$row["filename"]) );
 		echo "</div>\n";
 	}
 	

@@ -55,7 +55,7 @@
 		{
 			// Обновление через аякс
 			global $SCRIPT;
-			$SCRIPT[] = 'window.top.window.update_gallery();';
+			$SCRIPT[] = 'window.top.window.update_files();';
 			head();
 		}
 	}
