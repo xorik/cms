@@ -88,11 +88,17 @@
 		?>
 			<table class='noth'>
 		<?
-		$query = "SELECT id, title, type FROM page WHERE gid=$id ORDER BY pos";
+		$query = "SELECT id, title, type, hide FROM page WHERE gid=$id ORDER BY pos";
 		$res = mysql_query( $query );
 		while( $row = mysql_fetch_array($res) )
 		{
-			echo "<tr id='{$row["id"]}'><td><a href='admin.php?id={$row["id"]}'><img src='modules/img/edit.png'> {$row["title"]}</a></td>";
+			echo "<tr id='{$row["id"]}'><td><a href='admin.php?id={$row["id"]}'>";
+			if( $row["hide"] )
+				echo "<img src='modules/img/hide.png'>";
+			else
+				echo "<img src='modules/img/edit.png'>";
+			
+			echo " {$row["title"]}</a></td>";
 			
 			echo "<td>{$row["type"]}</td>";
 			

@@ -25,7 +25,9 @@
 			hook_add( "content", "base_content", 10 );
 			hook_add( "base_show", "base_title", 10 );
 			hook_add( "base_show", "base_type", 15 );
+			hook_add( "base_show", "base_hide", 80 );
 			hook_add( "base_show", "base_text", 90 );
+			
 			
 			// Обновление данных (в последнюю очередь, после всех init'ов)
 			if( $_POST["title"] )
@@ -37,8 +39,9 @@
 	function post_base_init()
 	{
 		global $id;
+		$hide = (int)$_POST["hide"];
 		
-		$query = "UPDATE page set title='{$_POST["title"]}', text='{$_POST["text"]}', type='{$_POST["type"]}' WHERE id=$id";
+		$query = "UPDATE page set title='{$_POST["title"]}', text='{$_POST["text"]}', type='{$_POST["type"]}', hide=$hide WHERE id=$id";
 		mysql_query( $query );
 		
 		// Обновление
@@ -52,10 +55,15 @@
 	{
 		global $id;
 		
-		$query = "SELECT title FROM page WHERE id=$id";
+		$query = "SELECT title, hide FROM page WHERE id=$id";
 		$row = mysql_fetch_array( mysql_query($query) );
+		
+		if( $row["hide"] )
+				$img = "<img src='modules/img/hide.png'>";
+			else
+				$img = "<img src='modules/img/edit.png'>";
 		?>
-			<h3 id='base_toggle'><?= $row["title"] ?></h3>
+			<h3 id='base_toggle'><?= $img ." ". $row["title"] ?></h3>
 			<form method='post'>
 				<? hook_run( "base_show", $id ) ?>
 				<input type='submit' value='Сохранить'>
@@ -98,5 +106,17 @@
 				echo "<option>$v</option>\n";
 		
 		echo "</select><br>\n";
+	}
+	
+	function base_hide( $id )
+	{
+		$query = "SELECT hide FROM page WHERE id=$id";
+		$row = mysql_fetch_array( mysql_query($query) );
+		?>
+			Скрывать в меню:
+			<input type='radio' name='hide' value='0' <? if(!$row["hide"]) echo "checked" ?>> Нет
+			<input type='radio' name='hide' value='1' <? if($row["hide"]) echo "checked" ?>> Да
+			<br>
+		<?
 	}
 ?>
