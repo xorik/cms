@@ -5,6 +5,7 @@
 	`title` TEXT NOT NULL COMMENT 'Заголовок',
 	`text` TEXT NOT NULL COMMENT 'Текст',
 	`type` TEXT NOT NULL COMMENT 'Тип страницы'
+	`pos` INT NOT NULL DEFAULT '100500' COMMENT 'Позиция при сортировке';
 );
 
 

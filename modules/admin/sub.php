@@ -54,6 +54,24 @@
 			header( "Location: admin.php?id=$id" );
 			die;
 		}
+		
+		if( isset($_GET["page_sort"]) )
+		{
+			$id = (int)$_GET["id"];
+			$i = 0;
+			
+			foreach( $_GET["p"] as $k => $v )
+			{
+				$k = (int)$k;
+				$v = (int)$v;
+				$query = "UPDATE page SET pos=$k WHERE id=$v";
+				mysql_query( $query );
+			}
+			
+			// Переход обратно
+			header( "Location: admin.php?id=$id" );
+			die;
+		}
 	}
 	
 	function sub_content()
@@ -70,16 +88,18 @@
 		?>
 			<table class='noth'>
 		<?
-		$query = "SELECT id, title, type FROM page WHERE gid=$id";
+		$query = "SELECT id, title, type FROM page WHERE gid=$id ORDER BY pos";
 		$res = mysql_query( $query );
 		while( $row = mysql_fetch_array($res) )
 		{
-			echo "<tr><td><a href='admin.php?id={$row["id"]}'><img src='modules/img/edit.png'> {$row["title"]}</a></td>";
+			echo "<tr id='{$row["id"]}'><td><a href='admin.php?id={$row["id"]}'><img src='modules/img/edit.png'> {$row["title"]}</a></td>";
 			
 			echo "<td>{$row["type"]}</td>";
 			
 			// Другие операции над страницей
 			hook_run( "sub_action", $row["id"] );
+			
+			echo "<td class='sort'></td>";
 			
 			echo "<td><a href='admin.php?id=$id&page_del={$row["id"]}' onclick='if(confirm(\"Удалить {$row["title"]} вместе с подразделами?\")) return true; return false;'><img src='modules/img/del.png'> Удалить</a></td></tr>\n";
 		}
