@@ -12,7 +12,7 @@
 	}
 	
 	// Создать хук
-	function hook_add( $hookname, $func, $pos=50 )
+	function hook( $hookname, $func, $pos=50 )
 	{
 		global $HOOK;
 		
@@ -23,7 +23,7 @@
 	}
 	
 	// Выполнить все функции из хука
-	function hook_run( $hookname, $arg = 0 )
+	function run( $hookname, $arg = 0 )
 	{
 		global $HOOK;
 		@ksort( $HOOK[$hookname] );

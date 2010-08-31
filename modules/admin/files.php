@@ -1,5 +1,5 @@
 <?
-	hook_add( "init", "files_init" );
+	hook( "init", "files_init" );
 	
 	// Загрузка галереи аяксом
 	function files_init()
@@ -8,7 +8,7 @@
 		
 		// Если страница существует
 		if( isset($gid) )
-			hook_add( "content", "files_content", 30 );
+			hook( "content", "files_content", 30 );
 		else
 			return;
 		

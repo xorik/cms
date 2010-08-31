@@ -1,5 +1,5 @@
 <?
-	hook_add( "menu", "breadcrumb", 0 );
+	hook( "menu", "breadcrumb", 0 );
 	
 	function breadcrumb()
 	{

@@ -1,5 +1,5 @@
 <?
-	hook_add( "init", "base_init", 10 );
+	hook( "init", "base_init", 10 );
 	
 	function base_init()
 	{
@@ -22,16 +22,16 @@
 			$row = mysql_fetch_array( $res );
 			$gid = $row["gid"];
 			$TYPE = $row["type"];
-			hook_add( "content", "base_content", 10 );
-			hook_add( "base_show", "base_title", 10 );
-			hook_add( "base_show", "base_type", 15 );
-			hook_add( "base_show", "base_hide", 80 );
-			hook_add( "base_show", "base_text", 90 );
+			hook( "content", "base_content", 10 );
+			hook( "base_show", "base_title", 10 );
+			hook( "base_show", "base_type", 15 );
+			hook( "base_show", "base_hide", 80 );
+			hook( "base_show", "base_text", 90 );
 			
 			
 			// Обновление данных (в последнюю очередь, после всех init'ов)
 			if( $_POST["title"] )
-				hook_add( "init", "post_base_init", 99 );
+				hook( "init", "post_base_init", 99 );
 		}
 	}
 	
@@ -45,7 +45,7 @@
 		mysql_query( $query );
 		
 		// Обновление
-		hook_run( "base_submit", $id );
+		run( "base_submit", $id );
 		
 		clear_post();
 	}
@@ -65,7 +65,7 @@
 		?>
 			<h3 id='base_toggle'><?= $img ." ". $row["title"] ?></h3>
 			<form method='post'>
-				<? hook_run( "base_show", $id ) ?>
+				<? run( "base_show", $id ) ?>
 				<input type='submit' value='Сохранить'>
 			</form>
 		<?

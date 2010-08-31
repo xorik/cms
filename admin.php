@@ -30,11 +30,11 @@
 		header( "Content-type: text/html; charset=utf-8" );
 		@include( "modules/$DO.php" );
 		
-		hook_run( "init" );
+		run( "init" );
 		die();
 	}
 	
-	hook_run( "init" );
+	run( "init" );
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
@@ -42,11 +42,11 @@
 </head>
 <body>
 	<div id='top'>
-		<? hook_run( "menu" ) ?>
+		<? run( "menu" ) ?>
 		<a href='?logout=1'><img src='modules/img/logout.png'> Выйти</a>
 	</div>
 	<div id='content'>
-		<? hook_run( "content" ) ?>
+		<? run( "content" ) ?>
 	</div>
 	<div id='bottom'>
 		<? @include( "version" ) ?>

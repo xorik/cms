@@ -1,6 +1,6 @@
 <?
-	hook_add( "content", "sub_content", 60 );
-	hook_add( "init", "sub_init" );
+	hook( "content", "sub_content", 60 );
+	hook( "init", "sub_init" );
 	
 	// Добавление/удаление страниц
 	function sub_init()
@@ -14,7 +14,7 @@
 			$id = mysql_insert_id();
 			
 			// Другие действия при добавлении
-			hook_run( "sub_add", $id );
+			run( "sub_add", $id );
 			
 			// Переход на созданную страницу
 			header( "Location: admin.php?id=$id" );
@@ -39,7 +39,7 @@
 			mysql_query( $query );
 			
 			// Другие действия при удалении
-			hook_run( "sub_del", $id );
+			run( "sub_del", $id );
 		}
 		
 		// Удаление страниц
@@ -103,7 +103,7 @@
 			echo "<td>{$row["type"]}</td>";
 			
 			// Другие операции над страницей
-			hook_run( "sub_action", $row["id"] );
+			run( "sub_action", $row["id"] );
 			
 			echo "<td class='sort'></td>";
 			
@@ -123,7 +123,7 @@
 					</select>
 					<?
 						// Другие поля для добавления
-						hook_run( "sub_new" );
+						run( "sub_new" );
 					?>
 					<input type='submit' value='Добавить'>
 				</form>

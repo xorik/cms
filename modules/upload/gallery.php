@@ -1,5 +1,5 @@
 <?
-	hook_add( "upload", "gallery_upload" );
+	hook( "upload", "gallery_upload" );
 	
 	function img_resize( $src, $w, $h )
 	{

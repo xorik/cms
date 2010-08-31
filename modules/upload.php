@@ -22,6 +22,6 @@
 			chmod( $target, 0644 );
 			
 			// Хуки
-			hook_run( "upload", array("path"=>$target, "id"=>$id, "ext"=>$ext, "inputname"=>$name, "filename"=>$file["name"]) );
+			run( "upload", array("path"=>$target, "id"=>$id, "ext"=>$ext, "inputname"=>$name, "filename"=>$file["name"]) );
 		}
 ?>

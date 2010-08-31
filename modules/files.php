@@ -1,5 +1,5 @@
 <?
-	hook_add( "files_show", "default_files_show" );
+	hook( "files_show", "default_files_show" );
 	
 	load_modules( "files" );
 	
@@ -40,7 +40,7 @@
 	{
 		echo "<div class='block'>";
 			echo "<input type='checkbox' name='{$row["id"]}'>";
-			hook_run( "files_show", array("id"=>$row["id"], "type"=>$row["type"], "filename"=>$row["filename"]) );
+			run( "files_show", array("id"=>$row["id"], "type"=>$row["type"], "filename"=>$row["filename"]) );
 		echo "</div>\n";
 	}
 	

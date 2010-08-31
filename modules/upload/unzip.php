@@ -1,5 +1,5 @@
 <?
-	hook_add( "upload", "unzip_upload", 10 );
+	hook( "upload", "unzip_upload", 10 );
 	
 	function unzip_upload( $file )
 	{
@@ -35,7 +35,7 @@
 					chmod( $target, 0644 );
 					
 					// Хуки
-					hook_run( "upload", array("path"=>$target, "id"=>$new_id, "ext"=>$ext, "inputname"=>$file["inputname"], "filename"=>$file["filename"]) );
+					run( "upload", array("path"=>$target, "id"=>$new_id, "ext"=>$ext, "inputname"=>$file["inputname"], "filename"=>$file["filename"]) );
 				}
 			}
 			zip_close($zip);
