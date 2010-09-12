@@ -31,7 +31,7 @@
 	}
 	
 	?>
-		<form action='admin.php?do=files&id=<?= $id ?>' method='post' target='upload'>
+		<form action='?do=ajax&file=files&id=<?= $id ?>' method='post' target='upload'>
 	<?
 	
 	$query = "SELECT id, type, filename FROM file WHERE gid=$id ORDER BY id DESC";

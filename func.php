@@ -79,6 +79,8 @@
 		global $JS;
 		global $SCRIPT;
 		
+		echo "<meta http-equiv='content-type' content='text/html; charset=utf-8'>\n";
+		
 		if( $HEAD )
 			foreach( $HEAD as $v )
 				echo "\t$v\n";

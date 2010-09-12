@@ -5,7 +5,7 @@ AddDefaultCharset utf-8
 	Deny from all
 </FilesMatch>
 
-<FilesMatch "^(admin.php|index.php)$">
+<FilesMatch "^index.php$">
 	Order Allow,Deny
 	Allow from all
 </FilesMatch>

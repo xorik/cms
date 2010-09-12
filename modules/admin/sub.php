@@ -17,7 +17,7 @@
 			run( "sub_add", $id );
 			
 			// Переход на созданную страницу
-			header( "Location: admin.php?id=$id" );
+			header( "Location: ".ADMIN."id=$id" );
 			die;
 		}
 		
@@ -51,7 +51,7 @@
 			
 			// Переход обратно
 			$id = (int)$_GET["id"];
-			header( "Location: admin.php?id=$id" );
+			header( "Location: ".ADMIN."id=$id" );
 			die;
 		}
 		
@@ -69,7 +69,7 @@
 			}
 			
 			// Переход обратно
-			header( "Location: admin.php?id=$id" );
+			header( "Location: ".ADMIN."id=$id" );
 			die;
 		}
 	}
@@ -92,7 +92,7 @@
 		$res = mysql_query( $query );
 		while( $row = mysql_fetch_array($res) )
 		{
-			echo "<tr id='{$row["id"]}'><td><a href='admin.php?id={$row["id"]}'>";
+			echo "<tr id='{$row["id"]}'><td><a href='".ADMIN."id={$row["id"]}'>";
 			if( $row["hide"] )
 				echo "<img src='modules/img/hide.png'>";
 			else
@@ -107,7 +107,7 @@
 			
 			echo "<td class='sort'></td>";
 			
-			echo "<td><a href='admin.php?id=$id&page_del={$row["id"]}' onclick='if(confirm(\"Удалить {$row["title"]} вместе с подразделами?\")) return true; return false;'><img src='modules/img/del.png'> Удалить</a></td></tr>\n";
+			echo "<td><a href='".ADMIN."id=$id&page_del={$row["id"]}' onclick='if(confirm(\"Удалить {$row["title"]} вместе с подразделами?\")) return true; return false;'><img src='modules/img/del.png'> Удалить</a></td></tr>\n";
 		}
 		?>
 			<tr><td colspan='9'>

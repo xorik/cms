@@ -18,7 +18,7 @@
 		$SCRIPT[] = '
 			function update_files()
 			{
-				$.ajax({url: "admin.php?do=files&id='.$id.'", cache: false, success: function(html)
+				$.ajax({url: "?do=ajax&file=files&id='.$id.'", cache: false, success: function(html)
 				{
 					$("#gallery").html(html);
 				}});
@@ -36,7 +36,7 @@
 		?>
 			<h3 id='gallery_toggle'>Изображения и файлы</h3>
 			<div>
-				<form action='admin.php?do=upload&id=<?= $id ?>' method='post' enctype='multipart/form-data' target='upload'>
+				<form action='?do=ajax&file=upload&id=<?= $id ?>' method='post' enctype='multipart/form-data' target='upload'>
 					Загрузить: <input type='file' name='gallery'>
 					<input type='submit' value='Загрузить'>
 				</form>
