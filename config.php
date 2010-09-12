@@ -9,4 +9,5 @@
 	$config['preview_w'] = 128;
 	$config['preview_h'] = 128;
 	$config['preview_quality'] = 85;
+	$config['rewrite'] = true;
 ?>

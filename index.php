@@ -4,8 +4,16 @@
 	
 	load_modules( "all" );
 	
-	// id страницы
-	$id = isset($_GET["id"]) ? (int)$_GET["id"] : 1;
+	// id страницы из пути
+	if( $_GET["t"] )
+	{
+		$query = "SELECT id FROM prop WHERE value='{$_GET["t"]}' AND field='path'";
+		$row = mysql_fetch_array( mysql_query($query) );
+		$id = $row["id"];
+	}
+	// Неправильный путь, страница по id или главная
+	if( !$_GET["t"] || !$id )
+		$id = isset($_GET["id"]) ? (int)$_GET["id"] : 1;
 	
 	// Заголовок и тип
 	$query = "SELECT title, type FROM page WHERE id=$id";
@@ -22,7 +30,10 @@
 		session_start();
 		require( "modules/auth.php" );
 		// Инициализация
-		define( "ADMIN", "?do=admin&" );
+		if( $config["rewrite"] )
+			define( "ADMIN", "admin?" );
+		else
+			define( "ADMIN", "?do=admin&" );
 		load_modules( $DO );
 		run( "init" );
 		

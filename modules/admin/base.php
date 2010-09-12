@@ -7,6 +7,7 @@
 		global $gid;
 		global $TYPE;
 		global $PAGE_TYPE;
+		global $config;
 		
 		$id = (int)$_GET["id"];
 		
@@ -27,6 +28,8 @@
 			hook( "base_show", "base_type", 15 );
 			hook( "base_show", "base_hide", 80 );
 			hook( "base_show", "base_text", 90 );
+			if( $config["rewrite"] )
+				hook( "base_show", "base_path", 20 );
 			
 			
 			// Обновление данных (в последнюю очередь, после всех init'ов)
@@ -43,6 +46,14 @@
 		
 		$query = "UPDATE page set title='{$_POST["title"]}', text='{$_POST["text"]}', type='{$_POST["type"]}', hide=$hide WHERE id=$id";
 		mysql_query( $query );
+		
+		// Путь для rewrite
+		if( $_POST["path"] )
+		{
+			$p = $_POST["path"];
+			$p = str_replace( " ", "_", $p );
+			set_prop( $id, "path", $p );
+		}
 		
 		// Обновление
 		run( "base_submit", $id );
@@ -118,5 +129,11 @@
 			<input type='radio' name='hide' value='1' <? if($row["hide"]) echo "checked" ?>> Да
 			<br>
 		<?
+	}
+	
+	
+	function base_path( $id )
+	{
+		echo "Путь: <input type='text' name='path' value='". get_prop( $id, "path" ) ."'><br>\n";
 	}
 ?>
