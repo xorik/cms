@@ -146,4 +146,15 @@
 		mysql_query( $query );
 	}
 	
+	
+	function path( $id )
+	{
+		if( $id == $config["main"] )
+			return ".";
+		$p = get_prop( $id, "path" );
+		if( strlen($p) )
+			return $p;
+		else
+			return "./?id=$id";
+	}
 ?>
