@@ -45,8 +45,7 @@
 		delete_file( $file["id"] );
 		
 		// Удаляем остальные хуки для этого файла
-		global $HOOK;
-		$HOOK["upload"] = array();
+		unhook( "upload", "all" );
 	}
 	
 ?>

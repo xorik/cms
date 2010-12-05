@@ -22,6 +22,19 @@
 		$HOOK[$hookname][$pos] = $func;
 	}
 	
+	// Удалить хук
+	function unhook( $hookname, $func )
+	{
+		global $HOOK;
+		
+		// all удаляет все хуки
+		if( $func == "all" )
+			unset( $HOOK[$hookname] );
+		// Иначе выбранную функцию
+		else
+			unset( $HOOK[$hookname][array_search($func, $HOOK[$hookname])] );
+	}
+	
 	// Выполнить все функции из хука
 	function run( $hookname, $arg = 0 )
 	{
