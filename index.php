@@ -13,7 +13,7 @@
 	}
 	// Неправильный путь, страница по id или главная
 	if( !$_GET["t"] || !$id )
-		$id = isset($_GET["id"]) ? (int)$_GET["id"] : 1;
+		$id = isset($_GET["id"]) ? (int)$_GET["id"] : $config["main"];
 	
 	// Заголовок и тип
 	$query = "SELECT title, type FROM page WHERE id=$id";
