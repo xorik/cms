@@ -162,6 +162,8 @@
 	
 	function path( $id )
 	{
+		global $config;
+		
 		if( $id == $config["main"] )
 			return ".";
 		$p = get_prop( $id, "path" );
