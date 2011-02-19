@@ -48,12 +48,9 @@
 		mysql_query( $query );
 		
 		// Путь для rewrite
-		if( $_POST["path"] )
-		{
-			$p = $_POST["path"];
-			$p = str_replace( " ", "_", $p );
-			set_prop( $id, "path", $p );
-		}
+		$p = $_POST["path"];
+		$p = str_replace( " ", "_", $p );
+		set_prop( $id, "path", $p );
 		
 		// Обновление
 		run( "base_submit", $id );
