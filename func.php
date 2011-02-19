@@ -39,11 +39,14 @@
 	function run( $hookname, $arg = 0 )
 	{
 		global $HOOK;
-		@ksort( $HOOK[$hookname] );
 		
 		if( is_array($HOOK[$hookname])  )
+		{
+			// Отсортировать по приотирету
+			ksort( $HOOK[$hookname] );
 			foreach( $HOOK[$hookname] AS &$v )
 				$v( $arg );
+		}
 	}
 	
 	// Возвращает объект для конфига
