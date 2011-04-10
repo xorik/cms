@@ -113,6 +113,12 @@
 		global $TYPE;
 		global $PAGE_TYPE;
 		
+		if( $PAGE_TYPE[$TYPE]["notype"] )
+		{
+			echo "<input type='hidden' name='type' value='$TYPE'>\n";
+			return;
+		}
+		
 		echo "Тип: <select name='type'>\n";
 		foreach( $PAGE_TYPE as $k=>$v )
 			if( $k == $TYPE )
