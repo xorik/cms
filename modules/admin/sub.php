@@ -1,6 +1,5 @@
 <?
-	hook( "content", "sub_content", 60 );
-	hook( "init", "sub_init" );
+	hook( "init", "sub_init", 97 );
 	
 	// Добавление/удаление страниц
 	function sub_init()
@@ -72,6 +71,13 @@
 			header( "Location: ".ADMIN."id=$id" );
 			die;
 		}
+		
+		// Нужны ли подразделы
+		global $TYPE;
+		global $PAGE_TYPE;
+		
+		if( !$PAGE_TYPE[$TYPE]["nosub"] )
+			hook( "content", "sub_content", 60 );
 	}
 	
 	function sub_content()
