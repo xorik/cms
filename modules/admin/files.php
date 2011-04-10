@@ -5,9 +5,11 @@
 	function files_init()
 	{
 		global $gid;
+		global $TYPE;
+		global $PAGE_TYPE;
 		
 		// Если страница существует
-		if( isset($gid) )
+		if( isset($gid) && !$PAGE_TYPE[$TYPE]["nofiles"] )
 			hook( "content", "files_content", 30 );
 		else
 			return;
