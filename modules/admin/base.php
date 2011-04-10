@@ -16,6 +16,7 @@
 		global $id;
 		global $gid;
 		global $TYPE;
+		global $PAGE_TYPE;
 		global $config;
 		
 		// Проверка есть ли страница
@@ -31,7 +32,9 @@
 			hook( "base_show", "base_title", 10 );
 			hook( "base_show", "base_type", 15 );
 			hook( "base_show", "base_hide", 80 );
-			hook( "base_show", "base_text", 90 );
+			// Нужен текст
+			if( !$PAGE_TYPE[$TYPE]["notext"] )
+				hook( "base_show", "base_text", 90 );
 			if( $config["rewrite"] )
 				hook( "base_show", "base_path", 20 );
 			
