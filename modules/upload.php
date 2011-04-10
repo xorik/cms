@@ -1,8 +1,6 @@
 <?
 	load_modules( "upload" );
 	
-	$id = (int)$_GET["id"];
-	
 	// Для каждого файла
 	foreach( $_FILES as $name => $file )
 		// Файл загружен

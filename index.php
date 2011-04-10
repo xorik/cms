@@ -14,6 +14,9 @@
 	// Неправильный путь, страница по id или главная
 	if( !$_GET["t"] || !$id )
 		$id = isset($_GET["id"]) ? (int)$_GET["id"] : $config["main"];
+	// в админке если не указан id, показать главное меню
+	if( $_GET["do"]=="admin" && !$_GET["id"] )
+		$id = 0;
 	
 	// Заголовок и тип
 	$query = "SELECT title, type FROM page WHERE id=$id";

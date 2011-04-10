@@ -12,8 +12,6 @@
 			echo "<img src='modules/img/file.png'> {$f["filename"]}";
 	}
 	
-	$id = (int)$_GET["id"];
-	
 	// Удаление выбранных
 	if( $_POST["del"] )
 	{

@@ -9,8 +9,6 @@
 		global $PAGE_TYPE;
 		global $config;
 		
-		$id = (int)$_GET["id"];
-		
 		// Список типов страниц
 		$PAGE_TYPE[] = "Страница";
 		
