@@ -1,16 +1,22 @@
 <?
+	hook( "init", "type_init", 10 );
 	hook( "init", "base_init", 90 );
+	
+	
+	// Простая страница
+	function type_init()
+	{
+		global $PAGE_TYPE;
+		$PAGE_TYPE["Страница"] = array();
+	}
+	
 	
 	function base_init()
 	{
 		global $id;
 		global $gid;
 		global $TYPE;
-		global $PAGE_TYPE;
 		global $config;
-		
-		// Список типов страниц
-		$PAGE_TYPE["Страница"] = array();
 		
 		// Проверка есть ли страница
 		$query = "SELECT gid, type FROM page WHERE id=$id";
