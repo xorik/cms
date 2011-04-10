@@ -83,6 +83,7 @@
 	function sub_content()
 	{
 		global $id;
+		global $TYPE;
 		global $PAGE_TYPE;
 		
 		if( $id )
@@ -122,8 +123,12 @@
 					<input type='text' name='title'>
 					<select name='type'>
 					<?
-						foreach( $PAGE_TYPE as $k=>$v )
-							echo "<option>$k</option>\n";
+						if( isset($PAGE_TYPE[$TYPE]["sub"]) )
+							foreach( $PAGE_TYPE[$TYPE]["sub"] as $v )
+								echo "<option>$v</option>\n";
+						else
+							foreach( $PAGE_TYPE as $k=>$v )
+								echo "<option>$k</option>\n";
 					?>
 					</select>
 					<?
