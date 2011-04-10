@@ -1,5 +1,5 @@
 <?
-	hook( "init", "base_init", 10 );
+	hook( "init", "base_init", 90 );
 	
 	function base_init()
 	{

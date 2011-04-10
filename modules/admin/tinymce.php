@@ -1,5 +1,5 @@
 <?
-	hook( "init", "tinymce_init" );
+	hook( "init", "tinymce_init", 96 );
 	
 	function tinymce_init()
 	{

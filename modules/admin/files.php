@@ -1,5 +1,5 @@
 <?
-	hook( "init", "files_init" );
+	hook( "init", "files_init", 95 );
 	
 	// Загрузка галереи аяксом
 	function files_init()
