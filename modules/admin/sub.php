@@ -116,8 +116,8 @@
 					<input type='text' name='title'>
 					<select name='type'>
 					<?
-						foreach( $PAGE_TYPE as $v )
-							echo "<option>$v</option>\n";
+						foreach( $PAGE_TYPE as $k=>$v )
+							echo "<option>$k</option>\n";
 					?>
 					</select>
 					<?

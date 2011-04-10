@@ -10,7 +10,7 @@
 		global $config;
 		
 		// Список типов страниц
-		$PAGE_TYPE[] = "Страница";
+		$PAGE_TYPE["Страница"] = array();
 		
 		// Проверка есть ли страница
 		$query = "SELECT gid, type FROM page WHERE id=$id";
@@ -105,11 +105,11 @@
 		global $PAGE_TYPE;
 		
 		echo "Тип: <select name='type'>\n";
-		foreach( $PAGE_TYPE as $v )
-			if( $v == $TYPE )
-				echo "<option selected>$v</option>\n";
+		foreach( $PAGE_TYPE as $k=>$v )
+			if( $k == $TYPE )
+				echo "<option selected>$k</option>\n";
 			else
-				echo "<option>$v</option>\n";
+				echo "<option>$k</option>\n";
 		
 		echo "</select><br>\n";
 	}
