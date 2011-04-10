@@ -9,7 +9,7 @@
 		if( isset($_GET["page_add"]) )
 		{
 			$gid = (int)$_GET["page_add"];
-			$query = "INSERT INTO page (gid, title, text, type) VALUES ($gid, '{$_GET["title"]}', '', '{$_GET["type"]}')";
+			$query = "INSERT INTO page (gid, title, text, type) VALUES ($gid, '{$_POST["title"]}', '', '{$_POST["type"]}')";
 			mysql_query( $query );
 			$id = mysql_insert_id();
 			
@@ -111,8 +111,7 @@
 		}
 		?>
 			<tr><td colspan='9'>
-				<form>
-					<input type='hidden' name='page_add' value='<?= $id ?>'>
+				<form method='post' action='<?= ADMIN ?>page_add=<?= $id ?>'>
 					<img src='modules/img/add.png'> Добавить:
 					<input type='text' name='title'>
 					<select name='type'>
