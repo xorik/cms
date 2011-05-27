@@ -11,4 +11,8 @@
 	$config['preview_h'] = 128;
 	$config['preview_quality'] = 85;
 	$config['rewrite'] = true;
+	$config['formats'] = '
+		{title : "Заголовок 1", block : "h1" },
+		{title : "Заголовок 2", block : "h2" },
+		{title : "Основной", block : "p" }';
 ?>
