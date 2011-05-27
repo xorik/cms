@@ -31,6 +31,7 @@
 			style_formats : [
 				{$config["formats"]}
 			],
+			content_css: '/content.css',
 		});";
 	}
 ?>
