@@ -24,13 +24,15 @@
 	$TITLE = $row["title"];
 	$TYPE = $row["type"];
 	
+	// Начать PHP-сессию
+	session_start();
+	
 	// Действие
 	$DO = $_GET["do"];
 	// Админка
 	if( $DO=="admin" || $DO=="config" )
 	{
 		// Проверка прав
-		session_start();
 		require( "modules/auth.php" );
 		// Инициализация
 		if( $config["rewrite"] )
