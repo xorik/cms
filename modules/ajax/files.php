@@ -1,4 +1,5 @@
 <?
+	require( "modules/auth.php" );
 	hook( "files_show", "default_files_show" );
 	
 	load_modules( "files" );

@@ -1,4 +1,5 @@
 <?
+	require( "modules/auth.php" );
 	load_modules( "upload" );
 	
 	// Для каждого файла
