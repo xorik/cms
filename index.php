@@ -49,7 +49,7 @@
 	{
 		header( "Content-type: text/html; charset=utf-8" );
 		// TODO: проверка на ".." и "/"
-		@include( "modules/{$_GET["file"]}.php" );
+		@include( "modules/ajax/{$_GET["file"]}.php" );
 		
 		run( "init" );
 		die();
