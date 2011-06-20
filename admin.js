@@ -1,45 +1,3 @@
-jQuery.cookie = function(name, value, options) {
-	if (typeof value != 'undefined') { // name and value given, set cookie
-		options = options || {};
-		if (value === null) {
-			value = '';
-			options.expires = -1;
-		}
-		var expires = '';
-		if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
-			var date;
-			if (typeof options.expires == 'number') {
-				date = new Date();
-				date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
-			} else {
-				date = options.expires;
-			}
-			expires = '; expires=' + date.toUTCString(); // use expires attribute, max-age is not supported by IE
-		}
-		// CAUTION: Needed to parenthesize options.path and options.domain
-		// in the following expressions, otherwise they evaluate to undefined
-		// in the packed version for some reason...
-		var path = options.path ? '; path=' + (options.path) : '';
-		var domain = options.domain ? '; domain=' + (options.domain) : '';
-		var secure = options.secure ? '; secure' : '';
-		document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
-	} else { // only name given, get cookie
-		var cookieValue = null;
-		if (document.cookie && document.cookie != '') {
-			var cookies = document.cookie.split(';');
-			for (var i = 0; i < cookies.length; i++) {
-				var cookie = jQuery.trim(cookies[i]);
-				// Does this cookie string begin with the name we want?
-				if (cookie.substring(0, name.length + 1) == (name + '=')) {
-					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-					break;
-				}
-			}
-		}
-		return cookieValue;
-	}
-};
-
 // Поменять местами элементы
 jQuery.fn.swapWith = function(to) {
 	return this.each(function() {
@@ -56,26 +14,6 @@ $(document).ready(function()
 {
 	// Полосы в таблицах
 	$("tr:odd").addClass("odd");
-	
-	// Скрытие по нажатию на h3
-	$("h3").click(function()
-	{
-		// Запомнить состояние в куке
-		$(this).next().slideToggle("slow", function()
-		{
-			if( $(this).css("display") == "none" )
-				$.cookie( $(this).prev().attr("id"), "hide" );
-			else
-				$.cookie( $(this).prev().attr("id"), null );
-		});
-	});
-	
-	// Применить состояния из куки
-	$("h3").each( function()
-	{
-		if( $.cookie( $(this).attr("id") ) == "hide" )
-			$(this).next().hide();
-	});
 	
 	// Кнопка сортировки
 	function sort_reset()
