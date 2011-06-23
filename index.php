@@ -21,7 +21,8 @@
 	// Заголовок и тип
 	$query = "SELECT title, type FROM page WHERE id=$id";
 	$row = mysql_fetch_array( mysql_query($query) );
-	$TITLE = $row["title"];
+	$ORIG_TITLE = $row["title"];
+	$TITLE = "{$config["title"]} - $ORIG_TITLE";
 	$TYPE = $row["type"];
 	
 	// Начать PHP-сессию
@@ -62,7 +63,7 @@
 		run( "init" );
 		
 		// Заголовок страницы
-		$HEAD[] = "<title>{$config["title"]} - $TITLE</title>";
+		$HEAD[] = "<title>$TITLE</title>";
 		// Шаблон контента
 		require( "main.php" );
 	}
