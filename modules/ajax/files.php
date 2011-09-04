@@ -55,6 +55,7 @@
 	{
 		echo "<div style='clear:both'></div>\n";
 		echo "<input type='submit' name='del' value='Удалить выбранные' onclick='if(confirm(\"Удалить выбранные файлы?\")) return true; return false;'>\n";
+		run( "files_action" );
 	}
 	?>
 		</form>
