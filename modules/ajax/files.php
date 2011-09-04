@@ -2,6 +2,7 @@
 	require( "modules/auth.php" );
 	hook( "init", "files_init" );
 	hook( "files_show", "default_files_show" );
+	hook( "files_action", "del_files_action", 90 );
 	
 	load_modules( "files" );
 	
@@ -12,6 +13,13 @@
 			echo "<img src='files/{$f["id"]}_.jpg' class='pic'><br>";
 		else
 			echo "<img src='modules/img/file.png'> {$f["filename"]}";
+	}
+	
+	
+	// Кнопка "удалить выбранные" файлы
+	function del_files_action()
+	{
+		echo "<input type='submit' name='del' value='Удалить выбранные' onclick='if(confirm(\"Удалить выбранные файлы?\")) return true; return false;'>\n";
 	}
 	
 	
@@ -54,7 +62,6 @@
 	if( mysql_num_rows($res) > 0 )
 	{
 		echo "<div style='clear:both'></div>\n";
-		echo "<input type='submit' name='del' value='Удалить выбранные' onclick='if(confirm(\"Удалить выбранные файлы?\")) return true; return false;'>\n";
 		run( "files_action" );
 	}
 	?>
