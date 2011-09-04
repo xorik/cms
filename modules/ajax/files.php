@@ -1,5 +1,6 @@
 <?
 	require( "modules/auth.php" );
+	hook( "init", "files_init" );
 	hook( "files_show", "default_files_show" );
 	
 	load_modules( "files" );
@@ -13,21 +14,27 @@
 			echo "<img src='modules/img/file.png'> {$f["filename"]}";
 	}
 	
-	// Удаление выбранных
-	if( $_POST["del"] )
+	
+	function files_init()
 	{
-		foreach( $_POST as $id => $v )
-			if( $v == "on" )
-			{
-				delete_file( $id );
-				unlink( "files/{$id}_.jpg" );
-			}
-		// Обновление через аякс
-		global $SCRIPT;
-		$SCRIPT[] = 'window.top.window.update_files();';
-		head();
-		die();
+		// Удаление выбранных
+		if( $_POST["del"] )
+		{
+			foreach( $_POST as $id => $v )
+				if( $v == "on" )
+				{
+					delete_file( $id );
+					unlink( "files/{$id}_.jpg" );
+				}
+			// Обновление через аякс
+			global $SCRIPT;
+			$SCRIPT[] = 'window.top.window.update_files();';
+			head();
+			die();
+		}
 	}
+	
+	run( "init" );
 	
 	?>
 		<form action='?do=ajax&file=files&id=<?= $id ?>' method='post' target='upload'>
