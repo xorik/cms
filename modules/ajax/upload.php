@@ -2,6 +2,9 @@
 	require( "modules/auth.php" );
 	load_modules( "upload" );
 	
+	// Инициализация модулей
+	run( "init" );
+	
 	// Для каждого файла
 	foreach( $_FILES as $name => $file )
 		// Файл загружен
