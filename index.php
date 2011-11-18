@@ -13,7 +13,7 @@
 	}
 	// Неправильный путь, страница по id или главная
 	if( !$_GET["t"] || !$id )
-		$id = isset($_GET["id"]) ? (int)$_GET["id"] : $config["main"];
+		$id = isset($_GET["id"]) ? (int)$_GET["id"] : $CONFIG["main"];
 	// в админке если не указан id, показать главное меню
 	if( $_GET["do"]=="admin" && !$_GET["id"] )
 		$id = 0;
@@ -22,7 +22,7 @@
 	$query = "SELECT title, type FROM page WHERE id=$id";
 	$row = mysql_fetch_array( mysql_query($query) );
 	$ORIG_TITLE = $row["title"];
-	$TITLE = "{$config["title"]} - $ORIG_TITLE";
+	$TITLE = "{$CONFIG["title"]} - $ORIG_TITLE";
 	$TYPE = $row["type"];
 	
 	// Начать PHP-сессию
@@ -36,7 +36,7 @@
 		// Проверка прав
 		require( "modules/auth.php" );
 		// Инициализация
-		if( $config["rewrite"] )
+		if( $CONFIG["rewrite"] )
 			define( "ADMIN", "admin?" );
 		else
 			define( "ADMIN", "?do=admin&" );

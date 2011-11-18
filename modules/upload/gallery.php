@@ -3,7 +3,7 @@
 	
 	function img_resize( $src, $w, $h )
 	{
-		global $config;
+		global $CONFIG;
 		
 		// Открытие источника
 		$size = getimagesize( $src );
@@ -28,7 +28,7 @@
 		// Приемник
 		$idest = imagecreatetruecolor( $W, $H );
 		imagecopyresampled($idest, $isrc, 0, 0, 0, 0, $W, $H, $size[0], $size[1]);
-		imagejpeg($idest, $src, $config["preview_quality"] );
+		imagejpeg($idest, $src, $CONFIG["preview_quality"] );
 		imagedestroy($isrc);
 		imagedestroy($idest);
 	}
@@ -39,7 +39,7 @@
 		if( $file["inputname"] != "gallery" )
 			return;
 		
-		global $config;
+		global $CONFIG;
 		
 		$types = array( "png", "jpg", "jpeg", "gif" );
 		
@@ -47,7 +47,7 @@
 		if( in_array($file["ext"], $types) )
 		{
 			copy( $file["path"], "files/{$file["id"]}_.jpg" );
-			img_resize( "files/{$file["id"]}_.jpg", $config["preview_w"], $config["preview_h"] );
+			img_resize( "files/{$file["id"]}_.jpg", $CONFIG["preview_w"], $CONFIG["preview_h"] );
 		}
 		
 		// Защита от мульти-аплоада

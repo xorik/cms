@@ -17,7 +17,7 @@
 		global $gid;
 		global $TYPE;
 		global $PAGE_TYPE;
-		global $config;
+		global $CONFIG;
 		
 		// Проверка есть ли страница
 		$query = "SELECT gid, type FROM page WHERE id=$id";
@@ -35,7 +35,7 @@
 			// Нужен текст
 			if( !$PAGE_TYPE[$TYPE]["notext"] )
 				hook( "base_show", "base_text", 90 );
-			if( $config["rewrite"] )
+			if( $CONFIG["rewrite"] )
 				hook( "base_show", "base_path", 20 );
 			
 			

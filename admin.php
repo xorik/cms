@@ -1,6 +1,6 @@
 <?
 	// Заголовок, стили, скрипты
-	$HEAD[] = "<title>{$config["title"]}</title>";
+	$HEAD[] = "<title>{$CONFIG["title"]}</title>";
 	$CSS[] = "admin.css";
 	$JS[] = "jquery.js";
 	$JS[] = "admin.js";

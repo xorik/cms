@@ -3,7 +3,7 @@
 	
 	function tinymce_init()
 	{
-		global $config;
+		global $CONFIG;
 		// Нужен ли редактор
 		global $gid;
 		if( !isset( $gid ) )
@@ -29,7 +29,7 @@
 			convert_urls : false,
 			language: 'ru',
 			style_formats : [
-				{$config["formats"]}
+				{$CONFIG["formats"]}
 			],
 			content_css: '/content.css',
 		});";

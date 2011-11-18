@@ -71,16 +71,16 @@
 		}
 	}
 	
-	// Сохранить массив $config в файле config.php
+	// Сохранить массив $CONFIG в файле config.php
 	function config_write()
 	{
-		global $config;
+		global $CONFIG;
 		
 		$f = fopen( "config.php", "w" );
 		fwrite( $f, "<?\n" );
-		foreach( $config AS $k => $v )
+		foreach( $CONFIG AS $k => $v )
 		{
-			fwrite( $f, "\t\$config[" . config_item( $k ) . "] = " . config_item( $v ) . ";\n" );
+			fwrite( $f, "\t\$CONFIG[" . config_item( $k ) . "] = " . config_item( $v ) . ";\n" );
 		}
 		fwrite( $f, "?>\n" );
 		fclose( $f );
@@ -165,9 +165,9 @@
 	
 	function path( $id )
 	{
-		global $config;
+		global $CONFIG;
 		
-		if( $id == $config["main"] )
+		if( $id == $CONFIG["main"] )
 			return ".";
 		$p = get_prop( $id, "path" );
 		if( strlen($p) )
