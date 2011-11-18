@@ -102,12 +102,18 @@
 				echo "\t$v\n";
 		
 		if( $CSS )
+		{
+			$CSS = array_unique( $CSS );
 			foreach( $CSS as $v )
 				echo "\t<link rel='stylesheet' type='text/css' href='$v'>\n";
+		}
 		
 		if( $JS )
+		{
+			$JS = array_unique( $JS );
 			foreach( $JS as $v )
 				echo "\t<script type='text/javascript' src='$v'></script>\n";
+		}
 		
 		if( $SCRIPT )
 			foreach( $SCRIPT as $v )
