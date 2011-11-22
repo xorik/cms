@@ -14,35 +14,27 @@
 	function base_init()
 	{
 		global $id;
-		global $gid;
 		global $TYPE;
 		global $PAGE_TYPE;
 		global $CONFIG;
 		
-		// Проверка есть ли страница
-		$query = "SELECT gid, type FROM page WHERE id=$id";
-		$res = mysql_query( $query );
 		// Есть страница
-		if( mysql_num_rows($res) )
-		{
-			$row = mysql_fetch_array( $res );
-			$gid = $row["gid"];
-			$TYPE = $row["type"];
-			hook( "content", "base_content", 10 );
-			hook( "base_show", "base_title", 10 );
-			hook( "base_show", "base_type", 15 );
-			hook( "base_show", "base_hide", 80 );
-			// Нужен текст
-			if( !$PAGE_TYPE[$TYPE]["notext"] )
-				hook( "base_show", "base_text", 90 );
-			if( $CONFIG["rewrite"] )
-				hook( "base_show", "base_path", 20 );
-			
-			
-			// Обновление данных (в последнюю очередь, после всех init'ов)
-			if( $_POST["title"] )
-				hook( "init", "post_base_init", 99 );
-		}
+		if( !$id )
+			return;
+		
+		hook( "content", "base_content", 10 );
+		hook( "base_show", "base_title", 10 );
+		hook( "base_show", "base_type", 15 );
+		hook( "base_show", "base_hide", 80 );
+		// Нужен текст
+		if( !$PAGE_TYPE[$TYPE]["notext"] )
+			hook( "base_show", "base_text", 90 );
+		if( $CONFIG["rewrite"] )
+			hook( "base_show", "base_path", 20 );
+		
+		// Обновление данных (в последнюю очередь, после всех init'ов)
+		if( $_POST["title"] )
+			hook( "init", "post_base_init", 99 );
 	}
 	
 	// Обновление данных

@@ -4,9 +4,9 @@
 	function tinymce_init()
 	{
 		global $CONFIG;
+		global $id;
 		// Нужен ли редактор
-		global $gid;
-		if( !isset( $gid ) )
+		if( !isset( $id ) )
 			return;
 		
 		// Подключение и настройка tinymce

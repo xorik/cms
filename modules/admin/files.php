@@ -4,18 +4,16 @@
 	// Загрузка галереи аяксом
 	function files_init()
 	{
-		global $gid;
+		global $id;
 		global $TYPE;
 		global $PAGE_TYPE;
+		global $SCRIPT;
 		
 		// Если страница существует
-		if( isset($gid) && !$PAGE_TYPE[$TYPE]["nofiles"] )
+		if( $id && !$PAGE_TYPE[$TYPE]["nofiles"] )
 			hook( "content", "files_content", 30 );
 		else
 			return;
-		
-		global $id;
-		global $SCRIPT;
 		
 		$SCRIPT[] = '
 			function update_files()
