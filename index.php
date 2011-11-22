@@ -12,7 +12,7 @@
 		$id = $row["id"];
 	}
 	// Неправильный путь, страница по id или главная
-	if( !$_GET["t"] || !$id )
+	if( !$_GET["t"] )
 		$id = isset($_GET["id"]) ? (int)$_GET["id"] : $CONFIG["main"];
 	// в админке если не указан id, показать главное меню
 	if( $_GET["do"]=="admin" && !$_GET["id"] )
@@ -23,10 +23,17 @@
 	{
 		// Заголовок и тип
 		$query = "SELECT title, type FROM page WHERE id=$id";
-		$row = mysql_fetch_array( mysql_query($query) );
-		$ORIG_TITLE = $row["title"];
-		$TITLE = "{$CONFIG["title"]} - $ORIG_TITLE";
-		$TYPE = $row["type"];
+		$res = mysql_query( $query );
+		// Страница существует
+		if( mysql_num_rows($res) )
+		{
+			$row = mysql_fetch_array( $res );
+			$ORIG_TITLE = $row["title"];
+			$TITLE = "{$CONFIG["title"]} - $ORIG_TITLE";
+			$TYPE = $row["type"];
+		}
+		else
+			unset($id);
 	}
 	
 	// Начать PHP-сессию
