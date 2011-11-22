@@ -18,12 +18,16 @@
 	if( $_GET["do"]=="admin" && !$_GET["id"] )
 		$id = 0;
 	
-	// Заголовок и тип
-	$query = "SELECT title, type FROM page WHERE id=$id";
-	$row = mysql_fetch_array( mysql_query($query) );
-	$ORIG_TITLE = $row["title"];
-	$TITLE = "{$CONFIG["title"]} - $ORIG_TITLE";
-	$TYPE = $row["type"];
+	// Страница выбрана
+	if( $id )
+	{
+		// Заголовок и тип
+		$query = "SELECT title, type FROM page WHERE id=$id";
+		$row = mysql_fetch_array( mysql_query($query) );
+		$ORIG_TITLE = $row["title"];
+		$TITLE = "{$CONFIG["title"]} - $ORIG_TITLE";
+		$TYPE = $row["type"];
+	}
 	
 	// Начать PHP-сессию
 	session_start();
