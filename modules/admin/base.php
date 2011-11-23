@@ -29,7 +29,8 @@
 		// Нужен текст
 		if( !$PAGE_TYPE[$TYPE]["notext"] )
 			hook( "base_show", "base_text", 90 );
-		if( $CONFIG["rewrite"] )
+		// Путь, если включен rewrite и не главная
+		if( $CONFIG["rewrite"] && $id!=$CONFIG["main"] )
 			hook( "base_show", "base_path", 20 );
 		
 		// Обновление данных (в последнюю очередь, после всех init'ов)
