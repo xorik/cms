@@ -1,7 +1,7 @@
 <?
-	hook( "menu", "breadcrumb", 0 );
+	hook( "menu", "menu_crumb", 0 );
 	
-	function breadcrumb()
+	function menu_crumb()
 	{
 		// От текущего элемента к родительским
 		$id = (int)$_GET["id"];
