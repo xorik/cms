@@ -34,7 +34,7 @@
 	{
 		global $id;
 		?>
-			<h3 id='gallery_toggle'>Изображения и файлы</h3>
+			<h3>Изображения и файлы</h3>
 			<div>
 				<form action='?do=ajax&file=upload&id=<?= $id ?>' method='post' enctype='multipart/form-data' target='upload'>
 					Загрузить: <input type='file' name='gallery'>

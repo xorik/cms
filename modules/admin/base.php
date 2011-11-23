@@ -76,7 +76,7 @@
 			else
 				$img = "<img src='modules/img/edit.png'>";
 		?>
-			<h3 id='base_toggle'><?= $img ." ". $row["title"] ?></h3>
+			<h3><?= $img ." ". $row["title"] ?></h3>
 			<form method='post'>
 				<? run( "base_show", $id ) ?>
 				<input type='submit' value='Сохранить'>
