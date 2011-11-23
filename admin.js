@@ -10,11 +10,8 @@ jQuery.fn.swapWith = function(to) {
 
 
 
-$(document).ready(function()
+$(function()
 {
-	// Полосы в таблицах
-	$("tr:odd").addClass("odd");
-	
 	// Кнопка сортировки
 	function sort_reset()
 	{

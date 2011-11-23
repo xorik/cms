@@ -73,7 +73,7 @@ h3 {
 	background: #bde;
 }
 
-.odd td {
+tr:nth-child(even) {
 	background: #f2f8fe;
 }
 
