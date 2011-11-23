@@ -3,27 +3,32 @@
 	
 	function menu_crumb()
 	{
+		global $id;
+		
+		// $id не найден
+		if( !isset($id) )
+			return;
+		
 		// От текущего элемента к родительским
-		$id = (int)$_GET["id"];
+		$bid = $id;
 		do
 		{
-			
-			$query = "SELECT gid, title FROM page WHERE id=$id";
+			$query = "SELECT gid, title FROM page WHERE id=$bid";
 			$row = mysql_fetch_array( mysql_query($query) );
 			
 			// Текущая страница
-			if( $id == $_GET["id"] && $id )
+			if( $bid==$id && $bid )
 				$crumb = " &gt; <b>{$row["title"]}</b>";
-			elseif( $id )
-				$crumb = " &gt; <a href='".ADMIN."id=$id'>{$row["title"]}</a>" . $crumb;
+			elseif( $bid )
+				$crumb = " &gt; <a href='".ADMIN."id=$bid'>{$row["title"]}</a>" . $crumb;
 			// Корень
-			if( !$row["gid"] && $id )
+			if( !$row["gid"] && $bid )
 				$crumb = "<a href='".ADMIN."'>Разделы</a>" . $crumb;
 			
 			// Переходим вверх
-			$id = $row["gid"];
+			$bid = $row["gid"];
 		}
-		while( $id );
+		while( $bid );
 		?>
 			<div id='crumb'><?= $crumb ?></div>
 		<?
