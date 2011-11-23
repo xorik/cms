@@ -18,9 +18,14 @@
 		global $PAGE_TYPE;
 		global $CONFIG;
 		
-		// Есть страница
+		// Нет страницы или главная -> выход
 		if( !$id )
+		{
+			// Нет страницы
+			if( !isset($id) )
+				hook( "content", "not_found_content" );
 			return;
+		}
 		
 		hook( "content", "base_content", 10 );
 		hook( "base_show", "base_title", 10 );
@@ -139,4 +144,11 @@
 	{
 		echo "Путь: <input type='text' name='path' value='". get_prop( $id, "path" ) ."'><br>\n";
 	}
+	
+	
+	function not_found_content()
+	{
+		echo "<h3>Страница была удалена или еще не создана!</h3><a href='".ADMIN."'>Назад</a>\n";
+	}
+	
 ?>
