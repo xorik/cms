@@ -4,6 +4,8 @@
 	// Добавление/удаление страниц
 	function sub_init()
 	{
+		global $id;
+		
 		// Добавление страницы
 		if( isset($_GET["page_add"]) )
 		{
@@ -49,14 +51,12 @@
 			page_del( $del );
 			
 			// Переход обратно
-			$id = (int)$_GET["id"];
 			header( "Location: ".ADMIN."id=$id" );
 			die;
 		}
 		
 		if( isset($_GET["page_sort"]) )
 		{
-			$id = (int)$_GET["id"];
 			$i = 0;
 			
 			foreach( $_GET["p"] as $k => $v )
@@ -76,7 +76,7 @@
 		global $TYPE;
 		global $PAGE_TYPE;
 		
-		if( !$PAGE_TYPE[$TYPE]["nosub"] )
+		if( isset($id) && !$PAGE_TYPE[$TYPE]["nosub"] )
 			hook( "content", "sub_content", 60 );
 	}
 	
