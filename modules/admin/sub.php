@@ -93,7 +93,7 @@
 		
 		// Список поразделов
 		?>
-			<table class='noth'>
+			<table id='sub' class='noth'>
 		<?
 		$query = "SELECT id, title, type, hide FROM page WHERE gid=$id ORDER BY pos";
 		$res = mysql_query( $query );
@@ -111,8 +111,6 @@
 			
 			// Другие операции над страницей
 			run( "sub_action", $row["id"] );
-			
-			echo "<td class='sort'></td>";
 			
 			echo "<td><a href='".ADMIN."id=$id&page_del={$row["id"]}' onclick='if(confirm(\"Удалить {$row["title"]} вместе с подразделами?\")) return true; return false;'><img src='modules/img/del.png'> Удалить</a></td></tr>\n";
 		}

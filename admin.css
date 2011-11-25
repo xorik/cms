@@ -47,6 +47,11 @@ h3 {
 	padding: 10px;
 }
 
+/* Список разделов */
+#sub tr[id] {
+	cursor: move;
+}
+
 #gallery .block {
 	float: left;
 	padding: 5px;
