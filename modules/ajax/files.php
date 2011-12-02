@@ -52,7 +52,7 @@
 	$res = mysql_query( $query );
 	while( $row = mysql_fetch_array($res) )
 	{
-		echo "<div class='block'>";
+		echo "<div id='{$row["id"]}' class='block'>";
 			echo "<input type='checkbox' name='{$row["id"]}'>";
 			run( "files_show", array("id"=>$row["id"], "type"=>$row["type"], "filename"=>$row["filename"]) );
 		echo "</div>\n";
