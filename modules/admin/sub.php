@@ -55,6 +55,7 @@
 			die;
 		}
 		
+		// Сортировка страниц
 		if( isset($_GET["page_sort"]) )
 		{
 			$i = 0;
@@ -64,6 +65,24 @@
 				$k = (int)$k;
 				$v = (int)$v;
 				$query = "UPDATE page SET pos=$k WHERE id=$v";
+				mysql_query( $query );
+			}
+			
+			// Переход обратно
+			header( "Location: ".ADMIN."id=$id" );
+			die;
+		}
+		
+		// Сортировка файлов
+		if( isset($_GET["file_sort"]) )
+		{
+			$i = 0;
+			
+			foreach( $_GET["p"] as $k => $v )
+			{
+				$k = (int)$k;
+				$v = (int)$v;
+				$query = "UPDATE file SET pos=$k WHERE id=$v";
 				mysql_query( $query );
 			}
 			
