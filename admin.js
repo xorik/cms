@@ -9,6 +9,10 @@ $(function()
 		tolerance: "pointer",
 		stop: function()
 		{
+			// Вставить кнопку, если нужно
+			if( $("#sub a.save").size() == 0 )
+				$("#sub tr:last td").append("<a href='#' class='save'>Сохранить порядок</a>");
+			
 			// Новый порядок
 			var list = "";
 			$("#sub tr:[id]").each(function()
@@ -22,7 +26,7 @@ $(function()
 				loc += "?id=0"
 			
 			// Сохранение сортировки
-			$("#sub tr:last td").html( "<a href='"+loc+"&page_sort=1"+list+"'>Сохранить порядок</a>" );
+			$("#sub a.save").attr("href", loc+"&page_sort=1"+list);
 		}
 	});
 	
