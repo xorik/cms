@@ -1,6 +1,5 @@
 <?
-	// Заголовок, стили, скрипты
-	$HEAD[] = "<title>{$CONFIG["title"]}</title>";
+	// Стили, скрипты
 	$CSS[] = "admin.css";
 	$JS[] = "jquery.js";
 	$JS[] = "jquery-ui.js";

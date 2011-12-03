@@ -54,6 +54,9 @@
 		load_modules( $DO );
 		run( "init" );
 		
+		// Заголовок
+		$HEAD[] = "<title>Страница администратора - {$CONFIG["title"]}</title>";
+		
 		require( "admin.php" );
 	}
 	// Аяксовая функция
