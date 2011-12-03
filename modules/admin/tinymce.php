@@ -32,6 +32,7 @@
 				{$CONFIG["formats"]}
 			],
 			content_css: '/content.css',
+			extended_valid_elements : 'iframe[name|src|framespacing|border|frameborder|scrolling|title|height|width]',
 		});";
 	}
 ?>
