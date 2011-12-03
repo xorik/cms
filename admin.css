@@ -6,6 +6,7 @@ body {
 
 table {
 	border-collapse: collapse;
+	background: #bde;
 }
 
 td, th {
@@ -20,6 +21,13 @@ th {
 
 tr:nth-child(even) {
 	background: #f2f8fe;
+}
+tr:nth-child(odd) {
+	background: #fff;
+}
+
+tr.ui-sortable-placeholder {
+	height: 15px;
 }
 
 table.noth {

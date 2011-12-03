@@ -4,6 +4,7 @@ $(function()
 	$("#sub tbody").sortable(
 	{
 		items: "tr[id]",
+		opacity: 0.8,
 		stop: function()
 		{
 			// Новый порядок
