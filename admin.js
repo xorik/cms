@@ -4,7 +4,9 @@ $(function()
 	$("#sub tbody").sortable(
 	{
 		items: "tr[id]",
-		opacity: 0.8,
+		opacity: 0.6,
+		containment: "#sub",
+		tolerance: "pointer",
 		stop: function()
 		{
 			// Новый порядок
@@ -28,7 +30,9 @@ $(function()
 	$("#gallery").sortable(
 	{
 		items: "div.block",
-		opacity: 0.8,
+		opacity: 0.6,
+		containment: "#gallery",
+		tolerance: "pointer",
 		placeholder: "placeholder",
 		stop: function()
 		{
