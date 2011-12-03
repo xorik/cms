@@ -19,7 +19,7 @@ $(function()
 				loc += "?id=0"
 			
 			// Сохранение сортировки
-			$("#sub tr:last td").html( "<a href='"+loc+"&page_sort=1"+list+"'>Сохранить изменения</a>" );
+			$("#sub tr:last td").html( "<a href='"+loc+"&page_sort=1"+list+"'>Сохранить порядок</a>" );
 		}
 	});
 	
@@ -33,7 +33,7 @@ $(function()
 		{
 			// Вставить кнопку, если нужно
 			if( $("#gallery a.save").size() == 0 )
-				$("#gallery").append("<a href='#' class='save'>Сохранить изменения</a>");
+				$("#gallery").append("<a href='#' class='save'>Сохранить порядок</a>");
 			
 			// Новый порядок
 			var list = "";
