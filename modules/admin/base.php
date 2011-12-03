@@ -132,9 +132,9 @@
 		$query = "SELECT hide FROM page WHERE id=$id";
 		$row = mysql_fetch_array( mysql_query($query) );
 		?>
-			Скрывать в меню:
-			<input type='radio' name='hide' value='0' <? if(!$row["hide"]) echo "checked" ?>> Нет
-			<input type='radio' name='hide' value='1' <? if($row["hide"]) echo "checked" ?>> Да
+			Опубликовать:
+			<label><input type='radio' name='hide' value='0' <? if(!$row["hide"]) echo "checked" ?>> Да</label>
+			<label><input type='radio' name='hide' value='1' <? if($row["hide"]) echo "checked" ?>> Нет</label>
 			<br>
 		<?
 	}
