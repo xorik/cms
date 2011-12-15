@@ -11,7 +11,9 @@
 </head>
 <body>
 	<div id='top'>
-		<? run( "menu" ) ?>
+		<div id='crumb'>
+			<? run( "crumb" ) ?>
+		</div>
 		<a href='?logout=1'><img src='modules/img/logout.png'> Выйти</a>
 	</div>
 	<div id='content'>
