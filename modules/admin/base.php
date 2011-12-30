@@ -28,6 +28,7 @@
 		}
 		
 		hook( "content", "base_content", 10 );
+		hook( "base_show", "base_goto", 5 );
 		hook( "base_show", "base_title", 10 );
 		hook( "base_show", "base_type", 15 );
 		hook( "base_show", "base_hide", 80 );
@@ -151,4 +152,10 @@
 		echo "<h3>Страница была удалена или еще не создана!</h3><a href='".ADMIN."'>Назад</a>\n";
 	}
 	
+	
+	// Ссылка на страницу
+	function base_goto( $id )
+	{
+		echo "<a href='".path($id)."'>Ссылка на страницу</a><br>\n";
+	}
 ?>
