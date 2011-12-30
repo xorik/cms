@@ -5,6 +5,7 @@
 	function sub_init()
 	{
 		global $id;
+		global $TYPE;
 		
 		// Добавление страницы
 		if( isset($_GET["page_add"]) )
@@ -13,6 +14,7 @@
 			$query = "INSERT INTO page (gid, title, text, type) VALUES ($gid, '{$_POST["title"]}', '', '{$_POST["type"]}')";
 			mysql_query( $query );
 			$id = mysql_insert_id();
+			$TYPE = $_POST["type"];
 			
 			// Другие действия при добавлении
 			run( "sub_add", $id );
