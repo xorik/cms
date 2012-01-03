@@ -60,4 +60,15 @@ $(function()
 			$("#gallery a.save").attr("href", loc+"&file_sort=1"+list);
 		}
 	});
+	
+	// Список файлов
+	if( $("#gallery").length > 0 )
+	{
+		$("#gallery").load("?do=ajax&file=files&id="+$("#gallery").data("id"));
+		
+		$("iframe[name=upload]").load( function()
+		{
+			$("#gallery").load("?do=ajax&file=files&id="+$("#gallery").data("id"));
+		});
+	}
 });

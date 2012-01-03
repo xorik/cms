@@ -49,15 +49,6 @@
 			copy( $file["path"], "files/{$file["id"]}_.jpg" );
 			img_resize( "files/{$file["id"]}_.jpg", $CONFIG["preview_w"], $CONFIG["preview_h"] );
 		}
-		
-		// Защита от мульти-аплоада
-		if( strpos($file["filename"], ".zip") === false )
-		{
-			// Обновление через аякс
-			global $SCRIPT;
-			$SCRIPT[] = 'window.top.window.update_files();';
-			head();
-		}
 	}
 	
 ?>

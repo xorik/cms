@@ -26,20 +26,15 @@
 	function files_init()
 	{
 		// Удаление выбранных
-		if( $_POST["del"] )
-		{
-			foreach( $_POST as $id => $v )
-				if( $v == "on" )
-				{
-					delete_file( $id );
-					unlink( "files/{$id}_.jpg" );
-				}
-			// Обновление через аякс
-			global $SCRIPT;
-			$SCRIPT[] = 'window.top.window.update_files();';
-			head();
-			die();
-		}
+		if( !$_POST["del"] )
+			return;
+		
+		foreach( $_POST as $id => $v )
+			if( $v == "on" )
+			{
+				delete_file( $id );
+				unlink( "files/{$id}_.jpg" );
+			}
 	}
 	
 	run( "init" );
