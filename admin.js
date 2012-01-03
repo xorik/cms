@@ -71,4 +71,11 @@ $(function()
 			$("#gallery").load("?do=ajax&file=files&id="+$("#gallery").data("id"));
 		});
 	}
+	
+	// Вставка картинки из галереи
+	$("#gallery a").live( "click", function()
+	{
+		$("textarea.editor").tinymce().execCommand("mceInsertContent", false, $(this).data("text"));
+		return false;
+	});
 });

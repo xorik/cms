@@ -9,13 +9,13 @@
 	{
 		if( $f["type"]=="png" || $f["type"]=="jpg" || $f["type"]=="jpeg" || $f["type"]=="gif" ) :
 		?>
-			<a href='javascript:void(0);' onclick='tinyMCE.execCommand( "mceInsertContent", false, "<img src=\"files/<?= $f["id"] ?>.<?= $f["type"] ?>\">");'>
+			<a href='#' data-text='<img src="files/<?= $f["id"] ?>.<?= $f["type"] ?>">'>
 				<img src='files/<?= $f["id"] ?>_.jpg' class='pic'>
 			</a>
 		<?
 		else :
 		?>
-			<a href='javascript:void(0);' onclick='tinyMCE.execCommand( "mceInsertContent", false, "<a href=\"files/<?= $f["id"] ?>.<?= $f["type"] ?>\"><?= $f["filename"] ?></a>");'>
+			<a href='#' data-text='<a href="files/<?= $f["id"] ?>.<?= $f["type"] ?>"><?= $f["filename"] ?></a>'>
 				<img src='modules/img/file.png'> <?= $f["filename"] ?>
 			</a>
 		<?
