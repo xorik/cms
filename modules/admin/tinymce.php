@@ -6,7 +6,7 @@
 		global $CONFIG;
 		global $id;
 		// Нужен ли редактор
-		if( !isset( $id ) )
+		if( !$id )
 			return;
 		
 		// Подключение и настройка tinymce
