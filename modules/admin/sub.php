@@ -1,5 +1,6 @@
 <?
-	hook( "init", "sub_init", 97 );
+	hook( "init", "sub_init", 20 );
+	hook( "init", "sub_post_init", 97 );
 	
 	// Добавление/удаление страниц
 	function sub_init()
@@ -15,13 +16,6 @@
 			mysql_query( $query );
 			$id = mysql_insert_id();
 			$TYPE = $_POST["type"];
-			
-			// Другие действия при добавлении
-			run( "sub_add", $id );
-			
-			// Переход на созданную страницу
-			header( "Location: ".ADMIN."id=$id" );
-			die;
 		}
 		
 		// Рекурсивное удаление страницы
@@ -92,6 +86,22 @@
 			header( "Location: ".ADMIN."id=$id" );
 			die;
 		}
+	}
+	
+	
+	// Действия при добавлении страницы, контент для подразделов
+	function sub_post_init()
+	{
+		global $id;
+		
+		if( isset($_GET["page_add"]) )
+		{
+			run( "sub_add", $id );
+			
+			// Переход на созданную страницу
+			header( "Location: ".ADMIN."id=$id" );
+			die;
+		}
 		
 		// Нужны ли подразделы
 		global $TYPE;
@@ -100,6 +110,7 @@
 		if( isset($id) && !$PAGE_TYPE[$TYPE]["nosub"] )
 			hook( "content", "sub_content", 60 );
 	}
+	
 	
 	function sub_content()
 	{
