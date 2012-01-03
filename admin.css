@@ -58,6 +58,11 @@ img {
 	padding: 10px;
 }
 
+/* Редактор */
+textarea.editor {
+	width: 100%;
+}
+
 /* Таскалки */
 #sub tr[id],
 #gallery div.block {

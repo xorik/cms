@@ -102,7 +102,7 @@
 		$row = mysql_fetch_array( mysql_query($query) );
 		?>
 			Текст:<br>
-			<textarea name='text' cols='80' rows='20' class='mce'><?= $row["text"] ?></textarea><br>
+			<textarea name='text' cols='80' rows='20' class='mce editor'><?= $row["text"] ?></textarea><br>
 		<?
 	}
 	
