@@ -13,10 +13,13 @@
 		global $JS;
 		global $SCRIPT;
 		
-		$JS[] = "modules/tiny_mce/tiny_mce.js";
-		$SCRIPT[] = "tinyMCE.init({
-			mode : 'textareas',
-			editor_selector: 'mce',
+		$JS[] = "jquery.js";
+		$JS[] = "modules/tiny_mce/jquery.tinymce.js";
+		$SCRIPT[] = "$(function()
+		{
+			$('textarea.mce').tinymce(
+			{
+			script_url : 'modules/tiny_mce/tiny_mce.js',
 			theme: 'advanced',
 			plugins : 'safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template',
 			theme_advanced_buttons1 : 'save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,|,blockquote',
@@ -33,6 +36,7 @@
 			],
 			content_css: 'content.css',
 			extended_valid_elements : 'iframe[name|src|framespacing|border|frameborder|scrolling|title|height|width]',
+			});
 		});";
 	}
 ?>
