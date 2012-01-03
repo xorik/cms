@@ -78,4 +78,13 @@ $(function()
 		$("textarea.editor").tinymce().execCommand("mceInsertContent", false, $(this).data("text"));
 		return false;
 	});
+	
+	// confirm диалог
+	$("a.confirm, input.confirm").live("click", function()
+	{
+		if( confirm($(this).data("title")) )
+			return true;
+		else
+			return false;
+	});
 });

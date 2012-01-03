@@ -144,7 +144,7 @@
 			// Другие операции над страницей
 			run( "sub_action", $row["id"] );
 			
-			echo "<td><a href='".ADMIN."id=$id&page_del={$row["id"]}' onclick='if(confirm(\"Удалить {$row["title"]} вместе с подразделами?\")) return true; return false;'><img src='modules/img/del.png'> Удалить</a></td></tr>\n";
+			echo "<td><a href='".ADMIN."id=$id&page_del={$row["id"]}' class='confirm' data-title='Удалить \"{$row["title"]}\" вместе с подразделами?'><img src='modules/img/del.png'> Удалить</a></td></tr>\n";
 		}
 		?>
 			<tr><td colspan='9'>

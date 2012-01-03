@@ -19,7 +19,7 @@
 	// Кнопка "удалить выбранные" файлы
 	function del_files_action()
 	{
-		echo "<input type='submit' name='del' value='Удалить выбранные' onclick='if(confirm(\"Удалить выбранные файлы?\")) return true; return false;'>\n";
+		echo "<input type='submit' name='del' value='Удалить выбранные' class='confirm' data-title='Удалить выбранные файлы?'>\n";
 	}
 	
 	
