@@ -20,7 +20,7 @@
 				echo "<a href='".ADMIN."'>Разделы</a>";
 		?>
 		</div>
-		<a href='./?do=config'><img src='modules/img/config.png'> Настройки</a>
+		<a href='<?= CONFIG ?>'><img src='modules/img/config.png'> Настройки</a>
 		<a href='?logout=1'><img src='modules/img/logout.png'> Выйти</a>
 	</div>
 	<div id='content'>

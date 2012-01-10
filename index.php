@@ -47,10 +47,8 @@
 		// Проверка прав
 		require( "modules/auth.php" );
 		// Инициализация
-		if( $CONFIG["rewrite"] )
-			define( "ADMIN", "admin?" );
-		else
-			define( "ADMIN", "?do=admin&" );
+		define( "ADMIN", $CONFIG["rewrite"] ? "./admin?" : "./?do=admin&" );
+		define( "CONFIG", $CONFIG["rewrite"] ? "./config?" : "./?do=config&" );
 		load_modules( $DO );
 		run( "init" );
 		
