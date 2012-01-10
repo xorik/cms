@@ -29,6 +29,12 @@
 		// Сохраняем переменные в $CONFIG, а потом в config.php
 		$CONFIG["title"] = $_POST["title"];
 		$CONFIG["adv"] = $_POST["adv"] == "on";
+		
+		if( $CONFIG["adv"] )
+		{
+			$CONFIG["rewrite"] = $_POST["rewrite"] == "on";
+			$CONFIG["main"] = (int)$_POST["main"];
+		}
 		config_write();
 		clear_post();
 	}
@@ -45,6 +51,15 @@
 			
 			Заголовок сайта: <input type='text' name='title' value='<?= $CONFIG["title"] ?>'><br>
 			Расширенные настройки (mysql, SEO): <input type='checkbox' name='adv' <? if( $CONFIG["adv"] ) echo "checked" ?>><br>
+		<?
+			// Расширенные настройки
+			if( $CONFIG["adv"] ):
+			?>
+				Использовать mod_rewrite: <input type='checkbox' name='rewrite' <? if( $CONFIG["rewrite"] ) echo "checked" ?>><br>
+				id главной страницы: <input type='text' name='main' value='<?= $CONFIG["main"] ?>' size='2'><br>
+			<?
+			endif;
+		?>
 			<input type='submit' value='Сохранить'>
 			</form>
 		<?
