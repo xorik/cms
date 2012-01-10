@@ -12,7 +12,7 @@
 		$id = $row["id"];
 	}
 	// Неправильный путь, страница по id или главная
-	if( !$_GET["t"] )
+	if( !$_GET["t"] && $_GET["do"]!="config" )
 		$id = isset($_GET["id"]) ? (int)$_GET["id"] : $CONFIG["main"];
 	// в админке если не указан id, показать главное меню
 	if( $_GET["do"]=="admin" && !$_GET["id"] )
