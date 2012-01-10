@@ -13,6 +13,7 @@
 		
 		// Сохраняем переменные в $CONFIG, а потом в config.php
 		$CONFIG["title"] = $_POST["title"];
+		$CONFIG["adv"] = $_POST["adv"] == "on";
 		config_write();
 		clear_post();
 	}
@@ -28,6 +29,7 @@
 			<form method='post'>
 			
 			Заголовок сайта: <input type='text' name='title' value='<?= $CONFIG["title"] ?>'><br>
+			Расширенные настройки (mysql, SEO): <input type='checkbox' name='adv' <? if( $CONFIG["adv"] ) echo "checked" ?>><br>
 			<input type='submit' value='Сохранить'>
 			</form>
 		<?
