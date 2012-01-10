@@ -12,8 +12,15 @@
 <body>
 	<div id='top'>
 		<div id='crumb'>
-			<? run( "crumb" ) ?>
+		<?
+			// Хлебные крошки или переход к разделам
+			if( $_GET["do"] == "admin" )
+				run( "crumb" );
+			else
+				echo "<a href='".ADMIN."'>Разделы</a>";
+		?>
 		</div>
+		<a href='./?do=config'><img src='modules/img/config.png'> Настройки</a>
 		<a href='?logout=1'><img src='modules/img/logout.png'> Выйти</a>
 	</div>
 	<div id='content'>
