@@ -42,15 +42,16 @@
 		if( !$_POST["title"] )
 			return;
 		
-		// Сохраняем переменные в $CONFIG, а потом в config.php
-		$CONFIG["title"] = $_POST["title"];
-		$CONFIG["adv"] = $_POST["adv"] == "on";
-		
 		if( $CONFIG["adv"] )
 		{
 			$CONFIG["rewrite"] = $_POST["rewrite"] == "on";
 			$CONFIG["main"] = (int)$_POST["main"];
 		}
+		
+		// Сохраняем переменные в $CONFIG, а потом в config.php
+		$CONFIG["title"] = $_POST["title"];
+		$CONFIG["adv"] = $_POST["adv"] == "on";
+		
 		config_write();
 		clear_post();
 	}
