@@ -22,6 +22,22 @@
 			}
 		}
 		
+		// Смена пароля
+		if( $_POST["oldpass"] )
+		{
+			// Правильный пароль и пароли совпадают
+			if( md5($_POST["oldpass"].$CONFIG["admin_salt"])==$CONFIG["admin_hash"] && $_POST["pass1"]==$_POST["pass2"] )
+			{
+				// Генерация соли и хеша пароля
+				$CONFIG["admin_salt"] = base64_encode( crc32(time()) );
+				$CONFIG["admin_hash"] = md5( $_POST["pass1"] . $CONFIG["admin_salt"] );
+				
+				// Запись конфига и разлогин
+				config_write();
+				die( "Пароль успешно изменен!<br><a href='". CONFIG ."'>Назад</a><meta http-equiv='refresh' content='3;url=". CONFIG ."'>" );
+			}
+		}
+		
 		// Сохранение конфига
 		if( !$_POST["title"] )
 			return;
@@ -61,6 +77,14 @@
 			endif;
 		?>
 			<input type='submit' value='Сохранить'>
+			</form>
+			
+			<h3>Смена пароля</h3>
+			<form method='post'>
+				Старый пароль: <input type='password' name='oldpass'><br>
+				Новый пароль: <input type='password' name='pass1'><br>
+				Еще раз: <input type='password' name='pass2'><br>
+				<input type='submit' value='Сохранить'>
 			</form>
 		<?
 	}
