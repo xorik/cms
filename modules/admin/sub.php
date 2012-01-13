@@ -1,5 +1,5 @@
 <?
-	hook( "init", "sub_init", 20 );
+	hook( "init", "sub_init", 90 );
 	hook( "init", "sub_post_init", 97 );
 	
 	// Добавление/удаление страниц
@@ -54,6 +54,13 @@
 		// Сортировка страниц
 		if( isset($_GET["page_sort"]) )
 		{
+			global $TYPE;
+			global $PAGE_TYPE;
+			
+			// Обратная сортировка
+			if( $PAGE_TYPE[$TYPE]["reverse"] )
+				$_GET["p"] = array_reverse( $_GET["p"] );
+			
 			$i = 0;
 			
 			foreach( $_GET["p"] as $k => $v )
@@ -127,7 +134,13 @@
 		?>
 			<table id='sub' class='noth'>
 		<?
-		$query = "SELECT id, title, type, hide FROM page WHERE gid=$id ORDER BY pos";
+		// Прямая или обратная сортировка
+		if( $PAGE_TYPE[$TYPE]["reverse"] )
+			$order = "pos DESC, id DESC";
+		else
+			$order = "pos, id";
+		
+		$query = "SELECT id, title, type, hide FROM page WHERE gid=$id ORDER BY $order";
 		$res = mysql_query( $query );
 		while( $row = mysql_fetch_array($res) )
 		{
