@@ -28,15 +28,19 @@
 		}
 		
 		hook( "content", "base_content", 10 );
-		hook( "base_show", "base_goto", 5 );
 		hook( "base_show", "base_title", 10 );
 		hook( "base_show", "base_type", 15 );
-		hook( "base_show", "base_hide", 80 );
+		// Не виртуальная страница
+		if( !$PAGE_TYPE[$TYPE]["virt"] )
+		{
+			hook( "base_show", "base_goto", 5 );
+			hook( "base_show", "base_hide", 80 );
+		}
 		// Нужен текст
 		if( !$PAGE_TYPE[$TYPE]["notext"] )
 			hook( "base_show", "base_text", 90 );
-		// Путь, если включен rewrite и не главная
-		if( $CONFIG["rewrite"] && $id!=$CONFIG["main"] )
+		// Путь, если включен rewrite, не главная и не виртуальная
+		if( $CONFIG["rewrite"] && $id!=$CONFIG["main"] && !$PAGE_TYPE[$TYPE]["virt"] )
 			hook( "base_show", "base_path", 20 );
 		
 		// Обновление данных (в последнюю очередь, после всех init'ов)
