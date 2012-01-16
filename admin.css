@@ -1,61 +1,8 @@
 /* Общее */
 
-body {
-	padding: 0; margin: 0;
-}
-
-table {
-	border-collapse: collapse;
-	background: #bde;
-}
-
-td, th {
-	padding: 0.2em;
-	padding-right: 3em;
-	text-align: left;
-}
-
-th {
-	border-bottom: 1px solid #bcd;
-}
-
-tr:nth-child(even) {
-	background: #f2f8fe;
-}
-tr:nth-child(odd) {
-	background: #fff;
-}
-
-tr.ui-sortable-placeholder {
-	height: 15px;
-}
-
-table.noth {
-	border-top: 1px solid #bcd;
-}
-
 img {
 	border-width: 0;
 	vertical-align: middle;
-}
-
-/* Шапка */
-#top {
-	text-align: right;
-	padding: 10px;
-	background: #bde;
-}
-#top a {
-	margin: 0 5px;
-}
-
-#crumb {
-	float: left;
-}
-
-
-#content {
-	padding: 10px;
 }
 
 /* Редактор */
@@ -85,28 +32,12 @@ textarea.editor {
 #gallery div.placeholder {
 	width: 32px;
 	height: 64px;
-	background: #bde;
 }
 
-/* Подвал */
-#bottom {
-	padding: 10px;
-	text-align: right;
-	border-top: 1px solid #bcd;
-	font-style: italic;
-	font-size: 8pt;
-}
 
 /* Шрифты */
 body {
 	font-family: verdana, arial, sans-serif;
-	font-size: 11pt;
-	color: #333;
-}
-
-a {
-	color: #05c;
-}
-a:hover {
-	color: #015;
+	font-size: 13px;
+	color: #000;
 }
