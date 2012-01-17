@@ -11,6 +11,13 @@
 </head>
 <body>
 	<div id='top'>
+		<img src='modules/img/adm.png'> <span>сайта <?= $CONFIG["title"] ?></span>
+		<div>
+			<a href='<?= CONFIG ?>'>Настройки</a> |
+			<a href='?logout=1'>Выход</a>
+		</div>
+	</div>
+	<div id='content'>
 		<div id='crumb'>
 		<?
 			// Хлебные крошки или переход к разделам
@@ -20,13 +27,10 @@
 				echo "<a href='".ADMIN."'>Разделы</a>";
 		?>
 		</div>
-		<a href='<?= CONFIG ?>'><img src='modules/img/config.png'> Настройки</a>
-		<a href='?logout=1'><img src='modules/img/logout.png'> Выйти</a>
-	</div>
-	<div id='content'>
 		<? run( "content" ) ?>
 	</div>
 	<div id='bottom'>
+		<img src='modules/img/logo.png'>
 		<? @include( "version" ) ?>
 	</div>
 </body>

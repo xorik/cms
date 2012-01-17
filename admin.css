@@ -1,8 +1,48 @@
 /* Общее */
+html {
+	background: #ddd;
+}
 
+body {
+	font-family: verdana, arial, sans-serif;
+	font-size: 13px;
+	color: #000;
+	max-width: 1800px;
+	margin: 0 auto; padding: 0;
+}
 img {
 	border-width: 0;
 	vertical-align: middle;
+}
+
+a {
+	color: #005ec7;
+}
+
+/* Шапка */
+#top {
+	padding: 2px 10px 10px;
+}
+
+#top > img {
+	vertical-align: baseline;
+	position: relative;
+	top: 5px;
+}
+
+#top span {
+	font-weight: bold;
+}
+
+#top div {
+	float: right;
+	padding-top: 10px;
+}
+
+/* Контент */
+#content {
+	background: #ededed;
+	padding: 5px;
 }
 
 /* Редактор */
@@ -34,10 +74,9 @@ textarea.editor {
 	height: 64px;
 }
 
-
-/* Шрифты */
-body {
-	font-family: verdana, arial, sans-serif;
-	font-size: 13px;
-	color: #000;
+/* Подвал */
+#bottom {
+	color: #434343;
+	text-align: right;
+	padding: 10px;
 }
