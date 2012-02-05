@@ -39,10 +39,23 @@ a {
 	padding-top: 10px;
 }
 
+#main {
+	background: #ededed;
+}
+
+/* Левый блок */
+#nav {
+	width: 330px;
+	float: left;
+}
+
 /* Контент */
 #content {
-	background: #ededed;
-	padding: 5px;
+	padding: 17px;
+	margin-left: 330px;
+	min-height: 500px;
+	background: #f5f5f5;
+	border-left: #ddd 2px solid;
 }
 
 /* Редактор */

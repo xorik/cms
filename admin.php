@@ -17,17 +17,22 @@
 			<a href='?logout=1'>Выход</a>
 		</div>
 	</div>
-	<div id='content'>
-		<div id='crumb'>
-		<?
-			// Хлебные крошки или переход к разделам
-			if( $_GET["do"] == "admin" )
-				run( "crumb" );
-			else
-				echo "<a href='".ADMIN."'>Разделы</a>";
-		?>
+	<div id='main'>
+		<div id='nav'>
+			<? run( "nav" ) ?>
 		</div>
-		<? run( "content" ) ?>
+		<div id='content'>
+			<div id='crumb'>
+			<?
+				// Хлебные крошки или переход к разделам
+				if( $_GET["do"] == "admin" )
+					run( "crumb" );
+				else
+					echo "<a href='".ADMIN."'>Разделы</a>";
+			?>
+			</div>
+			<? run( "content" ) ?>
+		</div>
 	</div>
 	<div id='bottom'>
 		<img src='modules/img/logo.png'>
