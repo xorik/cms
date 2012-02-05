@@ -64,7 +64,6 @@ textarea.editor {
 }
 
 /* Таскалки */
-#sub tr[id],
 #gallery div.block {
 	cursor: move;
 }
