@@ -53,12 +53,12 @@
 	// Отображение навигации
 	function nav_content()
 	{
-		?>
-			<div id='nav_title'>
-				Разделы
-				<a href='#'></a>
-			</div>
-		<?
+		global $LEVEL;
+		
+		echo "<div id='nav_title'>Разделы";
+		if( $LEVEL == 0 )
+			echo "<a href='#'></a>";
+		echo "</div>\n";
 		
 		// Список первого уровня
 		nav_level( 0, 1 );
