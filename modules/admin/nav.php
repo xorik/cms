@@ -13,9 +13,11 @@
 		<?
 		
 		global $id;
+		global $TYPE;
+		global $PAGE_TYPE;
 		
 		// Список первого уровня
-		$query = "SELECT id, title, hide FROM page WHERE gid=0";
+		$query = "SELECT id, title, type, hide FROM page WHERE gid=0";
 		$res = mysql_query( $query );
 		while( $row = mysql_fetch_array($res) )
 		{
@@ -27,7 +29,11 @@
 				echo "<div class='sort'></div>";
 				echo "<a href='#' class='round del'></a>";
 				echo "<div class='round $show'></div>";
-				echo "<a href='".ADMIN."id={$row["id"]}' class='block'>{$row["title"]}</a>";
+				echo "<a href='".ADMIN."id={$row["id"]}' class='block'>{$row["title"]}";
+					// Стрелочка
+					if( !$PAGE_TYPE[$row["type"]]["nosub"] )
+						echo "<div class='arrow'></div>";
+				echo "</a>";
 			echo "</li>\n";
 		}
 	}

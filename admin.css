@@ -112,6 +112,18 @@ a {
 	background-position: 0 0;
 }
 
+#nav li div.arrow {
+	width: 10px; height: 11px;
+	margin-left: 10px;
+	background: url(modules/img/arrow.png);
+	display: inline-block;
+	background-position: 20px 0;
+}
+
+#nav li.sel div.arrow {
+	background-position: 0 0;
+}
+
 #nav li:last-child {
 	border: none;
 }
