@@ -39,7 +39,7 @@
 			echo "</li>\n";
 			
 			// Подразделы
-			if( $row["id"] == $GID[$level] )
+			if( $row["id"]==$GID[$level] && !$PAGE_TYPE[$row["type"]]["nosub"] )
 			{
 				if( $level == $LEVEL )
 					echo "<div class='add'>Добавить подраздел <a href='#'></a></div>";
