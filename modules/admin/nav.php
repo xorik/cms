@@ -22,6 +22,39 @@
 			header( "Location: ".ADMIN."id=$id" );
 			die;
 		}
+		
+		// Рекурсивное удаление страницы
+		function page_del( $id )
+		{
+			// Потомки
+			$query = "SELECT id FROM page WHERE gid=$id";
+			$res = mysql_query( $query );
+			while( $row = mysql_fetch_array($res) )
+				page_del( $row["id"] );
+			
+			// Сама страница
+			$query = "DELETE FROM page WHERE id=$id";
+			mysql_query( $query );
+			
+			// Доп. поля
+			$query = "DELETE FROM prop WHERE id=$id";
+			mysql_query( $query );
+			
+			// Другие действия при удалении
+			run( "sub_del", $id );
+		}
+		
+		// Удаление страниц
+		if( isset($_GET["page_del"]) )
+		{
+			// Удаление
+			$del = (int)$_GET["page_del"];
+			page_del( $del );
+			
+			// Переход обратно
+			header( "Location: ".ADMIN."id=$id" );
+			die;
+		}
 	}
 	
 	
@@ -53,7 +86,7 @@
 				// Отступы
 				for( $i=0; $i<$level-1; $i++ )
 					echo "<div class='indent'></div>";
-				echo "<a href='#' class='round del'></a>";
+				echo "<a href='".ADMIN."id=$id&page_del={$row["id"]}' class='round del confirm' data-title='Удалить \"{$row["title"]}\" вместе с подразделами?'></a>";
 				echo "<div class='round $show'></div>";
 				echo "<a href='".ADMIN."id={$row["id"]}' class='block'>{$row["title"]}";
 					// Стрелочка
