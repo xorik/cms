@@ -59,14 +59,20 @@
 	
 	
 	// Отобразить текущий уровень
-	function nav_level( $nid, $level )
+	function nav_level( $nid, $level, $type )
 	{
 		global $id;
 		global $GID;
 		global $LEVEL;
 		global $PAGE_TYPE;
 		
-		$query = "SELECT id, title, type, hide FROM page WHERE gid=$nid";
+		// Прямая или обратная сортировка
+		if( $PAGE_TYPE[$type]["reverse"] )
+			$order = "pos DESC, id DESC";
+		else
+			$order = "pos, id";
+		
+		$query = "SELECT id, title, type, hide FROM page WHERE gid=$nid ORDER BY $order";
 		$res = mysql_query( $query );
 		while( $row = mysql_fetch_array($res) )
 		{
@@ -100,7 +106,7 @@
 			{
 				if( $level == $LEVEL )
 					echo "<div class='add'>Добавить подраздел <a href='".ADMIN."id=$id&page_add=1'></a></div>";
-				nav_level( $row["id"], $level+1 );
+				nav_level( $row["id"], $level+1, $row["type"] );
 				if( $level == $LEVEL )
 					echo "<hr>";
 			}
@@ -119,6 +125,6 @@
 		echo "</div>\n";
 		
 		// Список первого уровня
-		nav_level( 0, 1 );
+		nav_level( 0, 1, "" );
 	}
 ?>
