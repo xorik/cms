@@ -1,5 +1,29 @@
 <?
+	hook( "init", "nav_init", 90 );
 	hook( "nav", "nav_content" );
+	
+	
+	// Добавление/удаление страниц
+	function nav_init()
+	{
+		global $id;
+		global $TYPE;
+		global $PAGE_TYPE;
+		
+		// Добавление страницы
+		if( isset($_GET["page_add"]) && !$PAGE_TYPE[$TYPE]["nosub"] )
+		{
+			// Первый разрешенный тип, иначе просто страница
+			$type = $PAGE_TYPE[$TYPE]["sub"][0] ? $PAGE_TYPE[$TYPE]["sub"][0] : "Страница";
+			$query = "INSERT INTO page (gid, title, text, type) VALUES ($id, '$type', '', '$type')";
+			mysql_query( $query );
+			$id = mysql_insert_id();
+			
+			header( "Location: ".ADMIN."id=$id" );
+			die;
+		}
+	}
+	
 	
 	// Отобразить текущий уровень
 	function nav_level( $nid, $level )
@@ -42,7 +66,7 @@
 			if( $row["id"]==$GID[$level] && !$PAGE_TYPE[$row["type"]]["nosub"] )
 			{
 				if( $level == $LEVEL )
-					echo "<div class='add'>Добавить подраздел <a href='#'></a></div>";
+					echo "<div class='add'>Добавить подраздел <a href='".ADMIN."id=$id&page_add=1'></a></div>";
 				nav_level( $row["id"], $level+1 );
 				if( $level == $LEVEL )
 					echo "<hr>";
@@ -53,11 +77,12 @@
 	// Отображение навигации
 	function nav_content()
 	{
+		global $id;
 		global $LEVEL;
 		
 		echo "<div id='nav_title'>Разделы";
 		if( $LEVEL == 0 )
-			echo "<a href='#'></a>";
+			echo "<a href='".ADMIN."id=$id&page_add=1'></a>";
 		echo "</div>\n";
 		
 		// Список первого уровня
