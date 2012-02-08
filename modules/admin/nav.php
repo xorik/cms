@@ -87,7 +87,7 @@
 				$class = "";
 			// Скрытый ли блок
 			$show = $row["hide"] ? "hide" : "show";
-			echo "<li class='$class'>";
+			echo "<li id='{$row["id"]}' class='$class'>";
 				echo "<div class='sort'></div>";
 				// Отступы
 				for( $i=0; $i<$level-1; $i++ )

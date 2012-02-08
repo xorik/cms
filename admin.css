@@ -228,6 +228,7 @@ textarea.editor {
 }
 
 /* Таскалки */
+#nav li.last div.sort,
 #gallery div.block {
 	cursor: move;
 }

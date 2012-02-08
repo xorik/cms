@@ -1,5 +1,28 @@
 $(function()
 {
+	// Сортировка разделов
+	$("#nav").sortable(
+	{
+		items: "li.last",
+		opacity: 0.6,
+		containment: "#nav",
+		tolerance: "pointer",
+		handle: "div.sort",
+		stop: function()
+		{
+			// Новый порядок
+			var list = "";
+			$("#nav li.last").each(function()
+			{
+				list += "&p[]="+$(this).attr("id");
+			});
+			
+			// Сохранение сортировки
+			$.ajax("?do=ajax&file=admin&page_sort=1"+list);
+		}
+	});
+
+	
 	// Сортировка файлов
 	$("#gallery").sortable(
 	{
