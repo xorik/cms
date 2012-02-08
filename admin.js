@@ -33,10 +33,6 @@ $(function()
 		placeholder: "placeholder",
 		stop: function()
 		{
-			// Вставить кнопку, если нужно
-			if( $("#gallery a.save").size() == 0 )
-				$("#gallery").append("<a href='#' class='save'>Сохранить порядок</a>");
-			
 			// Новый порядок
 			var list = "";
 			$("#gallery div[id]").each(function()
@@ -44,13 +40,8 @@ $(function()
 				list += "&p[]="+$(this).attr("id");
 			});
 			
-			// Ссылка на страницу
-			var loc = document.location.href;
-			if( loc.indexOf("?") == -1 )
-				loc += "?id=0"
-			
 			// Сохранение сортировки
-			$("#gallery a.save").attr("href", loc+"&file_sort=1"+list);
+			$.ajax("?do=ajax&file=admin&file_sort=1"+list);
 		}
 	});
 	
