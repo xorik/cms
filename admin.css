@@ -4,7 +4,7 @@ html {
 }
 
 body {
-	font-family: verdana, arial, sans-serif;
+	font-family: Arial, Sans-serif;
 	font-size: 13px;
 	color: #000;
 	max-width: 1800px;
@@ -17,6 +17,14 @@ img {
 
 a {
 	color: #005ec7;
+}
+
+h2 {
+	font-size: 16px;
+}
+h3 {
+	font-size: 16px;
+	color: #555;
 }
 
 /* Шапка */
