@@ -73,10 +73,6 @@
 		$query = "SELECT title, hide FROM page WHERE id=$id";
 		$row = mysql_fetch_array( mysql_query($query) );
 		
-		if( $row["hide"] )
-				$img = "<img src='modules/img/hide.png'>";
-			else
-				$img = "<img src='modules/img/edit.png'>";
 		?>
 			<form method='post'>
 				<input type='submit' value='Сохранить' class='save'>
