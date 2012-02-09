@@ -222,6 +222,12 @@ a {
 	border-left: #ddd 2px solid;
 }
 
+/* Крошки */
+#crumb,
+#crumb a {
+	color: #bbb;
+}
+
 /* Редактор */
 textarea.editor {
 	width: 100%;

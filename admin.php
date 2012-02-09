@@ -26,7 +26,7 @@
 			<?
 				// Хлебные крошки или переход к разделам
 				if( $_GET["do"] == "admin" )
-					run( "crumb" );
+					run( "crumb", "•" );
 				else
 					echo "<a href='".ADMIN."'>Разделы</a>";
 			?>
