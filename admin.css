@@ -242,9 +242,17 @@ h3 {
 	color: #bbb;
 }
 
-input.save {
+/* Кнопка и сссылка справа от заголовка */
+input.save,
+a.goto {
 	float: right;
+}
+
+input.save {
 	padding: 8px 25px;
+	position: relative;
+	bottom: 8px;
+	margin-left: 15px;
 	background: #428de0;
 	color: #fff;
 	border: none;

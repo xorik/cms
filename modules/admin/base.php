@@ -32,10 +32,7 @@
 		hook( "base_show", "base_type", 15 );
 		// Не виртуальная страница
 		if( !$PAGE_TYPE[$TYPE]["virt"] )
-		{
-			hook( "base_show", "base_goto", 5 );
 			hook( "base_show", "base_hide", 80 );
-		}
 		// Нужен текст
 		if( !$PAGE_TYPE[$TYPE]["notext"] )
 			hook( "base_show", "base_text", 90 );
@@ -83,6 +80,11 @@
 		?>
 			<form method='post'>
 				<input type='submit' value='Сохранить' class='save'>
+				<?
+					// Не виртуальная страница
+					if( !$PAGE_TYPE[$TYPE]["virt"] )
+						echo "<a href='".path($id)."' class='goto'>Посмотреть страницу</a>";
+				?>
 				<h2><?= $img ." ". $row["title"] ?></h2>
 				<? run( "base_show", $id ) ?>
 			</form>
@@ -154,12 +156,5 @@
 	function not_found_content()
 	{
 		echo "<h3>Страница была удалена или еще не создана!</h3><a href='".ADMIN."'>Назад</a>\n";
-	}
-	
-	
-	// Ссылка на страницу
-	function base_goto( $id )
-	{
-		echo "<a href='".path($id)."'>Ссылка на страницу</a><br>\n";
 	}
 ?>
