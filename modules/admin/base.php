@@ -81,10 +81,10 @@
 			else
 				$img = "<img src='modules/img/edit.png'>";
 		?>
-			<h2><?= $img ." ". $row["title"] ?></h2>
 			<form method='post'>
+				<input type='submit' value='Сохранить' class='save'>
+				<h2><?= $img ." ". $row["title"] ?></h2>
 				<? run( "base_show", $id ) ?>
-				<input type='submit' value='Сохранить'>
 			</form>
 		<?
 	}

@@ -242,6 +242,17 @@ h3 {
 	color: #bbb;
 }
 
+input.save {
+	float: right;
+	padding: 8px 25px;
+	background: #428de0;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+	font-family: Arial, Sans-serif;
+	font-size: 13px;
+}
+
 /* Редактор */
 textarea.editor {
 	width: 100%;
