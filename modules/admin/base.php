@@ -82,7 +82,11 @@
 						echo "<a href='".path($id)."' class='goto'>Посмотреть страницу</a>";
 				?>
 				<h2><?= $img ." ". $row["title"] ?></h2>
-				<? run( "base_show", $id ) ?>
+				<table id='base'>
+					<col width='150'>
+					<col>
+					<? run( "base_show", $id ) ?>
+				</table>
 			</form>
 		<?
 	}
@@ -93,7 +97,10 @@
 		$query = "SELECT title FROM page WHERE id=$id";
 		$row = mysql_fetch_array( mysql_query($query) );
 		?>
-			Заголовок: <input type='text' name='title' value='<?= $row["title"] ?>'><br>
+			<tr>
+				<td>Заголовок:</td>
+				<td><input type='text' name='title' value='<?= $row["title"] ?>'></td>
+			</tr>
 		<?
 	}
 	
@@ -103,8 +110,10 @@
 		$query = "SELECT text FROM page WHERE id=$id";
 		$row = mysql_fetch_array( mysql_query($query) );
 		?>
-			Текст:<br>
-			<textarea name='text' cols='80' rows='20' class='mce editor'><?= $row["text"] ?></textarea><br>
+			<tr>
+				<td colspan='2'>Текст:<br>
+				<textarea name='text' cols='80' rows='20' class='mce editor'><?= $row["text"] ?></textarea></td>
+			</tr>
 		<?
 	}
 	
@@ -120,14 +129,16 @@
 			return;
 		}
 		
-		echo "Тип: <select name='type'>\n";
-		foreach( $PAGE_TYPE as $k=>$v )
-			if( $k == $TYPE )
-				echo "<option selected>$k</option>\n";
-			else
-				echo "<option>$k</option>\n";
-		
-		echo "</select><br>\n";
+		echo "<tr>";
+			echo "<td>Тип:</td> <td><select name='type'>\n";
+			foreach( $PAGE_TYPE as $k=>$v )
+				if( $k == $TYPE )
+					echo "<option selected>$k</option>\n";
+				else
+					echo "<option>$k</option>\n";
+			
+			echo "</select></td>";
+		echo "</tr>\n";
 	}
 	
 	function base_hide( $id )
@@ -135,17 +146,20 @@
 		$query = "SELECT hide FROM page WHERE id=$id";
 		$row = mysql_fetch_array( mysql_query($query) );
 		?>
-			Опубликовать:
-			<label><input type='radio' name='hide' value='0' <? if(!$row["hide"]) echo "checked" ?>> Да</label>
-			<label><input type='radio' name='hide' value='1' <? if($row["hide"]) echo "checked" ?>> Нет</label>
-			<br>
+			<tr>
+				<td colspan='2'>Опубликовать:
+				<label><input type='radio' name='hide' value='0' <? if(!$row["hide"]) echo "checked" ?>> Да</label>
+				<label><input type='radio' name='hide' value='1' <? if($row["hide"]) echo "checked" ?>> Нет</label></td>
+			</tr>
 		<?
 	}
 	
 	
 	function base_path( $id )
 	{
-		echo "Путь: <input type='text' name='path' value='". get_prop( $id, "path" ) ."'><br>\n";
+		echo "<tr>";
+			echo "<td>Путь:</td> <td><input type='text' name='path' value='". get_prop( $id, "path" ) ."'></td>";
+		echo "</tr>\n";
 	}
 	
 	
