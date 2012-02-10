@@ -32,10 +32,12 @@ h3 {
 	padding: 2px 10px 10px;
 }
 
-#top > img {
-	vertical-align: baseline;
+#top a.logo {
 	position: relative;
 	top: 5px;
+}
+#top a.logo img {
+	vertical-align: baseline;
 }
 
 #top span {

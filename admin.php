@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div id='top'>
-		<img src='modules/img/adm.png'> <span>сайта <?= $CONFIG["title"] ?></span>
+		<a href='<?= ADMIN ?>' class='logo'><img src='modules/img/adm.png'></a> <span>сайта <?= $CONFIG["title"] ?></span>
 		<div>
 			<a href='<?= CONFIG ?>'>Настройки</a> |
 			<a href='?logout=1'>Выход</a>
