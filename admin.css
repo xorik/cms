@@ -244,8 +244,16 @@ h3 {
 	color: #bbb;
 }
 
+/* Редактор свойств страницы */
 #base {
 	width: 100%;
+}
+
+/* Шрифт и размер в кнопке сохранить и текстовом поле ввода */
+#base input[type=text],
+input.save {
+	font-family: Arial, Sans-serif;
+	font-size: 13px;
 }
 
 /* Кнопка и сссылка справа от заголовка */
@@ -263,12 +271,20 @@ input.save {
 	color: #fff;
 	border: none;
 	border-radius: 3px;
-	font-family: Arial, Sans-serif;
-	font-size: 13px;
+}
+
+#base input[type=text] {
+	width: 350px; height: 30px;
+	padding: 0 10px;
+	background: #fff;
+	color: #555;
+	border: none;
+	border-radius: 5px;
+	box-shadow: inset 0 0 5px #aaa;
 }
 
 /* Редактор */
-textarea.editor {
+#base textarea.editor {
 	width: 100%;
 }
 
