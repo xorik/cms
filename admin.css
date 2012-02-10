@@ -251,6 +251,7 @@ h3 {
 
 /* Шрифт и размер в кнопке сохранить и текстовом поле ввода */
 #base input[type=text],
+#base select,
 input.save {
 	font-family: Arial, Sans-serif;
 	font-size: 13px;
@@ -281,6 +282,11 @@ input.save {
 	border: none;
 	border-radius: 5px;
 	box-shadow: inset 0 0 5px #aaa;
+}
+
+#base select {
+	width: 370px;
+	padding: 4px 0;
 }
 
 /* Редактор */
