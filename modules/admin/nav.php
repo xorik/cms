@@ -8,10 +8,11 @@
 	{
 		global $id;
 		global $TYPE;
+		global $LEVEL;
 		global $PAGE_TYPE;
 		
 		// Добавление страницы
-		if( isset($_GET["page_add"]) && !$PAGE_TYPE[$TYPE]["nosub"] )
+		if( isset($_GET["page_add"]) && ($LEVEL==0 || !empty($PAGE_TYPE[$TYPE]["sub"])) )
 		{
 			// Первый разрешенный тип, иначе просто страница
 			$type = $PAGE_TYPE[$TYPE]["sub"][0] ? $PAGE_TYPE[$TYPE]["sub"][0] : "Страница";
@@ -99,13 +100,13 @@
 				echo "<div class='round $show'></div>";
 				echo "<a href='".ADMIN."id={$row["id"]}' class='block' title='{$row["title"]}'>$title";
 					// Стрелочка
-					if( !$PAGE_TYPE[$row["type"]]["nosub"] )
+					if( !empty($PAGE_TYPE[$row["type"]]["sub"]) )
 						echo "<div class='arrow'></div>";
 				echo "</a>";
 			echo "</li>\n";
 			
 			// Подразделы
-			if( $row["id"]==$GID[$level] && !$PAGE_TYPE[$row["type"]]["nosub"] )
+			if( $row["id"]==$GID[$level] && !empty($PAGE_TYPE[$row["type"]]["sub"]) )
 			{
 				if( $level == $LEVEL )
 					echo "<div class='add'>Добавить подраздел <a href='".ADMIN."id=$id&page_add=1'></a></div>";
