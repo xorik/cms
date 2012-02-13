@@ -12,8 +12,7 @@
 	$CONFIG['preview_h'] = 128;
 	$CONFIG['preview_quality'] = 85;
 	$CONFIG['rewrite'] = true;
-	$CONFIG['formats'] = '
-		{title : "Заголовок 1", block : "h1" },
-		{title : "Заголовок 2", block : "h2" },
-		{title : "Основной", block : "p" }';
+	$CONFIG['formats'] = '{title : "Заголовок 1", block : "h1" },
+{title : "Заголовок 2", block : "h2" },
+{title : "Основной", block : "p" }';
 ?>
