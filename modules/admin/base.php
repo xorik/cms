@@ -82,7 +82,7 @@
 						echo "<a href='".path($id)."' class='goto'>Посмотреть страницу</a>";
 				?>
 				<h2><?= $img ." ". $row["title"] ?></h2>
-				<table id='base'>
+				<table class='base'>
 					<col width='150'>
 					<col>
 					<? run( "base_show", $id ) ?>

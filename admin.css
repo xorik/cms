@@ -245,13 +245,13 @@ h3 {
 }
 
 /* Редактор свойств страницы */
-#base {
+table.base {
 	width: 100%;
 }
 
 /* Шрифт и размер в кнопке сохранить и текстовом поле ввода */
-#base input[type=text],
-#base select,
+table.base input[type=text],
+table.base select,
 input.save {
 	font-family: Arial, Sans-serif;
 	font-size: 13px;
@@ -274,7 +274,7 @@ input.save {
 	border-radius: 3px;
 }
 
-#base input[type=text] {
+table.base input[type=text] {
 	width: 350px; height: 30px;
 	padding: 0 10px;
 	background: #fff;
@@ -284,13 +284,13 @@ input.save {
 	box-shadow: inset 0 0 5px #aaa;
 }
 
-#base select {
+table.base select {
 	width: 370px;
 	padding: 4px 0;
 }
 
 /* Редактор */
-#base textarea.editor {
+table.base textarea.editor {
 	width: 100%;
 }
 
