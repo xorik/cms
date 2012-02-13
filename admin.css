@@ -274,7 +274,8 @@ input.save {
 	border-radius: 3px;
 }
 
-table.base input[type=text] {
+table.base input[type=text],
+table.base input[type=password] {
 	width: 350px; height: 30px;
 	padding: 0 10px;
 	background: #fff;
@@ -287,6 +288,10 @@ table.base input[type=text] {
 table.base select {
 	width: 370px;
 	padding: 4px 0;
+}
+
+table.base input.small {
+	width: 50px;
 }
 
 /* Редактор */
