@@ -69,6 +69,8 @@
 	function base_content()
 	{
 		global $id;
+		global $TYPE;
+		global $PAGE_TYPE;
 		
 		$query = "SELECT title, hide FROM page WHERE id=$id";
 		$row = mysql_fetch_array( mysql_query($query) );
