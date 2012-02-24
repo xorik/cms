@@ -65,6 +65,7 @@
 		global $id;
 		global $GID;
 		global $LEVEL;
+		global $TYPE;
 		global $PAGE_TYPE;
 		
 		// Прямая или обратная сортировка
@@ -78,14 +79,13 @@
 		while( $row = mysql_fetch_array($res) )
 		{
 			// Выделение блока
+			$class = "";
 			if( $row["id"] == $id )
 				$class = "sel";
-			elseif( $row["id"] == $GID[$level] )
-				$class = "open";
-			elseif( $level-1 == $LEVEL )
-				$class = "last";
-			else
-				$class = "";
+			if( $row["id"]==$GID[$level] )
+				$class .= " open";
+			if( $level-1==$LEVEL || ($level==$LEVEL && empty($PAGE_TYPE[$TYPE]["sub"])) )
+				$class .= " last";
 			// Фикс длинных заголовков
 			$title = str_replace( " ", "&nbsp;", $row["title"] );
 			
@@ -108,13 +108,17 @@
 			// Подразделы
 			if( $row["id"]==$GID[$level] && !empty($PAGE_TYPE[$row["type"]]["sub"]) )
 			{
-				if( $level == $LEVEL )
-					echo "<div class='add'>Добавить подраздел <a href='".ADMIN."id=$id&page_add=1'></a></div>";
+				// Кнопка "добавить подраздел" если последний уровень вложенности
+				if( $level==$LEVEL || ($level==$LEVEL-1 && empty($PAGE_TYPE[$TYPE]["sub"])) )
+					echo "<div class='add'>Добавить подраздел <a href='".ADMIN."id={$row["id"]}&page_add=1'></a></div>";
 				nav_level( $row["id"], $level+1, $row["type"] );
 				if( $level == $LEVEL )
 					echo "<hr>";
 			}
 		}
+		// Последний уровень и нет подразделов
+		if( $level==$LEVEL && empty($PAGE_TYPE[$TYPE]["sub"]) )
+			echo "<hr>";
 	}
 	
 	// Отображение навигации
