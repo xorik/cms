@@ -198,6 +198,17 @@ h3 {
 	background-position: 22px 0;
 }
 
+#content div.round {
+	display: inline-block;
+	vertical-align: middle;
+}
+#content div.round.show {
+	background-position: 0 11px;
+}
+#content div.round.hide {
+	background-position: 22px 11px;
+}
+
 #nav div.add {
 	height: 15px;
 	text-align: right;

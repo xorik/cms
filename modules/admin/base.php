@@ -149,9 +149,10 @@
 		$row = mysql_fetch_array( mysql_query($query) );
 		?>
 			<tr>
-				<td colspan='2'>Опубликовать:
-				<label><input type='radio' name='hide' value='0' <? if(!$row["hide"]) echo "checked" ?>> Да</label>
-				<label><input type='radio' name='hide' value='1' <? if($row["hide"]) echo "checked" ?>> Нет</label></td>
+				<td colspan='2'>
+				<label><input type='radio' name='hide' value='0' <? if(!$row["hide"]) echo "checked" ?>> Страница видна всем (<div class='round show'></div>)</label>
+				<label><input type='radio' name='hide' value='1' <? if($row["hide"]) echo "checked" ?>> Скрывать страницу в меню (<div class='round hide'></div>)</label>
+				</td>
 			</tr>
 		<?
 	}
