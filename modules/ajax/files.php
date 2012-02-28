@@ -45,6 +45,10 @@
 	
 	$query = "SELECT id, type, filename FROM file WHERE gid=$id ORDER BY pos, id";
 	$res = mysql_query( $query );
+	// Подсказка, если 2 или больше файла
+	if( mysql_num_rows($res) > 1 )
+		echo "<small><br>Файлы сортируются мышкой: захватите и перетащите</small><br>";
+	
 	while( $row = mysql_fetch_array($res) )
 	{
 		echo "<div id='{$row["id"]}' class='block'>";
