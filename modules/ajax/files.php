@@ -19,6 +19,7 @@
 	// Кнопка "удалить выбранные" файлы
 	function del_files_action()
 	{
+		echo "<label><input type='checkbox' class='files_sel'> <small>Выделить все</small> </label>";
 		echo "<input type='submit' name='del' value='Удалить выбранные' class='confirm' data-title='Удалить выбранные файлы?'>\n";
 	}
 	

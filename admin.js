@@ -63,6 +63,12 @@ $(function()
 		return false;
 	});
 	
+	// Выделить все файлы
+	$("input.files_sel").live( "change", function()
+	{
+		$("#gallery input[type=checkbox]").attr("checked", Boolean($(this).attr('checked')));
+	});
+	
 	// confirm диалог
 	$("a.confirm, input.confirm").live("click", function()
 	{
