@@ -77,6 +77,6 @@
 		// Заголовок страницы
 		$HEAD[] = "<title>$TITLE</title>";
 		// Шаблон контента
-		require( "main.php" );
+		require( "templates/main.php" );
 	}
 ?>
