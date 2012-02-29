@@ -7,7 +7,7 @@
 	function type_init()
 	{
 		global $PAGE_TYPE;
-		$PAGE_TYPE["Страница"] = array();
+		$PAGE_TYPE["Страница"] = array("descr"=>"Обычная страница с текстами и картинками");
 	}
 	
 	
@@ -133,13 +133,26 @@
 		
 		echo "<tr>";
 			echo "<td>Тип:</td> <td><select name='type'>\n";
+			// Сохраняем братьев по типу в $types :)
+			$types = array( $TYPE );
 			foreach( $PAGE_TYPE as $k=>$v )
-				if( $k == $TYPE )
-					echo "<option selected>$k</option>\n";
-				else
-					echo "<option>$k</option>\n";
+				if( !empty($v["sub"]) )
+					if( in_array($TYPE, $v["sub"]) )
+						$types = array_merge( $types, $v["sub"] );
 			
-			echo "</select></td>";
+			// Убираем повторы
+			$types = array_unique( $types );
+			
+			// Все братья
+			foreach( $types AS $v )
+				if( $v == $TYPE )
+					echo "<option selected title='{$PAGE_TYPE[$v]["descr"]}'>$v</option>\n";
+				else
+					echo "<option title='{$PAGE_TYPE[$v]["descr"]}'>$v</option>\n";
+			
+			echo "</select>";
+			echo "<br><small>{$PAGE_TYPE[$TYPE]["descr"]}</small>";
+			echo "</td>";
 		echo "</tr>\n";
 	}
 	
