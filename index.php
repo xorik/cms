@@ -49,6 +49,9 @@
 		// Инициализация
 		define( "ADMIN", $CONFIG["rewrite"] ? "./admin?" : "./?do=admin&" );
 		define( "CONFIG", $CONFIG["rewrite"] ? "./config?" : "./?do=config&" );
+		// Тип корня раздела
+		if( $id === 0 )
+			$TYPE = "root";
 		load_modules( $DO );
 		run( "init" );
 		
