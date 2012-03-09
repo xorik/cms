@@ -8,6 +8,7 @@ $(function()
 		containment: "#nav",
 		tolerance: "pointer",
 		handle: "div.sort",
+		placeholder: "placeholder",
 		stop: function()
 		{
 			// Новый порядок

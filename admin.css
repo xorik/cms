@@ -198,6 +198,10 @@ h3 {
 	background-position: 22px 0;
 }
 
+#nav li.placeholder {
+	height: 31px;
+}
+
 #content div.round {
 	display: inline-block;
 	vertical-align: middle;
@@ -316,6 +320,10 @@ table.base textarea.editor {
 	cursor: move;
 }
 
+#nav li.placeholder {
+	background: #555;
+}
+
 /* Список файлов (галерея) */
 #gallery div.block,
 #gallery div.placeholder {
@@ -332,6 +340,7 @@ table.base textarea.editor {
 #gallery div.placeholder {
 	width: 32px;
 	height: 64px;
+	background: #555;
 }
 
 /* Подвал */
