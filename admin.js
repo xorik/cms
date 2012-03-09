@@ -43,6 +43,10 @@ $(function()
 			
 			// Сохранение сортировки
 			$.ajax("?do=ajax&file=admin&file_sort=1"+list);
+		},
+		start: function(event, ui)
+		{
+			ui.placeholder.css("width", ui.helper.width()+"px");
 		}
 	});
 	

@@ -329,7 +329,12 @@ table.base textarea.editor {
 #gallery div.placeholder {
 	float: left;
 	padding: 5px;
+}
+#gallery div a {
 	line-height: 64px;
+}
+#gallery img.pic {
+	vertical-align: bottom;
 }
 #gallery img.pic {
 	height: 64px;
@@ -338,7 +343,6 @@ table.base textarea.editor {
 	vertical-align: middle;
 }
 #gallery div.placeholder {
-	width: 32px;
 	height: 64px;
 	background: #555;
 }
