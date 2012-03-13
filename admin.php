@@ -32,6 +32,7 @@
 			?>
 			</div>
 			<? run( "content" ) ?>
+			<div style='clear: left'></div>
 		</div>
 	</div>
 	<div id='bottom'>

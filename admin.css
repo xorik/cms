@@ -325,6 +325,9 @@ table.base textarea.editor {
 }
 
 /* Список файлов (галерея) */
+#gallery form {
+	overflow: hidden;
+}
 #gallery div.block,
 #gallery div.placeholder {
 	float: left;
