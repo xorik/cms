@@ -82,7 +82,7 @@
 			$class = "";
 			if( $row["id"] == $id )
 				$class = "sel";
-			if( $row["id"]==$GID[$level] )
+			if( $row["id"]==$GID[$level] && ($level!=$LEVEL || ($level==$LEVEL && !empty($PAGE_TYPE[$TYPE]["sub"]))) )
 				$class .= " open";
 			if( $level-1==$LEVEL || ($level==$LEVEL && empty($PAGE_TYPE[$TYPE]["sub"])) )
 				$class .= " last";

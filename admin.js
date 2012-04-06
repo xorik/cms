@@ -18,8 +18,14 @@ $(function()
 				list += "&p[]="+$(this).attr("id");
 			});
 			
+			// id раздела
+			var id = 0;
+			if( $("#nav li.open:last").length )
+				id = $("#nav li.open:last").attr("id");
+			
+			
 			// Сохранение сортировки
-			$.ajax("?do=ajax&file=admin&page_sort=1"+list);
+			$.ajax("?do=ajax&file=admin&page_sort=1&id="+id+list);
 		}
 	});
 
