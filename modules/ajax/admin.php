@@ -16,8 +16,6 @@
 		if( $PAGE_TYPE[$TYPE]["reverse"] )
 			$_GET["p"] = array_reverse( $_GET["p"] );
 		
-		$i = 0;
-		
 		foreach( $_GET["p"] as $k => $v )
 		{
 			$k = (int)$k;
@@ -30,8 +28,6 @@
 	// Сортировка файлов
 	if( isset($_GET["file_sort"]) )
 	{
-		$i = 0;
-		
 		foreach( $_GET["p"] as $k => $v )
 		{
 			$k = (int)$k;
