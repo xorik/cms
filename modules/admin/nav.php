@@ -18,7 +18,13 @@
 			$type = $PAGE_TYPE[$TYPE]["sub"][0] ? $PAGE_TYPE[$TYPE]["sub"][0] : "Страница";
 			$query = "INSERT INTO page (gid, title, text, type) VALUES ($id, '$type', '', '$type')";
 			mysql_query( $query );
+			
+			// Сохраняем id и тип для хуков
 			$id = mysql_insert_id();
+			$TYPE = $type;
+			
+			// Хуки после добавления
+			run( "base_add", $id );
 			
 			header( "Location: ".ADMIN."id=$id" );
 			die;
