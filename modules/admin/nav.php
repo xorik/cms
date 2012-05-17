@@ -48,7 +48,7 @@
 			mysql_query( $query );
 			
 			// Другие действия при удалении
-			run( "sub_del", $id );
+			run( "base_del", $id );
 		}
 		
 		// Удаление страниц
