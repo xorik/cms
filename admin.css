@@ -335,6 +335,7 @@ table.base textarea.editor {
 }
 #gallery div a {
 	line-height: 64px;
+	text-decoration: none;
 }
 #gallery img.pic {
 	vertical-align: bottom;
