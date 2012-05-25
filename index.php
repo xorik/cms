@@ -36,6 +36,10 @@
 			unset($id);
 	}
 	
+	// Вернуть статус 404, если страницы нет
+	if( !$id && !$_GET["do"] )
+		header( "HTTP/1.0 404 Not Found" );
+	
 	// Начать PHP-сессию
 	session_start();
 	
