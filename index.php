@@ -11,6 +11,16 @@
 		$row = mysql_fetch_array( mysql_query($query) );
 		$id = $row["id"];
 	}
+	// Переход с ?id= на путь страницы, если включен реврайт
+	elseif( $_GET["id"] && $_GET["id"]!=$CONFIG["main"] && !$_GET["do"] && $CONFIG["rewrite"] )
+	{
+		if( $path = get_prop($_GET["id"], "path") )
+		{
+			header( "Location: $path" );
+			die;
+		}
+	}
+	
 	// Неправильный путь, страница по id или главная
 	if( !$_GET["t"] && $_GET["do"]!="config" )
 		$id = isset($_GET["id"]) ? (int)$_GET["id"] : $CONFIG["main"];
