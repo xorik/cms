@@ -133,10 +133,10 @@
 		global $id;
 		global $LEVEL;
 		
-		echo "<div id='nav_title'>Разделы";
+		echo "<div id='nav_title'>";
 		if( $LEVEL == 0 )
-			echo "<a href='".ADMIN."id=$id&page_add=1'></a>";
-		echo "</div>\n";
+			echo "<a href='".ADMIN."id=$id&page_add=1' class='add'></a>";
+		echo "<a href='".ADMIN."'>Разделы</a></div>\n";
 		
 		// Список первого уровня
 		nav_level( 0, 1, "" );
