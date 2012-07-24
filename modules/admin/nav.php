@@ -92,8 +92,6 @@
 				$class .= " open";
 			if( $level-1==$LEVEL || ($level==$LEVEL && empty($PAGE_TYPE[$TYPE]["sub"])) )
 				$class .= " last";
-			// Фикс длинных заголовков
-			$title = str_replace( " ", "&nbsp;", $row["title"] );
 			
 			// Скрытый ли блок
 			$show = $row["hide"] ? "hide" : "show";
@@ -104,7 +102,7 @@
 					echo "<div class='indent'></div>";
 				echo "<a href='".ADMIN."id=$id&page_del={$row["id"]}' class='round del confirm' data-title='Удалить \"{$row["title"]}\" вместе с подразделами?'></a>";
 				echo "<div class='round $show'></div>";
-				echo "<a href='".ADMIN."id={$row["id"]}' class='block' title='{$row["title"]}'>$title";
+				echo "<a href='".ADMIN."id={$row["id"]}' class='block' title='{$row["title"]}'>{$row["title"]}";
 					// Стрелочка
 					if( !empty($PAGE_TYPE[$row["type"]]["sub"]) )
 						echo "<div class='arrow'></div>";
