@@ -131,24 +131,27 @@
 			return;
 		}
 		
+		// Все типы подразделов родителя
+		global $LEVEL;
+		global $GID_TYPE;
+		
+		$types = array( $TYPE );
+		if( $PAGE_TYPE[$GID_TYPE[$LEVEL-1]]["sub"] )
+			$types = array_merge( $types, $PAGE_TYPE[$GID_TYPE[$LEVEL-1]]["sub"] );
+		
+		// Убираем повторы
+		$types = array_unique( $types );
+		
 		echo "<tr>";
 			echo "<td>Тип:</td> <td><select name='type'>\n";
-			// Сохраняем братьев по типу в $types :)
-			$types = array( $TYPE );
-			foreach( $PAGE_TYPE as $k=>$v )
-				if( !empty($v["sub"]) )
-					if( in_array($TYPE, $v["sub"]) )
-						$types = array_merge( $types, $v["sub"] );
 			
-			// Убираем повторы
-			$types = array_unique( $types );
-			
-			// Все братья
 			foreach( $types AS $v )
+			{
 				if( $v == $TYPE )
-					echo "<option selected title='{$PAGE_TYPE[$v]["descr"]}'>$v</option>\n";
+					echo "<option selected>$v</option>\n";
 				else
-					echo "<option title='{$PAGE_TYPE[$v]["descr"]}'>$v</option>\n";
+					echo "<option>$v</option>\n";
+			}
 			
 			echo "</select>";
 			// Описание типа
