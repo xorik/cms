@@ -151,7 +151,9 @@
 					echo "<option title='{$PAGE_TYPE[$v]["descr"]}'>$v</option>\n";
 			
 			echo "</select>";
-			echo "<br><small>{$PAGE_TYPE[$TYPE]["descr"]}</small>";
+			// Описание типа
+			if( $PAGE_TYPE[$TYPE]["descr"] )
+				echo "<br><small>{$PAGE_TYPE[$TYPE]["descr"]}</small>";
 			echo "</td>";
 		echo "</tr>\n";
 	}
