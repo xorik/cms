@@ -10,6 +10,8 @@
 		global $GID;
 		// Заголовки разделов
 		global $GID_TITLE;
+		// Типы разделов
+		global $GID_TYPE;
 		// Уровень
 		global $LEVEL;
 		
@@ -24,17 +26,19 @@
 		// От текущего элемента к родительским
 		while( $bid )
 		{
-			$query = "SELECT gid, title FROM page WHERE id=$bid";
+			$query = "SELECT gid, title, type FROM page WHERE id=$bid";
 			$row = mysql_fetch_array( mysql_query($query) );
 			
 			$GID[] = $bid;
 			$GID_TITLE[] = $row["title"];
+			$GID_TYPE[] = $row["type"];
 			
 			$bid = $row["gid"];
 			$LEVEL++;
 		}
 		
 		// Главная
+		$GID_TYPE[] = "root";
 		if( $_GET["do"]=="admin" )
 		{
 			$GID[] = 0;
@@ -50,6 +54,7 @@
 		// Переворачиваем массивы
 		$GID = array_reverse( $GID );
 		$GID_TITLE = array_reverse( $GID_TITLE );
+		$GID_TYPE = array_reverse( $GID_TYPE );
 	}
 	
 	
