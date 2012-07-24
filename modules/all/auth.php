@@ -4,6 +4,8 @@
 	// Простая авторизация по паролю
 	function base_auth()
 	{
+		global $CONFIG;
+		
 		// Проверка пароля при входе
 		if( $_POST["admin_pass"] )
 			if( md5($_POST["admin_pass"] . $CONFIG["admin_salt"]) == $CONFIG["admin_hash"] )
