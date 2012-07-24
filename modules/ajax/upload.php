@@ -1,5 +1,5 @@
 <?
-	require( "modules/auth.php" );
+	run( "auth" );
 	load_modules( "upload" );
 	
 	// Инициализация модулей

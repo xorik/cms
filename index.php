@@ -59,7 +59,7 @@
 	if( $DO=="admin" || $DO=="config" )
 	{
 		// Проверка прав
-		require( "modules/auth.php" );
+		run( "auth" );
 		// Инициализация
 		define( "ADMIN", $CONFIG["rewrite"] ? "./admin?" : "./?do=admin&" );
 		define( "CONFIG", $CONFIG["rewrite"] ? "./config?" : "./?do=config&" );

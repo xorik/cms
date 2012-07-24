@@ -1,5 +1,5 @@
 <?
-	require( "modules/auth.php" );
+	run( "auth" );
 	hook( "init", "files_init" );
 	hook( "files_show", "default_files_show" );
 	hook( "files_action", "del_files_action", 90 );
