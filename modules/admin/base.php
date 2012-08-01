@@ -30,9 +30,7 @@
 		hook( "content", "base_content", 10 );
 		hook( "base_show", "base_title", 10 );
 		hook( "base_show", "base_type", 15 );
-		// Не виртуальная страница
-		if( !$PAGE_TYPE[$TYPE]["virt"] )
-			hook( "base_show", "base_hide", 80 );
+		hook( "base_show", "base_hide", 80 );
 		// Нужен текст
 		if( !$PAGE_TYPE[$TYPE]["notext"] )
 			hook( "base_show", "base_text", 90 );
