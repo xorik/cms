@@ -97,4 +97,10 @@ $(function()
 			this.select();
 		}).focus();
 	}
+	
+	$(window).bind('beforeunload', function()
+	{
+		if( $("textarea.editor").tinymce && $("textarea.editor").tinymce().isDirty() )
+			return "Уйти без сохранения?";
+	});
 });
