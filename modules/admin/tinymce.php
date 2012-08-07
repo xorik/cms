@@ -5,8 +5,10 @@
 	{
 		global $CONFIG;
 		global $id;
+		global $TYPE;
+		global $PAGE_TYPE;
 		// Нужен ли редактор
-		if( !$id )
+		if( !$id || $PAGE_TYPE[$TYPE]["notext"] )
 			return;
 		
 		// Подключение и настройка tinymce
