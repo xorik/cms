@@ -70,7 +70,7 @@ $(function()
 	// Вставка картинки из галереи
 	$("#gallery a").live( "click", function()
 	{
-		$("textarea.editor").tinymce().execCommand("mceInsertContent", false, $(this).data("text"));
+		$("textarea.mce").tinymce().execCommand("mceInsertContent", false, $(this).data("text"));
 		return false;
 	});
 	
@@ -100,7 +100,7 @@ $(function()
 	
 	$(window).bind('beforeunload', function()
 	{
-		if( $("textarea.editor").tinymce && $("textarea.editor").tinymce().isDirty() )
+		if( $("textarea.mce").tinymce && $("textarea.mce").tinymce().isDirty() )
 			return "Уйти без сохранения?";
 	});
 });
