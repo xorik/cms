@@ -15,7 +15,7 @@
 		<?
 		else :
 		?>
-			<a href='#' data-text='<a href="files/<?= $f["id"] ?>.<?= $f["type"] ?>"><?= $f["filename"] ?></a>'>
+			<a href='#' data-text='<a href="?do=ajax&file=getfile&fid=<?= $f["id"] ?>"><?= $f["filename"] ?></a>'>
 				<img src='modules/img/file.png'> <?= $f["filename"] ?>
 			</a>
 		<?
