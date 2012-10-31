@@ -23,7 +23,7 @@
 			<h3>Изображения и файлы</h3>
 			<div>
 				<form action='?do=ajax&file=upload&id=<?= $id ?>' method='post' enctype='multipart/form-data' target='upload'>
-					Загрузить: <input type='file' name='gallery'>
+					Загрузить: <input type='file' name='gallery[]' multiple='true'>
 					<input type='submit' value='Загрузить'>
 					<small>(Максимум: <?= ini_get("upload_max_filesize") ?>b)</small>
 				</form>
