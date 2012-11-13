@@ -51,12 +51,15 @@ h3 {
 
 #main {
 	background: #ededed;
+	position: relative;
 }
 
 /* Левый блок */
 #nav {
 	width: 330px;
-	float: left;
+	position: absolute;
+	top: 0; bottom: 0;
+	overflow-y: auto;
 }
 
 #nav_title {
