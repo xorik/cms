@@ -192,6 +192,10 @@ h3 {
 #nav li.sel a.round.del {
 	background-position: 11px 0;
 }
+#nav li div.lock {
+	background: none;
+	margin-right: 10px;
+}
 #nav li div.round.show {
 	background-position: 0 22px;
 }

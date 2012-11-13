@@ -100,7 +100,12 @@
 				// Отступы
 				for( $i=0; $i<$level-1; $i++ )
 					echo "<div class='indent'></div>";
-				echo "<a href='".ADMIN."id=$id&page_del={$row["id"]}' class='round del confirm' data-title='Удалить \"{$row["title"]}\" вместе с подразделами?'></a>";
+				// Не неудаляемая
+				if( !$PAGE_TYPE[$row["type"]]["lock"] )
+					echo "<a href='".ADMIN."id=$id&page_del={$row["id"]}' class='round del confirm' data-title='Удалить \"{$row["title"]}\" вместе с подразделами?'></a>";
+				// Неудаляемая
+				else
+					echo "<div class='round lock'></div>";
 				echo "<div class='round $show'></div>";
 				echo "<a href='".ADMIN."id={$row["id"]}' class='block' title='{$row["title"]}'>{$row["title"]}";
 					// Стрелочка
