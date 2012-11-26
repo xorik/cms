@@ -181,4 +181,13 @@
 		else
 			return "./?id=$id";
 	}
+	
+	
+	// Вывести текст раздела
+	function get_text( $id )
+	{
+		$query = "SELECT text FROM page WHERE id=$id";
+		$row = mysql_fetch_array( mysql_query($query) );
+		return $row["text"];
+	}
 ?>
