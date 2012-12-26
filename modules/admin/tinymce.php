@@ -19,6 +19,8 @@
 		$JS[] = "modules/tiny_mce/jquery.tinymce.js";
 		$SCRIPT[] = "$(function()
 		{
+			// workaround для ширины
+			$('textarea.editor.mce').css('width', $('#content').width());
 			$('textarea.mce').tinymce(
 			{
 			script_url : 'modules/tiny_mce/tiny_mce.js',
