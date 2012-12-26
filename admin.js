@@ -90,7 +90,7 @@ $(function()
 	});
 	
 	// Выделить заголовок, если == названию типа
-	if( $("#content [name=type]").val() == $("#content input[name=title]").val() )
+	if( $("#content select[name=type]").val() == $("#content input[name=title]").val() )
 	{
 		$("#content input[name=title]").focus(function()
 		{
