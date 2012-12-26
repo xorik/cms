@@ -1,6 +1,6 @@
 <?
 	// Отобразить меню
-	function menu( $id, $level=1, $templ="{}" )
+	function menu( $id, $templ="{}" )
 	{
 		global $GID;
 		
@@ -8,7 +8,7 @@
 		$res = mysql_query( $query );
 		while( $row = mysql_fetch_array($res) )
 		{
-			if( $row["id"] == $GID[$level] )
+			if( in_array($row["id"], $GID) )
 				$s = "<a href='".path($row["id"])."' class='sel'>{$row["title"]}</a>";
 			else
 				$s = "<a href='".path($row["id"])."'>{$row["title"]}</a>";
@@ -16,5 +16,4 @@
 			echo str_replace( "{}", $s, $templ );
 		}
 	}
-
 ?>
