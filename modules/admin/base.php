@@ -30,6 +30,9 @@
 		hook( "content", "base_content", 10 );
 		hook( "base_show", "base_title", 10 );
 		hook( "base_show", "base_type", 15 );
+		// Описание
+		if( $PAGE_TYPE[$TYPE]["descr"] )
+			hook( "base_show", "base_descr", 16 );
 		hook( "base_show", "base_hide", 80 );
 		// Нужен текст
 		if( !$PAGE_TYPE[$TYPE]["notext"] )
@@ -151,13 +154,19 @@
 					echo "<option>$v</option>\n";
 			}
 			
-			echo "</select>";
-			// Описание типа
-			if( $PAGE_TYPE[$TYPE]["descr"] )
-				echo "<br><small>{$PAGE_TYPE[$TYPE]["descr"]}</small>";
-			echo "</td>";
+			echo "</select></td>";
 		echo "</tr>\n";
 	}
+	
+	
+	function base_descr()
+	{
+		global $TYPE;
+		global $PAGE_TYPE;
+		
+		echo "<tr><td></td><td class='descr'>{$PAGE_TYPE[$TYPE]["descr"]}</td></tr>";
+	}
+	
 	
 	function base_hide( $id )
 	{

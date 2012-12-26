@@ -323,6 +323,11 @@ table.base input.small {
 	width: 50px;
 }
 
+/* Описание типа */
+td.descr {
+	font-size: 10px;
+}
+
 /* Редактор */
 table.base textarea.editor {
 	width: 100%;
