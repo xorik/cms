@@ -163,6 +163,10 @@
 		// Удаляем из ФС
 		unlink( "files/$id.{$row["type"]}" );
 		
+		// Удаляем вспомогательные файлы
+		foreach( glob("files/{$id}_*", GLOB_NOSORT) as $file )
+			unlink( $file );
+		
 		// И из БД
 		$query = "DELETE FROM file WHERE id=$id";
 		mysql_query( $query );

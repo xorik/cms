@@ -47,6 +47,13 @@
 			$query = "DELETE FROM prop WHERE id=$id";
 			mysql_query( $query );
 			
+			// Файлы
+			$query = "SELECT id FROM file WHERE gid=$id";
+			$res = mysql_query( $query );
+			while( $row = mysql_fetch_array($res) )
+				delete_file( $row["id"] );
+			
+			
 			// Другие действия при удалении
 			run( "base_del", $id );
 		}
