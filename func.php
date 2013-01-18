@@ -95,7 +95,7 @@
 		global $JS;
 		global $SCRIPT;
 		
-		echo "<meta http-equiv='content-type' content='text/html; charset=utf-8'>\n";
+		echo "<meta charset='utf-8'>\n";
 		
 		if( $HEAD )
 			foreach( $HEAD as $v )
@@ -105,14 +105,14 @@
 		{
 			$CSS = array_unique( $CSS );
 			foreach( $CSS as $v )
-				echo "\t<link rel='stylesheet' type='text/css' href='$v'>\n";
+				echo "\t<link rel='stylesheet' href='$v'>\n";
 		}
 		
 		if( $JS )
 		{
 			$JS = array_unique( $JS );
 			foreach( $JS as $v )
-				echo "\t<script type='text/javascript' src='$v'></script>\n";
+				echo "\t<script src='$v'></script>\n";
 		}
 		
 		if( $SCRIPT )
