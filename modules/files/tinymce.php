@@ -7,19 +7,23 @@
 	// При нажатии на картинку, она вставляется в редактор
 	function tinymce_files_show( $f )
 	{
-		if( $f["type"]=="png" || $f["type"]=="jpg" || $f["type"]=="jpeg" || $f["type"]=="gif" ) :
-		?>
-			<a href='#' data-text='<img src="files/<?= $f["id"] ?>.<?= $f["type"] ?>">'>
-				<img src='files/<?= $f["id"] ?>_.jpg' class='pic'>
-			</a>
-		<?
-		else :
-		?>
-			<a href='#' data-text='<a href="?do=ajax&file=getfile&fid=<?= $f["id"] ?>"><?= $f["filename"] ?></a>'>
-				<img src='modules/img/file.png'> <?= $f["filename"] ?>
-			</a>
-		<?
-		endif;
+		global $CONFIG;
+		
+		if( $f["type"]=="png" || $f["type"]=="jpg" || $f["type"]=="jpeg" || $f["type"]=="gif" )
+		{
+			$text = "<img src='files/{$f["id"]}.{$f["type"]}'>";
+			$html = "<img src='files/{$f["id"]}_.jpg' class='pic'>";
+		}
+		else
+		{
+			if( $CONFIG["rewrite"] )
+				$text = "<a href='file/{$f["id"]}'>{$f["filename"]}</a>";
+			else
+				$text = "<a href='?do=ajax&file=getfile&fid={$f["id"]}'>{$f["filename"]}</a>";
+			
+			$html = "<img src='modules/img/file.png'> {$f["filename"]}";
+		}
+		
+		echo "<a href='#' data-text=\"$text\">$html</a>";
 	}
-	
 ?>
