@@ -70,7 +70,7 @@ $(function()
 	// Вставка картинки из галереи
 	$("#gallery a").live( "click", function()
 	{
-		$("textarea.mce").tinymce().execCommand("mceInsertContent", false, $(this).data("text"));
+		tinyMCE.activeEditor.execCommand("mceInsertContent", false, $(this).data("text"));
 		return false;
 	});
 	
