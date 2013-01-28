@@ -50,15 +50,16 @@
 	function post_base_init()
 	{
 		global $id;
+		global $CONFIG;
+		
 		$hide = (int)$_POST["hide"];
 		
 		$query = "UPDATE page set title='{$_POST["title"]}', text='{$_POST["text"]}', type='{$_POST["type"]}', hide=$hide WHERE id=$id";
 		mysql_query( $query );
 		
 		// Путь для rewrite
-		$p = $_POST["path"];
-		$p = str_replace( " ", "_", $p );
-		set_prop( $id, "path", $p );
+		if( $CONFIG["rewrite"] )
+			set_prop( $id, "path", str_replace(" ", "_", $_POST["path"]) );
 		
 		// Обновление
 		run( "base_submit", $id );
