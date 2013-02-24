@@ -194,6 +194,7 @@
 	
 	function not_found_content()
 	{
-		echo "<h3>Страница была удалена или еще не создана!</h3><a href='".ADMIN."'>Назад</a>\n";
+		global $ADMIN_URL;
+		echo "<h3>Страница была удалена или еще не создана!</h3><a href='$ADMIN_URL'>Назад</a>\n";
 	}
 ?>

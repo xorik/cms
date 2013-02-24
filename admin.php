@@ -11,9 +11,9 @@
 </head>
 <body>
 	<div id='top'>
-		<a href='<?= ADMIN ?>' class='logo'><img src='modules/img/adm.png'></a> <span>сайта <?= $CONFIG["title"] ?></span>
+		<a href='<?= $ADMIN_URL ?>' class='logo'><img src='modules/img/adm.png'></a> <span>сайта <?= $CONFIG["title"] ?></span>
 		<div>
-			<a href='<?= CONFIG ?>'>Настройки</a> |
+			<a href='<?= $CONFIG_URL ?>'>Настройки</a> |
 			<a href='?logout=1'>Выход</a>
 		</div>
 	</div>
@@ -28,7 +28,7 @@
 				if( $_GET["do"] == "admin" )
 					run( "crumb", "•" );
 				else
-					echo "<a href='".ADMIN."'>Разделы</a>";
+					echo "<a href='$ADMIN_URL'>Разделы</a>";
 			?>
 			</div>
 			<? run( "content" ) ?>

@@ -53,6 +53,10 @@
 	// Начать PHP-сессию
 	session_start();
 	
+	// Инициализация
+	$ADMIN_URL = $CONFIG["rewrite"] ? "./admin?" : "./?do=admin&";
+	$CONFIG_URL = $CONFIG["rewrite"] ? "./config?" : "./?do=config&";
+	
 	// Действие
 	$DO = $_GET["do"];
 	// Админка
@@ -60,9 +64,6 @@
 	{
 		// Проверка прав
 		run( "auth" );
-		// Инициализация
-		define( "ADMIN", $CONFIG["rewrite"] ? "./admin?" : "./?do=admin&" );
-		define( "CONFIG", $CONFIG["rewrite"] ? "./config?" : "./?do=config&" );
 		// Тип корня раздела
 		if( $id === 0 )
 			$TYPE = "root";

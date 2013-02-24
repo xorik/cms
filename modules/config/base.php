@@ -7,6 +7,8 @@
 	function config_init()
 	{
 		global $CONFIG;
+		global $CONFIG_URL;
+		
 		// Настройки БД, если включены расширенные настройки
 		if( $CONFIG["adv"] )
 		{
@@ -34,7 +36,7 @@
 				
 				// Запись конфига и разлогин
 				config_write();
-				die( "Пароль успешно изменен!<br><a href='". CONFIG ."'>Назад</a><meta http-equiv='refresh' content='3;url=". CONFIG ."'>" );
+				die( "Пароль успешно изменен!<br><a href='$CONFIG_URL'>Назад</a><meta http-equiv='refresh' content='3;url=$CONFIG_URL'>" );
 			}
 		}
 		
