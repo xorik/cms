@@ -117,7 +117,7 @@
 		
 		if( $SCRIPT )
 			foreach( $SCRIPT as $v )
-				echo "\t<script type='text/javascript'>\n$v\n</script>\n";
+				echo "\t<script>\n$v\n</script>\n";
 	}
 	
 	
