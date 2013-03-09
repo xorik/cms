@@ -32,10 +32,7 @@
 		
 		foreach( $_POST as $id => $v )
 			if( $v == "on" )
-			{
 				delete_file( $id );
-				unlink( "files/{$id}_.jpg" );
-			}
 	}
 	
 	run( "init" );
