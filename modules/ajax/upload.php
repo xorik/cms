@@ -9,7 +9,7 @@
 		global $id;
 		
 		// Файл загружен
-		if( is_uploaded_file($file["tmp_name"]) )
+		if( is_uploaded_file($file["tmp_name"]) || $file["url"] )
 		{
 			// Тип файла
 			$ext = strtolower( substr($file["name"], 1+strrpos($file["name"], ".")) );
@@ -21,7 +21,11 @@
 			
 			// Пемещение файла
 			$target = "files/$fid.$ext";
-			move_uploaded_file( $file["tmp_name"], $target );
+			// Скачивание
+			if( $file["url"] )
+				file_put_contents( $target, file_get_contents($file["url"]) );
+			else
+				move_uploaded_file( $file["tmp_name"], $target );
 			chmod( $target, 0644 );
 			
 			// Хуки
@@ -31,6 +35,17 @@
 	
 	// Инициализация модулей
 	run( "init" );
+	
+	// Загрузка из URL
+	if( $_POST["url"] )
+	{
+		$url = explode( " ", $_POST["url"] );
+		foreach( $url as $u )
+		{
+			$name = substr( $u, 1+strrpos($u, "/") );
+			add_file( array("name"=>$name, "url"=>$u), "url" );
+		}
+	}
 	
 	// Для каждого файла
 	foreach( $_FILES as $name=>$f )
