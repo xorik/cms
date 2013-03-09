@@ -61,25 +61,26 @@ $(function()
 	{
 		$("iframe[name=upload]").load( function()
 		{
-			$("#gallery").load("?do=ajax&file=files&id="+$("#gallery").data("id"));
+			$("#gallery").load("?do=ajax&file=files&id="+$("#gallery").data("id"), function()
+			{
+				// Вставка картинки из галереи
+				$("#gallery a").click( function()
+				{
+					tinyMCE.activeEditor.execCommand("mceInsertContent", false, $(this).data("text"));
+					return false;
+				});
+				
+				// Выделить все файлы
+				$("input.files_sel").click( function()
+				{
+					$("#gallery div :checkbox").prop("checked", $(this).is(":checked"));
+				});
+			});
 		}).load();
 	}
 	
-	// Вставка картинки из галереи
-	$("#gallery a").live( "click", function()
-	{
-		tinyMCE.activeEditor.execCommand("mceInsertContent", false, $(this).data("text"));
-		return false;
-	});
-	
-	// Выделить все файлы
-	$("input.files_sel").live( "change", function()
-	{
-		$("#gallery input[type=checkbox]").attr("checked", Boolean($(this).attr('checked')));
-	});
-	
 	// confirm диалог
-	$("a.confirm, input.confirm").live("click", function()
+	$("body").on("click", "a.confirm, input.confirm", function()
 	{
 		if( confirm($(this).data("title")) )
 			return true;
