@@ -35,10 +35,6 @@
 	
 	function gallery_upload( $file )
 	{
-		// Не наш файл
-		if( $file["inputname"] != "gallery" )
-			return;
-		
 		global $CONFIG;
 		
 		$types = array( "png", "jpg", "jpeg", "gif" );
