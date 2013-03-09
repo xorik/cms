@@ -53,7 +53,7 @@
 	function config_item( $v )
 	{
 		if( is_string($v) )
-			return "'$v'";
+			return "'". str_replace("'", "\\'", $v) ."'";
 		elseif( is_numeric($v) )
 			return $v;
 		elseif( is_bool($v) )
