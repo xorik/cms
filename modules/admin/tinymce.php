@@ -15,7 +15,7 @@
 		global $JS;
 		global $SCRIPT;
 		
-		$JS[] = "jquery.js";
+		$JS[] = "res/jquery.js";
 		$JS[] = "modules/tiny_mce/jquery.tinymce.js";
 		$SCRIPT[] = "$(function()
 		{
@@ -39,7 +39,7 @@
 			style_formats : [
 				{$CONFIG["formats"]}
 			],
-			content_css: 'content.css',
+			content_css: 'res/content.css',
 			extended_valid_elements : 'iframe[name|src|framespacing|border|frameborder|scrolling|title|height|width]',
 			});
 		});";

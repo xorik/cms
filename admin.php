@@ -1,9 +1,9 @@
 <?
 	// Стили, скрипты
-	$CSS[] = "admin.css";
-	$JS[] = "jquery.js";
-	$JS[] = "jquery-ui.js";
-	$JS[] = "admin.js";
+	$CSS[] = "res/admin.css";
+	$JS[] = "res/jquery.js";
+	$JS[] = "res/jquery-ui.js";
+	$JS[] = "res/admin.js";
 ?>
 <!doctype html>
 <head>
@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div id='top'>
-		<a href='<?= $ADMIN_URL ?>' class='logo'><img src='modules/img/adm.png'></a> <span>сайта <?= $CONFIG["title"] ?></span>
+		<a href='<?= $ADMIN_URL ?>' class='logo'><img src='res/img/adm.png'></a> <span>сайта <?= $CONFIG["title"] ?></span>
 		<div>
 			<a href='<?= $CONFIG_URL ?>'>Настройки</a> |
 			<a href='?logout=1'>Выход</a>
@@ -36,7 +36,7 @@
 		</div>
 	</div>
 	<div id='bottom'>
-		<img src='modules/img/logo.png'>
-		<? @include( "version" ) ?>
+		<img src='res/img/logo.png'>
+		<? @include( "res/version" ) ?>
 	</div>
 </body>
