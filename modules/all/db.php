@@ -9,6 +9,6 @@
 	// Ошибка подключение и не страница настроек
 	if( $error && $_GET["do"]!="config" )
 		die( $error );
-	else
+	elseif( empty($_POST) )
 		echo( $error );
 ?>
