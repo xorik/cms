@@ -88,7 +88,7 @@ h3 {
 	margin-top: 15px;
 	display: block;
 	float: right;
-	background: url(img/add_sub.png);
+	background: url(img/admin/add_sub.png);
 }
 
 #nav li {
@@ -137,7 +137,7 @@ h3 {
 	width: 15px; height: 8px;
 	margin: 13px 10px 0;
 	float: left;
-	background: url(img/sort.png);
+	background: url(img/admin/sort.png);
 	background-position: 15px 0;
 }
 #nav li.sel div.sort {
@@ -150,7 +150,7 @@ h3 {
 #nav li div.arrow {
 	width: 10px; height: 11px;
 	margin-left: 10px;
-	background: url(img/arrow.png);
+	background: url(img/admin/arrow.png);
 	display: inline-block;
 	background-position: 20px 0;
 }
@@ -181,7 +181,7 @@ h3 {
 .round {
 	width: 11px; height: 11px;
 	display: block;
-	background: url(img/round.png);
+	background: url(img/admin/round.png);
 }
 
 #nav .round {
@@ -246,7 +246,7 @@ h3 {
 	display: block;
 	float: right;
 	margin: 2px 0 0 8px;
-	background: url(img/add_sub2.png);
+	background: url(img/admin/add_sub2.png);
 }
 
 #nav hr {
