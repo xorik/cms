@@ -15,13 +15,13 @@ $(function()
 			var list = "";
 			$("#nav li.last").each(function()
 			{
-				list += "&p[]="+$(this).attr("id");
+				list += "&p[]="+$(this).prop("id");
 			});
 			
 			// id раздела
 			var id = 0;
 			if( $("#nav li.open:last").length )
-				id = $("#nav li.open:last").attr("id");
+				id = $("#nav li.open:last").prop("id");
 			
 			
 			// Сохранение сортировки
@@ -44,7 +44,7 @@ $(function()
 			var list = "";
 			$("#gallery div[id]").each(function()
 			{
-				list += "&p[]="+$(this).attr("id");
+				list += "&p[]="+$(this).prop("id");
 			});
 			
 			// Сохранение сортировки
