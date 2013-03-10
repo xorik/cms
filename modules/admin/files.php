@@ -19,12 +19,16 @@
 	function files_content()
 	{
 		global $id;
+		global $CONFIG;
+		
 		?>
 			<h3>Изображения и файлы</h3>
 			<div>
 				<form action='?do=ajax&file=upload&id=<?= $id ?>' method='post' enctype='multipart/form-data' target='upload'>
 					Загрузить: <input type='file' name='gallery[]' multiple='true'>
-					или по ссылке: <input type='text' name='url'>
+					<? if( $CONFIG["load_url"] ): ?>
+						или по ссылке: <input type='text' name='url'>
+					<? endif ?>
 					<input type='submit' value='Загрузить'>
 					<small>(Максимум: <?= ini_get("upload_max_filesize") ?>b)</small>
 				</form>

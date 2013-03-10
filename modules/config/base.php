@@ -53,6 +53,7 @@
 		// Сохраняем переменные в $CONFIG, а потом в config.php
 		$CONFIG["title"] = $_POST["title"];
 		$CONFIG["adv"] = $_POST["adv"] == "on";
+		$CONFIG["load_url"] = $_POST["load_url"] == "on";
 		
 		config_write();
 		clear_post();
@@ -72,6 +73,7 @@
 				<col>
 			<tr><td>Заголовок сайта:</td> <td><input type='text' name='title' value='<?= $CONFIG["title"] ?>'></td></tr>
 			<tr><td>Расширенные настройки (mysql, SEO):</td> <td><input type='checkbox' name='adv' <? if( $CONFIG["adv"] ) echo "checked" ?>></td></tr>
+			<tr><td>Загрузка файлов по ссылке:</td> <td><input type='checkbox' name='load_url' <? if( $CONFIG["load_url"] ) echo "checked" ?>></td></tr>
 		<?
 			// Расширенные настройки
 			if( $CONFIG["adv"] ):
