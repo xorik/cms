@@ -13,8 +13,7 @@
 	
 	// Путь и mime
 	$file = "files/$id.{$row["type"]}";
-	$mime = mime_content_type( $file );
-	header( "Content-type: $mime" );
+	header( "Content-type: application/octet-stream" );
 	header( "Content-Disposition: attachment; filename=\"{$row["filename"]}\"" );
 	readfile( $file );
 ?>
