@@ -1,4 +1,7 @@
 <?
+	if( $_GET["edit"] )
+		return;
+	
 	hook( "init", "tinymce_init", 80 );
 	
 	

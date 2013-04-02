@@ -1,4 +1,7 @@
 <?
+	if( $_GET["edit"] )
+		return;
+	
 	hook( "init", "config_init" );
 	hook( "content", "config_content" );
 	
