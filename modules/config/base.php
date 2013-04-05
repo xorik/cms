@@ -51,12 +51,12 @@
 		{
 			$CONFIG["rewrite"] = $_POST["rewrite"] == "on";
 			$CONFIG["main"] = (int)$_POST["main"];
+			$CONFIG["load_url"] = $_POST["load_url"] == "on";
 		}
 		
 		// Сохраняем переменные в $CONFIG, а потом в config.php
 		$CONFIG["title"] = $_POST["title"];
 		$CONFIG["adv"] = $_POST["adv"] == "on";
-		$CONFIG["load_url"] = $_POST["load_url"] == "on";
 		
 		config_write();
 		clear_post();
