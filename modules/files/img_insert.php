@@ -2,10 +2,10 @@
 	// Удаление дефолтной картинки
 	unhook( "files_show", "default_files_show" );
 	
-	hook( "files_show", "tinymce_files_show" );
+	hook( "files_show", "img_files_show" );
 	
 	// При нажатии на картинку, она вставляется в редактор
-	function tinymce_files_show( $f )
+	function img_files_show( $f )
 	{
 		global $CONFIG;
 		

@@ -63,13 +63,6 @@ $(function()
 		{
 			$("#gallery").load("?do=ajax&file=files&id="+$("#gallery").data("id"), function()
 			{
-				// Вставка картинки из галереи
-				$("#gallery a").click( function()
-				{
-					tinyMCE.activeEditor.execCommand("mceInsertContent", false, $(this).data("text"));
-					return false;
-				});
-				
 				// Выделить все файлы
 				$("input.files_sel").click( function()
 				{
@@ -96,10 +89,4 @@ $(function()
 			this.select();
 		}).focus();
 	}
-	
-	$(window).bind('beforeunload', function()
-	{
-		if( $("textarea.mce").tinymce && $("textarea.mce").tinymce().isDirty() )
-			return "Уйти без сохранения?";
-	});
 });

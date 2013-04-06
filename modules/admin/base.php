@@ -116,7 +116,7 @@
 		?>
 			<tr>
 				<td colspan='2'>Текст:<br>
-				<textarea name='text' cols='80' rows='20' class='mce editor'><?= $row["text"] ?></textarea></td>
+				<textarea name='text' cols='80' rows='20' class='rich editor'><?= $row["text"] ?></textarea></td>
 			</tr>
 		<?
 	}
