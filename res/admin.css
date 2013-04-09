@@ -265,7 +265,7 @@ h3 {
 
 /* Контент */
 #content {
-	padding: 15px 25px 15px 15px;
+	padding: 15px;
 	background: #f5f5f5;
 	border-left: #ddd 2px solid;
 	position: absolute;
