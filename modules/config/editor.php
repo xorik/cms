@@ -2,10 +2,10 @@
 	if( $_GET["edit"] )
 		return;
 	
-	hook( "init", "tinymce_init", 80 );
+	hook( "init", "editor_init", 80 );
 	
 	
-	function tinymce_init()
+	function editor_init()
 	{
 		global $CONFIG;
 		
@@ -19,11 +19,11 @@
 		
 		// Отображать только при расширенных настройках
 		if( $CONFIG["adv"] )
-			hook( "content", "tinymce_content" );
+			hook( "content", "editor_content" );
 	}
 	
 	
-	function tinymce_content()
+	function editor_content()
 	{
 		global $CONFIG;
 		
