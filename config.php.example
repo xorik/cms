@@ -14,7 +14,7 @@
 	$CONFIG['rewrite'] = true;
 	$CONFIG['load_url'] = false;
 	$CONFIG['404_page'] = 0;
-	$CONFIG['formats'] = '{title : "Заголовок 1", block : "h1" },
-{title : "Заголовок 2", block : "h2" },
-{title : "Основной", block : "p" }';
+	$CONFIG['formats'] = '{ name: "Заголовок 1", element: "h1" },
+{ name: "Заголовок 2", element: "h2" },
+{ name: "Обычный", element: "p" }';
 ?>
