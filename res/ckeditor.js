@@ -1,5 +1,12 @@
 $(function()
 {
+	// Сохранять высоту textarea
+	CKEDITOR.on('instanceReady', function( e )
+	{
+		var id = e.editor.id;
+		$("#"+id+"_contents").css( "height", $("div."+id).prev().height()+"px");
+	});
+	
 	// Подключить редактор
 	CKEDITOR.replaceAll("rich");
 	
