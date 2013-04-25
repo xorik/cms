@@ -127,12 +127,6 @@
 		global $TYPE;
 		global $PAGE_TYPE;
 		
-		if( $PAGE_TYPE[$TYPE]["notype"] )
-		{
-			echo "<input type='hidden' name='type' value='$TYPE'>\n";
-			return;
-		}
-		
 		// Все типы подразделов родителя
 		global $LEVEL;
 		global $GID_TYPE;
@@ -143,6 +137,13 @@
 		
 		// Убираем повторы
 		$types = array_unique( $types );
+		
+		// Не показывать тип, если notype или он один
+		if( $PAGE_TYPE[$TYPE]["notype"] || count($types)==1 )
+		{
+			echo "<input type='hidden' name='type' value='$TYPE'>\n";
+			return;
+		}
 		
 		echo "<tr>";
 			echo "<td>Тип:</td> <td><select name='type'>\n";
