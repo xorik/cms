@@ -45,7 +45,9 @@
 	$res = mysql_query( $query );
 	// Подсказка, если 2 или больше файла
 	if( mysql_num_rows($res) > 1 )
-		echo "<small><br>Файлы сортируются мышкой: захватите и перетащите</small><br>";
+		echo "<small><br>Файлы сортируются мышкой: захватите и перетащите</small>";
+	
+	echo "<div>";
 	
 	while( $row = mysql_fetch_array($res) )
 	{
@@ -55,12 +57,11 @@
 		echo "</div>\n";
 	}
 	
+	echo "</div>";
+	
 	// Кнопка удаления, если есть хотя бы 1 файл
 	if( mysql_num_rows($res) > 0 )
-	{
-		echo "<div style='clear:both'></div>\n";
 		run( "files_action" );
-	}
 	?>
 		</form>
 	<?

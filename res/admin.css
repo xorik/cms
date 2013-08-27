@@ -353,12 +353,13 @@ table.base textarea.editor {
 }
 
 /* Список файлов (галерея) */
-#gallery form {
-	overflow: hidden;
+#gallery form > div {
+	overflow: auto;
+	white-space: nowrap;
 }
 #gallery div.block,
 #gallery div.placeholder {
-	float: left;
+	display: inline-block;
 	padding: 5px;
 }
 #gallery div a {
@@ -371,7 +372,8 @@ table.base textarea.editor {
 #gallery img.pic {
 	height: 64px;
 }
-#gallery div.block input {
+#gallery div.block input,
+#gallery div.placeholder {
 	vertical-align: middle;
 }
 #gallery div.placeholder {
