@@ -41,7 +41,7 @@
 		<form action='?do=ajax&file=files&id=<?= $id ?>' method='post' target='upload'>
 	<?
 	
-	$query = "SELECT id, type, filename FROM file WHERE gid=$id ORDER BY pos, id";
+	$query = "SELECT id, type, filename FROM file WHERE gid=$id ORDER BY pos, id DESC";
 	$res = mysql_query( $query );
 	// Подсказка, если 2 или больше файла
 	if( mysql_num_rows($res) > 1 )
