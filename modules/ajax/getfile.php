@@ -15,5 +15,6 @@
 	$file = "files/$id.{$row["type"]}";
 	header( "Content-type: application/octet-stream" );
 	header( "Content-Disposition: attachment; filename=\"{$row["filename"]}\"" );
+	header( "Content-Length: ". filesize($file) );
 	readfile( $file );
 ?>
