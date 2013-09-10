@@ -13,6 +13,7 @@
 	$CONFIG['preview_quality'] = 85;
 	$CONFIG['rewrite'] = true;
 	$CONFIG['load_url'] = false;
+	$CONFIG['template'] = 'templates/main.php';
 	$CONFIG['404_page'] = 0;
 	$CONFIG['formats'] = '{ name: "Заголовок 1", element: "h1" },
 { name: "Заголовок 2", element: "h2" },

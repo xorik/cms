@@ -111,6 +111,6 @@
 		// Заголовок страницы
 		$HEAD[] = "<title>$TITLE</title>";
 		// Шаблон контента
-		require( "templates/main.php" );
+		require( $CONFIG["template"] );
 	}
 ?>
