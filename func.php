@@ -4,6 +4,10 @@
 	{
 		foreach( glob("modules/$mask/*.php") as $file )
 			@include( $file );
+		foreach( glob("extra/*/$mask/*.php") as $file )
+			@include( $file );
+		foreach( glob("extra/*/$mask.php") as $file )
+			@include( $file );
 	}
 	
 	// Создать хук
