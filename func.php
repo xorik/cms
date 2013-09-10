@@ -2,13 +2,8 @@
 	// Загрузить модули из каталога
 	function load_modules( $mask )
 	{
-		$dh = opendir( "modules/$mask" );
-		
-		while ( ($file = readdir($dh)) !== false )
-		{
-			@include( "modules/$mask/" . $file );
-		}
-		closedir($dh);
+		foreach( glob("modules/$mask/*.php") as $file )
+			@include( $file );
 	}
 	
 	// Создать хук
