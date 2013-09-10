@@ -79,8 +79,24 @@
 	elseif( $DO=="ajax" )
 	{
 		header( "Content-type: text/html; charset=utf-8" );
-		// TODO: проверка на ".." и "/"
-		@include( "modules/ajax/{$_GET["file"]}.php" );
+		
+		// Проверка на запрещенные символы
+		if( strpos($_GET["file"], "*")!==false || strpos($_GET["file"], "..")!==false )
+			$file = "";
+		// Файл в modules
+		elseif( is_file("modules/ajax/{$_GET["file"]}.php") )
+			$file = "modules/ajax/{$_GET["file"]}.php";
+		// Файл в extra
+		else
+		{
+			$files = glob( "extra/*/ajax/{$_GET["file"]}.php" );
+			$file = $files[0];
+		}
+		
+		if( $file )
+			@include( $file );
+		else
+			header( "HTTP/1.0 404 Not Found" );
 		
 		run( "init" );
 		die();
