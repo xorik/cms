@@ -12,21 +12,6 @@
 		global $CONFIG;
 		global $CONFIG_URL;
 		
-		// Настройки БД, если включены расширенные настройки
-		if( $CONFIG["adv"] )
-		{
-			hook( "content", "db_config", 90 );
-			// Сохранение настроек
-			if( $_POST["db_pass"] )
-			{
-				foreach( array("db_host", "db_user", "db_pass", "db_db") AS $v )
-					$CONFIG[$v] = $_POST[$v];
-				config_write();
-				clear_post();
-				die();
-			}
-		}
-		
 		// Смена пароля
 		if( $_POST["oldpass"] )
 		{
@@ -102,29 +87,6 @@
 				<tr><td>Старый пароль:</td> <td><input type='password' name='oldpass'></td></tr>
 				<tr><td>Новый пароль:</td> <td><input type='password' name='pass1'></td></tr>
 				<tr><td>Еще раз:</td> <td><input type='password' name='pass2'></td></tr>
-				<tr><td colspan='2'><input type='submit' value='Сохранить'></td></tr>
-			</table>
-			</form>
-		<?
-	}
-	
-	
-	// Настройка базы данных
-	function db_config()
-	{
-		global $CONFIG;
-		
-		?>
-			<h3>Настройки MySQL</h3>
-			<form method='post'>
-			<table class='base'>
-				<col width='150'>
-				<col>
-				
-				<tr><td>host:</td> <td><input type='text' name='db_host' value='<?= $CONFIG["db_host"] ?>'></td></tr>
-				<tr><td>user:</td> <td><input type='text' name='db_user' value='<?= $CONFIG["db_user"] ?>'></td></tr>
-				<tr><td>pass:</td> <td><input type='password' name='db_pass'></td></tr>
-				<tr><td>db:</td> <td><input type='text' name='db_db' value='<?= $CONFIG["db_db"] ?>'></td></tr>
 				<tr><td colspan='2'><input type='submit' value='Сохранить'></td></tr>
 			</table>
 			</form>

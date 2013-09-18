@@ -2,7 +2,11 @@
 	hook( "nav", "config_nav", 10 );
 	
 	global $MENU;
+	global $CONFIG;
 	$MENU = array( ""=>"Базовые настройки" );
+	
+	if( $CONFIG["adv"] )
+		$MENU["mysql"] = "MySQL";
 	
 	function config_nav()
 	{
