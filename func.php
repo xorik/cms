@@ -62,11 +62,10 @@
 				return "false";
 		elseif( is_array($v) )
 		{
-			$r = "array(";
+			$a = array();
 			foreach( $v AS $k=>$v )
-				$r .= " " . config_item( $k ) . "=>" . config_item( $v ) . ",";
-			$r .= " )";
-			return $r;
+				$a[] = config_item( $k ) . "=>" . config_item( $v );
+			return "array( ". implode(", ", $a) ." )";
 		}
 	}
 	
