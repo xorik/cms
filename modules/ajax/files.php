@@ -12,7 +12,7 @@
 		if( $f["type"]=="png" || $f["type"]=="jpg" || $f["type"]=="jpeg" || $f["type"]=="gif" )
 			echo "<img src='files/{$f["id"]}_.jpg' class='pic'><br>";
 		else
-			echo "<img src='res/img/admin/file.png'> {$f["filename"]}";
+			echo "<img src='modules/res/img/file.png'> {$f["filename"]}";
 	}
 	
 	
