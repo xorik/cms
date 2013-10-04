@@ -7,7 +7,7 @@ $(function()
 		opacity: 0.6,
 		containment: "#nav",
 		tolerance: "pointer",
-		handle: "div.sort",
+		handle: "i.i-sort",
 		placeholder: "placeholder",
 		stop: function()
 		{

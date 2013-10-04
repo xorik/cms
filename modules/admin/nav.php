@@ -105,21 +105,21 @@
 			// Скрытый ли блок
 			$show = $row["hide"] ? "hide" : "show";
 			echo "<li id='{$row["id"]}' class='$class'>";
-				echo "<div class='sort'></div>";
+				echo "<i class='i-sort'></i>";
 				// Отступы
 				for( $i=0; $i<$level-1; $i++ )
 					echo "<div class='indent'></div>";
 				// Не неудаляемая
 				if( !$PAGE_TYPE[$row["type"]]["lock"] )
-					echo "<a href='{$ADMIN_URL}id=$id&page_del={$row["id"]}' class='round del confirm' data-title='Удалить \"{$row["title"]}\" вместе с подразделами?'></a>";
+					echo "<a href='{$ADMIN_URL}id=$id&page_del={$row["id"]}' class='round del confirm' data-title='Удалить \"{$row["title"]}\" вместе с подразделами?'><i class='i-del'></i></a>";
 				// Неудаляемая
 				else
 					echo "<div class='round lock'></div>";
-				echo "<div class='round $show'></div>";
+				echo "<div class='round $show'><i class='i-'></i></div>";
 				echo "<a href='{$ADMIN_URL}id={$row["id"]}' class='block' title='{$row["title"]}'>{$row["title"]}";
 					// Стрелочка
 					if( !empty($PAGE_TYPE[$row["type"]]["sub"]) )
-						echo "<div class='arrow'></div>";
+						echo "<i class='i-arrow'></i>";
 				echo "</a>";
 			echo "</li>\n";
 			
@@ -128,7 +128,7 @@
 			{
 				// Кнопка "добавить подраздел" если последний уровень вложенности
 				if( $level==$LEVEL || ($level==$LEVEL-1 && empty($PAGE_TYPE[$TYPE]["sub"])) )
-					echo "<div class='add'>Добавить подраздел <a href='{$ADMIN_URL}id={$row["id"]}&page_add=1'></a></div>";
+					echo "<div class='add'>Добавить подраздел <a href='{$ADMIN_URL}id={$row["id"]}&page_add=1'><i class='i-plus'></i></a></div>";
 				nav_level( $row["id"], $level+1, $row["type"] );
 				if( $level == $LEVEL )
 					echo "<hr>";
@@ -148,7 +148,7 @@
 		
 		echo "<div id='nav_title'>";
 		if( $LEVEL == 0 )
-			echo "<a href='{$ADMIN_URL}id=$id&page_add=1' class='add'></a>";
+			echo "<a href='{$ADMIN_URL}id=$id&page_add=1' class='add'><i class='i-plus'></i></a>";
 		echo "<a href='{$ADMIN_URL}'>Разделы</a></div>\n";
 		
 		// Список первого уровня

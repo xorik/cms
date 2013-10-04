@@ -177,8 +177,8 @@
 		?>
 			<tr>
 				<td colspan='2'>
-				<label><input type='radio' name='hide' value='0' <? if(!$row["hide"]) echo "checked" ?>> Страница видна всем (<div class='round show'></div>)</label>
-				<label><input type='radio' name='hide' value='1' <? if($row["hide"]) echo "checked" ?>> Скрывать страницу в меню (<div class='round hide'></div>)</label>
+				<label><input type='radio' name='hide' value='0' <? if(!$row["hide"]) echo "checked" ?>> Страница видна всем (<div class='round show'><i class='i-'></i></div>)</label>
+				<label><input type='radio' name='hide' value='1' <? if($row["hide"]) echo "checked" ?>> Скрывать страницу в меню (<div class='round hide'><i class='i-'></i></div>)</label>
 				</td>
 			</tr>
 		<?

@@ -21,7 +21,7 @@
 			else
 				$text = "<a href='?do=ajax&file=getfile&fid={$f["id"]}'>{$f["filename"]}</a>";
 			
-			$html = "<img src='modules/res/img/file.png'> {$f["filename"]}";
+			$html = "<i class='i-file'></i> {$f["filename"]}";
 		}
 		
 		echo "<a href='#' data-text=\"$text\">$html</a>";
