@@ -59,10 +59,10 @@
 			<h2>Настройки сайта</h2>
 			<form method='post'>
 			<table class='base'>
-				<col width='150'>
+				<col width='250'>
 				<col>
 			<tr><td>Заголовок сайта:</td> <td><input type='text' name='title' value='<?= $CONFIG["title"] ?>'></td></tr>
-			<tr><td>Расширенные настройки (mysql, SEO):</td> <td><input type='checkbox' name='adv' <? if( $CONFIG["adv"] ) echo "checked" ?>></td></tr>
+			<tr><td>Расширенные настройки:</td> <td><input type='checkbox' name='adv' <? if( $CONFIG["adv"] ) echo "checked" ?>></td></tr>
 		<?
 			// Расширенные настройки
 			if( $CONFIG["adv"] ):
@@ -82,7 +82,7 @@
 			<h3>Смена пароля</h3>
 			<form method='post'>
 			<table class='base'>
-				<col width='150'>
+				<col width='250'>
 				<col>
 				<tr><td>Старый пароль:</td> <td><input type='password' name='oldpass'></td></tr>
 				<tr><td>Новый пароль:</td> <td><input type='password' name='pass1'></td></tr>
