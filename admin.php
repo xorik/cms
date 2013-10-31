@@ -14,7 +14,7 @@
 		<a href='<?= $ADMIN_URL ?>' class='logo'><img src='modules/res/img/adm.png'></a> <span>сайта <?= $CONFIG["title"] ?></span>
 		<div>
 			<a href='<?= $CONFIG_URL ?>'>Настройки</a> |
-			<a href='?logout=1'>Выход</a>
+			<a href='<?= $ADMIN_URL ?>logout=1'>Выход</a>
 		</div>
 	</div>
 	<div id='main'>
