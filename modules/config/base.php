@@ -4,6 +4,7 @@
 	
 	hook( "init", "config_init" );
 	hook( "content", "config_content" );
+	hook( "content", "chpass_content" );
 	
 	
 	// Сохранение конфига
@@ -78,7 +79,12 @@
 			<tr><td colspan='2'><input type='submit' value='Сохранить'></td></tr>
 			</table>
 			</form>
-			
+		<?
+	}
+	
+	function chpass_content()
+	{
+		?>
 			<h3>Смена пароля</h3>
 			<form method='post'>
 			<table class='base'>
