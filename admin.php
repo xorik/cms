@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div id='top'>
-		<a href='<?= $ADMIN_URL ?>' class='logo'><img src='modules/res/img/adm.png'></a> <span>сайта <?= $CONFIG["title"] ?></span>
+		<a href='<?= $ADMIN_URL ?>' class='logo'></a> <span>сайта <?= $CONFIG["title"] ?></span>
 		<div>
 			<a href='<?= $CONFIG_URL ?>'>Настройки</a> |
 			<a href='<?= $ADMIN_URL ?>logout=1'>Выход</a>
@@ -36,7 +36,7 @@
 		</div>
 	</div>
 	<div id='bottom'>
-		<img src='modules/res/img/logo.png'>
-		<? @include( "modules/res/version" ) ?>
+		<span><? @include( "modules/res/version" ) ?></span>
+		<div></div>
 	</div>
 </body>
