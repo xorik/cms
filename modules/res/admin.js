@@ -81,6 +81,9 @@ $(function()
 			return false;
 	});
 	
+	// Прокрутка к текущему пункту в навигации
+	$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
+	
 	// Выделить заголовок, если == названию типа
 	if( $("#content select[name=type]").val() == $("#content input[name=title]").val() )
 	{
