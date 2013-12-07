@@ -38,6 +38,7 @@
 			$CONFIG["rewrite"] = $_POST["rewrite"] == "on";
 			$CONFIG["template"] = $_POST["template"];
 			$CONFIG["main"] = (int)$_POST["main"];
+			$CONFIG["root"] = $_POST["root"];
 			$CONFIG["404_page"] = (int)$_POST["404_page"];
 			$CONFIG["load_url"] = $_POST["load_url"] == "on";
 		}
@@ -71,6 +72,7 @@
 				<tr><td>Использовать mod_rewrite:</td> <td><input type='checkbox' name='rewrite' <? if( $CONFIG["rewrite"] ) echo "checked" ?>></td></tr>
 				<tr><td>Загрузка файлов по ссылке:</td> <td><input type='checkbox' name='load_url' <? if( $CONFIG["load_url"] ) echo "checked" ?>></td></tr>
 				<tr><td>Основной шаблон:</td> <td><input type='text' name='template' value='<?= $CONFIG["template"] ?>'></td></tr>
+				<tr><td>Корень сайта:</td> <td><input type='text' name='root' value='<?= $CONFIG["root"] ?>'></td></tr>
 				<tr><td>id главной страницы:</td> <td><input type='text' name='main' value='<?= $CONFIG["main"] ?>' class='small'></td></tr>
 				<tr><td>id страницы 404:</td> <td><input type='text' name='404_page' value='<?= $CONFIG["404_page"] ?>' class='small'> <small>(Оставьте 0, чтобы использовать стандартную)</small></td></tr>
 			<?

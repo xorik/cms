@@ -88,6 +88,7 @@
 	// Всё, что в <head>
 	function head()
 	{
+		global $CONFIG;
 		global $HEAD;
 		global $CSS;
 		global $JS;
@@ -103,14 +104,22 @@
 		{
 			$CSS = array_unique( $CSS );
 			foreach( $CSS as $v )
+			{
+				if( strpos($v, "http://")!==0 && strpos($v, "https://")!==0 && strpos($v, "//")!==0 )
+					$v = $CONFIG["root"] . $v;
 				echo "\t<link rel='stylesheet' href='$v'>\n";
+			}
 		}
 		
 		if( $JS )
 		{
 			$JS = array_unique( $JS );
 			foreach( $JS as $v )
+			{
+				if( strpos($v, "http://")!==0 && strpos($v, "https://")!==0 && strpos($v, "//")!==0 )
+					$v = $CONFIG["root"] . $v;
 				echo "\t<script src='$v'></script>\n";
+			}
 		}
 		
 		if( $SCRIPT )
