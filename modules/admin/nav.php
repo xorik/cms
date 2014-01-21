@@ -17,7 +17,7 @@
 		{
 			// Первый разрешенный тип, иначе просто страница
 			$type = $PAGE_TYPE[$TYPE]["sub"][0] ? $PAGE_TYPE[$TYPE]["sub"][0] : "Страница";
-			$query = "INSERT INTO page (gid, title, text, type) VALUES ($id, '$type', '', '$type')";
+			$query = "INSERT INTO page (gid, title, text, type) VALUES ($id, '{$_POST["title"]}', '', '$type')";
 			mysql_query( $query );
 			
 			// Сохраняем id и тип для хуков
@@ -128,7 +128,10 @@
 			{
 				// Кнопка "добавить подраздел" если последний уровень вложенности
 				if( $level==$LEVEL || ($level==$LEVEL-1 && empty($PAGE_TYPE[$TYPE]["sub"])) )
-					echo "<div class='add'>Добавить подраздел <a href='{$ADMIN_URL}id={$row["id"]}&page_add=1'><i class='i-plus'></i></a></div>";
+				{
+					$type = $PAGE_TYPE[$row["type"]]["sub"][0] ? $PAGE_TYPE[$row["type"]]["sub"][0] : "Страница";
+					echo "<div class='add'>Добавить подраздел <a href='#' data-id='{$row["id"]}' data-type='$type'><i class='i-plus'></i></a></div>";
+				}
 				nav_level( $row["id"], $level+1, $row["type"] );
 				if( $level == $LEVEL )
 					echo "<hr>";
@@ -144,11 +147,15 @@
 	{
 		global $id;
 		global $LEVEL;
+		global $PAGE_TYPE;
 		global $ADMIN_URL;
 		
 		echo "<div id='nav_title'>";
 		if( $LEVEL == 0 )
-			echo "<a href='{$ADMIN_URL}id=$id&page_add=1' class='add'><i class='i-plus'></i></a>";
+		{
+			$type = $PAGE_TYPE["root"]["sub"][0] ? $PAGE_TYPE["root"]["sub"][0] : "Страница";
+			echo "<a href='#' class='add' data-id='1' data-type='$type'><i class='i-plus'></i></a>";
+		}
 		echo "<a href='{$ADMIN_URL}'>Разделы</a></div>\n";
 		
 		// Список первого уровня

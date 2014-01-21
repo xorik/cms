@@ -72,6 +72,16 @@ $(function()
 		}).load();
 	}
 	
+	// Добавление раздела
+	$("#nav a.add, #nav div.add a").click( function()
+	{
+		var name = prompt( "Название новой страницы:", $(this).data("type") );
+		if( name != null)
+			
+		
+		return false;
+	});
+	
 	// confirm диалог
 	$("body").on("click", "a.confirm, input.confirm", function()
 	{
