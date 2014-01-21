@@ -50,6 +50,14 @@ h3 {
 	line-height: 14px;
 	margin-top: 15px;
 }
+#top span a {
+	color: #000;
+	text-decoration: none;
+}
+#top span a:hover {
+	color: #005ec7;
+	text-decoration: underline;
+}
 
 #top div {
 	float: right;

@@ -11,7 +11,8 @@
 </head>
 <body>
 	<div id='top'>
-		<a href='<?= $ADMIN_URL ?>' class='logo'></a> <span>сайта <?= $CONFIG["title"] ?></span>
+		<a href='<?= $ADMIN_URL ?>' class='logo'></a>
+		<span>сайта <a href='.'><?= $CONFIG["title"] ?></a></span>
 		<div>
 			<a href='<?= $CONFIG_URL ?>'>Настройки</a> |
 			<a href='<?= $ADMIN_URL ?>logout=1'>Выход</a>
