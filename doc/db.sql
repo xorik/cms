@@ -23,6 +23,7 @@
  CREATE TABLE `file` (
 	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`gid` INT NOT NULL COMMENT 'К какой странице относится',
+	`gallery` TEXT NOT NULL COMMENT 'Название галереи',
 	`filename` TEXT NOT NULL COMMENT 'Имя исходного файла',
 	`type` TEXT NOT NULL COMMENT 'Тип файла',
 	`pos` INT NOT NULL DEFAULT '0' COMMENT 'Позиция при сортировке'

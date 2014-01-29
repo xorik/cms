@@ -15,7 +15,7 @@
 			$ext = strtolower( substr($file["name"], 1+strrpos($file["name"], ".")) );
 			
 			// Сохранение в БД
-			$query = "INSERT INTO file (gid, filename, type) VALUES ($id, '{$file["name"]}', '$ext')";
+			$query = "INSERT INTO file (gid, filename, type, gallery) VALUES ($id, '{$file["name"]}', '$ext', '$name')";
 			mysql_query( $query );
 			$fid = mysql_insert_id();
 			

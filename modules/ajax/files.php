@@ -38,10 +38,10 @@
 	run( "init" );
 	
 	?>
-		<form action='?do=ajax&file=files&id=<?= $id ?>' method='post' target='upload'>
+		<form action='?do=ajax&file=files&id=<?= $id ?>' method='post' target='upload-<?= $_GET["gallery"] ?>'>
 	<?
 	
-	$query = "SELECT id, type, filename FROM file WHERE gid=$id ORDER BY pos, id DESC";
+	$query = "SELECT id, type, filename FROM file WHERE gid=$id AND gallery='{$_GET["gallery"]}' ORDER BY pos, id DESC";
 	$res = mysql_query( $query );
 	// Подсказка, если 2 или больше файла
 	if( mysql_num_rows($res) > 1 )

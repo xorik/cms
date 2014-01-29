@@ -387,7 +387,7 @@ table.base textarea.editor {
 
 /* Таскалки */
 #nav li.last i.i-sort,
-#gallery div.block {
+div.files div.block {
 	cursor: move;
 }
 
@@ -396,34 +396,34 @@ table.base textarea.editor {
 }
 
 /* Список файлов (галерея) */
-#gallery form > div {
+div.files form > div {
 	overflow: auto;
 	white-space: nowrap;
 }
-#gallery div.block,
-#gallery div.placeholder {
+div.files div.block,
+div.files div.placeholder {
 	display: inline-block;
 	padding: 5px;
 }
-#gallery div a {
+div.files div a {
 	line-height: 64px;
 	text-decoration: none;
 }
-#gallery img.pic {
+div.files img.pic {
 	vertical-align: bottom;
 }
-#gallery img.pic {
+div.files img.pic {
 	height: 64px;
 }
-#gallery div.block input,
-#gallery div.placeholder {
+div.files div.block input,
+div.files div.placeholder {
 	vertical-align: middle;
 }
-#gallery div.placeholder {
+div.files div.placeholder {
 	height: 64px;
 	background: #555;
 }
-#gallery i.i-file {
+div.files i.i-file {
 	color: #888;
 	font-size: 24px;
 	vertical-align: top;

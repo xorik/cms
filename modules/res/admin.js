@@ -31,18 +31,17 @@ $(function()
 
 	
 	// Сортировка файлов
-	$("#gallery").sortable(
+	$("div.files").sortable(
 	{
 		items: "div.block",
 		opacity: 0.6,
-		containment: "#gallery",
 		tolerance: "pointer",
 		placeholder: "placeholder",
-		stop: function()
+		stop: function(event, ui)
 		{
 			// Новый порядок
 			var list = "";
-			$("#gallery div[id]").each(function()
+			$(ui.item).parent().find("div[id]").each(function()
 			{
 				list += "&p[]="+$(this).prop("id");
 			});
@@ -56,21 +55,22 @@ $(function()
 		}
 	});
 	
-	// Список файлов
-	if( $("#gallery").length > 0 )
+	// Файлы
+	$("div.files").each( function()
 	{
-		$("iframe[name=upload]").load( function()
+		$(this).next().load( function()
 		{
-			$("#gallery").load("?do=ajax&file=files&id="+$("#gallery").data("id"), function()
+			var div = $(this).prev();
+			div.load("?do=ajax&file=files&id="+div.data("id")+"&gallery="+div.data("gallery"), function()
 			{
 				// Выделить все файлы
-				$("input.files_sel").click( function()
+				div.find("input.files_sel").click( function()
 				{
-					$("#gallery div :checkbox").prop("checked", $(this).is(":checked"));
+					div.find("div :checkbox").prop("checked", $(this).is(":checked"));
 				});
 			});
 		}).load();
-	}
+	});
 	
 	// confirm диалог
 	$("body").on("click", "a.confirm, input.confirm", function()
