@@ -1,34 +1,73 @@
 $(function()
 {
-	// Сортировка разделов
-	$("#nav").sortable(
+	// Переход на страницу
+	function gotoPage( id )
 	{
-		items: "li.last",
-		opacity: 0.6,
-		containment: "#nav",
-		tolerance: "pointer",
-		handle: "i.i-sort",
-		placeholder: "placeholder",
-		stop: function()
+		// Навигация
+		$("#nav").addClass("load").load("?do=ajax&file=nav&id="+id, function()
 		{
-			// Новый порядок
-			var list = "";
-			$("#nav li.last").each(function()
+			$(this).removeClass("load");
+			// Прокрутка к текущему пункту
+			//$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
+		});
+	}
+	
+	
+	function gotoSub( id )
+	{
+		// Он и открыт, выходим
+		if( $("#"+id).hasClass("open") && $("#"+id).next().find("li:first").hasClass("last") )
+			return;
+		
+		$("#nav li.last").removeClass("last");
+		$("#nav hr:visible, #nav div.add:visible").slideUp(500);
+		
+		if( id !== undefined )
+			var div = $("#"+id).next();
+		else
+			var div = $("#nav");
+		
+		// Закрытие открытых разделов
+		div.find("li.open").removeClass("open");
+		div.find("div.sub:visible").slideUp(500);
+		div.find("> li").addClass("last");
+		div.find("> hr, > div.add").slideDown(500);
+	}
+	
+	
+	gotoPage( 0 );
+	
+	// Навигация
+	$("#nav").on("click", "li", function()
+	{
+		// Подразделы
+		if( $(this).next().is("div") )
+		{
+			// Подразделы закрыты
+			if( ! $(this).hasClass("open") )
 			{
-				list += "&p[]="+$(this).prop("id");
-			});
-			
-			// id раздела
-			var id = 0;
-			if( $("#nav li.open:last").length )
-				id = $("#nav li.open:last").prop("id");
-			
-			
-			// Сохранение сортировки
-			$.ajax("?do=ajax&file=admin&page_sort=1&id="+id+list);
+				gotoSub($(this).prop("id"));
+				$(this).addClass("open");
+				$(this).next().slideDown(500);
+			}
+			// Подразделы открыты
+			else
+			{
+				if($(this).hasClass("sel"))
+					gotoSub($(this).parent().prev().prop("id"));
+				else
+					gotoSub($(this).prop("id"));
+			}
 		}
+		else
+			gotoSub($(this).parent().prev().prop("id"));
+		
+		// Выделение
+		$("#nav li.sel").removeClass("sel");
+		$(this).addClass("sel");
+		
+		return false;
 	});
-
 	
 	// Сортировка файлов
 	$("div.files").sortable(
@@ -80,7 +119,4 @@ $(function()
 		else
 			return false;
 	});
-	
-	// Прокрутка к текущему пункту в навигации
-	$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
 });
