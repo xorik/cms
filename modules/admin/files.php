@@ -30,6 +30,7 @@
 						или по ссылке: <input type='text' name='url'>
 					<? endif ?>
 					<input type='submit' value='Загрузить'>
+					<input type='hidden' name='gallery' value='gallery'>
 					<small>(Максимум: <?= ini_get("upload_max_filesize") ?>b)</small>
 				</form>
 				<div class='files' data-id='<?= $id ?>' data-gallery='gallery'></div>

@@ -43,7 +43,7 @@
 		foreach( $url as $u )
 		{
 			$name = substr( $u, 1+strrpos($u, "/") );
-			add_file( array("name"=>$name, "url"=>$u), "url" );
+			add_file( array("name"=>$name, "url"=>$u), $_POST["gallery"] );
 		}
 	}
 	
