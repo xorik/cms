@@ -2,6 +2,7 @@
 	run( "auth" );
 	hook( "init", "files_init" );
 	hook( "files_show", "default_files_show" );
+	hook( "files_action", "select_files_action", 10 );
 	hook( "files_action", "del_files_action", 90 );
 	
 	load_modules( "files" );
@@ -16,10 +17,16 @@
 	}
 	
 	
+	// Выделить всё
+	function select_files_action()
+	{
+		echo "<label><input type='checkbox' class='files_sel'> <small>Выделить все</small> </label>";
+	}
+	
+	
 	// Кнопка "удалить выбранные" файлы
 	function del_files_action()
 	{
-		echo "<label><input type='checkbox' class='files_sel'> <small>Выделить все</small> </label>";
 		echo "<input type='submit' name='del' value='Удалить выбранные' class='confirm' data-title='Удалить выбранные файлы?'>\n";
 	}
 	
