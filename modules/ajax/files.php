@@ -45,7 +45,7 @@
 	run( "init" );
 	
 	?>
-		<form action='?do=ajax&file=files&id=<?= $id ?>' method='post' target='upload-<?= $_GET["gallery"] ?>'>
+		<form action='?do=ajax&file=files&id=<?= $id ?>&gallery=<?= $_GET["gallery"] ?>' method='post' target='upload-<?= $_GET["gallery"] ?>'>
 	<?
 	
 	$query = "SELECT id, type, gallery, filename FROM file WHERE gid=$id AND gallery='{$_GET["gallery"]}' ORDER BY pos, id";
