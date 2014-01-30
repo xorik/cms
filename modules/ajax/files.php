@@ -41,7 +41,7 @@
 		<form action='?do=ajax&file=files&id=<?= $id ?>' method='post' target='upload-<?= $_GET["gallery"] ?>'>
 	<?
 	
-	$query = "SELECT id, type, filename FROM file WHERE gid=$id AND gallery='{$_GET["gallery"]}' ORDER BY pos, id DESC";
+	$query = "SELECT id, type, gallery, filename FROM file WHERE gid=$id AND gallery='{$_GET["gallery"]}' ORDER BY pos, id";
 	$res = mysql_query( $query );
 	// Подсказка, если 2 или больше файла
 	if( mysql_num_rows($res) > 1 )
@@ -53,7 +53,7 @@
 	{
 		echo "<div id='{$row["id"]}' class='block'>";
 			echo "<input type='checkbox' name='{$row["id"]}'>";
-			run( "files_show", array("id"=>$row["id"], "type"=>$row["type"], "filename"=>$row["filename"]) );
+			run( "files_show", array("id"=>$row["id"], "type"=>$row["type"], "filename"=>$row["filename"], "gallery"=>$row["gallery"]) );
 		echo "</div>\n";
 	}
 	
