@@ -17,5 +17,7 @@
 	$CONFIG['404_page'] = 0;
 	$CONFIG['formats'] = '{ name: "Заголовок 1", element: "h1" },
 { name: "Заголовок 2", element: "h2" },
-{ name: "Обычный", element: "p" }';
+{ name: "Обычный", element: "p" },
+{ name: "Крупный шрифт", element: "big" },
+{ name: "Мелкий шрифт", element: "small" }';
 ?>
