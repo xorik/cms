@@ -3,6 +3,11 @@
 	load_modules( "admin" );
 	
 	// Действия
+	// Показать основной блок
+	if( $_GET["base"] )
+	{
+		run( "content" );
+	}
 	// Сортировка страниц
 	if( $_GET["page_sort"] )
 	{

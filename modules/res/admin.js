@@ -4,11 +4,19 @@ $(function()
 	function gotoPage( id )
 	{
 		// Навигация
-		$("#nav").addClass("load").load("?do=ajax&file=nav&id="+id, function()
+		if( $("#nav >:first").size() == 0 )
 		{
-			$(this).removeClass("load");
-			// Прокрутка к текущему пункту
-			//$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
+			$("#nav").addClass("load").load("?do=ajax&file=nav&id="+id, function()
+			{
+				$(this).removeClass("load");
+				// Прокрутка к текущему пункту
+				//$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
+			});
+		}
+		
+		$("#content").addClass("load").load("?do=ajax&file=admin&base=1&id="+id, function()
+		{
+			$(this).trigger("ready").removeClass("load");
 		});
 	}
 	
@@ -34,53 +42,57 @@ $(function()
 		div.find("> hr, > div.add").slideDown(500);
 	}
 	
-	
-	gotoPage( 0 );
-	
-	// Навигация
-	$("#nav").on("click", "li", function()
+	if( /admin$/.test(window.location.pathname) )
 	{
-		// Подразделы
-		if( $(this).next().is("div") )
+		gotoPage( 1 );
+	
+		// Навигация
+		$("#nav").on("click", "li", function()
 		{
-			// Подразделы закрыты
-			if( ! $(this).hasClass("open") )
+			// Подразделы
+			if( $(this).next().is("div") )
 			{
-				gotoSub($(this).prop("id"));
-				$(this).addClass("open");
-				$(this).next().slideDown(500);
-			}
-			// Подразделы открыты
-			else
-			{
-				if($(this).hasClass("sel"))
-					gotoSub($(this).parent().prev().prop("id"));
-				else
+				// Подразделы закрыты
+				if( ! $(this).hasClass("open") )
+				{
 					gotoSub($(this).prop("id"));
+					$(this).addClass("open");
+					$(this).next().slideDown(500);
+				}
+				// Подразделы открыты
+				else
+				{
+					if($(this).hasClass("sel"))
+						gotoSub($(this).parent().prev().prop("id"));
+					else
+						gotoSub($(this).prop("id"));
+				}
 			}
-		}
-		else
-			gotoSub($(this).parent().prev().prop("id"));
-		
-		// Выделение
-		$("#nav li.sel").removeClass("sel");
-		$(this).addClass("sel");
-		
-		return false;
-	});
+			else
+				gotoSub($(this).parent().prev().prop("id"));
+			
+			// Выделение
+			$("#nav li.sel").removeClass("sel");
+			$(this).addClass("sel");
+			
+			gotoPage( $(this).data("id") );
+			return false;
+		});
+	}
 	
 	// Сортировка файлов
-	$("div.files").sortable(
+	$("#gallery").sortable(
 	{
 		items: "div.block",
 		opacity: 0.6,
+		containment: "#gallery",
 		tolerance: "pointer",
 		placeholder: "placeholder",
-		stop: function(event, ui)
+		stop: function()
 		{
 			// Новый порядок
 			var list = "";
-			$(ui.item).parent().find("div[id]").each(function()
+			$("#gallery div[id]").each(function()
 			{
 				list += "&p[]="+$(this).prop("id");
 			});
@@ -95,20 +107,23 @@ $(function()
 	});
 	
 	// Файлы
-	$("div.files").each( function()
+	$("#content").on("ready", function()
 	{
-		$(this).next().load( function()
+		$("div.files").each( function()
 		{
-			var div = $(this).prev();
-			div.load("?do=ajax&file=files&id="+div.data("id")+"&gallery="+div.data("gallery"), function()
+			$(this).next().load( function()
 			{
-				// Выделить все файлы
-				div.find("input.files_sel").click( function()
+				var div = $(this).prev();
+				div.load("?do=ajax&file=files&id="+div.data("id")+"&gallery="+div.data("gallery"), function()
 				{
-					div.find("div :checkbox").prop("checked", $(this).is(":checked"));
+					// Выделить все файлы
+					div.find("input.files_sel").click( function()
+					{
+						div.find("div :checkbox").prop("checked", $(this).is(":checked"));
+					});
 				});
-			});
-		}).load();
+			}).load();
+		});
 	});
 	
 	// confirm диалог

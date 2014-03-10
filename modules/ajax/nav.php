@@ -21,7 +21,7 @@
 		{
 			// Скрытый ли блок
 			$show = $row["hide"] ? "hide" : "show";
-			echo "<li id='li{$row["id"]}'>";
+			echo "<li id='li{$row["id"]}' data-id='{$row["id"]}'>";
 				echo "<i class='i-sort'></i>";
 				// Отступы
 				for( $i=0; $i<$level-1; $i++ )
