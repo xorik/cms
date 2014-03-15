@@ -1,6 +1,7 @@
 <?
 	require( "config.php" );
 	require( "func.php" );
+	require( "modules/template.php" );
 	
 	load_modules( "all" );
 	
@@ -114,6 +115,9 @@
 		// Заголовок страницы
 		$HEAD[] = "<title>$TITLE</title>";
 		// Шаблон контента
-		require( $CONFIG["template"] );
+		if( substr_compare($CONFIG["template"], ".tpl", -4, 4) === 0 )
+			template( $CONFIG["template"], 1 );
+		else
+			require( $CONFIG["template"] );
 	}
 ?>

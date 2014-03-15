@@ -1,11 +1,11 @@
-<?
+{{
 	$CSS[] = "style.css";
 	$CSS[] = "content.css";
-?>
-<!doctype html>
+}}
+<!DOCTYPE html>
 <head>
-	<? head() ?>
+	{head()}
 </head>
 <body>
-	<? run( "content" ) ?>
+	{run( "content" )}
 </body>
