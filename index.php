@@ -1,6 +1,6 @@
 <?
 	require( "config.php" );
-	require( "func.php" );
+	require( "modules/func.php" );
 	require( "modules/template.php" );
 	
 	load_modules( "all" );
