@@ -57,6 +57,9 @@
 	$ADMIN_URL = $CONFIG["rewrite"] ? "./admin?" : "./?do=admin&";
 	$CONFIG_URL = $CONFIG["rewrite"] ? "./config?" : "./?do=config&";
 	
+	// Фикс для шаблонов
+	$HEAD = $CSS = $JS = $SCRIPT = array();
+	
 	// Действие
 	$DO = $_GET["do"];
 	// Админка
