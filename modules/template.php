@@ -43,12 +43,12 @@ function template( $file, $check_dir=0 )
 
 function template_make_cache( $file, $cache_file, $mtime )
 {
-	// basedir of template
+	// Базовый каталог для шаблона
 	global $BASEDIR;
 	$BASEDIR = dirname( $file );
 	
 	file_put_contents( $cache_file, template_parse(file_get_contents($file)) );
-	// Make same modify time
+	// Сдлать одинаковый modify time
 	touch( $cache_file, $mtime );
 }
 
