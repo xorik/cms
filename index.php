@@ -77,7 +77,7 @@
 		// Заголовок
 		$HEAD[] = "<title>Страница администратора - {$CONFIG["title"]}</title>";
 		
-		require( "admin.php" );
+		template( "modules/templates/admin.tpl" );
 	}
 	// Аяксовая функция
 	elseif( $DO=="ajax" )

@@ -70,29 +70,7 @@
 	// Редактирование
 	function base_content()
 	{
-		global $id;
-		global $TYPE;
-		global $PAGE_TYPE;
-		
-		$query = "SELECT title, hide FROM page WHERE id=$id";
-		$row = mysql_fetch_array( mysql_query($query) );
-		
-		?>
-			<form method='post'>
-				<input type='submit' value='Сохранить' class='save'>
-				<?
-					// Не виртуальная страница
-					if( !$PAGE_TYPE[$TYPE]["virt"] )
-						echo "<a href='".path($id)."' class='goto'>Посмотреть страницу</a>";
-				?>
-				<h2><?= $img ." ". $row["title"] ?></h2>
-				<table class='base'>
-					<col width='150'>
-					<col>
-					<? run( "base_show", $id ) ?>
-				</table>
-			</form>
-		<?
+		template( "modules/templates/base.tpl" );
 	}
 	
 	// Заголовок в редактировании
