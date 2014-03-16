@@ -2,11 +2,18 @@
 	// Загрузить модули из каталога
 	function load_modules( $mask )
 	{
-		foreach( glob("modules/$mask/*.php") as $file )
-			@include( $file );
-		foreach( glob("extra/*/$mask/*.php") as $file )
-			@include( $file );
-		foreach( glob("extra/*/$mask.php") as $file )
+		$globs = array( "modules/$mask/*.php", "extra/*/$mask/*.php", "extra/*/$mask.php" );
+		$inc = array();
+		foreach( $globs as $g )
+		{
+			if( $a = glob($g) )
+				$inc = array_merge( $inc, $a );
+		}
+		
+		if( empty($inc) )
+			return;
+		
+		foreach( $inc as $file )
 			@include( $file );
 	}
 	
@@ -16,8 +23,11 @@
 		global $HOOK;
 		
 		// Пытаемся встать в позицию pos
-		while( @array_key_exists($pos, $HOOK[$hookname]) )
-			$pos++;
+		if( $HOOK[$hookname] )
+		{
+			while( @array_key_exists($pos, $HOOK[$hookname]) )
+				$pos++;
+		}
 		$HOOK[$hookname][$pos] = $func;
 	}
 	
