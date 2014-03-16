@@ -7,7 +7,7 @@ function template( $file, $check_dir=0 )
 	// Название файла кеша
 	$cache_file = "cache/". str_replace( "/", ".", $file ) .".php";
 	// Время модификации
-	$cache_time = @filemtime( $cache_file );
+	$cache_time = is_file( $cache_file ) ? filemtime( $cache_file ) : 0;
 	$file_time = filemtime( $file );
 	
 	// Один файл
