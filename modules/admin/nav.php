@@ -17,11 +17,9 @@
 		{
 			// Первый разрешенный тип, иначе просто страница
 			$type = $PAGE_TYPE[$TYPE]["sub"][0] ? $PAGE_TYPE[$TYPE]["sub"][0] : "Страница";
-			$query = "INSERT INTO page (gid, title, text, type) VALUES ($id, '$type', '', '$type')";
-			mysql_query( $query );
 			
 			// Сохраняем id и тип для хуков
-			$id = mysql_insert_id();
+			$id = db_insert( "page", array("gid"=>$id, "title"=>$type, "text"=>"", "type"=>$type) );
 			$TYPE = $type;
 			
 			// Хуки после добавления
@@ -35,23 +33,19 @@
 		function page_del( $id )
 		{
 			// Потомки
-			$query = "SELECT id FROM page WHERE gid=$id";
-			$res = mysql_query( $query );
-			while( $row = mysql_fetch_array($res) )
+			$rows = db_select( "SELECT id FROM page WHERE gid=$id" );
+			foreach( $rows as $row )
 				page_del( $row["id"] );
 			
 			// Сама страница
-			$query = "DELETE FROM page WHERE id=$id";
-			mysql_query( $query );
+			db_delete( "page", "id=$id" );
 			
 			// Доп. поля
-			$query = "DELETE FROM prop WHERE id=$id";
-			mysql_query( $query );
+			db_delete( "prop", "id=$id" );
 			
 			// Файлы
-			$query = "SELECT id FROM file WHERE gid=$id";
-			$res = mysql_query( $query );
-			while( $row = mysql_fetch_array($res) )
+			$rows = db_select( "SELECT id FROM file WHERE gid=$id" );
+			foreach( $rows as $row )
 				delete_file( $row["id"] );
 			
 			
@@ -89,9 +83,8 @@
 		else
 			$order = "pos, id";
 		
-		$query = "SELECT id, title, type, hide FROM page WHERE gid=$nid ORDER BY $order";
-		$res = mysql_query( $query );
-		while( $row = mysql_fetch_array($res) )
+		$rows = db_select( "SELECT id, title, type, hide FROM page WHERE gid=$nid ORDER BY $order" );
+		foreach( $rows as $row )
 		{
 			// Выделение блока
 			$class = "";

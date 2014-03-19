@@ -54,8 +54,7 @@
 		
 		$hide = (int)$_POST["hide"];
 		
-		$query = "UPDATE page set title='{$_POST["title"]}', text='{$_POST["text"]}', type='{$_POST["type"]}', hide=$hide WHERE id=$id";
-		mysql_query( $query );
+		db_update( "page", array("title"=>$_POST["title"], "text"=>$_POST["text"], "type"=>$_POST["type"], "hide"=>$_POST["hide"]), "id=$id" );
 		
 		// Путь для rewrite
 		if( $CONFIG["rewrite"] )
@@ -76,8 +75,7 @@
 	// Заголовок в редактировании
 	function base_title( $id )
 	{
-		$query = "SELECT title FROM page WHERE id=$id";
-		$row = mysql_fetch_array( mysql_query($query) );
+		$row = db_select_one( "SELECT title FROM page WHERE id=$id" );
 		?>
 			<tr>
 				<td>Заголовок:</td>
@@ -89,8 +87,7 @@
 	// Текст в редактировании
 	function base_text( $id )
 	{
-		$query = "SELECT text FROM page WHERE id=$id";
-		$row = mysql_fetch_array( mysql_query($query) );
+		$row = db_select_one( "SELECT text FROM page WHERE id=$id" );
 		?>
 			<tr>
 				<td colspan='2'>Текст:<br>
@@ -150,8 +147,7 @@
 	
 	function base_hide( $id )
 	{
-		$query = "SELECT hide FROM page WHERE id=$id";
-		$row = mysql_fetch_array( mysql_query($query) );
+		$row = db_select_one( "SELECT hide FROM page WHERE id=$id" );
 		?>
 			<tr>
 				<td colspan='2'>

@@ -8,8 +8,7 @@
 	// id страницы из пути
 	if( $_GET["t"] )
 	{
-		$query = "SELECT id FROM prop WHERE value='{$_GET["t"]}' AND field='path'";
-		$row = mysql_fetch_array( mysql_query($query) );
+		$row = db_select_one( "SELECT id FROM prop WHERE field='path' AND value='{$_GET["t"]}'" );
 		$id = $row["id"];
 	}
 	// Переход с ?id= на путь страницы, если включен реврайт
@@ -33,18 +32,16 @@
 	if( $id )
 	{
 		// Заголовок и тип
-		$query = "SELECT title, type FROM page WHERE id=$id";
-		$res = mysql_query( $query );
+		$row = db_select_one( "SELECT title, type FROM page WHERE id=$id" );
 		// Страница существует
-		if( mysql_num_rows($res) )
+		if( $row )
 		{
-			$row = mysql_fetch_array( $res );
 			$ORIG_TITLE = $row["title"];
 			$TITLE = "{$CONFIG["title"]} - $ORIG_TITLE";
 			$TYPE = $row["type"];
 		}
 		else
-			unset($id);
+			unset( $id );
 	}
 	
 	// Вернуть статус 404, если страницы нет

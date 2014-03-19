@@ -2,10 +2,9 @@
 	$id = (int)$_GET["fid"];
 	
 	// Имя файла и тип
-	$query = "SELECT filename, type FROM file WHERE id=$id";
-	$row = mysql_fetch_array( $res = mysql_query($query) );
+	$row = db_select_one( "SELECT filename, type FROM file WHERE id=$id" );
 	// Не найден
-	if( mysql_num_rows($res) == 0 )
+	if( !$row )
 	{
 		header( "HTTP/1.0 404 Not Found" );
 		die( "404 File not found" );

@@ -44,32 +44,7 @@
 	
 	run( "init" );
 	
-	?>
-		<form action='?do=ajax&file=files&id=<?= $id ?>&gallery=<?= $_GET["gallery"] ?>' method='post' target='upload-<?= $_GET["gallery"] ?>'>
-	<?
+	$files = db_select( "SELECT id, type, gallery, filename FROM file WHERE gid=$id AND gallery='{$_GET["gallery"]}' ORDER BY pos, id" );
 	
-	$query = "SELECT id, type, gallery, filename FROM file WHERE gid=$id AND gallery='{$_GET["gallery"]}' ORDER BY pos, id";
-	$res = mysql_query( $query );
-	// Подсказка, если 2 или больше файла
-	if( mysql_num_rows($res) > 1 )
-		echo "<small><br>Файлы сортируются мышкой: захватите и перетащите</small>";
-	
-	echo "<div>";
-	
-	while( $row = mysql_fetch_array($res) )
-	{
-		echo "<div id='{$row["id"]}' class='block'>";
-			echo "<input type='checkbox' name='{$row["id"]}'>";
-			run( "files_show", array("id"=>$row["id"], "type"=>$row["type"], "filename"=>$row["filename"], "gallery"=>$row["gallery"]) );
-		echo "</div>\n";
-	}
-	
-	echo "</div>";
-	
-	// Кнопка удаления, если есть хотя бы 1 файл
-	if( mysql_num_rows($res) > 0 )
-		run( "files_action" );
-	?>
-		</form>
-	<?
+	template( "modules/templates/files_ajax.tpl" );
 ?>

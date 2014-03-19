@@ -26,8 +26,7 @@
 		// От текущего элемента к родительским
 		while( $bid )
 		{
-			$query = "SELECT gid, title, type FROM page WHERE id=$bid";
-			$row = mysql_fetch_array( mysql_query($query) );
+			$row = db_select_one( "SELECT gid, title, type FROM page WHERE id=$bid" );
 			
 			$GID[] = $bid;
 			$GID_TITLE[] = $row["title"];

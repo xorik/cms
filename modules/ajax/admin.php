@@ -13,24 +13,18 @@
 		if( $PAGE_TYPE[$TYPE]["reverse"] )
 			$_GET["p"] = array_reverse( $_GET["p"] );
 		
-		foreach( $_GET["p"] as $k => $v )
+		foreach( $_GET["p"] as $k=>$v )
 		{
-			$k = (int)$k;
-			$v = (int)$v;
-			$query = "UPDATE page SET pos=$k WHERE id=$v";
-			mysql_query( $query );
+			db_update( "page", array("pos"=>(int)$k), "id=".(int)$v );
 		}
 	}
 	
 	// Сортировка файлов
 	if( isset($_GET["file_sort"]) )
 	{
-		foreach( $_GET["p"] as $k => $v )
+		foreach( $_GET["p"] as $k=>$v )
 		{
-			$k = (int)$k;
-			$v = (int)$v;
-			$query = "UPDATE file SET pos=$k WHERE id=$v";
-			mysql_query( $query );
+			db_update( "file", array("pos"=>(int)$k), "id=".(int)$v );
 		}
 	}
 ?>

@@ -149,24 +149,14 @@
 	// Прочитать свойство
 	function get_prop( $id, $field )
 	{
-		$query = "SELECT value FROM prop WHERE id=$id AND field='$field'";
-		$row = mysql_fetch_array( mysql_query($query) );
+		$row = db_select_one( "SELECT value FROM prop WHERE id=$id AND field='$field'" );
 		return $row["value"];
 	}
 	
 	// Установить свойство
 	function set_prop( $id, $field, $value )
 	{
-		$query = "UPDATE prop SET value='$value' WHERE id=$id AND field='$field'";
-		mysql_query( $query );
-		
-		// Такого свойства еще нет
-		if( mysql_affected_rows() < 1 )
-		{
-			// Добавить его
-			$query = "INSERT INTO prop (id, field, value) VALUES ($id, '$field', '$value')";
-			mysql_query( $query );
-		}
+		db_insert( "prop", array("id"=>$id, "field"=>$field, "value"=>$value), 1 );
 	}
 	
 	
@@ -174,8 +164,7 @@
 	function delete_file( $id )
 	{
 		// Ищем тип
-		$query = "SELECT type FROM file WHERE id=$id";
-		$row = mysql_fetch_array( mysql_query($query) );
+		$row = db_select_one( "SELECT type FROM file WHERE id=$id" );
 		
 		// Удаляем из ФС
 		unlink( "files/$id.{$row["type"]}" );
@@ -185,8 +174,7 @@
 			unlink( $file );
 		
 		// И из БД
-		$query = "DELETE FROM file WHERE id=$id";
-		mysql_query( $query );
+		db_delete( "file", "id=$id" );
 	}
 	
 	
@@ -207,8 +195,7 @@
 	// Вывести текст раздела
 	function get_text( $id )
 	{
-		$query = "SELECT text FROM page WHERE id=$id";
-		$row = mysql_fetch_array( mysql_query($query) );
+		$row = db_select_one( "SELECT text FROM page WHERE id=$id" );
 		return $row["text"];
 	}
 ?>
