@@ -6,6 +6,9 @@
 		global $GID;
 		global $CONFIG;
 		
+		if( !$GID )
+			$GID = array();
+		
 		$query = "SELECT id, title FROM page WHERE gid=$gid AND hide=0 ORDER BY pos, id";
 		$res = mysql_query( $query );
 		while( $row = mysql_fetch_array($res) )
