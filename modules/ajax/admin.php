@@ -2,9 +2,6 @@
 	run( "auth" );
 	load_modules( "admin" );
 	
-	// Инициализация
-	run( "init" );
-	
 	// Действия
 	// Сортировка страниц
 	if( $_GET["page_sort"] )
