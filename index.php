@@ -116,4 +116,6 @@
 		else
 			require( $CONFIG["template"] );
 	}
+	
+	run( "shutdown" );
 ?>
