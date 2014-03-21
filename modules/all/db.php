@@ -81,13 +81,13 @@ if( !$CONFIG["db_debug"] )
 	}
 	
 	
-	function db_insert( $table, $fields, $replace=0 )
+	function db_insert( $table, $fields, $replace=0, $unesc=0 )
 	{
 		$a = $b = array();
 		foreach( $fields as $k=>$v )
 		{
 			$a[] = "`$k`";
-			$b[] = db_escape( $v );
+			$b[] = $unesc ? $v : db_escape( $v );
 		}
 		$cmd = $replace ? "REPLACE" : "INSERT";
 		$query = "$cmd INTO `$table` (". implode(", ", $a) .") VALUES(". implode(", ", $b) .")";
@@ -103,12 +103,12 @@ if( !$CONFIG["db_debug"] )
 	}
 	
 	
-	function db_update( $table, $fields, $where )
+	function db_update( $table, $fields, $where, $unesc = 0 )
 	{
 		$a = array();
 		foreach( $fields as $k=>$v )
 		{
-			$a[] = "`$k`=". db_escape( $v );
+			$a[] = "`$k`=". ($unesc ? $v : db_escape($v));
 		}
 		$query = "UPDATE `$table` SET ". implode(", ", $a) ." WHERE $where";
 		
