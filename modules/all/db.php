@@ -36,6 +36,19 @@ function db_escape( $var )
 
 if( !$CONFIG["db_debug"] )
 {
+	function db_query( $query )
+	{
+		$res = mysql_query( $query );
+		if( !$res )
+		{
+			trigger_error("Error running query $query<br>". mysql_error());
+			return false;
+		}
+
+		return $res;
+	}
+
+
 	function db_select_one( $query )
 	{
 		$res = mysql_query( $query ." LIMIT 0,1" );
