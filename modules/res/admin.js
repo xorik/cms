@@ -42,7 +42,7 @@ $(function()
 		div.find("> hr, > div.add").slideDown(500);
 	}
 	
-	if( /admin$/.test(window.location.pathname) )
+	if( $("#nav >").size() == 0 )
 	{
 		gotoPage( 1 );
 	

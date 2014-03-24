@@ -14,10 +14,9 @@
 			$order = "pos DESC, id DESC";
 		else
 			$order = "pos, id";
-		
-		$query = "SELECT id, title, type, hide FROM page WHERE gid=$nid ORDER BY $order";
-		$res = mysql_query( $query );
-		while( $row = mysql_fetch_array($res) )
+
+		$rows = db_select( "SELECT id, title, type, hide FROM page WHERE gid=$nid ORDER BY $order" );
+		foreach( $rows as $row )
 		{
 			// Скрытый ли блок
 			$show = $row["hide"] ? "hide" : "show";
