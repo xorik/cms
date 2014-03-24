@@ -8,7 +8,7 @@
 	// id страницы из пути
 	if( $_GET["t"] )
 	{
-		$row = db_select_one( "SELECT id FROM prop WHERE field='path' AND value='{$_GET["t"]}'" );
+		$row = db_select_one( "SELECT id FROM prop WHERE field='path' AND value=". db_escape($_GET["t"]) );
 		$id = $row["id"];
 	}
 	// Переход с ?id= на путь страницы, если включен реврайт
