@@ -22,11 +22,8 @@
 			{run( "nav" )}
 		</div>
 		<div id='content'>
-			<div id='crumb'>
-				/* Хлебные крошки или переход к разделам */
-				{if $_GET["do"] == "admin"}
-					{run( "crumb", "•" )}
-				{else}
+			{if $_GET["do"] == "config"}
+				<div id='crumb'>
 					<a href='{$ADMIN_URL}'>Разделы</a>
 				{/if}
 			</div>

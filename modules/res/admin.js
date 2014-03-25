@@ -3,17 +3,6 @@ $(function()
 	// Переход на страницу
 	function gotoPage( id )
 	{
-		// Навигация
-		if( $("#nav >:first").size() == 0 )
-		{
-			$("#nav").addClass("load").load("?do=ajax&file=nav&id="+id, function()
-			{
-				$(this).removeClass("load");
-				// Прокрутка к текущему пункту
-				//$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
-			});
-		}
-		
 		$("#content").addClass("load").load("?do=ajax&file=admin&base=1&id="+id, function()
 		{
 			$(this).trigger("ready").removeClass("load");
@@ -41,12 +30,25 @@ $(function()
 		div.find("> li").addClass("last");
 		div.find("> hr, > div.add").slideDown(500);
 	}
-	
+
+	// Админка
 	if( $("#nav >").size() == 0 )
 	{
-		gotoPage( 1 );
-	
 		// Навигация
+		// Загрузка
+		var id = 1;
+		if( $("#nav >:first").size() == 0 )
+		{
+			$("#nav").addClass("load").load("?do=ajax&file=nav&id="+id, function()
+			{
+				$(this).removeClass("load");
+				// Прокрутка к текущему пункту
+				//$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
+				gotoPage( id );
+			});
+		}
+	
+		// Переход по меню навигации
 		$("#nav").on("click", "li", function()
 		{
 			// Подразделы
@@ -76,6 +78,13 @@ $(function()
 			$(this).addClass("sel");
 			
 			gotoPage( $(this).data("id") );
+			return false;
+		});
+
+		// Крошки
+		$("#crumbs a").click( function()
+		{
+			//gotoSub()
 			return false;
 		});
 	}
