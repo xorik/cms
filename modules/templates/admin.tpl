@@ -25,9 +25,9 @@
 			{if $_GET["do"] == "config"}
 				<div id='crumb'>
 					<a href='{$ADMIN_URL}'>Разделы</a>
-				{/if}
-			</div>
-			{run( "content" )}
+				</div>
+				{run( "content" )}
+			{/if}
 		</div>
 	</div>
 	<div id='bottom'>

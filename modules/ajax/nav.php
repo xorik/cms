@@ -20,7 +20,7 @@
 		{
 			// Скрытый ли блок
 			$show = $row["hide"] ? "hide" : "show";
-			echo "<li id='li{$row["id"]}' data-id='{$row["id"]}'>";
+			echo "<li>";
 				echo "<i class='i-sort'></i>";
 				// Отступы
 				for( $i=0; $i<$level-1; $i++ )
@@ -32,7 +32,7 @@
 				else
 					echo "<div class='round lock'></div>";
 				echo "<div class='round $show'><i class='i-'></i></div>";
-				echo "<a href='#' class='block' title='{$row["title"]}'>{$row["title"]}";
+				echo "<a href='#' class='block' data-id='{$row["id"]}' title='{$row["title"]}'>{$row["title"]}";
 					// Стрелочка
 					if( !empty($PAGE_TYPE[$row["type"]]["sub"]) )
 						echo "<i class='i-arrow'></i>";
