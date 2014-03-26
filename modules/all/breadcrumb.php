@@ -63,7 +63,6 @@
 		global $GID;
 		global $GID_TITLE;
 		global $LEVEL;
-		global $ADMIN_URL;
 		
 		$sep = $sep ? $sep : "&gt;";
 		
@@ -74,7 +73,7 @@
 				echo $GID_TITLE[$i];
 			// Раздел админки
 			elseif( $_GET["do"]=="ajax" && $_GET["file"]=="admin" )
-				echo "<a href='{$ADMIN_URL}id={$GID[$i]}'>{$GID_TITLE[$i]}</a> $sep ";
+				echo "<a href='#' data-id='{$GID[$i]}'>{$GID_TITLE[$i]}</a> $sep ";
 			// Раздел внешней части
 			else
 				echo "<a href='". path($GID[$i]) ."'>{$GID_TITLE[$i]}</a> $sep ";

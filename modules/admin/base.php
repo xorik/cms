@@ -27,8 +27,7 @@
 			return;
 		}
 
-		if( $id != $CONFIG["main"] )
-			hook( "content", "crumb_content", 5 );
+		hook( "content", "crumb_content", 5 );
 		hook( "content", "base_content", 10 );
 		hook( "base_show", "base_title", 10 );
 		hook( "base_show", "base_type", 15 );

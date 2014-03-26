@@ -53,7 +53,7 @@
 	
 	echo "<div id='nav_title'>";
 	echo "<a href='#' class='add'><i class='i-plus'></i></a>";
-	echo "<a href='{$ADMIN_URL}'>Разделы</a></div>\n";
+	echo "<a href='{$ADMIN_URL}' data-id='0'>Разделы</a></div>\n";
 	
 	// Список первого уровня
 	nav_level( 0, 1, "" );
