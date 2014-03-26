@@ -1,5 +1,20 @@
 $(function()
 {
+	function gotoPage( id )
+	{
+		// Поиск в левом блоке
+		var li = $("#nav a.block[data-id="+id+"]").parent();
+		li.parents("div.sub:hidden").show();
+		
+		if( li.hasClass("sel") );
+		else
+		{
+			$("#nav li.sel").removeClass("sel");
+			li.addClass("sel");
+		}
+	}
+	
+	
 	// Админка
 	if( $("#nav >").size() == 0 )
 	{
@@ -9,6 +24,13 @@ $(function()
 			$(this).removeClass("load");
 			// Прокрутка к текущему пункту
 			//$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
+			gotoPage(498);
+		});
+		
+		$("#nav").on("click", "a.block", function()
+		{
+			gotoPage( $(this).data("id") );
+			return false;
 		});
 	}
 	
