@@ -5,7 +5,7 @@
 	$JS[] = "modules/res/admin.js";
 	
 	if( $_GET["do"] == "admin" )
-		$SCRIPT[] = "var id=$id";
+		$SCRIPT[] = "var id=". (int)$_GET["id"];
 }}
 <!DOCTYPE html>
 <head>
