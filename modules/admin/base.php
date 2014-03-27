@@ -43,8 +43,8 @@
 			hook( "base_show", "base_path", 20 );
 		
 		// Обновление данных (в последнюю очередь, после всех init'ов)
-		if( $_POST["title"] )
-			hook( "init", "post_base_init", 99 );
+		//if( $_POST["title"] )
+		//	hook( "init", "post_base_init", 99 );
 	}
 	
 	// Обновление данных

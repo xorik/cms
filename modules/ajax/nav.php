@@ -44,7 +44,8 @@
 			{
 				echo "<div class='sub'>";
 				// Кнопка "добавить подраздел"
-				echo "<div class='add'>Добавить подраздел <a href#'><i class='i-plus'></i></a></div>";
+				$type = $PAGE_TYPE[$row["type"]]["sub"][0] ? $PAGE_TYPE[$row["type"]]["sub"][0] : "Страница";
+				echo "<div class='add'>Добавить подраздел <a href='#' data-gid='{$row["id"]}' data-type='$type'><i class='i-plus'></i></a></div>";
 				nav_level( $row["id"], $level+1, $row["type"] );
 				echo "<hr></div>";
 			}
@@ -52,7 +53,8 @@
 	}
 	
 	echo "<div id='nav_title'>";
-	echo "<a href='#' class='add'><i class='i-plus'></i></a>";
+	$type = $PAGE_TYPE["root"]["sub"][0] ? $PAGE_TYPE["root"]["sub"][0] : "Страница";
+	echo "<a href='#' class='add' data-gid='0' data-type='$type'><i class='i-plus'></i></a>";
 	echo "<a href='{$ADMIN_URL}' data-id='0'>Разделы</a></div>\n";
 	
 	// Список первого уровня
