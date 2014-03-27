@@ -72,24 +72,37 @@ $(function()
 		// Левый блок
 		$("#nav").addClass("load").load("?do=ajax&file=nav", function()
 		{
-			$(this).removeClass("load");
-			if( typeof id !== 'undefined' )
+			gotoPage( id, true );
+			history.replaceState({id: id}, "", "?id="+id);
+			
+			// Прокрутка к текущему пункту
+			if( $("#nav li.sel").size() )
 			{
-				gotoPage( id, true );
-				
-				// Прокрутка к текущему пункту
-				if( $("#nav li.sel").size() )
-				{
-					$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
-				}
+				$("#nav").scrollTop( 0 );
+				$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
 			}
+			$(this).removeClass("load");
 		});
 		// Навигация
 		$("#nav, #content").on("click", "a[data-id]", function()
 		{
+			history.pushState({id: $(this).data("id")}, "", "?id="+$(this).data("id"));
 			gotoPage( $(this).data("id") );
 			return false;
 		});
+		
+		
+		$(window).bind("popstate", function(event)
+		{
+			gotoPage( event.originalEvent.state.id );
+			// Прокрутка к текущему пункту
+			if( $("#nav li.sel").size() )
+			{
+				$("#nav").scrollTop( 0 );
+				$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
+			}
+		});
+		
 		
 		// Сохранение
 		$("#content").on( "click", "input.save", function()
