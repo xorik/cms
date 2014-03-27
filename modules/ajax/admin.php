@@ -9,10 +9,25 @@
 		run( "init" );
 		run( "content" );
 	}
-
-	// Добавление страницы
-	if( $_GET["add"] )
+	
+	// Сохранение
+	elseif( $_GET["save"] )
 	{
+		run( "init" );
+		db_update( "page", array("title"=>$_POST["title"], "text"=>$_POST["text"], "type"=>$_POST["type"], "hide"=>(int)$_POST["hide"]), "id=$id" );
+		
+		// Путь для rewrite
+		if( $CONFIG["rewrite"] )
+			set_prop( $id, "path", str_replace(" ", "_", $_POST["path"]) );
+		
+		// Обновление
+		run( "base_submit", $id );
+	}
+	
+	// Добавление страницы
+	elseif( $_GET["add"] )
+	{
+		run( "init" );
 		// Тип корня раздела
 		if( $id === 0 )
 		{
@@ -34,8 +49,9 @@
 		echo '{"id": '. $id .'}';
 	}
 	
-	if( $_GET["del"] )
+	elseif( $_GET["del"] )
 	{
+		run( "init" );
 		// Рекурсивное удаление страницы
 		function page_del( $id )
 		{
@@ -63,7 +79,7 @@
 	}
 
 	// Сортировка страниц
-	if( $_GET["page_sort"] )
+	elseif( $_GET["page_sort"] )
 	{
 		global $TYPE;
 		global $PAGE_TYPE;
@@ -79,7 +95,7 @@
 	}
 	
 	// Сортировка файлов
-	if( isset($_GET["file_sort"]) )
+	elseif( isset($_GET["file_sort"]) )
 	{
 		foreach( $_GET["p"] as $k=>$v )
 		{

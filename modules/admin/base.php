@@ -41,33 +41,9 @@
 		// Путь, если включен rewrite, не главная и не виртуальная
 		if( $CONFIG["rewrite"] && $id!=$CONFIG["main"] && !$PAGE_TYPE[$TYPE]["virt"] )
 			hook( "base_show", "base_path", 20 );
-		
-		// Обновление данных (в последнюю очередь, после всех init'ов)
-		//if( $_POST["title"] )
-		//	hook( "init", "post_base_init", 99 );
 	}
 	
-	// Обновление данных
-	function post_base_init()
-	{
-		global $id;
-		global $CONFIG;
-		
-		$hide = (int)$_POST["hide"];
-		
-		db_update( "page", array("title"=>$_POST["title"], "text"=>$_POST["text"], "type"=>$_POST["type"], "hide"=>$_POST["hide"]), "id=$id" );
-		
-		// Путь для rewrite
-		if( $CONFIG["rewrite"] )
-			set_prop( $id, "path", str_replace(" ", "_", $_POST["path"]) );
-		
-		// Обновление
-		run( "base_submit", $id );
-		
-		clear_post();
-	}
-
-
+	
 	// Крошки
 	function crumb_content()
 	{
@@ -75,8 +51,8 @@
 		run( "crumb" );
 		echo "</div>";
 	}
-
-
+	
+	
 	// Редактирование
 	function base_content()
 	{
