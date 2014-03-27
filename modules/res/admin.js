@@ -101,6 +101,11 @@ $(function()
 				$(this).closest("form").serialize(),
 				function(data)
 				{
+					// Обновить контент
+					$("#content").load("?do=ajax&file=admin&base=1&id="+$("#nav li.sel a.block").data("id"), function()
+					{
+						$(this).trigger("ready");
+					});
 					$("#content").removeClass("load");
 				}
 			);
