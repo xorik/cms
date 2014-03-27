@@ -33,6 +33,34 @@
 		// TODO: error message
 		echo '{"id": '. $id .'}';
 	}
+	
+	if( $_GET["del"] )
+	{
+		// Рекурсивное удаление страницы
+		function page_del( $id )
+		{
+			// Потомки
+			$rows = db_select( "SELECT id FROM page WHERE gid=$id" );
+			foreach( $rows as $row )
+				page_del( $row["id"] );
+			
+			// Сама страница
+			db_delete( "page", "id=$id" );
+			
+			// Доп. поля
+			db_delete( "prop", "id=$id" );
+			
+			// Файлы
+			$rows = db_select( "SELECT id FROM file WHERE gid=$id" );
+			foreach( $rows as $row )
+				delete_file( $row["id"] );
+			
+			// Другие действия при удалении
+			run( "base_del", $id );
+		}
+		
+		page_del( (int)$_POST["del"] );
+	}
 
 	// Сортировка страниц
 	if( $_GET["page_sort"] )

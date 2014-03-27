@@ -108,6 +108,18 @@ $(function()
 	});
 	
 	
+	// Удаление раздела
+	$("#nav").on("click", "a.del", function()
+	{
+		if( confirm($(this).data("title")) )
+		{
+			$.post("?do=ajax&file=admin&del=1", {del: $(this).closest("li").find("a.block").data("id")});
+			$(this).closest("li").slideUp(500).next().filter("div.sub").slideUp(500);
+		}
+		return false;
+	});
+	
+	
 	// Файлы
 	$("#content").on("ready", function()
 	{

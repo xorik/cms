@@ -27,7 +27,7 @@
 					echo "<div class='indent'></div>";
 				// Не неудаляемая
 				if( !$PAGE_TYPE[$row["type"]]["lock"] )
-					echo "<a href='#' class='round del confirm' data-title='Удалить \"{$row["title"]}\" вместе с подразделами?'><i class='i-del'></i></a>";
+					echo "<a href='#' class='round del' data-title='Удалить \"{$row["title"]}\" вместе с подразделами?'><i class='i-del'></i></a>";
 				// Неудаляемая
 				else
 					echo "<div class='round lock'></div>";
