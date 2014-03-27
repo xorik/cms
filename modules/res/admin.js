@@ -1,16 +1,54 @@
 $(function()
 {
+	function gotoSub( li )
+	{
+		// Он и открыт, выходим
+		if( li.hasClass("open") && li.next().find("li:first").hasClass("last") )
+			return;
+
+		$("#nav li.last").removeClass("last");
+		$("#nav hr:visible, #nav div.add:visible").slideUp(500);
+
+		var div = li.size()==0 ? $("#nav") : li.next();
+
+		// Закрытие открытых разделов
+		div.find("li.open").removeClass("open");
+		div.find("div.sub:visible").slideUp(500);
+		div.find("> li").addClass("last");
+		div.find("> hr, > div.add").slideDown(500);
+	}
+
+
 	function gotoPage( id )
 	{
 		// Поиск в левом блоке
 		var li = $("#nav a.block[data-id="+id+"]").parent();
 		li.parents("div.sub:hidden").show();
-		
-		if( li.hasClass("sel") )
-		{
 
+		// Подразделы
+		if( li.next().is("div") )
+		{
+			// Подразделы закрыты
+			if( ! li.hasClass("open") )
+			{
+				gotoSub(li);
+				li.addClass("open");
+				li.next().slideDown(500);
+			}
+			// Подразделы открыты
+			else
+			{
+				if(li.hasClass("sel"))
+					gotoSub(li.parent().prev());
+				else
+					gotoSub(li);
+			}
 		}
 		else
+			gotoSub(li.parent().prev());
+
+		// sel и контент
+		if( !li.hasClass("sel") )
 		{
 			$("#nav li.sel").removeClass("sel");
 			li.addClass("sel");
