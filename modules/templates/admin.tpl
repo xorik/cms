@@ -3,6 +3,9 @@
 	$JS[] = "modules/res/jquery.js";
 	$JS[] = "modules/res/jquery-ui.js";
 	$JS[] = "modules/res/admin.js";
+	
+	if( $_GET["do"] == "admin" )
+		$SCRIPT[] = "var id=$id";
 }}
 <!DOCTYPE html>
 <head>

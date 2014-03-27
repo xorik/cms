@@ -69,14 +69,22 @@ $(function()
 	// Навигация и контент в админке
 	if( $("#nav >").size() == 0 )
 	{
-		// Навигация
+		// Левый блок
 		$("#nav").addClass("load").load("?do=ajax&file=nav", function()
 		{
 			$(this).removeClass("load");
-			// Прокрутка к текущему пункту
-			//$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
+			if( typeof id !== 'undefined' )
+			{
+				gotoPage( id, true );
+				
+				// Прокрутка к текущему пункту
+				if( $("#nav li.sel").size() )
+				{
+					$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
+				}
+			}
 		});
-		
+		// Навигация
 		$("#nav, #content").on("click", "a[data-id]", function()
 		{
 			gotoPage( $(this).data("id") );
