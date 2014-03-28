@@ -149,14 +149,22 @@ $(function()
 		
 		
 		// Удаление раздела
+		function removeAnimation( e )
+		{
+			e.animate({left: "-330px"}, 300).slideUp(500, function()
+			{
+				$(this).remove();
+			})
+		}
+
 		$("#nav").on("click", "a.del", function()
 		{
 			if( confirm($(this).data("title")) )
 			{
 				// TODO: error detect
 				$.post("?do=ajax&file=admin&del=1", {del: $(this).closest("li").find("a.block").data("id")});
-				$(this).closest("li").animate({left: "-330px"}, 300).slideUp(500)
-					.next().filter("div.sub").animate({left: "-330px"}, 300).slideUp(500);
+				removeAnimation( $(this).closest("li") );
+				removeAnimation( $(this).closest("li").next().filter("div.sub") );
 			}
 			return false;
 		});
