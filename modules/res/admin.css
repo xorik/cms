@@ -134,6 +134,7 @@ h3 {
 
 #nav li {
 	list-style: none;
+	position: relative;
 }
 
 #nav li div.indent {
@@ -212,7 +213,7 @@ h3 {
 #nav li:last-child {
 	border: none;
 }
-#nav li:last-child:after {
+#nav > :last-child:after {
 	content: "";
 	display: block;
 	height: 10px;
@@ -221,6 +222,10 @@ h3 {
 	background-image: -ms-linear-gradient(top, #ddd, #ededed);
 	background-image: -moz-linear-gradient(top, #ddd, #ededed);
 	background-image: -webkit-linear-gradient(top, #ddd, #ededed);
+}
+
+#nav div.sub {
+	position: relative;
 }
 
 /* Круги */

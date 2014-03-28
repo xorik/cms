@@ -153,8 +153,10 @@ $(function()
 		{
 			if( confirm($(this).data("title")) )
 			{
+				// TODO: error detect
 				$.post("?do=ajax&file=admin&del=1", {del: $(this).closest("li").find("a.block").data("id")});
-				$(this).closest("li").slideUp(500).next().filter("div.sub").slideUp(500);
+				$(this).closest("li").animate({left: "-330px"}, 300).slideUp(500)
+					.next().filter("div.sub").animate({left: "-330px"}, 300).slideUp(500);
 			}
 			return false;
 		});
