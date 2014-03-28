@@ -1,7 +1,7 @@
 $(function()
 {
 	// Загрузить контент
-	function loadContent( id )
+	function loadContent()
 	{
 		$("#content").addClass("load").load("?do=ajax&file=admin&base=1&id="+id, function()
 		{
@@ -23,7 +23,7 @@ $(function()
 		{
 			gotoPage( true );
 			
-			if( goto_sel !== false )
+			if( goto_sel!==false && $("#nav li.sel").size() )
 			{
 				scroll = $("#nav li.sel").offset().top - 72;
 			}
@@ -103,7 +103,7 @@ $(function()
 		{
 			$("#nav li.sel").removeClass("sel");
 			li.addClass("sel");
-			loadContent( id );
+			loadContent();
 		}
 	}
 	
@@ -148,7 +148,7 @@ $(function()
 				$(this).closest("form").serialize(),
 				function(data)
 				{
-					loadContent( id );
+					loadContent();
 					loadNav( false );
 				}
 			);
