@@ -1,31 +1,74 @@
 $(function()
 {
-	function gotoSub( li, upd )
+	// Загрузить контент
+	function loadContent( id )
 	{
+		$("#content").addClass("load").load("?do=ajax&file=admin&base=1&id="+id, function()
+		{
+			$(this).trigger("ready").removeClass("load");
+		});
+	}
+	
+	
+	// Загрузить навигациюs
+	function loadNav( goto_sel )
+	{
+		var scroll;
+		if( goto_sel === false )
+		{
+			scroll = $("#nav").scrollTop();
+		}
+		
+		$("#nav").addClass("load").load("?do=ajax&file=nav", function()
+		{
+			gotoPage( true );
+			
+			if( goto_sel !== false )
+			{
+				scroll = $("#nav li.sel").offset().top - 72;
+			}
+			
+			// Прокрутка к текущему пункту
+			if( $("#nav li.sel").size() )
+			{
+				$("#nav").scrollTop( 0 );
+				$("#nav").scrollTop( scroll );
+			}
+			$(this).removeClass("load");
+		});
+	}
+	
+	
+	// Открыть подраздел
+	function gotoSub( li, fast )
+	{
+		var time = fast ? 0 : 500;
 		// Он и открыт, выходим
 		if( li.hasClass("open") && li.next().find("li:first").hasClass("last") )
+		{
 			return;
+		}
 
 		if( li.is("li") )
 		{
 			li.addClass("open");
-			li.next().slideDown( upd ? 0 : 500 );
+			li.next().slideDown(time);
 		}
 
 		$("#nav li.last").removeClass("last");
-		$("#nav hr:visible, #nav div.add:visible").slideUp( upd ? 0 : 500 );
+		$("#nav hr:visible, #nav div.add:visible").slideUp(time);
 
 		var div = li.size()==0 ? $("#nav") : li.next();
 
 		// Закрытие открытых разделов
 		div.find("li.open").removeClass("open");
-		div.find("div.sub:visible").slideUp( upd ? 0 : 500 );
+		div.find("div.sub:visible").slideUp(time);
 		div.find("> li").addClass("last");
-		div.find("> hr, > div.add").slideDown( upd ? 0 : 500 );
+		div.find("> hr, > div.add").slideDown(time);
 	}
 
 
-	function gotoPage( id, upd )
+	function gotoPage( fast )
 	{
 		// Поиск в левом блоке
 		var li = $("#nav a.block[data-id="+id+"]").parent();
@@ -37,31 +80,30 @@ $(function()
 			// Подразделы закрыты
 			if( ! li.hasClass("open") )
 			{
-				gotoSub(li, upd);
+				gotoSub(li, fast);
 			}
 			// Подразделы открыты
 			else
 			{
 				if(li.hasClass("sel"))
-					gotoSub(li.parent().prev(), upd);
+				{
+					gotoSub(li.parent().prev(), fast);
+				}
 				else
-					gotoSub(li, upd);
+				{
+					gotoSub(li, fast);
+				}
 			}
 		}
 		else
-			gotoSub(li.parent().prev(), upd);
+			gotoSub(li.parent().prev(), fast);
 
 		// sel и контент
 		if( !li.hasClass("sel") )
 		{
 			$("#nav li.sel").removeClass("sel");
 			li.addClass("sel");
-
-			// Загрузить контент
-			$("#content").addClass("load").load("?do=ajax&file=admin&base=1&id="+id, function()
-			{
-				$(this).trigger("ready").removeClass("load");
-			});
+			loadContent( id );
 		}
 	}
 	
@@ -69,32 +111,25 @@ $(function()
 	// Навигация и контент в админке
 	if( $("#nav >").size() == 0 )
 	{
+		history.replaceState({id: id}, "", admin_url+"id="+id);
+		
 		// Левый блок
-		$("#nav").addClass("load").load("?do=ajax&file=nav", function()
-		{
-			gotoPage( id, true );
-			history.replaceState({id: id}, "", admin_url+"id="+id);
-			
-			// Прокрутка к текущему пункту
-			if( $("#nav li.sel").size() )
-			{
-				$("#nav").scrollTop( 0 );
-				$("#nav").scrollTop( $("#nav li.sel").offset().top-72 );
-			}
-			$(this).removeClass("load");
-		});
+		loadNav();
+		
 		// Навигация
 		$("#nav, #content").on("click", "a[data-id]", function()
 		{
-			history.pushState({id: $(this).data("id")}, "", admin_url+"id="+$(this).data("id"));
-			gotoPage( $(this).data("id") );
+			id = $(this).data("id")
+			history.pushState({id: id}, "", admin_url+"id="+id);
+			gotoPage();
 			return false;
 		});
 		
-		
+		// Назад в браузере
 		$(window).bind("popstate", function(event)
 		{
-			gotoPage( event.originalEvent.state.id );
+			id = event.originalEvent.state.id;
+			gotoPage();
 			// Прокрутка к текущему пункту
 			if( $("#nav li.sel").size() )
 			{
@@ -107,19 +142,14 @@ $(function()
 		// Сохранение
 		$("#content").on( "click", "input.save", function()
 		{
-			$("#content").addClass("load")
 			$(this).trigger("submit");
 			$.post(
-				"?do=ajax&file=admin&save=1&id="+$("#nav li.sel a.block").data("id"),
+				"?do=ajax&file=admin&save=1&id="+id,
 				$(this).closest("form").serialize(),
 				function(data)
 				{
-					// Обновить контент
-					$("#content").load("?do=ajax&file=admin&base=1&id="+$("#nav li.sel a.block").data("id"), function()
-					{
-						$(this).trigger("ready");
-					});
-					$("#content").removeClass("load");
+					loadContent( id );
+					loadNav( false );
 				}
 			);
 			return false;
@@ -131,24 +161,17 @@ $(function()
 			var title = prompt( "Название новой страницы:", $(this).data("type") );
 			if( title != null)
 			{
-				var scroll = $("#nav").scrollTop();
 				$.post("?do=ajax&file=admin&add=1&id="+$(this).data("gid"), {title: title}, function(data)
 				{
-					// Обновить левый блок
-					$("#nav").addClass("load").load("?do=ajax&file=nav", function()
-					{
-						gotoPage( data.id, true );
-						$("#nav").scrollTop(scroll);
-						$(this).removeClass("load");
-					});
+					id = data.id;
+					loadNav( false );
 				}, "json");
 			}
-
+			
 			return false;
 		});
 		
 		
-		// Удаление раздела
 		function removeAnimation( e )
 		{
 			e.animate({left: "-330px"}, 300).slideUp(500, function()
@@ -156,7 +179,7 @@ $(function()
 				$(this).remove();
 			})
 		}
-
+		// Удаление раздела
 		$("#nav").on("click", "a.del", function()
 		{
 			if( confirm($(this).data("title")) )
