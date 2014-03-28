@@ -73,7 +73,7 @@ $(function()
 		$("#nav").addClass("load").load("?do=ajax&file=nav", function()
 		{
 			gotoPage( id, true );
-			history.replaceState({id: id}, "", "?id="+id);
+			history.replaceState({id: id}, "", admin_url+"id="+id);
 			
 			// Прокрутка к текущему пункту
 			if( $("#nav li.sel").size() )
@@ -86,7 +86,7 @@ $(function()
 		// Навигация
 		$("#nav, #content").on("click", "a[data-id]", function()
 		{
-			history.pushState({id: $(this).data("id")}, "", "?id="+$(this).data("id"));
+			history.pushState({id: $(this).data("id")}, "", admin_url+"id="+$(this).data("id"));
 			gotoPage( $(this).data("id") );
 			return false;
 		});
