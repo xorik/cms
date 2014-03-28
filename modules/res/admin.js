@@ -119,7 +119,7 @@ $(function()
 		// Навигация
 		$("#nav, #content").on("click", "a[data-id]", function()
 		{
-			id = $(this).data("id")
+			id = $(this).data("id");
 			history.pushState({id: id}, "", admin_url+"id="+id);
 			gotoPage();
 			return false;
@@ -164,6 +164,7 @@ $(function()
 				$.post("?do=ajax&file=admin&add=1&id="+$(this).data("gid"), {title: title}, function(data)
 				{
 					id = data.id;
+					history.pushState({id: id}, "", admin_url+"id="+id);
 					loadNav( false );
 				}, "json");
 			}
@@ -185,7 +186,20 @@ $(function()
 			if( confirm($(this).data("title")) )
 			{
 				// TODO: error detect
-				$.post("?do=ajax&file=admin&del=1", {del: $(this).closest("li").find("a.block").data("id")});
+				$.post(
+					"?do=ajax&file=admin&del=1&id="+id,
+					{del: $(this).closest("li").find("a.block").data("id")},
+					function(data)
+					{
+						if( typeof data.id !== 'undefined' )
+						{
+							id = data.id;
+							history.pushState({id: id}, "", admin_url+"id="+id);
+							gotoPage();
+						}
+					},
+					"json"
+				);
 				removeAnimation( $(this).closest("li") );
 				removeAnimation( $(this).closest("li").next().filter("div.sub") );
 			}

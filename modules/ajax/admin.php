@@ -75,7 +75,17 @@
 			run( "base_del", $id );
 		}
 		
-		page_del( (int)$_POST["del"] );
+		$del = (int)$_POST["del"];
+		page_del( $del );
+		
+		if( in_array($del, $GID) )
+		{
+			echo '{"id": '. $GID[array_search($del, $GID)-1] .'}';
+		}
+		else
+		{
+			echo '{}';
+		}
 	}
 
 	// Сортировка страниц
