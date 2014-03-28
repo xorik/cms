@@ -108,6 +108,20 @@ $(function()
 	}
 	
 	
+	// Можно ли перейти на другую страницу или надо сохранить
+	function tryUnload()
+	{
+		var unload = $("#content").triggerHandler("unload");
+		if( typeof unload === "undefined" )
+			return false;
+		
+		if( confirm(unload) )
+			return false;
+		else
+			return true;
+	}
+	
+	
 	// Навигация и контент в админке
 	if( $("#nav >").size() == 0 )
 	{
@@ -119,6 +133,9 @@ $(function()
 		// Навигация
 		$("#nav, #content").on("click", "a[data-id]", function()
 		{
+			if( tryUnload() )
+				return false;
+			
 			id = $(this).data("id");
 			history.pushState({id: id}, "", admin_url+"id="+id);
 			gotoPage();
@@ -128,6 +145,9 @@ $(function()
 		// Назад в браузере
 		$(window).bind("popstate", function(event)
 		{
+			if( tryUnload() )
+				return;
+			
 			id = event.originalEvent.state.id;
 			gotoPage();
 			// Прокрутка к текущему пункту
@@ -140,8 +160,9 @@ $(function()
 		
 		
 		// Сохранение
-		$("#content").on( "click", "input.save", function()
+		$("#content").on( "click", "input.save", function( e )
 		{
+			e.preventDefault();
 			$(this).trigger("submit");
 			$.post(
 				"?do=ajax&file=admin&save=1&id="+id,
@@ -151,12 +172,14 @@ $(function()
 					loadNav( false );
 				}
 			);
-			return false;
 		});
 		
 		// Добавление раздела
 		$("#nav").on("click", "a.add, div.add a", function()
 		{
+			if( tryUnload() )
+				return false;
+			
 			var title = prompt( "Название новой страницы:", $(this).data("type") );
 			if( title != null)
 			{
