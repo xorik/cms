@@ -158,7 +158,6 @@ h3 {
 }
 
 #nav li.sel {
-	border-bottom: none;
 	background-color: #428de0 !important;
 	background-image: linear-gradient(top, #4898f0, #3d83d3) !important;
 	background-image: -o-linear-gradient(top, #4898f0, #3d83d3) !important;
