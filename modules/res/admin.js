@@ -148,7 +148,6 @@ $(function()
 				$(this).closest("form").serialize(),
 				function(data)
 				{
-					loadContent();
 					loadNav( false );
 				}
 			);
