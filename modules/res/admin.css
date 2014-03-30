@@ -28,6 +28,21 @@ h3 {
 	color: #555;
 }
 
+.load {
+	min-height: 100px;
+	position: relative;
+}
+.load:after {
+	background: url("img/load.gif") no-repeat scroll center center rgba(255, 255, 255, 0.5);
+	content: "";
+	display: block;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
 /* Шапка */
 #top {
 	padding: 2px 10px 10px;
@@ -119,6 +134,7 @@ h3 {
 
 #nav li {
 	list-style: none;
+	position: relative;
 }
 
 #nav li div.indent {
@@ -142,7 +158,6 @@ h3 {
 }
 
 #nav li.sel {
-	border-bottom: none;
 	background-color: #428de0 !important;
 	background-image: linear-gradient(top, #4898f0, #3d83d3) !important;
 	background-image: -o-linear-gradient(top, #4898f0, #3d83d3) !important;
@@ -157,6 +172,12 @@ h3 {
 
 #nav li.last {
 	background: #ededed;
+}
+
+#nav hr,
+#nav div.sub,
+#nav div.add {
+	display: none;
 }
 
 #nav li i.i-sort:before {
@@ -191,7 +212,7 @@ h3 {
 #nav li:last-child {
 	border: none;
 }
-#nav li:last-child:after {
+#nav > :last-child:after {
 	content: "";
 	display: block;
 	height: 10px;
@@ -200,6 +221,10 @@ h3 {
 	background-image: -ms-linear-gradient(top, #ddd, #ededed);
 	background-image: -moz-linear-gradient(top, #ddd, #ededed);
 	background-image: -webkit-linear-gradient(top, #ddd, #ededed);
+}
+
+#nav div.sub {
+	position: relative;
 }
 
 /* Круги */

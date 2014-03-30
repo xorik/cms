@@ -65,9 +65,6 @@
 	{
 		// Проверка прав
 		run( "auth" );
-		// Тип корня раздела
-		if( $id === 0 )
-			$TYPE = "root";
 		load_modules( $DO );
 		run( "init" );
 		

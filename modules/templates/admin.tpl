@@ -3,6 +3,12 @@
 	$JS[] = "modules/res/jquery.js";
 	$JS[] = "modules/res/jquery-ui.js";
 	$JS[] = "modules/res/admin.js";
+	
+	if( $_GET["do"] == "admin" )
+	{
+		$SCRIPT[] = "var id=". (int)$_GET["id"]. ";
+				var admin_url = '$ADMIN_URL'";
+	}
 }}
 <!DOCTYPE html>
 <head>
@@ -22,15 +28,12 @@
 			{run( "nav" )}
 		</div>
 		<div id='content'>
-			<div id='crumb'>
-				/* Хлебные крошки или переход к разделам */
-				{if $_GET["do"] == "admin"}
-					{run( "crumb", "•" )}
-				{else}
+			{if $_GET["do"] == "config"}
+				<div id='crumb'>
 					<a href='{$ADMIN_URL}'>Разделы</a>
-				{/if}
-			</div>
-			{run( "content" )}
+				</div>
+				{run( "content" )}
+			{/if}
 		</div>
 	</div>
 	<div id='bottom'>

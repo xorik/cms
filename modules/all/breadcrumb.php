@@ -38,7 +38,7 @@
 		
 		// Главная
 		$GID_TYPE[] = "root";
-		if( $_GET["do"]=="admin" )
+		if( $_GET["do"]=="ajax" && $_GET["file"]=="admin" )
 		{
 			$GID[] = 0;
 			$GID_TITLE[] = "Разделы";
@@ -63,7 +63,6 @@
 		global $GID;
 		global $GID_TITLE;
 		global $LEVEL;
-		global $ADMIN_URL;
 		
 		$sep = $sep ? $sep : "&gt;";
 		
@@ -73,8 +72,8 @@
 			if( $GID[$i] == $id )
 				echo $GID_TITLE[$i];
 			// Раздел админки
-			elseif( $_GET["do"] == "admin" )
-				echo "<a href='{$ADMIN_URL}id={$GID[$i]}'>{$GID_TITLE[$i]}</a> $sep ";
+			elseif( $_GET["do"]=="ajax" && $_GET["file"]=="admin" )
+				echo "<a href='#' data-id='{$GID[$i]}'>{$GID_TITLE[$i]}</a> $sep ";
 			// Раздел внешней части
 			else
 				echo "<a href='". path($GID[$i]) ."'>{$GID_TITLE[$i]}</a> $sep ";
