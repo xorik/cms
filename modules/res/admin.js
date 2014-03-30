@@ -28,12 +28,60 @@ $(function()
 				scroll = $("#nav li.sel").offset().top - 72;
 			}
 			
-			// Прокрутка к текущему пункту
+			// Прокрутка
 			if( $("#nav li.sel").size() )
 			{
 				$("#nav").scrollTop( 0 );
 				$("#nav").scrollTop( scroll );
 			}
+			
+			// Сортировка разделов
+			$("#nav").sortable(
+			{
+				items: "li.last",
+				opacity: 0.6,
+				containment: "#nav",
+				tolerance: "pointer",
+				handle: "i.i-sort",
+				placeholder: "placeholder",
+				stop: function(event, ui)
+				{
+					// Новый порядок
+					var list = "";
+					$("#nav li.last").each(function()
+					{
+						list += "&p[]="+$(this).find("a.block").data("id");
+					});
+					
+					// id раздела
+					var id = 0;
+					if( $("#nav li.last:first").parent().prev().is("li") );
+					{
+						id = $("#nav li.last:first").parent().prev().find("a.block").data("id");
+					}
+					
+					// Если встал между разделам и его подразделами
+					if( ui.item.next().is("div.sub") )
+						ui.item.insertAfter( ui.item.next() );
+					
+					// Поиск подразделов
+					var sub = $("#nav div.sub[data-gid="+ui.item.find("a.block").data("id")+"]");
+					if( sub.size() )
+					{
+						sub.insertAfter( ui.item );
+					}
+					
+					// Сохранение сортировки
+					$.ajax("?do=ajax&file=admin&page_sort=1&id="+id+list);
+				}
+			});
+			
+			// id для сортировки
+			$("#nav div.sub").each( function()
+			{
+				$(this).attr("data-gid", $(this).prev().find("a.block").data("id"));
+			});
+			
 			$(this).removeClass("load");
 		});
 	}
