@@ -295,6 +295,31 @@ $(function()
 					});
 				}).load();
 			});
+			
+			// Сортировка файлов
+			$("div.files").sortable(
+			{
+				items: "div.block",
+				opacity: 0.6,
+				tolerance: "pointer",
+				placeholder: "placeholder",
+				stop: function(event, ui)
+				{
+					// Новый порядок
+					var list = "";
+					$(ui.item).parent().find("div[id]").each(function()
+					{
+						list += "&p[]="+$(this).prop("id");
+					});
+					
+					// Сохранение сортировки
+					$.ajax("?do=ajax&file=admin&file_sort=1"+list);
+				},
+				start: function(event, ui)
+				{
+					ui.placeholder.css("width", ui.helper.width()+"px");
+				}
+			});
 		});
 	}
 	
