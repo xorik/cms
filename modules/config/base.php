@@ -41,6 +41,12 @@
 			unset( $_SESSION["chpass"] );
 		}
 		
+		if( $CONFIG["adv"] && !$_SESSION["adv_info"] )
+		{
+			$_SESSION["notify"][] = array( "text"=>"Расширенные настройки включены, поэтому изменяйте только то, что понимаете или отключите расширенные настройки!", "type"=>"warning", "timeout"=>20000 );
+			$_SESSION["adv_info"] = 1;
+		}
+		
 		// Сохранение конфига
 		if( !$_POST["title"] )
 			return;
