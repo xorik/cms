@@ -28,6 +28,8 @@
 		if( $_SESSION["hash"] != $CONFIG["admin_hash"] )
 		{
 			unset( $_SESSION["admin"] );
+			header( "HTTP/1.0 403 Forbidden" );
+			
 			// Форма входа
 			die ( "<form method='post'><input type='password' name='admin_pass'><input type='submit' value='Enter'></form>" );
 		}
