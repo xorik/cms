@@ -150,14 +150,17 @@
 	// Прочитать свойство
 	function get_prop( $id, $field )
 	{
-		$row = db_select_one( "SELECT value FROM prop WHERE id=$id AND field='$field'" );
+		$row = db_select_one( "SELECT value FROM prop WHERE id=$id AND field=". db_escape($field) );
 		return $row["value"];
 	}
 	
 	// Установить свойство
 	function set_prop( $id, $field, $value )
 	{
-		db_insert( "prop", array("id"=>$id, "field"=>$field, "value"=>$value), 1 );
+		if( $value )
+			db_insert( "prop", array("id"=>$id, "field"=>$field, "value"=>$value), 1 );
+		else
+			db_delete( "prop", "id=$id AND field=". db_escape($field) );
 	}
 	
 	
