@@ -25,8 +25,20 @@
 				
 				// Запись конфига и разлогин
 				config_write();
-				die( "Пароль успешно изменен!<br><a href='$CONFIG_URL'>Назад</a><meta http-equiv='refresh' content='3;url=$CONFIG_URL'>" );
+				$_SESSION["notify"] = array( array("text"=>"Пароль успешно изменен! Необходимо заново войти в систему", "type"=>"success", "timeout"=>10000) );
+				$_SESSION["chpass"] = 1;
 			}
+			else
+			{
+				$_SESSION["notify"][] = array( "text"=>"Неправильный пароль или новые пароли не совпадают!" );
+				clear_post();
+			}
+		}
+		
+		if( $_SESSION["chpass"] )
+		{
+			hook( "content", "cphass_refresh" );
+			unset( $_SESSION["chpass"] );
 		}
 		
 		// Сохранение конфига
@@ -61,5 +73,11 @@
 	function chpass_content()
 	{
 		template( "modules/templates/config_chpass.tpl" );
+	}
+	
+	
+	function cphass_refresh()
+	{
+		echo "<meta http-equiv='refresh' content='5;url=$CONFIG_URL'>";
 	}
 ?>

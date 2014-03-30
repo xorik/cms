@@ -2,12 +2,19 @@
 	$CSS[] = "modules/res/admin.css";
 	$JS[] = "modules/res/jquery.js";
 	$JS[] = "modules/res/jquery-ui.js";
+	$JS[] = "modules/res/jquery.noty.js";
 	$JS[] = "modules/res/admin.js";
 	
 	if( $_GET["do"] == "admin" )
 	{
 		$SCRIPT[] = "var id=". (int)$_GET["id"]. ";
 				var admin_url = '$ADMIN_URL'";
+	}
+	
+	if( $_SESSION["notify"] )
+	{
+		$SCRIPT[] = "$(function(){show_notify( ".json_encode($_SESSION["notify"], true) .")})";
+		unset( $_SESSION["notify"] );
 	}
 }}
 <!DOCTYPE html>

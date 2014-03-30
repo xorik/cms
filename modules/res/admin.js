@@ -217,8 +217,13 @@ $(function()
 				$(this).closest("form").serialize(),
 				function(data)
 				{
-					loadNav( false );
-				}
+					ajaxNotify( data );
+					if( !data.error )
+					{
+						loadNav( false );
+					}
+				},
+				"json"
 			);
 		});
 		
@@ -233,9 +238,13 @@ $(function()
 			{
 				$.post("?do=ajax&file=admin&add=1&id="+$(this).data("gid"), {title: title}, function(data)
 				{
-					id = data.id;
-					history.pushState({id: id}, "", admin_url+"id="+id);
-					loadNav( false );
+					ajaxNotify( data );
+					if( typeof data.id !== 'undefined' )
+					{
+						id = data.id;
+						history.pushState({id: id}, "", admin_url+"id="+id);
+						loadNav( false );
+					}
 				},
 				"json");
 			}
@@ -333,4 +342,39 @@ $(function()
 		else
 			return false;
 	});
+	
+	
+	// Уведомления
+	$.extend( $.noty.defaults, {timeout: 2000, type: "information"} );
+	
+	window.show_notify = function( notify )
+	{
+		for( var i in notify )
+		{
+			noty( notify[i] );
+		}
+	}
+	
+	$(document).ajaxError( function(event, jqXHR, ajaxSettings)
+	{
+		noty({
+			type: "warning",
+			text: "Произошла ошибка при обработке запроса: <b>"+
+				ajaxSettings.url+"</b>: "+jqXHR.statusText,
+			timeout: 5000}
+		);
+	});
+	
+	
+	function ajaxNotify( data )
+	{
+		if( data.success )
+			noty({type: "success", text: data.success, timeout: 2000});
+		
+		if( data.info )
+			noty({type: "information", text: data.info, timeout: 2000});
+		
+		if( data.error )
+			noty({type: "warning", text: data.error, timeout: 5000});
+	}
 });

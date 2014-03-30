@@ -14,7 +14,7 @@
 	elseif( $_GET["save"] )
 	{
 		run( "init" );
-		db_update( "page", array("title"=>$_POST["title"], "text"=>$_POST["text"], "type"=>$_POST["type"], "hide"=>(int)$_POST["hide"]), "id=$id" );
+		$res = db_update( "page", array("title"=>$_POST["title"], "text"=>$_POST["text"], "type"=>$_POST["type"], "hide"=>(int)$_POST["hide"]), "id=$id" );
 		
 		// Путь для rewrite
 		if( $CONFIG["rewrite"] )
@@ -22,6 +22,11 @@
 		
 		// Обновление
 		run( "base_submit", $id );
+		
+		if( $res === false )
+			echo '{"error": "Ошибка сохранения страницы!"}';
+		else
+			echo '{"success": "Страница сохранена"}';
 	}
 	
 	// Добавление страницы
@@ -45,8 +50,10 @@
 		// Хуки после добавления
 		run( "base_add", $id );
 
-		// TODO: error message
-		echo '{"id": '. $id .'}';
+		if( $id === false )
+			echo '{"error": "Произошла ошибка при добавлении страницы!"}';
+		else
+			echo '{"id": '. $id .'}';
 	}
 	
 	elseif( $_GET["del"] )

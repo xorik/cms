@@ -92,6 +92,7 @@
 		}
 		fwrite( $f, "?>\n" );
 		fclose( $f );
+		$_SESSION["notify"][] = array( "text"=>"Настройки сохранены", "type"=>"success" );
 	}
 	
 	
