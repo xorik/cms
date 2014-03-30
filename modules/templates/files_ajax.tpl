@@ -12,7 +12,7 @@
 	{/each}
 	</div>
 	
-	{if count($files) > 1}
+	{if count($files) > 0}
 		{run( "files_action" )}
 	{/if}
 </form>
