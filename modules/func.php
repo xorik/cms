@@ -66,10 +66,12 @@
 		elseif( is_numeric($v) )
 			return $v;
 		elseif( is_bool($v) )
+		{
 			if( $v )
 				return "true";
 			else
 				return "false";
+		}
 		elseif( is_array($v) )
 		{
 			$a = array();
@@ -77,20 +79,24 @@
 				$a[] = config_item( $k ) . "=>" . config_item( $v );
 			return "array( ". implode(", ", $a) ." )";
 		}
+		else
+			return "null";
 	}
 	
 	// Сохранить массив $CONFIG в файле config.php
-	function config_write()
+	function config_write( $array=null, $name="CONFIG", $file="config.php" )
 	{
 		global $CONFIG;
 		
-		$f = fopen( "config.php", "w" );
-		fwrite( $f, "<?\n" );
-		foreach( $CONFIG AS $k => $v )
+		if( !$array )
+			$array = $CONFIG;
+		
+		$f = fopen( $file, "w" );
+		fwrite( $f, "<?php\n" );
+		foreach( $array AS $k => $v )
 		{
-			fwrite( $f, "\t\$CONFIG[" . config_item( $k ) . "] = " . config_item( $v ) . ";\n" );
+			fwrite( $f, "\t\${$name}[" . config_item( $k ) . "] = " . config_item( $v ) . ";\n" );
 		}
-		fwrite( $f, "?>\n" );
 		fclose( $f );
 		$_SESSION["notify"][] = array( "text"=>"Настройки сохранены", "type"=>"success" );
 	}
