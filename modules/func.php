@@ -91,7 +91,12 @@
 		if( !$array )
 			$array = $CONFIG;
 		
-		$f = fopen( $file, "w" );
+		if( !$f = fopen($file, "w") )
+		{
+			$_SESSION["notify"][] = array( "text"=>"Ошибка сохранения файла $file!", "type"=>"warning", "timeout"=>5000 );
+			return;
+		}
+		
 		fwrite( $f, "<?php\n" );
 		foreach( $array AS $k => $v )
 		{
