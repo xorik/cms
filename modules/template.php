@@ -63,7 +63,7 @@ function template_parse( $text )
 		"/{\/IF}/i",
 		"/{EACH ([^}]+)}/i", // FOREACH
 		"/{\/EACH}/i",
-		"/{(\\$[\d\w_]+)(\\[[\d\w_\"']+\\])?}/", // $var или $var[key]
+		"/{(\\$[\d\w_\\[\\]\'\"]+)}/", // $var или $var[key]
 		"/{([\d\w_]+)\\(([^)]*)\\)}/", // func()
 		"/{{/", // PHP код
 		"/}}/",
@@ -76,7 +76,7 @@ function template_parse( $text )
 		"<?php endif ?>",
 		"<?php foreach(\\1): ?>",
 		"<?php endforeach ?>",
-		"<?php echo \\1\\2 ?>",
+		"<?php echo \\1 ?>",
 		"<?php echo \\1(\\2) ?>",
 		"<?php ",
 		"?>",
