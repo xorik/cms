@@ -13,7 +13,7 @@
 	
 	if( $_SESSION["notify"] )
 	{
-		$SCRIPT[] = "$(function(){show_notify( ".json_encode($_SESSION["notify"], true) .")})";
+		$SCRIPT[] = "$(function(){show_notify( ".json_encode($_SESSION["notify"]) .")})";
 		unset( $_SESSION["notify"] );
 	}
 }}

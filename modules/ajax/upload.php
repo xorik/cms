@@ -96,5 +96,5 @@
 	else
 		$notify[] = array( "text"=>"Файл не выбран!" );
 	
-	$SCRIPT[] = "parent.show_notify( ".json_encode($notify, true) .")";
+	$SCRIPT[] = "parent.show_notify( ".json_encode($notify) .")";
 	head();
