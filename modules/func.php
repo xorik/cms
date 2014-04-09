@@ -18,7 +18,7 @@
 	}
 	
 	// Создать хук
-	function hook( $hookname, $func, $pos=50 )
+	function hook( $hookname, $func, $pos=50, $data=null )
 	{
 		global $HOOK;
 		
@@ -26,13 +26,15 @@
 		if( $HOOK[$hookname] )
 		{
 			while( @array_key_exists($pos, $HOOK[$hookname]) )
+			{
 				$pos++;
+			}
 		}
-		$HOOK[$hookname][$pos] = $func;
+		$HOOK[$hookname][$pos] = array( "func"=>$func, "data"=>$data );
 	}
 	
 	// Удалить хук
-	function unhook( $hookname, $func )
+	function unhook( $hookname, $func, $data=null )
 	{
 		global $HOOK;
 		
@@ -41,7 +43,14 @@
 			unset( $HOOK[$hookname] );
 		// Иначе выбранную функцию
 		else
-			unset( $HOOK[$hookname][array_search($func, $HOOK[$hookname])] );
+		{
+			$idx = null;
+			foreach( $HOOK[$hookname] as $k=>&$v )
+			{
+				if( $v["func"]==$func && ($data==null || $v["data"]==$data) )
+					unset( $HOOK[$hookname][$k] );
+			}
+		}
 	}
 	
 	// Выполнить все функции из хука
@@ -54,7 +63,12 @@
 			// Отсортировать по приотирету
 			ksort( $HOOK[$hookname] );
 			foreach( $HOOK[$hookname] AS &$v )
-				$v( $arg );
+			{
+				if( function_exists($v["func"]) )
+					$v["func"]( $arg, $v["data"] );
+				else
+					trigger_error( "Function '{$v["func"]}' is not exist in hook '$hookname'!" );
+			}
 		}
 	}
 	
