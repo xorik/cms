@@ -1,160 +1,94 @@
 <?php
-	hook( "init", "type_init", 10 );
-	hook( "init", "base_init", 90 );
-	
-	
-	// Простая страница
-	function type_init()
+
+
+hook( "init", "type_init", 10 );
+hook( "init", "base_init", 90 );
+
+
+// Дефолтный тип
+function type_init()
+{
+	global $PAGE_TYPE;
+	$PAGE_TYPE["Страница"] = array("descr"=>"Обычная страница с текстами и картинками");
+}
+
+
+function base_init()
+{
+	global $id, $TYPE, $PAGE_TYPE, $GID_TYPE, $LEVEL, $CONFIG, $BASE;
+
+	// Нет страницы или главная -> выход
+	if( !$id )
 	{
-		global $PAGE_TYPE;
-		$PAGE_TYPE["Страница"] = array("descr"=>"Обычная страница с текстами и картинками");
+		// Нет страницы
+		if( !isset($id) )
+			hook( "content", "not_found_content" );
+		return;
 	}
-	
-	
-	function base_init()
+
+	// Данные
+	$BASE = db_select_one( "SELECT title, text, hide FROM page WHERE id=$id" );
+
+	hook( "content", "crumb_content", 5 );
+	hook( "content", "base_content", 10 );
+	hook( "base_show", "base_tpl", 10, "title" );
+	hook( "base_show", "base_tpl", 15, "type" );
+
+	// Описание типа
+	if( $PAGE_TYPE[$TYPE]["descr"] )
 	{
-		global $id;
-		global $TYPE;
-		global $PAGE_TYPE;
-		global $CONFIG;
-		
-		// Нет страницы или главная -> выход
-		if( !$id )
-		{
-			// Нет страницы
-			if( !isset($id) )
-				hook( "content", "not_found_content" );
-			return;
-		}
-		
-		hook( "content", "crumb_content", 5 );
-		hook( "content", "base_content", 10 );
-		hook( "base_show", "base_title", 10 );
-		hook( "base_show", "base_type", 15 );
-		// Описание
-		if( $PAGE_TYPE[$TYPE]["descr"] )
-			hook( "base_show", "base_descr", 16 );
-		hook( "base_show", "base_hide", 80 );
-		// Нужен текст
-		if( !$PAGE_TYPE[$TYPE]["notext"] )
-			hook( "base_show", "base_text", 90 );
-		// Путь, если включен rewrite, не главная и не виртуальная
-		if( $CONFIG["rewrite"] && $id!=$CONFIG["main"] && !$PAGE_TYPE[$TYPE]["virt"] )
-			hook( "base_show", "base_path", 20 );
+		hook( "base_show", "base_tpl", 16, "descr" );
+		$BASE["descr"] = $PAGE_TYPE[$TYPE]["descr"];
 	}
-	
-	
-	// Крошки
-	function crumb_content()
+	hook( "base_show", "base_tpl", 80, "hide" );
+
+	// Нужен текст
+	if( !$PAGE_TYPE[$TYPE]["notext"] )
+		hook( "base_show", "base_tpl", 90, "text" );
+
+	// Путь, если включен rewrite, не главная и не виртуальная
+	if( $CONFIG["rewrite"] && $id!=$CONFIG["main"] && !$PAGE_TYPE[$TYPE]["virt"] )
 	{
-		echo "<div id='crumb'>";
-		run( "crumb" );
-		echo "</div>";
+		hook( "base_show", "base_tpl", 20, "path" );
+		$BASE["path"] = get_prop( $id, "path" );
 	}
-	
-	// Редактирование
-	function base_content()
-	{
-		template( "modules/templates/base.tpl" );
-	}
-	
-	// Заголовок в редактировании
-	function base_title( $id )
-	{
-		$row = db_select_one( "SELECT title FROM page WHERE id=$id" );
-		?>
-			<tr>
-				<td>Заголовок:</td>
-				<td><input type='text' name='title' value='<?php echo $row["title"] ?>'></td>
-			</tr>
-		<?php
-	}
-	
-	// Текст в редактировании
-	function base_text( $id )
-	{
-		$row = db_select_one( "SELECT text FROM page WHERE id=$id" );
-		?>
-			<tr>
-				<td colspan='2'>Текст:<br>
-				<textarea name='text' cols='80' rows='20' class='rich editor'><?php echo htmlspecialchars($row["text"]) ?></textarea></td>
-			</tr>
-		<?php
-	}
-	
-	// Выбор типа в редактировании
-	function base_type( $id )
-	{
-		global $TYPE;
-		global $PAGE_TYPE;
-		
-		// Все типы подразделов родителя
-		global $LEVEL;
-		global $GID_TYPE;
-		
-		$types = array( $TYPE );
-		if( $PAGE_TYPE[$GID_TYPE[$LEVEL-1]]["sub"] )
-			$types = array_merge( $types, $PAGE_TYPE[$GID_TYPE[$LEVEL-1]]["sub"] );
-		
-		// Убираем повторы
-		$types = array_unique( $types );
-		
-		// Не показывать тип, если notype или он один
-		if( $PAGE_TYPE[$TYPE]["notype"] || count($types)==1 )
-		{
-			echo "<input type='hidden' name='type' value='$TYPE'>\n";
-			return;
-		}
-		
-		echo "<tr>";
-			echo "<td>Тип:</td> <td><select name='type'>\n";
-			
-			foreach( $types AS $v )
-			{
-				if( $v == $TYPE )
-					echo "<option selected>$v</option>\n";
-				else
-					echo "<option>$v</option>\n";
-			}
-			
-			echo "</select></td>";
-		echo "</tr>\n";
-	}
-	
-	
-	function base_descr()
-	{
-		global $TYPE;
-		global $PAGE_TYPE;
-		
-		echo "<tr><td></td><td class='descr'>{$PAGE_TYPE[$TYPE]["descr"]}</td></tr>";
-	}
-	
-	
-	function base_hide( $id )
-	{
-		$row = db_select_one( "SELECT hide FROM page WHERE id=$id" );
-		?>
-			<tr>
-				<td colspan='2'>
-				<label><input type='radio' name='hide' value='0' <?php if(!$row["hide"]) echo "checked" ?>> Страница видна всем (<div class='round show'><i class='i-'></i></div>)</label>
-				<label><input type='radio' name='hide' value='1' <?php if($row["hide"]) echo "checked" ?>> Скрывать страницу в меню (<div class='round hide'><i class='i-'></i></div>)</label>
-				</td>
-			</tr>
-		<?php
-	}
-	
-	
-	function base_path( $id )
-	{
-		echo "<tr>";
-			echo "<td>Путь:</td> <td><input type='text' name='path' value='". get_prop( $id, "path" ) ."'></td>";
-		echo "</tr>\n";
-	}
-	
-	
-	function not_found_content()
-	{
-		global $ADMIN_URL;
-		echo "<h3>Страница не найдена!</h3>";
-	}
+
+	// Типы
+	$types = array( $TYPE );
+	if( $PAGE_TYPE[$GID_TYPE[$LEVEL-1]]["sub"] )
+		$types = array_merge( $types, $PAGE_TYPE[$GID_TYPE[$LEVEL-1]]["sub"] );
+
+	// Убираем повторы
+	$types = array_unique( $types );
+	$BASE['types'] = $types;
+}
+
+
+// Крошки
+function crumb_content()
+{
+	echo "<div id='crumb'>";
+	run( "crumb" );
+	echo "</div>";
+}
+
+// Редактирование
+function base_content()
+{
+	template( "modules/templates/base.tpl" );
+}
+
+// Элемент базового редактирования
+function base_tpl( $id, $data )
+{
+	global $DATA;
+
+	$DATA = $data;
+	template( "modules/templates/base_content.tpl" );
+}
+
+
+function not_found_content()
+{
+	echo "<h3>Страница не найдена!</h3>";
+}
