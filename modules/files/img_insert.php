@@ -1,4 +1,4 @@
-<?
+<?php
 	// Удаление дефолтной картинки
 	unhook( "files_show", "default_files_show" );
 	
@@ -26,4 +26,3 @@
 		
 		echo "<a href='#' data-text=\"$text\">$html</a>";
 	}
-?>

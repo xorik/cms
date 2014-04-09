@@ -1,4 +1,4 @@
-<?
+<?php
 	hook( "init", "files_init", 95 );
 	
 	// Загрузка галереи аяксом
@@ -20,4 +20,3 @@
 	{
 		template( "modules/templates/files.tpl" );
 	}
-?>

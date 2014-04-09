@@ -1,4 +1,4 @@
-<?
+<?php
 	// Загрузить модули из каталога
 	function load_modules( $mask )
 	{
@@ -213,4 +213,3 @@
 		$row = db_select_one( "SELECT text FROM page WHERE id=$id" );
 		return $row["text"];
 	}
-?>

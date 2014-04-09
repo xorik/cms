@@ -1,4 +1,4 @@
-<?
+<?php
 	$CONFIG['db_host'] = 'localhost';
 	$CONFIG['db_user'] = 'admin';
 	$CONFIG['db_pass'] = 'admin';
@@ -20,4 +20,3 @@
 { name: "Обычный", element: "p" },
 { name: "Крупный шрифт", element: "big" },
 { name: "Мелкий шрифт", element: "small" }';
-?>

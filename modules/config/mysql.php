@@ -1,4 +1,4 @@
-<?
+<?php
 	if( $_GET["edit"] != "mysql" )
 		return;
 	
@@ -26,4 +26,3 @@
 	{
 		template("modules/templates/config_mysql.tpl");
 	}
-?>

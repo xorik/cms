@@ -1,4 +1,4 @@
-<?
+<?php
 	// Отобразить меню
 	function menu( $gid, $templ="{}" )
 	{
@@ -25,4 +25,3 @@
 			echo str_replace( "{}", $s, $templ );
 		}
 	}
-?>

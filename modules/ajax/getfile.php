@@ -1,4 +1,4 @@
-<?
+<?php
 	$id = (int)$_GET["fid"];
 	
 	// Имя файла и тип
@@ -16,4 +16,3 @@
 	header( "Content-Disposition: attachment; filename=\"{$row["filename"]}\"" );
 	header( "Content-Length: ". filesize($file) );
 	readfile( $file );
-?>

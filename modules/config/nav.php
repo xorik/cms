@@ -1,4 +1,4 @@
-<?
+<?php
 	hook( "nav", "config_nav", 10 );
 	
 	global $MENU;
@@ -22,4 +22,3 @@
 			echo "<li $sel><div class='indent'></div><div class='indent'></div><div class='indent'></div><a class='block' href='$link'>$v</a></li>";
 		}
 	}
-?>

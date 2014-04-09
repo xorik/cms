@@ -1,4 +1,4 @@
-<?
+<?php
 	hook( "init", "type_init", 10 );
 	hook( "init", "base_init", 90 );
 	
@@ -65,9 +65,9 @@
 		?>
 			<tr>
 				<td>Заголовок:</td>
-				<td><input type='text' name='title' value='<?= $row["title"] ?>'></td>
+				<td><input type='text' name='title' value='<?php echo $row["title"] ?>'></td>
 			</tr>
-		<?
+		<?php
 	}
 	
 	// Текст в редактировании
@@ -77,9 +77,9 @@
 		?>
 			<tr>
 				<td colspan='2'>Текст:<br>
-				<textarea name='text' cols='80' rows='20' class='rich editor'><?= htmlspecialchars($row["text"]) ?></textarea></td>
+				<textarea name='text' cols='80' rows='20' class='rich editor'><?php echo htmlspecialchars($row["text"]) ?></textarea></td>
 			</tr>
-		<?
+		<?php
 	}
 	
 	// Выбор типа в редактировании
@@ -137,11 +137,11 @@
 		?>
 			<tr>
 				<td colspan='2'>
-				<label><input type='radio' name='hide' value='0' <? if(!$row["hide"]) echo "checked" ?>> Страница видна всем (<div class='round show'><i class='i-'></i></div>)</label>
-				<label><input type='radio' name='hide' value='1' <? if($row["hide"]) echo "checked" ?>> Скрывать страницу в меню (<div class='round hide'><i class='i-'></i></div>)</label>
+				<label><input type='radio' name='hide' value='0' <?php if(!$row["hide"]) echo "checked" ?>> Страница видна всем (<div class='round show'><i class='i-'></i></div>)</label>
+				<label><input type='radio' name='hide' value='1' <?php if($row["hide"]) echo "checked" ?>> Скрывать страницу в меню (<div class='round hide'><i class='i-'></i></div>)</label>
 				</td>
 			</tr>
-		<?
+		<?php
 	}
 	
 	
@@ -158,4 +158,3 @@
 		global $ADMIN_URL;
 		echo "<h3>Страница не найдена!</h3>";
 	}
-?>

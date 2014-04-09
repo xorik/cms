@@ -1,4 +1,4 @@
-<?
+<?php
 	hook( "upload", "gallery_upload" );
 	
 	function img_resize( $src, $w, $h )
@@ -46,5 +46,3 @@
 			img_resize( "files/{$file["id"]}_.jpg", $CONFIG["preview_w"], $CONFIG["preview_h"] );
 		}
 	}
-	
-?>

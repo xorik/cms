@@ -1,4 +1,4 @@
-<?
+<?php
 	require( "config.php" );
 	require( "modules/func.php" );
 	require( "modules/template.php" );
@@ -115,4 +115,3 @@
 	}
 	
 	run( "shutdown" );
-?>

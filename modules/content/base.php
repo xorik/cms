@@ -1,4 +1,4 @@
-<?
+<?php
 	hook( "content", "base_content" );
 	
 	function base_content()
@@ -19,4 +19,3 @@
 		
 		echo get_text( $id );
 	}
-?>

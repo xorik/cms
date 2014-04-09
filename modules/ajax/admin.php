@@ -1,4 +1,4 @@
-<?
+<?php
 	run( "auth" );
 	load_modules( "admin" );
 	
@@ -119,4 +119,3 @@
 			db_update( "file", array("pos"=>(int)$k), "id=".(int)$v );
 		}
 	}
-?>

@@ -1,4 +1,4 @@
-<?
+<?php
 	if( $_GET["edit"] )
 		return;
 	
@@ -86,4 +86,3 @@
 	{
 		echo "<meta http-equiv='refresh' content='5;url=$CONFIG_URL'>";
 	}
-?>

@@ -1,4 +1,4 @@
-<?
+<?php
 	run( "auth" );
 	
 	load_modules( "admin" );
@@ -67,4 +67,3 @@
 	
 	// Список первого уровня
 	nav_level( 0, 1, "" );
-?>

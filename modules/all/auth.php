@@ -1,4 +1,4 @@
-<?
+<?php
 	hook( "auth", "base_auth" );
 	
 	// Простая авторизация по паролю
@@ -34,4 +34,3 @@
 			die ( "<form method='post'><input type='password' name='admin_pass'><input type='submit' value='Enter'></form>" );
 		}
 	}
-?>

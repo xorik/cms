@@ -1,4 +1,4 @@
-<?
+<?php
 	run( "auth" );
 	hook( "init", "files_init" );
 	hook( "files_show", "default_files_show" );
@@ -47,4 +47,3 @@
 	$files = db_select( "SELECT id, type, gallery, filename FROM file WHERE gid=$id AND gallery=". db_escape($_GET["gallery"]) ." ORDER BY pos, id" );
 	
 	template( "modules/templates/files_ajax.tpl" );
-?>

@@ -1,4 +1,4 @@
-<?
+<?php
 	hook( "init", "crumb_init" );
 	hook( "crumb", "breadcrumb" );
 	
@@ -79,4 +79,3 @@
 				echo "<a href='". path($GID[$i]) ."'>{$GID_TITLE[$i]}</a> $sep ";
 		}
 	}
-?>

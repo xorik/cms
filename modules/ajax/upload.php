@@ -1,4 +1,4 @@
-<?
+<?php
 	run( "auth" );
 	load_modules( "upload" );
 	
@@ -98,4 +98,3 @@
 	
 	$SCRIPT[] = "parent.show_notify( ".json_encode($notify, true) .")";
 	head();
-?>
