@@ -38,7 +38,7 @@
 					echo "<div class='round lock'></div>";
 				}
 				echo "<div class='round $show'><i class='i-'></i></div>";
-				echo "<a href='#' class='block' data-id='{$row["id"]}' title='{$row["title"]}'>{$row["title"]}";
+				echo "<a href='?id={$row["id"]}' class='block' data-id='{$row["id"]}' title='{$row["title"]}'>{$row["title"]}";
 					// Стрелочка
 					if( !empty($PAGE_TYPE[$row["type"]]["sub"]) )
 					{
