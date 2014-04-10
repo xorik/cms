@@ -1,11 +1,24 @@
 $(function()
 {
+	// Индикатор загрузки
+	$.fn.addLoad = function()
+	{
+		$(this).append("<div class='load'></div>").find("> div.load").css({top: $(this).scrollTop()});
+		return $(this);
+	}
+	$.fn.removeLoad = function()
+	{
+		$(this).find("> div.load").remove();
+		return $(this);
+	}
+
+
 	// Загрузить контент
 	function loadContent()
 	{
-		$("#content").addClass("load").load("?do=ajax&file=admin&base=1&id="+id, function()
+		$("#content").addLoad().load("?do=ajax&file=admin&base=1&id="+id, function()
 		{
-			$(this).trigger("ready").removeClass("load");
+			$(this).trigger("ready").removeLoad();
 		});
 	}
 	
@@ -19,7 +32,7 @@ $(function()
 			scroll = $("#nav").scrollTop();
 		}
 		
-		$("#nav").addClass("load").load("?do=ajax&file=nav", function()
+		$("#nav").addLoad().load("?do=ajax&file=nav", function()
 		{
 			gotoPage( true );
 			
@@ -82,7 +95,7 @@ $(function()
 				$(this).attr("data-gid", $(this).prev().find("a.block").data("id"));
 			});
 			
-			$(this).removeClass("load");
+			$(this).removeLoad();
 		});
 	}
 	
