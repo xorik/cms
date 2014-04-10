@@ -8,9 +8,6 @@
 	$CONFIG['title'] = 'Тестовый сайт';
 	$CONFIG['adv'] = true;
 	$CONFIG['main'] = 1;
-	$CONFIG['preview_w'] = 128;
-	$CONFIG['preview_h'] = 128;
-	$CONFIG['preview_quality'] = 85;
 	$CONFIG['rewrite'] = true;
 	$CONFIG['load_url'] = false;
 	$CONFIG['template'] = 'templates/main.tpl';

@@ -28,7 +28,7 @@
 		// Приемник
 		$idest = imagecreatetruecolor( $W, $H );
 		imagecopyresampled($idest, $isrc, 0, 0, 0, 0, $W, $H, $size[0], $size[1]);
-		imagejpeg($idest, $src, $CONFIG["preview_quality"] );
+		imagejpeg($idest, $src, 85 );
 		imagedestroy($isrc);
 		imagedestroy($idest);
 	}
@@ -43,6 +43,6 @@
 		if( in_array($file["ext"], $types) )
 		{
 			copy( $file["path"], "files/{$file["id"]}_.jpg" );
-			img_resize( "files/{$file["id"]}_.jpg", $CONFIG["preview_w"], $CONFIG["preview_h"] );
+			img_resize( "files/{$file["id"]}_.jpg", 128, 128 );
 		}
 	}
