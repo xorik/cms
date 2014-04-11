@@ -1,7 +1,7 @@
 <h3>Настройки MySQL</h3>
 <form method='post'>
-	<table class='base'>
-		<col width='150'>
+	<table>
+		<col width='100'>
 		<col>
 		
 		<tr>
@@ -21,7 +21,7 @@
 			<td><input type='text' name='db_db' value='{$CONFIG[db_db]}'></td>
 		</tr>
 		<tr>
-			<td colspan='2'><input type='submit' value='Сохранить'></td>
+			<td colspan='2'><input type='submit' class='btn save_right' value='Сохранить'></td>
 		</tr>
 	</table>
 </form>

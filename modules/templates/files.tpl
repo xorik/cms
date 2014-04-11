@@ -5,7 +5,7 @@
 		{if $CONFIG["load_url"]}
 			или по ссылке: <input type='text' name='url'>
 		{/if}
-		<input type='submit' value='Загрузить'>
+		<input type='submit' class='btn' value='Загрузить'>
 		<input type='hidden' name='gallery' value='gallery'>
 		<small>(Максимум: {ini_get("upload_max_filesize")}b)</small>
 	</form>

@@ -1,6 +1,6 @@
 <h2>Настройки сайта</h2>
 <form method='post'>
-	<table class='base'>
+	<table>
 		<col width='250'>
 		<col>
 		<tr>
@@ -38,6 +38,6 @@
 				<td><input type='text' name='404_page' value='{$CONFIG["404_page"]}' class='small'> <small>(Оставьте 0, чтобы использовать стандартную)</small></td>
 			</tr>
 		{/if}
-		<tr><td colspan='2'><input type='submit' value='Сохранить'></td></tr>
+		<tr><td colspan='2'><input type='submit' class='btn save_right' value='Сохранить'></td></tr>
 	</table>
 </form>

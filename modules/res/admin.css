@@ -17,7 +17,7 @@ img {
 }
 
 a {
-	color: #005ec7;
+	color: #3c68a5;
 }
 
 h2 {
@@ -66,7 +66,7 @@ h3 {
 	text-decoration: none;
 }
 #top span a:hover {
-	color: #005ec7;
+	color: #3c68a5;
 	text-decoration: underline;
 }
 
@@ -85,7 +85,6 @@ h3 {
 	top: 0; bottom: 0;
 	overflow-y: auto;
 	position: absolute;
-	top: 0; bottom: 0;
 	margin: 40px 0 20px;
 	background: #ededed;
 }
@@ -98,11 +97,6 @@ h3 {
 	font-weight: bold;
 	padding: 0 17px;
 	background-color: #333;
-	background-image: linear-gradient(top, #444, #000);
-	background-image: -o-linear-gradient(top, #444, #000);
-	background-image: -ms-linear-gradient(top, #444, #000);
-	background-image: -moz-linear-gradient(top, #444, #000);
-	background-image: -webkit-linear-gradient(top, #444, #000);
 }
 
 #nav_title a {
@@ -119,11 +113,7 @@ h3 {
 	float: right;
 	text-align: center;
 	border: 2px solid #888;
-	border-radius: 5px;
-	background-image: -webkit-linear-gradient(top, #444, #000);
-	background-image: -moz-linear-gradient(top, #444, #000);
-	background-image: -o-linear-gradient(top, #444, #000);
-	background-image: linear-gradient(top, #444, #000);
+	border-radius: 2px;
 	color: #ddd;
 	font-size: 18px;
 }
@@ -154,12 +144,7 @@ h3 {
 }
 
 #nav li.sel {
-	background-color: #428de0 !important;
-	background-image: linear-gradient(top, #4898f0, #3d83d3) !important;
-	background-image: -o-linear-gradient(top, #4898f0, #3d83d3) !important;
-	background-image: -ms-linear-gradient(top, #4898f0, #3d83d3) !important;
-	background-image: -moz-linear-gradient(top, #4898f0, #3d83d3) !important;
-	background-image: -webkit-linear-gradient(top, #4898f0, #3d83d3) !important;
+	background-color: #3c68a5 !important;
 }
 #nav li.sel a.block {
 	color: #fff !important;
@@ -183,10 +168,10 @@ h3 {
 	font-size: 10px;
 }
 #nav li.sel i.i-sort:before {
-	color: #215896 !important;
+	color: #fff !important;
 }
 #nav li.last i.i-sort:before {
-	color: #888;
+	color: #666;
 }
 
 #nav li i.i-arrow:before {
@@ -198,7 +183,7 @@ h3 {
 }
 
 #nav li.sel i.i-arrow:before {
-	color: #215896;
+	color: #fff;
 }
 
 #nav li.open i.i-arrow:before {
@@ -211,7 +196,7 @@ h3 {
 #nav > :last-child:after {
 	content: "";
 	display: block;
-	height: 10px;
+	height: 5px;
 	background-image: linear-gradient(top, #ddd, #ededed);
 	background-image: -o-linear-gradient(top, #ddd, #ededed);
 	background-image: -ms-linear-gradient(top, #ddd, #ededed);
@@ -243,11 +228,11 @@ a.round {
 #nav li a.round.del {
 	margin-right: 10px;
 	color: #fff;
-	background: #ccc;
+	background: #aaa;
 }
 #nav li.sel a.round.del {
-	background: #215896;
-	color: #badafd;
+	background: #2b416d;
+	color: #fff;
 }
 #nav li div.lock {
 	background: none;
@@ -259,14 +244,14 @@ a.round {
 }
 #nav li.sel div.round.show,
 #nav li.sel div.round.hide {
-	background: #7bbaff;
-	color: #215896;
+	background: #fff;
+	color: #3c68a5;
 }
 div.round.show i:before {
 	content: '\e803';
 }
 div.round.show {
-	color: #215896;
+	color: #3c68a5;
 }
 div.round.hide i:before {
 	content: '\e805';
@@ -295,11 +280,6 @@ div.round.hide {
 	color: #fff;
 	font-size: 11px;
 	background-color: #444;
-	background-image: linear-gradient(top, #282828, #666);
-	background-image: -o-linear-gradient(top, #282828, #666);
-	background-image: -ms-linear-gradient(top, #282828, #666);
-	background-image: -moz-linear-gradient(top, #282828, #666);
-	background-image: -webkit-linear-gradient(top, #282828, #666);
 }
 
 #nav div.add a {
@@ -343,7 +323,7 @@ div.round.hide {
 /* Крошки */
 #crumb,
 #crumb a {
-	color: #bbb;
+	color: #999;
 }
 
 /* Редактор свойств страницы */
@@ -352,9 +332,10 @@ table.base {
 }
 
 /* Шрифт и размер в кнопке сохранить и текстовом поле ввода */
-table.base input[type=text],
-table.base select,
-input.save {
+input[type=text],
+select,
+input.save,
+.btn {
 	font-family: Arial, Sans-serif;
 	font-size: 13px;
 }
@@ -365,34 +346,41 @@ a.goto {
 	float: right;
 }
 
+input.save,
+.btn {
+	padding: 5px 10px;
+	background: #3c68a5;
+	color: #fff;
+	border: none;
+	border-radius: 2px;
+}
 input.save {
 	padding: 8px 25px;
 	position: relative;
 	bottom: 8px;
 	margin-left: 15px;
-	background: #428de0;
-	color: #fff;
-	border: none;
-	border-radius: 3px;
 }
 
-table.base input[type=text],
-table.base input[type=password] {
-	width: 350px; height: 30px;
-	padding: 0 10px;
+input[type=text],
+input[type=password],
+textarea {
 	background: #fff;
 	color: #555;
-	border: none;
-	border-radius: 5px;
-	box-shadow: inset 0 0 5px #aaa;
+	border-radius: 2px;
+	border: 1px solid #aaa;
+}
+input[type=text],
+input[type=password] {
+	width: 350px; height: 25px;
+	padding: 0 10px;
 }
 
-table.base select {
+select {
 	width: 370px;
 	padding: 4px 0;
 }
 
-table.base input.small {
+input.small {
 	width: 50px;
 }
 
@@ -402,8 +390,9 @@ td.descr {
 }
 
 /* Редактор */
-table.base textarea.editor {
+textarea.editor {
 	width: 100%;
+    resize: vertical;
 }
 
 /* Таскалки */
@@ -491,10 +480,14 @@ div.files i.i-file {
 	display: inline-block;
 	font-style: normal;
 	font-weight: normal;
-	display: inline-block;
 }
 
 .i-file:before { content: '\e802'; }
 .i-plus:before { content: '\e808'; }
 .i-del:before { content: '\e804'; }
 .i-sort:before { content: '\e806\e806'; letter-spacing: -0.1em; }
+
+.save_right {
+	float: right;
+	margin: 10px 0;
+}

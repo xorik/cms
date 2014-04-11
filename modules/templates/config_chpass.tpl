@@ -1,6 +1,6 @@
 <h3>Смена пароля</h3>
 <form method='post'>
-	<table class='base'>
+	<table>
 		<col width='250'>
 		<col>
 		<tr>
@@ -16,7 +16,7 @@
 			<td><input type='password' name='pass2'></td>
 		</tr>
 		<tr>
-			<td colspan='2'><input type='submit' value='Сохранить'></td>
+			<td colspan='2'><input type='submit' class='btn save_right' value='Сохранить'></td>
 		</tr>
 	</table>
 </form>
