@@ -102,7 +102,7 @@
 	{
 		global $CONFIG;
 		
-		if( !$array )
+		if( $array === null )
 			$array = $CONFIG;
 		
 		if( !$f = fopen($file, "w") )
