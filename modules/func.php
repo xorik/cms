@@ -199,8 +199,11 @@
 		unlink( "files/$id.{$row["type"]}" );
 		
 		// Удаляем вспомогательные файлы
-		foreach( glob("files/{$id}_*", GLOB_NOSORT) as $file )
-			unlink( $file );
+		if( $files = glob("files/{$id}_*", GLOB_NOSORT) )
+		{
+			foreach( $files as $file )
+				unlink( $file );
+		}
 		
 		// И из БД
 		db_delete( "file", "id=$id" );
