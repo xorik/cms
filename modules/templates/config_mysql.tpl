@@ -25,3 +25,8 @@
 		</tr>
 	</table>
 </form>
+
+{if $DB_EMPTY}
+	<h3>Таблицы не созданы!</h3>
+	<a href='{$CONFIG_URL}edit=mysql&create=1'>Создать таблицы</a>
+{/if}

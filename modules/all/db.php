@@ -14,8 +14,11 @@ if( $error && $_GET["do"]!="config" )
 	die( $error );
 elseif( $error && empty($_POST) )
 {
+	global $DB_ERROR;
+	
 	session_start();
 	$_SESSION["notify"][] = array( "text"=>$error, "type"=>"warning" );
+	$DB_ERROR = 1;
 }
 
 
