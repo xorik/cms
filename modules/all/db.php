@@ -41,14 +41,31 @@ if( !$CONFIG["db_debug"] )
 {
 	function db_query( $query )
 	{
-		$res = mysql_query( $query );
-		if( !$res )
+		if( is_file($query) )
+			$query = file_get_contents( $query );
+		
+		if( strpos($query, ";") )
+			$q = explode( ";", $query );
+		else
+			$q = array( $query );
+		
+		$res = array();
+		foreach( $q as $query )
 		{
-			trigger_error("Error running query $query<br>". mysql_error());
-			return false;
+			if( strlen( trim($query)) == 0 )
+				continue;
+			
+			$r = mysql_query( $query );
+			if( $r )
+				$res[] = $r;
+			else
+			{
+				trigger_error("Error running query $query<br>". mysql_error());
+				return false;
+			}
 		}
 
-		return $res;
+		return count($res)==1 ? $res[0] : $res;
 	}
 
 

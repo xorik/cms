@@ -1,5 +1,5 @@
 -- Страница
- CREATE TABLE `page` (
+CREATE TABLE IF NOT EXISTS `page` (
 	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`gid` INT NOT NULL COMMENT 'Родительская страница',
 	`title` TEXT NOT NULL COMMENT 'Заголовок',
@@ -11,7 +11,7 @@
 
 
 -- Доп. поля страницы
- CREATE TABLE `prop` (
+CREATE TABLE IF NOT EXISTS `prop` (
 	`id` INT NOT NULL COMMENT 'К какой странице относится',
 	`field` TEXT NOT NULL COMMENT 'Поле',
 	`value` TEXT NOT NULL COMMENT 'Значение',
@@ -20,7 +20,7 @@
 
 
 -- Файлы
- CREATE TABLE `file` (
+CREATE TABLE IF NOT EXISTS `file` (
 	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`gid` INT NOT NULL COMMENT 'К какой странице относится',
 	`gallery` TEXT NOT NULL COMMENT 'Название галереи',
