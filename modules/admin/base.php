@@ -46,8 +46,8 @@ function base_init()
 	if( !$PAGE_TYPE[$TYPE]["notext"] )
 		hook( "base_show", "base_tpl", 90, "text" );
 
-	// Путь, если включен rewrite, не главная и не виртуальная
-	if( $CONFIG["rewrite"] && $id!=$CONFIG["main"] && !$PAGE_TYPE[$TYPE]["virt"] )
+	// Путь, если не главная и не виртуальная
+	if( $id!=$CONFIG["main"] && !$PAGE_TYPE[$TYPE]["virt"] )
 	{
 		hook( "base_show", "base_tpl", 20, "path" );
 		$BASE["path"] = get_prop( $id, "path" );

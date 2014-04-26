@@ -216,11 +216,10 @@
 		
 		if( $id == $CONFIG["main"] )
 			return ".";
-		$p = get_prop( $id, "path" );
-		if( strlen($p) )
-			return $p;
-		else
-			return "./?id=$id";
+		if( $path = get_prop($id, "path") )
+			return $CONFIG["rewrite"] ? $path : "./?t=$path";
+		
+		return "./?id=$id";
 	}
 	
 	

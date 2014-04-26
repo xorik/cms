@@ -17,8 +17,7 @@
 		$res = db_update( "page", array("title"=>$_POST["title"], "text"=>$_POST["text"], "type"=>$_POST["type"], "hide"=>(int)$_POST["hide"]), "id=$id" );
 		
 		// Путь для rewrite
-		if( $CONFIG["rewrite"] )
-			set_prop( $id, "path", str_replace(" ", "_", $_POST["path"]) );
+		set_prop( $id, "path", str_replace(" ", "_", $_POST["path"]) );
 		
 		// Обновление
 		run( "base_submit", $id );
