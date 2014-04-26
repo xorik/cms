@@ -3,12 +3,10 @@
 	
 	function base_content()
 	{
-		global $id;
+		global $id, $CONFIG;
 		
 		if( !$id )
 		{
-			global $CONFIG;
-			
 			if( $CONFIG["404_page"] )
 				echo get_text( $CONFIG["404_page"] );
 			else

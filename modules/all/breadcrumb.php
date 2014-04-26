@@ -5,15 +5,15 @@
 	
 	function crumb_init()
 	{
-		global $id;
+		global $id,
 		// Список id разделов
-		global $GID;
+		$GID,
 		// Заголовки разделов
-		global $GID_TITLE;
+		$GID_TITLE,
 		// Типы разделов
-		global $GID_TYPE;
+		$GID_TYPE,
 		// Уровень
-		global $LEVEL;
+		$LEVEL;
 		
 		$LEVEL = 0;
 		
@@ -59,10 +59,7 @@
 	
 	function breadcrumb( $sep )
 	{
-		global $id;
-		global $GID;
-		global $GID_TITLE;
-		global $LEVEL;
+		global $id, $GID, $GID_TITLE, $LEVEL;
 		
 		$sep = $sep ? $sep : "&gt;";
 		

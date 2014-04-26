@@ -10,8 +10,7 @@
 	// Сохранение конфига
 	function config_init()
 	{
-		global $CONFIG;
-		global $CONFIG_URL;
+		global $CONFIG, $CONFIG_URL;
 		
 		// Смена пароля
 		if( $_POST["oldpass"] )

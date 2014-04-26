@@ -1,8 +1,7 @@
 <?php
 	hook( "nav", "config_nav", 10 );
 	
-	global $MENU;
-	global $CONFIG;
+	global $MENU, $CONFIG;
 	$MENU = array( ""=>"Базовые настройки" );
 	
 	if( $CONFIG["adv"] )
@@ -10,8 +9,7 @@
 	
 	function config_nav()
 	{
-		global $MENU;
-		global $CONFIG_URL;
+		global $MENU, $CONFIG_URL;
 		
 		echo "<div id='nav_title'><a href='{$CONFIG_URL}'>Настройки</a></div>\n";
 		

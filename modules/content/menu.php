@@ -2,9 +2,7 @@
 	// Отобразить меню
 	function menu( $gid, $templ="{}" )
 	{
-		global $id;
-		global $GID;
-		global $CONFIG;
+		global $id, $GID, $CONFIG;
 		
 		if( !$GID )
 			$GID = array();

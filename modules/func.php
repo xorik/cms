@@ -124,11 +124,7 @@
 	// Всё, что в <head>
 	function head()
 	{
-		global $CONFIG;
-		global $HEAD;
-		global $CSS;
-		global $JS;
-		global $SCRIPT;
+		global $CONFIG, $HEAD, $CSS, $JS, $SCRIPT;
 		
 		echo "<meta charset='utf-8'>\n";
 		

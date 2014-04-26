@@ -97,8 +97,7 @@
 	// Сортировка страниц
 	elseif( $_GET["page_sort"] )
 	{
-		global $TYPE;
-		global $PAGE_TYPE;
+		global $TYPE, $PAGE_TYPE;
 		
 		// Обратная сортировка
 		if( $PAGE_TYPE[$TYPE]["reverse"] )

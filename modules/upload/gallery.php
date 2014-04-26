@@ -3,8 +3,6 @@
 	
 	function img_resize( $src, $w, $h )
 	{
-		global $CONFIG;
-		
 		// Открытие источника
 		$size = getimagesize( $src );
 		$format = strtolower( substr($size['mime'], strpos($size['mime'], '/')+1) );

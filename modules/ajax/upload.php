@@ -6,8 +6,7 @@
 	// Добавить файл в базу и запустить хуки
 	function add_file( $file, $name )
 	{
-		global $id;
-		global $status;
+		global $id, $status;
 		
 		// Файл загружен
 		if( is_uploaded_file($file["tmp_name"]) || $file["url"] )

@@ -4,9 +4,7 @@
 	// Загрузка галереи аяксом
 	function files_init()
 	{
-		global $id;
-		global $TYPE;
-		global $PAGE_TYPE;
+		global $id, $TYPE, $PAGE_TYPE;
 		
 		// Если страница существует
 		if( $id && !$PAGE_TYPE[$TYPE]["nofiles"] )
