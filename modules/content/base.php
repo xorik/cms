@@ -12,7 +12,7 @@
 			if( $CONFIG["404_page"] )
 				echo get_text( $CONFIG["404_page"] );
 			else
-				echo "<h3>Ошибка 404: Страница \"{$_SERVER["REQUEST_URI"]}\" не найдена!</h3>";
+				echo "<h3>Ошибка 404: Страница \"". urldecode($_SERVER["REQUEST_URI"]) ."\" не найдена!</h3>";
 			
 			return;
 		}
