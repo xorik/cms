@@ -21,7 +21,7 @@ elseif( $error && empty($_POST) )
 	$DB_ERROR = 1;
 }
 
-
+// Экранировать переменную
 function db_escape( $var )
 {
 	if( is_string($var) )
@@ -40,38 +40,40 @@ function db_escape( $var )
 }
 
 
-if( !$CONFIG["db_debug"] )
+// Выполнить запрос к базе, $query может быть SQL или путь к файлу
+function db_query( $query )
 {
-	function db_query( $query )
+	if( is_file($query) )
+		$query = file_get_contents( $query );
+	
+	if( strpos($query, ";") )
+		$q = explode( ";", $query );
+	else
+		$q = array( $query );
+	
+	$res = array();
+	foreach( $q as $query )
 	{
-		if( is_file($query) )
-			$query = file_get_contents( $query );
+		if( strlen( trim($query)) == 0 )
+			continue;
 		
-		if( strpos($query, ";") )
-			$q = explode( ";", $query );
+		$r = mysql_query( $query );
+		if( $r )
+			$res[] = $r;
 		else
-			$q = array( $query );
-		
-		$res = array();
-		foreach( $q as $query )
 		{
-			if( strlen( trim($query)) == 0 )
-				continue;
-			
-			$r = mysql_query( $query );
-			if( $r )
-				$res[] = $r;
-			else
-			{
-				trigger_error("Error running query $query<br>". mysql_error());
-				return false;
-			}
+			trigger_error("Error running query $query<br>". mysql_error());
+			return false;
 		}
-
-		return count($res)==1 ? $res[0] : $res;
 	}
 
+	return count($res)==1 ? $res[0] : $res;
+}
 
+
+if( !$CONFIG["db_debug"] )
+{
+	// Первый результат запроса
 	function db_select_one( $query )
 	{
 		$res = mysql_query( $query ." LIMIT 0,1" );
@@ -85,6 +87,7 @@ if( !$CONFIG["db_debug"] )
 	}
 	
 	
+	// Все строки запроса
 	function db_select( $query )
 	{
 		$res = mysql_query( $query );
@@ -104,6 +107,7 @@ if( !$CONFIG["db_debug"] )
 	}
 	
 	
+	// Вставить в базу
 	function db_insert( $table, $fields, $replace=0, $unesc=0 )
 	{
 		$a = $b = array();
@@ -126,6 +130,7 @@ if( !$CONFIG["db_debug"] )
 	}
 	
 	
+	// Обновить в базе
 	function db_update( $table, $fields, $where, $unesc = 0 )
 	{
 		$a = array();
@@ -145,6 +150,8 @@ if( !$CONFIG["db_debug"] )
 		return mysql_affected_rows();
 	}
 	
+	
+	// Удалить в базе
 	function db_delete( $table, $where )
 	{
 		$query = "DELETE FROM `$table` WHERE $where";
