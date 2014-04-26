@@ -13,9 +13,4 @@ AddDefaultCharset utf-8
 RewriteEngine  on
 
 RewriteCond  %{SCRIPT_FILENAME}  !-f
-RewriteRule  ^admin$  index.php?do=admin  [QSA,L]
-RewriteCond  %{SCRIPT_FILENAME}  !-f
-RewriteRule  ^config$  index.php?do=config  [QSA,L]
-RewriteRule  ^file/(.*)  index.php?do=ajax&file=getfile&fid=$1  [QSA,L]
-RewriteCond  %{SCRIPT_FILENAME}  !-f
 RewriteRule  (.*)  index.php?t=$1  [QSA,L]

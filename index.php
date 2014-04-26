@@ -5,14 +5,35 @@
 	
 	load_modules( "all" );
 	
-	// id страницы из пути
-	if( $_GET["t"] )
+	// id страницы
+	// Админка или настройки
+	if( ($_GET["t"]=="admin" || $_GET["t"]=="config") && $_GET["do"]!="ajax" )
+		$_GET["do"] = $_GET["t"];
+	
+	// Файл
+	elseif( strpos($_GET["t"], "file") === 0 )
 	{
-		$row = db_select_one( "SELECT id FROM prop WHERE field='path' AND value=". db_escape($_GET["t"]) );
-		$id = $row["id"];
+		preg_match( "|file/(.*)|", $_GET["t"], $m );
+		$_GET = array( "do"=>"ajax", "file"=>"getfile", "fid"=>$m[1] );
 	}
+	// Страница или ajax
+	else
+	{
+		if( $_GET["t"] && $_GET["do"]!="ajax" )
+		{
+			$row = db_select_one( "SELECT id FROM prop WHERE field='path' AND value=". db_escape($_GET["t"]) );
+			$id = $row["id"];
+		}
+		// id 0 для админки
+		elseif($_GET["do"]=="ajax" && $_GET["file"]=="admin" && !$_GET["id"])
+			$id = 0;
+		// Неправильный путь, страница по id или главная
+		else
+			$id = $_GET["id"] ? (int)$_GET["id"] : $CONFIG["main"];
+	}
+	
 	// Переход с ?id= на путь страницы, если включен реврайт
-	elseif( $_GET["id"] && $_GET["id"]!=$CONFIG["main"] && !$_GET["do"] && $CONFIG["rewrite"] )
+	if( $_GET["id"] && $_GET["id"]!=$CONFIG["main"] && !$_GET["do"] && $CONFIG["rewrite"] )
 	{
 		if( $path = get_prop($_GET["id"], "path") )
 		{
@@ -20,13 +41,6 @@
 			die;
 		}
 	}
-	
-	// Неправильный путь, страница по id или главная
-	if( !$_GET["t"] && $_GET["do"]!="config" )
-		$id = isset($_GET["id"]) ? (int)$_GET["id"] : $CONFIG["main"];
-	// в админке если не указан id, показать главное меню
-	if( $_GET["do"]=="admin" && !$_GET["id"] )
-		$id = 0;
 	
 	// Страница выбрана
 	if( $id )
@@ -52,8 +66,8 @@
 	session_start();
 	
 	// Инициализация
-	$ADMIN_URL = $CONFIG["rewrite"] ? "./admin?" : "./?do=admin&";
-	$CONFIG_URL = $CONFIG["rewrite"] ? "./config?" : "./?do=config&";
+	$ADMIN_URL = $CONFIG["rewrite"] ? "./admin?" : "./?t=admin&";
+	$CONFIG_URL = $CONFIG["rewrite"] ? "./config?" : "./?t=config&";
 	
 	// Фикс для шаблонов
 	$HEAD = $CSS = $JS = $SCRIPT = array();
