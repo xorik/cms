@@ -3,6 +3,8 @@
 	require( "modules/func.php" );
 	require( "modules/template.php" );
 	
+	header( "Content-type: text/html; charset=utf-8" );
+	
 	load_modules( "all" );
 	
 	// id страницы
@@ -90,8 +92,6 @@
 	// Аяксовая функция
 	elseif( $DO=="ajax" )
 	{
-		header( "Content-type: text/html; charset=utf-8" );
-		
 		// Проверка на запрещенные символы
 		if( strpos($_GET["file"], "*")!==false || strpos($_GET["file"], "..")!==false )
 			$file = "";
