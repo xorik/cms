@@ -19,7 +19,7 @@
 			if( $CONFIG["rewrite"] )
 				$text = "<a href='file/{$f["id"]}'>{$f["filename"]}</a>";
 			else
-				$text = "<a href='?do=ajax&file=getfile&fid={$f["id"]}'>{$f["filename"]}</a>";
+				$text = "<a href='./?t=file/{$f["id"]}'>{$f["filename"]}</a>";
 			
 			$html = "<i class='i-file'></i> {$f["filename"]}";
 		}
