@@ -30,7 +30,7 @@
 		elseif($_GET["do"]=="ajax" && $_GET["file"]=="admin" && !$_GET["id"])
 			$id = 0;
 		// Неправильный путь, страница по id или главная
-		else
+		elseif( $_GET["do"]!="ajax" || $_GET["id"] )
 			$id = $_GET["id"] ? (int)$_GET["id"] : $CONFIG["main"];
 	}
 	
