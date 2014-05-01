@@ -16,6 +16,7 @@ function mysql_init()
 	if( $_GET["create"] )
 	{
 		db_query( "modules/res/db.sql" );
+		$_SESSION["notify"][] = array("text"=>"Таблицы в базе успешно созданы!", "type"=>"success");
 		header( "Location: {$CONFIG_URL}edit=mysql" );
 		die;
 	}
