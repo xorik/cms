@@ -35,9 +35,9 @@
 	}
 	
 	// Переход с ?id= на путь страницы, если включен реврайт
-	if( $_GET["id"] && $_GET["id"]!=$CONFIG["main"] && !$_GET["do"] && $CONFIG["rewrite"] )
+	if( $_GET["id"] && $id && $id!=$CONFIG["main"] && !$_GET["do"] && $CONFIG["rewrite"] )
 	{
-		if( $path = get_prop($_GET["id"], "path") )
+		if( $path = get_prop($id, "path") )
 		{
 			header( "Location: $path" );
 			die;
