@@ -11,15 +11,15 @@
 			<td>Расширенные настройки:</td>
 			<td><input type='checkbox' name='adv' {if $CONFIG[adv]}checked{/if}></td>
 		</tr>
+		<tr>
+			<td>Включить загрузку файлов по ссылке:</td>
+			<td><input type='checkbox' name='load_url' {if $CONFIG[load_url]}checked{/if}></td>
+		</tr>
 		/* Расширенные настройки */
 		{if $CONFIG["adv"]}
 			<tr>
 				<td>Использовать mod_rewrite:</td>
 				<td><input type='checkbox' name='rewrite' {if $CONFIG[rewrite]}checked{/if}></td>
-			</tr>
-			<tr>
-				<td>Загрузка файлов по ссылке:</td>
-				<td><input type='checkbox' name='load_url' {if $CONFIG[load_url]}checked{/if}></td>
 			</tr>
 			<tr>
 				<td>Основной шаблон:</td>

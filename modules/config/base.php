@@ -57,11 +57,11 @@
 			$CONFIG["main"] = (int)$_POST["main"];
 			$CONFIG["root"] = $_POST["root"];
 			$CONFIG["404_page"] = (int)$_POST["404_page"];
-			$CONFIG["load_url"] = $_POST["load_url"] == "on";
 		}
 		
 		// Сохраняем переменные в $CONFIG, а потом в config.php
 		$CONFIG["title"] = $_POST["title"];
+		$CONFIG["load_url"] = $_POST["load_url"] == "on";
 		$CONFIG["adv"] = $_POST["adv"] == "on";
 		
 		config_write();

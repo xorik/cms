@@ -3,7 +3,7 @@
 	<form action='?do=ajax&file=upload&id={$id}' method='post' enctype='multipart/form-data' target='upload-gallery'>
 		Загрузить: <input type='file' name='gallery[]' multiple='true'>
 		{if $CONFIG["load_url"]}
-			или по ссылке: <input type='text' name='url'>
+			или по ссылке: <input type='text' name='url' placeholder='Ссылки на файлы в Интернете (через пробел)'>
 		{/if}
 		<input type='submit' class='btn' value='Загрузить'>
 		<input type='hidden' name='gallery' value='gallery'>
