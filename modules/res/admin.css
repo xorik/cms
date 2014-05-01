@@ -319,6 +319,9 @@ div.round.hide {
 	box-sizing: border-box;
 	overflow-y: auto;
 }
+#content > *:last-child {
+	margin-bottom: 15px;
+}
 
 /* Крошки */
 #crumb,
@@ -329,6 +332,28 @@ div.round.hide {
 /* Редактор свойств страницы */
 table.base {
 	width: 100%;
+}
+
+table.base td:first-child {
+	vertical-align: top;
+	padding-top: 8px;
+}
+
+/* Полосатая таблица */
+table.zebra,
+table.zebra td,
+table.zebra th {
+	border-collapse: collapse;
+	border: 1px solid #888;
+}
+table.zebra td {
+	padding: 3px;
+}
+table.zebra tr:nth-child(2n+3) {
+	background: rgba(60, 104, 165, 0.05);
+}
+table.zebra th {
+	background: rgba(0, 0, 0, 0.1);
 }
 
 /* Шрифт и размер в кнопке сохранить и текстовом поле ввода */
@@ -364,15 +389,18 @@ input.save {
 input[type=text],
 input[type=password],
 textarea {
+	padding: 0 5px;
 	background: #fff;
 	color: #555;
 	border-radius: 2px;
 	border: 1px solid #aaa;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 input[type=text],
 input[type=password] {
 	width: 350px; height: 25px;
-	padding: 0 10px;
 }
 
 select {
@@ -382,6 +410,9 @@ select {
 
 input.small {
 	width: 50px;
+}
+input.auto {
+	width: auto;
 }
 
 /* Описание типа */
