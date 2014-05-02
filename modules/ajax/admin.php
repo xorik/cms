@@ -1,19 +1,19 @@
 <?php
 	run( "auth" );
 	load_modules( "admin" );
+
+	run( "init" );
 	
 	// Действия
 	// Показать основной блок
 	if( $_GET["base"] )
 	{
-		run( "init" );
 		run( "content" );
 	}
 	
 	// Сохранение
 	elseif( $_GET["save"] )
 	{
-		run( "init" );
 		$res = db_update( "page", array("title"=>$_POST["title"], "text"=>$_POST["text"], "type"=>$_POST["type"], "hide"=>(int)$_POST["hide"]), "id=$id" );
 		
 		// Путь для rewrite
@@ -31,14 +31,10 @@
 	// Добавление страницы
 	elseif( $_GET["add"] )
 	{
-		run( "init" );
 		// Тип корня раздела
 		if( $id === 0 )
-		{
 			$TYPE = "root";
-		}
 		
-		run( "init" );
 		// Первый разрешенный тип, иначе просто страница
 		$type = $PAGE_TYPE[$TYPE]["sub"][0] ? $PAGE_TYPE[$TYPE]["sub"][0] : "Страница";
 
@@ -57,7 +53,6 @@
 	
 	elseif( $_GET["del"] )
 	{
-		run( "init" );
 		// Рекурсивное удаление страницы
 		function page_del( $id )
 		{
