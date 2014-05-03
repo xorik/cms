@@ -48,7 +48,10 @@ function template_make_cache( $file, $cache_file, $mtime )
 	global $BASEDIR;
 	$BASEDIR = dirname( $file );
 	
-	file_put_contents( $cache_file, template_parse(file_get_contents($file)) );
+	$res = file_put_contents( $cache_file, template_parse(file_get_contents($file)) );
+	if( !$res )
+		die( "Can't create cache file: $file" );
+
 	// Сдлать одинаковый modify time
 	touch( $cache_file, $mtime );
 }
