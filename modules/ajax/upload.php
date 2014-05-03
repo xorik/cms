@@ -28,6 +28,7 @@
 				{
 					delete_file( $fid );
 					$status[] = "Ошибка загрузки файла по ссылке: {$file["url"]}";
+					return;
 				}
 			}
 			else
@@ -37,6 +38,7 @@
 				{
 					delete_file( $fid );
 					$status[] = "Ошибка загрузки файла: {$file["name"]}";
+					return;
 				}
 			}
 			chmod( $target, 0644 );
