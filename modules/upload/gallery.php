@@ -41,6 +41,6 @@
 		if( in_array($file["ext"], $types) )
 		{
 			copy( $file["path"], "files/{$file["id"]}_.jpg" );
-			img_resize( "files/{$file["id"]}_.jpg", 128, 128 );
+			img_resize( "files/{$file["id"]}_.jpg", 256, 64 );
 		}
 	}
