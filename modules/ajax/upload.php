@@ -17,6 +17,12 @@
 			// Сохранение в БД
 			$fid = db_insert( "file", array("gid"=>$id, "filename"=>$file["name"], "type"=>$ext, "gallery"=>$name) );
 			
+			if( !$fid )
+			{
+				$status[] = "Ошибка загрузки файла: {$file["name"]}";
+				return;
+			}
+			
 			// Пемещение файла
 			$target = "files/$fid.$ext";
 			// Скачивание
