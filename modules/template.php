@@ -5,7 +5,7 @@
 function template( $file, $check_dir=0 )
 {
 	// Название файла кеша
-	$cache_file = str_replace( $_SERVER["DOCUMENT_ROOT"]."/", "", $file );
+	$cache_file = $file[0]=="/" ? cur_dir( $file ) : $file;
 	$cache_file = "cache/". str_replace( "/", ".", $cache_file ) .".php";
 	// Время модификации
 	$cache_time = is_file( $cache_file ) ? filemtime( $cache_file ) : 0;
