@@ -100,7 +100,7 @@
 	}
 	
 	// Сохранить массив $CONFIG в файле config.php
-	function config_write( $array=null, $name="CONFIG", $file="config.php" )
+	function config_write( $array=null, $name="CONFIG", $file="config.php", $quiet=0 )
 	{
 		global $CONFIG;
 		
@@ -119,7 +119,11 @@
 			fwrite( $f, "\t\${$name}[" . config_item( $k ) . "] = " . config_item( $v ) . ";\n" );
 		}
 		fclose( $f );
-		$_SESSION["notify"][] = array( "text"=>"Настройки сохранены", "type"=>"success" );
+		
+		if( $name=="CONFIG" && !$quiet )
+		{
+			$_SESSION["notify"][] = array( "text"=>"Настройки сохранены", "type"=>"success" );
+		}
 	}
 	
 	
