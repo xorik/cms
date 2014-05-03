@@ -1,7 +1,7 @@
 <?php
 	hook( "nav", "config_nav", 10 );
 	
-	global $MENU, $CONFIG;
+	global $MENU;
 	$MENU = array( ""=>"Базовые настройки" );
 	
 	if( $CONFIG["adv"] )

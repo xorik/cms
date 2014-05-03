@@ -36,7 +36,7 @@ function template( $file, $check_dir=0 )
 	}
 	
 	// Подставляем глобальные переменные
-	extract( $GLOBALS, EXTR_REFS|EXTR_OVERWRITE );
+	extract( $GLOBALS, EXTR_REFS );
 	
 	require( $cache_file );
 }

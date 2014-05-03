@@ -13,6 +13,8 @@
 		if( empty($inc) )
 			return;
 		
+		extract( $GLOBALS, EXTR_REFS );
+		
 		foreach( $inc as $file )
 			@include( $file );
 	}

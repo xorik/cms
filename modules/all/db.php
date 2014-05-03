@@ -1,8 +1,6 @@
 <?php
 
 
-global $CONFIG;
-
 $error = "";
 
 mysql_connect( $CONFIG["db_host"], $CONFIG["db_user"], $CONFIG["db_pass"] )or $error = "mysql_connect failed! ";
