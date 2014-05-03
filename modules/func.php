@@ -231,3 +231,13 @@
 		$row = db_select_one( "SELECT text FROM page WHERE id=$id" );
 		return $row["text"];
 	}
+	
+	
+	// Базовый каталог для файла (для JS и шаблонов)
+	function cur_dir( $file )
+	{
+		$base = str_replace( "index.php", "", $_SERVER["SCRIPT_FILENAME"] );
+		$file = preg_replace( "|/[\w\d\._-]+$|", "", $file );
+		
+		return str_replace( $base, "", $file );
+	}
