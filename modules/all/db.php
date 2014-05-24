@@ -74,7 +74,7 @@ if( !$CONFIG["db_debug"] )
 	// Первый результат запроса
 	function db_select_one( $query )
 	{
-		$res = mysql_query( $query ." LIMIT 0,1" );
+		$res = is_resource($query) ? $query : mysql_query($query ." LIMIT 0,1");
 		if( !$res )
 		{
 			trigger_error("Error running query $query<br>". mysql_error());
@@ -88,7 +88,7 @@ if( !$CONFIG["db_debug"] )
 	// Все строки запроса
 	function db_select( $query )
 	{
-		$res = mysql_query( $query );
+		$res = is_resource($query) ? $query : mysql_query($query);
 		if( !$res )
 		{
 			trigger_error("Error running query $query<br>". mysql_error());
