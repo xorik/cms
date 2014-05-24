@@ -98,9 +98,9 @@ function template_include_callback( $m )
 	global $BASEDIR;
 	// Детектим рекурсию
 	static $inc = array();
-	if( !in_array($m[1], $inc) )
+	if( $inc[$m[1]] < 30 )
 	{
-		$inc[] = $m[1];
+		$inc[$m[1]]++;
 	}
 	else
 	{
