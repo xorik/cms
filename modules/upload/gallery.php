@@ -33,8 +33,6 @@
 	
 	function gallery_upload( $file )
 	{
-		global $CONFIG;
-		
 		$types = array( "png", "jpg", "jpeg", "gif" );
 		
 		// Ресайз для картинок
