@@ -13,7 +13,7 @@
 		$_GET["do"] = $_GET["t"];
 	
 	// Файл
-	elseif( strpos($_GET["t"], "file") === 0 )
+	elseif( strpos($_GET["t"], "file/") === 0 )
 	{
 		preg_match( "|file/(.*)|", $_GET["t"], $m );
 		$_GET = array( "do"=>"ajax", "file"=>"getfile", "fid"=>$m[1] );
