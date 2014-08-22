@@ -55,7 +55,6 @@
 			$CONFIG["rewrite"] = $_POST["rewrite"] == "on";
 			$CONFIG["template"] = $_POST["template"];
 			$CONFIG["main"] = (int)$_POST["main"];
-			$CONFIG["root"] = $_POST["root"];
 			$CONFIG["404_page"] = (int)$_POST["404_page"];
 		}
 		

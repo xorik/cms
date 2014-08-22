@@ -26,10 +26,6 @@
 				<td><input type='text' name='template' value='{$CONFIG[template]}'></td>
 			</tr>
 			<tr>
-				<td>Корень сайта:</td>
-				<td><input type='text' name='root' value='{$CONFIG[root]}'></td>
-			</tr>
-			<tr>
 				<td>id главной страницы:</td>
 				<td><input type='text' name='main' value='{$CONFIG[main]}' class='small'></td>
 			</tr>
