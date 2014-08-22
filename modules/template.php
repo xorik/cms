@@ -2,7 +2,7 @@
 
 
 // Выполнить шаблон
-function template( $file, $check_dir=0 )
+function template( $file, $check_dir=0, $return=0 )
 {
 	// Название файла кеша
 	$cache_file = $file[0]=="/" ? cur_dir( $file ) : $file;
@@ -38,7 +38,9 @@ function template( $file, $check_dir=0 )
 	// Подставляем глобальные переменные
 	extract( $GLOBALS, EXTR_REFS );
 	
+	if( $return ) ob_start();
 	require( $cache_file );
+	if( $return ) return ob_get_clean();
 }
 
 
