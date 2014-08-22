@@ -5,6 +5,9 @@
 	
 	header( "Content-type: text/html; charset=utf-8" );
 	
+	$BASEPATH = str_replace("index.php", "", $_SERVER["SCRIPT_NAME"]);
+	$BASEURL = "http". ($_SERVER["HTTPS"]?"s":"") ."://". $_SERVER["HTTP_HOST"] . $BASEPATH;
+	
 	load_modules( "all" );
 	
 	// id страницы
