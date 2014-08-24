@@ -214,14 +214,14 @@
 	
 	function path( $id )
 	{
-		global $CONFIG;
+		global $CONFIG, $BASEPATH;
 		
 		if( $id == $CONFIG["main"] )
 			return ".";
 		if( $path = get_prop($id, "path") )
-			return $CONFIG["rewrite"] ? $path : "./?t=$path";
+			return $CONFIG["rewrite"] ? $BASEPATH.$path : $BASEPATH."?t=$path";
 		
-		return "./?id=$id";
+		return $BASEPATH ."?id=$id";
 	}
 	
 	
