@@ -175,10 +175,13 @@
 	
 	
 	// Прочитать свойство
-	function get_prop( $id, $field )
+	function get_prop( $id, $field, $goto=0 )
 	{
 		$row = db_select_one( "SELECT value FROM prop WHERE id=$id AND field=". db_escape($field) );
-		return $row["value"];
+		if( $goto )
+			return $row["value"] . admin_goto( $id );
+		else
+			return $row["value"];
 	}
 	
 	// Установить свойство
@@ -226,10 +229,13 @@
 	
 	
 	// Вывести текст раздела
-	function get_text( $id )
+	function get_text( $id, $goto=1 )
 	{
 		$row = db_select_one( "SELECT text FROM page WHERE id=$id" );
-		return $row["text"];
+		if( $goto )
+			return $row["text"] . admin_goto( $id );
+		else
+			return $row["text"];
 	}
 	
 	
