@@ -17,3 +17,18 @@
 		
 		echo get_text( $id );
 	}
+
+
+	// Ссылка на страницу
+	function admin_goto( $id, $short )
+	{
+		global $id, $ADMIN_URL;
+		
+		if( $id && $_SESSION["admin"] )
+		{
+			if( $short )
+				return "<a href='{$ADMIN_URL}id=$id'>Редактировать</a>";
+			else
+				return "<br><br><a href='{$ADMIN_URL}id=$id'>Перейти к редактированию</a>";
+		}
+	}

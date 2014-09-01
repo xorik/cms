@@ -179,7 +179,7 @@
 	{
 		$row = db_select_one( "SELECT value FROM prop WHERE id=$id AND field=". db_escape($field) );
 		if( $goto )
-			return $row["value"] . admin_goto( $id );
+			return $row["value"] ." ". admin_goto( $id, 1 );
 		else
 			return $row["value"];
 	}
@@ -233,7 +233,7 @@
 	{
 		$row = db_select_one( "SELECT text FROM page WHERE id=$id" );
 		if( $goto )
-			return $row["text"] . admin_goto( $id );
+			return $row["text"] . admin_goto( $id, 0 );
 		else
 			return $row["text"];
 	}
