@@ -8,7 +8,7 @@ mysql_select_db( $CONFIG["db_db"] ) or $error .= " mysql_select_db failed!";
 mysql_query ( "SET NAMES UTF8" );
 
 // Ошибка подключение и не страница настроек
-if( $error && $_GET["do"]!="config" )
+if( $error && $_GET["do"]!="config" && $_GET["t"]!="config" )
 	die( $error );
 elseif( $error && empty($_POST) )
 {
