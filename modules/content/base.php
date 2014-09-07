@@ -22,7 +22,7 @@
 	// Ссылка на страницу
 	function admin_goto( $id, $short )
 	{
-		global $id, $ADMIN_URL;
+		global $ADMIN_URL;
 		
 		if( $id && $_SESSION["admin"] )
 		{
