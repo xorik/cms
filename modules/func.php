@@ -1,6 +1,6 @@
 <?php
 	// Загрузить модули из каталога
-	function load_modules( $mask )
+	function load_modules( $mask, $once=1 )
 	{
 		$globs = array( "modules/$mask/*.php", "extra/*/$mask/*.php", "extra/*/$mask.php" );
 		$inc = array();
@@ -16,7 +16,12 @@
 		extract( $GLOBALS, EXTR_REFS );
 		
 		foreach( $inc as $file )
-			@include( $file );
+		{
+			if( $once )
+				require_once( $file );
+			else
+				require( $file );
+		}
 	}
 	
 	// Создать хук
