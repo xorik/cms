@@ -56,6 +56,7 @@ $(function()
 				containment: "#nav",
 				tolerance: "pointer",
 				handle: "i.i-sort",
+				distance: 5,
 				placeholder: "placeholder",
 				stop: function(event, ui)
 				{
@@ -326,6 +327,7 @@ $(function()
 				opacity: 0.6,
 				tolerance: "pointer",
 				placeholder: "placeholder",
+				distance: 10,
 				stop: function(event, ui)
 				{
 					// Новый порядок
