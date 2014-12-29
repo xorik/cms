@@ -21,6 +21,8 @@ class LocalCache
 		{
 			$tmp = json( file_get_contents(self::CACHE_FILE) );
 			self::$class = $tmp["class"];
+			self::$modules = $tmp["modules"];
+			self::$ajax = $tmp["ajax"];
 		}
 		else
 			self::scan();
@@ -50,8 +52,34 @@ class LocalCache
 			}
 		}
 
+		// Scan modules
+		foreach( array("extra/*/*/*.php", "modules/hooks/*/*.php") as $glob )
+		{
+			foreach( glob($glob) as $file )
+			{
+				if( preg_match("/\/([\w_-]+)\/[\w_-]+\.php$/", $file, $m) && $m[1]!="class" && $m[1]!="ajax" )
+				{
+					$modules[$m[1]][] = $file;
+				}
+			}
+		}
+
+		// Scan ajax files
+		foreach( array("extra/*/ajax/*.php", "modules/ajax/*.php") as $glob )
+		{
+			foreach( glob($glob) as $file )
+			{
+				if( preg_match("/\/([\w_-]+)\.php$/", $file, $m) )
+				{
+					$ajax[$m[1]] = $file;
+				}
+			}
+		}
+
 		self::$class = $class;
-		file_put_contents( self::CACHE_FILE, json(array("class"=>$class), 1) );
+		self::$modules = $modules;
+		self::$ajax = $ajax;
+		file_put_contents( self::CACHE_FILE, json(array("class"=>$class, "modules"=>$modules, "ajax"=>$ajax), 1) );
 		self::$scan_complete = true;
 	}
 
