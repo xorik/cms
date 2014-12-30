@@ -89,9 +89,12 @@ class LocalCache
 
 		if( isset(self::$class[$class]) )
 		{
-			require( self::$class[$class] );
-			if( class_exists($class) )
-				return true;
+			if( is_file((self::$class[$class])) )
+			{
+				require_once( self::$class[$class] );
+				if( class_exists($class) )
+					return true;
+			}
 		}
 
 		if( !self::$scan_complete )
