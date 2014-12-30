@@ -106,3 +106,71 @@ class LocalCache
 		throw new Exception( "Class $class not found" );
 	}
 }
+
+
+Class Module
+{
+	static public function load( $module )
+	{
+		if( empty(LocalCache::$modules[$module]) )
+			return false;
+
+		foreach( LocalCache::$modules[$module] as $module )
+		{
+			require_once( $module );
+		}
+
+		return true;
+	}
+}
+
+
+Class Hook
+{
+	static protected $hooks = array();
+
+	static public function add( $hook, $func, $pos=500, $data=null )
+	{
+		if( !function_exists($func) )
+			throw new Exception( "Func $func not found for hook $hook" );
+
+		// Find first empty position for hook
+		if( !empty(self::$hooks[$hook]) )
+		{
+			while( array_key_exists($pos, self::$hooks[$hook]) )
+			{
+				$pos++;
+			}
+		}
+		self::$hooks[$hook][$pos] = array( "func"=>$func, "data"=>$data );
+	}
+
+	static public function remove( $hook, $func=true, $data=null )
+	{
+		if( !isset(self::$hooks[$hook]) )
+			return;
+		
+		if( $func === true )
+			self::$hooks[$hook] = array();
+		else
+		{
+			foreach( self::$hooks[$hook] as $k=>$v )
+			{
+				if( $v["func"]==$func && ($data===null || $v["data"]===$data) )
+					unset( self::$hooks[$hook][$k] );
+			}
+		}
+	}
+
+	static public function run( $hook, $arg=null )
+	{
+		if( empty(self::$hooks[$hook]) )
+			return;
+
+		// Sort by position
+		ksort( self::$hooks[$hook] );
+
+		foreach( self::$hooks[$hook] as $hook )
+			$hook["func"]( $arg, $hook["data"] );
+	}
+}
