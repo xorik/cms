@@ -184,9 +184,12 @@ Class Hook
 		foreach( self::$hooks[$hook] as $hook )
 		{
 			if( isset($hook["class"]) )
-				$hook["class"]::$hook["func"]( $arg, $hook["data"] );
+				$res = $hook["class"]::$hook["func"]( $arg, $hook["data"] );
 			else
-				$hook["func"]( $arg, $hook["data"] );
+				$res = $hook["func"]( $arg, $hook["data"] );
+			
+			if( $res === false )
+				break;
 		}
 	}
 }
