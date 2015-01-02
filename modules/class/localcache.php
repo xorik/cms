@@ -136,17 +136,8 @@ Class Hook
 
 	static public function add( $hook, $func, $pos=500, $data=null )
 	{
-		if( strpos($func, "::") !== false )
-		{
-			list( $class, $func ) = explode( "::", $func );
-			if( !method_exists($class, $func) )
-				throw new Exception( "Method $func not found in class $class for hook $hook" );
-		}
-		else
-		{
-			if( !function_exists($func) )
-				throw new Exception( "Func $func not found for hook $hook" );
-		}
+		if( !is_callable($func) )
+			throw new Exception( "$func is not callable" );
 
 		// Find first empty position for hook
 		if( !empty(self::$hooks[$hook]) )
@@ -157,8 +148,6 @@ Class Hook
 			}
 		}
 		self::$hooks[$hook][$pos] = array( "func"=>$func, "data"=>$data );
-		if( isset($class) )
-			self::$hooks[$hook][$pos]["class"] = $class;
 	}
 
 	static public function remove( $hook, $func=true, $data=null )
@@ -188,10 +177,7 @@ Class Hook
 
 		foreach( self::$hooks[$hook] as $hook )
 		{
-			if( isset($hook["class"]) )
-				$res = $hook["class"]::$hook["func"]( $arg, $hook["data"] );
-			else
-				$res = $hook["func"]( $arg, $hook["data"] );
+			$res = call_user_func( $hook["func"], $arg, $hook["data"] );
 			
 			if( $res === false )
 				break;
