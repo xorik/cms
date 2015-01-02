@@ -106,7 +106,7 @@ class LocalCache
 			return self::autoload( $class );
 		}
 
-		throw new Exception( "Class $class not found" );
+		return false;
 	}
 }
 
