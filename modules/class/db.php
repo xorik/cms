@@ -99,6 +99,28 @@ class DB
 	}
 
 	/**
+	 * Get column as array
+	 *
+	 * @param $query
+	 * @return array|false
+	 */
+	static public function column( $query )
+	{
+		$res = self::query( $query );
+		if( !$res ) return false;
+
+		$rows = array();
+		while( $row = $res->fetch_row() )
+		{
+			list($tmp) = $row;
+			$rows[] = $tmp;
+		}
+
+		$res->free();
+		return $rows;
+	}
+
+	/**
 	 * Get one field from query result
 	 *
 	 * @param string $query
