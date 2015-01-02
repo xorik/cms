@@ -33,6 +33,9 @@ class LocalCache
 
 	static public function scan()
 	{
+		if( self::$scan_complete )
+			return;
+
 		$class = $modules = $ajax = array();
 
 		// Scan class
@@ -191,5 +194,10 @@ Class Hook
 			if( $res === false )
 				break;
 		}
+	}
+
+	static public function dump()
+	{
+		var_dump( self::$hooks );
 	}
 }
