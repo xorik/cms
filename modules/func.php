@@ -1,6 +1,15 @@
 <?php
 
 
+function cur_dir( $file )
+{
+	$base = str_replace( "index.php", "", $_SERVER["SCRIPT_FILENAME"] );
+	$file = preg_replace( "|/[\w\d\._-]+$|", "", $file );
+
+	return str_replace( $base, "", $file );
+}
+
+
 function json( $str, $pretty=0 )
 {
 	if( is_array($str) )
