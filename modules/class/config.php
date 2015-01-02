@@ -8,7 +8,12 @@ class Config
 	
 	static public function init()
 	{
+		if( !file_exists(self::CONFIG_FILE) )
+			throw new Exception( "Config file ". self::CONFIG_FILE ." not found" );
+
 		self::$config = json( file_get_contents(self::CONFIG_FILE) );
+		if( self::$config === null )
+			throw new Exception( "Config file parse error" );
 	}
 	
 	static public function save()

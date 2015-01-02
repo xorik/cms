@@ -1,0 +1,10 @@
+{
+	"title": "Тестовый сайт",
+	"db": {
+		"host": "localhost",
+		"user": "admin",
+		"pass": "admin",
+		"db": "admin"
+	},
+	"cache": 0
+}
