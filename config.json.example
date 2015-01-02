@@ -1,5 +1,6 @@
 {
 	"title": "Тестовый сайт",
+	"main": 1,
 	"db": {
 		"host": "localhost",
 		"user": "admin",
