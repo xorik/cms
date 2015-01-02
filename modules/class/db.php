@@ -115,6 +115,21 @@ class DB
 	}
 
 	/**
+	 * Run SQL queries from file
+	 *
+	 * @param string $file SQL file path
+	 * @return mixed mysql result
+	 * @throws Exception if file not exists
+	 */
+	static public function file( $file )
+	{
+		if( !file_exists($file) )
+			throw new Exception( "File not exists: $file" );
+
+		return self::$db->multi_query( file_get_contents($file) );
+	}
+
+	/**
 	 * Insert into DB
 	 *
 	 * @param string $table
