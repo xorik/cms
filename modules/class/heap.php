@@ -6,7 +6,10 @@ class Heap
 
 	static public function get( $key )
 	{
-		return self::$heap[$key];
+		if( isset(self::$heap[$key]) )
+			return self::$heap[$key];
+
+		return null;
 	}
 
 		static public function set( $key, $value )
