@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `page` (
 	`type` TEXT NOT NULL COMMENT 'Тип страницы',
 	`pos` INT NOT NULL DEFAULT '100500' COMMENT 'Позиция при сортировке',
 	`hide` INT(1) NOT NULL DEFAULT '0' COMMENT 'Скрывать ли страницу'
-) ENGINE=MyISAM CHARACTER SET=utf8;
+) ENGINE=InnoDB CHARACTER SET=utf8;
 
 
 -- Доп. поля страницы
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `prop` (
 	`field` TEXT NOT NULL COMMENT 'Поле',
 	`value` TEXT NOT NULL COMMENT 'Значение',
 	UNIQUE KEY `field` ( `id`, `field`(20) )
-) ENGINE=MyISAM CHARACTER SET=utf8;
+) ENGINE=InnoDB CHARACTER SET=utf8;
 
 
 -- Файлы
@@ -27,4 +27,4 @@ CREATE TABLE IF NOT EXISTS `file` (
 	`filename` TEXT NOT NULL COMMENT 'Имя исходного файла',
 	`type` TEXT NOT NULL COMMENT 'Тип файла',
 	`pos` INT NOT NULL DEFAULT '0' COMMENT 'Позиция при сортировке'
-) ENGINE=MyISAM CHARACTER SET=utf8;
+) ENGINE=InnoDB CHARACTER SET=utf8;
