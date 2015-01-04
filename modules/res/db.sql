@@ -28,3 +28,15 @@ CREATE TABLE IF NOT EXISTS `file` (
 	`type` TEXT NOT NULL COMMENT 'Тип файла',
 	`pos` INT NOT NULL DEFAULT '0' COMMENT 'Позиция при сортировке'
 ) ENGINE=InnoDB CHARACTER SET=utf8;
+
+
+-- Logs
+CREATE TABLE IF NOT EXISTS `log` (
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`count` int(11) NOT NULL DEFAULT '1',
+	`type` varchar(30) NOT NULL,
+	`hash` varchar(32) NOT NULL,
+	`data` text NOT NULL,
+	KEY `hash` (`type`(10),`hash`(10))
+) ENGINE=InnoDB CHARACTER SET=utf8;
