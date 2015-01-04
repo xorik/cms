@@ -202,4 +202,23 @@ class File
 
 		return "files/{$row["id"]}". ($postfix===null?"":"_$postfix") . ($ext?".$ext":"");
 	}
+
+	static public function download( $id )
+	{
+		// Not found
+		if( !$path = self::path($id) )
+		{
+			header( "HTTP/1.0 404 Not Found" );
+			echo "File not found";
+			return;
+		}
+
+		// Original filename
+		$name = DB::one( "SELECT filename FROM file WHERE id=". DB::escape($id) );
+
+		header( "Content-type: application/octet-stream" );
+		header( "Content-Disposition: attachment; filename=\"$name\"" );
+		header( "Content-Length: ". filesize($path) );
+		readfile( $path );
+	}
 }
