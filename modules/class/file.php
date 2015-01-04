@@ -192,12 +192,14 @@ class File
 		return pathinfo( $file, PATHINFO_EXTENSION );
 	}
 
-	static public function path( $id, $postfix=null )
+	static public function path( $id, $postfix=null, $new_ext=null )
 	{
 		$row = DB::row( "SELECT id, type FROM file WHERE id=". DB::escape($id) );
 		if( !$row )
 			return false;
 
-		return "files/{$row["id"]}". ($postfix===null?"":"_$postfix") . ($row["type"]?".{$row["type"]}":"");
+		$ext = $new_ext ? $new_ext : $row["type"];
+
+		return "files/{$row["id"]}". ($postfix===null?"":"_$postfix") . ($ext?".$ext":"");
 	}
 }
