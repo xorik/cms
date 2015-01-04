@@ -7,16 +7,25 @@
 class Session
 {
 	const SESSION_COOKIE = "sess";
+	const SESSION_COOKIE_PREG = "/\w{40}/";
 	const SESSION_DIR = "cache/sess";
 	const CLEANUP_TIME = 86400;
 	const CLEANUP_CHANCE = 1000;
 
+	static protected $init = false;
 	static protected $sess = array();
 	static protected $changed = false;
 
 
 	static public function init()
 	{
+		if( self::$init )
+			return;
+
+		// Incorrect cookie should be reset
+		if( isset($_COOKIE[self::SESSION_COOKIE]) && !preg_match(self::SESSION_COOKIE_PREG, $_COOKIE[self::SESSION_COOKIE]) )
+			unset( $_COOKIE[self::SESSION_COOKIE] );
+
 		// Load session
 		if( isset($_COOKIE[self::SESSION_COOKIE]) && is_file($file=self::SESSION_DIR ."/sess-".$_COOKIE[self::SESSION_COOKIE]) )
 		{
@@ -26,10 +35,12 @@ class Session
 		else
 		{
 			$key =  sha1( microtime(true) . rand() );
-			setcookie( self::SESSION_COOKIE, $key );
+			setcookie( self::SESSION_COOKIE, $key, null, Router::$root );
 			$_COOKIE[self::SESSION_COOKIE] = $key;
 			self::$changed = true;
 		}
+
+		self::$init = true;
 	}
 
 	static public function get( $key )
