@@ -189,7 +189,7 @@ class File
 
 	static public function ext( $file )
 	{
-		return pathinfo( $file, PATHINFO_EXTENSION );
+		return strtolower( pathinfo($file, PATHINFO_EXTENSION) );
 	}
 
 	static public function path( $id, $postfix=null, $new_ext=null )
