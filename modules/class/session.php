@@ -40,6 +40,7 @@ class Session
 			self::$changed = true;
 		}
 
+		Hook::add( "shutdown", "Session::save", 900 );
 		self::$init = true;
 	}
 
