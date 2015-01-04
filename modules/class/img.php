@@ -9,6 +9,8 @@ define( "RESIZE_METHOD_COVER", "self::resize_cover" );
 class Img
 {
 	static public $jpeg_quality = 85;
+	static public $png_quality = 9;
+	static public $bg_fill = false;
 
 
 	static public function resize( $file, $w, $h, $resize_method=RESIZE_METHOD_MAX_SIDE, $output=false, $format="jpeg" )
@@ -28,6 +30,9 @@ class Img
 
 		// Original and new image dimensions and proportion
 		list( $old_w, $old_h ) = self::size( $file );
+		if( $w == 0 ) $w = $old_w;
+		if( $h == 0 ) $h = $old_h;
+
 		$old_prop = (float)$old_w / (float)$old_h;
 		$prop = (float)$w / (float)$h;
 
@@ -78,7 +83,7 @@ class Img
 
 	static public function resize_simple( $src, $old_w, $old_h, $old_prop, $w, $h, $prop )
 	{
-		$dest = imagecreatetruecolor( $w, $h );
+		$dest = self::create( $w, $h );
 		imagecopyresampled( $dest, $src, 0, 0, 0, 0, $w, $h, $old_w, $old_h );
 
 		return $dest;
@@ -91,7 +96,7 @@ class Img
 		else
 			$h = $w/$old_prop;
 
-		$dest = imagecreatetruecolor( $w, $h );
+		$dest = self::create( $w, $h );
 		imagecopyresampled( $dest, $src, 0, 0, 0, 0, $w, $h, $old_w, $old_h );
 
 		return $dest;
@@ -111,15 +116,44 @@ class Img
 			$old_w = $old_h*$prop;
 		}
 
-		$dest = imagecreatetruecolor( $w, $h );
+		$dest = self::create( $w, $h );
 		imagecopyresampled($dest, $src, 0, 0, $x, $y, $w, $h, $old_w, $old_h);
+
+		return $dest;
+	}
+
+	static public function create( $w, $h )
+	{
+		$dest = imagecreatetruecolor( $w, $h );
+
+		if( self::$bg_fill === false )
+			return $dest;
+
+		$c = self::$bg_fill === null ? array(0, 0, 0, 127) : self::$bg_fill;
+		if( self::$bg_fill === null )
+			$c = array( 0, 0, 0, 127 );
+		elseif( self::$bg_fill === true )
+			$c = array( 255, 255, 255, 0 );
+		else
+			$c = self::$bg_fill;
+
+		$color = imagecolorallocatealpha( $dest, $c[0], $c[1], $c[2], isset($c[3])?$c[3]:0 );
+
+		imagefill( $dest, 0, 0, $color );
+		imagesavealpha( $dest, true );
 
 		return $dest;
 	}
 
 	static protected function save( $dest, $file, $save_func )
 	{
-		$quality = ($save_func=="imagejpeg") ? self::$jpeg_quality : null;
+		if( $save_func == "imagejpeg" )
+			$quality = self::$jpeg_quality;
+		elseif( $save_func == "imagepng" )
+			$quality = self::$png_quality;
+		else
+			$quality = null;
+
 		return $save_func( $dest, $file, $quality );
 	}
 }
