@@ -57,8 +57,8 @@ class Router
 		if( $path == "admin" || $path == "config" )
 		{
 			Hook::add( "init", "Session::init", 100 );
+			Hook::add( "init", "Auth::init", 200 );
 			Module::load( $path );
-			Module::load( "auth" );
 			Hook::run( "init" );
 
 			$tpl = "modules/templates/admin.tpl";
