@@ -1,45 +1,29 @@
 {{
-	$CSS[] = "modules/res/admin.css";
-	$JS[] = "modules/res/jquery.js";
-	$JS[] = "modules/res/jquery-ui.js";
-	$JS[] = "modules/res/jquery.noty.js";
-	$JS[] = "modules/res/admin.js";
-	
-	if( $_GET["do"] == "admin" )
-	{
-		$SCRIPT[] = "var id=". (int)$_GET["id"]. ";
-				var admin_url = '$ADMIN_URL'";
-	}
-	
-	if( $_SESSION["notify"] )
-	{
-		$SCRIPT[] = "$(function(){show_notify( ".json_encode($_SESSION["notify"]) .")})";
-		unset( $_SESSION["notify"] );
-	}
+	Head::css( "modules/res/admin.css" );
+
+	Head::noty();
+	Head::js( "modules/res/jquery-ui.js" );
+	Head::js( "modules/res/admin.js" );
 }}
-<!DOCTYPE html>
-<head>
-	{head()}
-</head>
 <body>
 	<div id='top'>
-		<a href='{$ADMIN_URL}' class='logo'></a>
-		<span>сайта <a href='.'>{$CONFIG[title]}</a></span>
+		<a href='{$root}admin' class='logo'></a>
+		<span>сайта <a href='.'>{Config::get("title")}</a></span>
 		<div>
-			<a href='{$CONFIG_URL}'>Настройки</a> |
-			<a href='{$ADMIN_URL}logout=1'>Выход</a>
+			<a href='{$root}config'>Настройки</a> |
+			<a href='{$root}admin?logout'>Выход</a>
 		</div>
 	</div>
 	<div id='main'>
 		<div id='nav'>
-			{run( "nav" )}
+			{Hook::run( "nav" )}
 		</div>
 		<div id='content'>
-			{if $_GET["do"] == "config"}
+			{if Router::$path=="config"}
 				<div id='crumb'>
-					<a href='{$ADMIN_URL}'>Разделы</a>
+					<a href='{$root}admin'>Разделы</a>
 				</div>
-				{run( "content" )}
+				{Hook::run( "content" )}
 			{/if}
 		</div>
 	</div>
@@ -47,4 +31,5 @@
 		<span>{file_get_contents( "modules/res/version" )}</span>
 		<div></div>
 	</div>
+{Head::scripts()}
 </body>
