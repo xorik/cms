@@ -3,6 +3,8 @@
 
 function clear_post()
 {
+	Hook::run( "shutdown" );
+
 	header( "Location: {$_SERVER["REQUEST_URI"]}" );
 	die;
 }
