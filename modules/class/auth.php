@@ -63,13 +63,8 @@ class Auth
 				Session::set( "dev", null );
 			}
 
-			// Show logon form and exit
-			Head::css( "modules/res/login.css" );
-			echo Head::get();
-			Template::show( "modules/templates/login.tpl" );
-
-			Hook::run( "shutdown" );
-			die;
+			// Return logon formlogin
+			return "modules/templates/login.tpl";
 		}
 	}
 

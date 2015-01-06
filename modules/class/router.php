@@ -60,9 +60,8 @@ class Router
 			Hook::add( "init", "Session::init", 100 );
 			Hook::add( "init", "Auth::init", 200 );
 			Module::load( $path );
-			Hook::run( "init" );
-
-			$tpl = "modules/templates/admin.tpl";
+			$res = Hook::run( "init" );
+			$tpl = $res ? $res : "modules/templates/admin.tpl";
 		}
 		// Content
 		else
@@ -71,11 +70,8 @@ class Router
 				Hook::add( "init", "Page::init", 60, 1 );
 
 			Module::load( "content" );
-			Hook::run( "init" );
-
-			$tpl = Config::get("template");
-			if( !$tpl )
-				$tpl = "templates/main.tpl";
+			$res = Hook::run( "init" );
+			$tpl = $res ? $res : "templates/main.tpl";
 		}
 
 		// Content template

@@ -1,3 +1,6 @@
+{{
+	Head::css( "modules/res/login.css" );
+}}
 <body>
 	<a href='{$root}' id='admin_logo'></a>
 	<form method='post' id='admin_login'>

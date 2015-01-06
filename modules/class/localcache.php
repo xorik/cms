@@ -170,7 +170,7 @@ Class Hook
 	static public function run( $hook, $arg=null )
 	{
 		if( empty(self::$hooks[$hook]) )
-			return;
+			return null;
 
 		// Sort by position
 		ksort( self::$hooks[$hook] );
@@ -179,9 +179,11 @@ Class Hook
 		{
 			$res = call_user_func( $hook["func"], $arg, $hook["data"] );
 			
-			if( $res === false )
-				break;
+			if( $res !== null )
+				return $res;
 		}
+
+		return null;
 	}
 
 	static public function dump()
