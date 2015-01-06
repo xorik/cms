@@ -1,8 +1,8 @@
 <body>
-	<a href='{Router::$root}' id='admin_logo'></a>
+	<a href='{$root}' id='admin_logo'></a>
 	<form method='post' id='admin_login'>
 		<b>Вход в админку сайта</b><br>
-		<a href='{Router::$root}'>{Config::get("title")}</a><br>
+		<a href='{$root}'>{Config::get("title")}</a><br>
 		
 		<hr>
 		

@@ -11,6 +11,7 @@ class Router
 	{
 		// Parse URL
 		$tmp = self::$root = str_replace( "index.php", "", $_SERVER["PHP_SELF"] );
+		Heap::set( "root", self::$root );
 		$tmp = str_replace( $tmp, "", $_SERVER["REQUEST_URI"] );
 		$tmp = explode( "?", $tmp );
 		self::$path = $tmp[0];
