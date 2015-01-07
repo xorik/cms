@@ -1,10 +1,19 @@
 <?php
 
 
+define( "PAGE_TYPE_UNKNOWN", 0 );
+define( "PAGE_TYPE_CONTENT", 1 );
+define( "PAGE_TYPE_ADMIN", 2 );
+define( "PAGE_TYPE_AJAX", 3 );
+define( "PAGE_TYPE_FILE", 4 );
+
+
+
 class Router
 {
 	static public $root;
 	static public $path;
+	static public $type = PAGE_TYPE_UNKNOWN;
 
 
 	static public function init()
@@ -38,7 +47,7 @@ class Router
 				return;
 			}
 
-			Hook::run( "init" );
+			self::$type = PAGE_TYPE_AJAX;
 			require( $file );
 
 			return;
@@ -46,6 +55,7 @@ class Router
 		// Get file
 		elseif( preg_match("|file/(.+)|", $path, $m) )
 		{
+			self::$type = PAGE_TYPE_FILE;
 			Hook::run( "init" );
 			File::download( $m[1] );
 
@@ -57,6 +67,7 @@ class Router
 		// Admin or config site
 		if( $path == "admin" || $path == "config" )
 		{
+			self::$type = PAGE_TYPE_ADMIN;
 			Hook::add( "init", "Session::init", 100 );
 			Hook::add( "init", "Auth::init", 200 );
 			Module::load( $path );
@@ -66,6 +77,7 @@ class Router
 		// Content
 		else
 		{
+			self::$type = PAGE_TYPE_CONTENT;
 			if( !isset($_GET["id"]) )
 				Hook::add( "init", "Page::init", 60, 1 );
 
