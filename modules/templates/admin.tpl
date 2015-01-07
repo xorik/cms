@@ -3,6 +3,8 @@
 
 	Head::noty();
 	Head::js( "modules/res/jquery-ui.js" );
+	if( Router::$path == "admin" )
+		Head::script( "var id=". (int)$id .", admin_url = '". Router::$root ."admin?';" );
 	Head::js( "modules/res/admin.js" );
 }}
 <body>

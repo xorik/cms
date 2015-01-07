@@ -16,7 +16,7 @@ $(function()
 	// Загрузить контент
 	function loadContent()
 	{
-		$("#content").addLoad().load("?do=ajax&file=admin&base=1&id="+id, function()
+		$("#content").addLoad().load("ajax/admin?base=1&id="+id, function()
 		{
 			$(this).trigger("ready").removeLoad();
 		});
@@ -32,7 +32,7 @@ $(function()
 			scroll = $("#nav").scrollTop();
 		}
 		
-		$("#nav").addLoad().load("?do=ajax&file=nav", function()
+		$("#nav").addLoad().load("ajax/nav", function()
 		{
 			gotoPage( true );
 			
@@ -86,10 +86,10 @@ $(function()
 					}
 					
 					// Сохранение сортировки
-					$.ajax("?do=ajax&file=admin&page_sort=1&id="+id+list);
+					$.ajax("ajax/admin?page_sort=1&id="+id+list);
 				}
 			});
-			
+			aj
 			// id для сортировки
 			$("#nav div.sub").each( function()
 			{
@@ -227,7 +227,7 @@ $(function()
 			e.preventDefault();
 			$(this).trigger("submit");
 			$.post(
-				"?do=ajax&file=admin&save=1&id="+id,
+				"ajax/admin?save=1&id="+id,
 				$(this).closest("form").serialize(),
 				function(data)
 				{
@@ -250,7 +250,7 @@ $(function()
 			var title = prompt( "Название новой страницы:", $(this).data("type") );
 			if( title != null)
 			{
-				$.post("?do=ajax&file=admin&add=1&id="+$(this).data("gid"), {title: title}, function(data)
+				$.post("ajax/admin?add=1&id="+$(this).data("gid"), {title: title}, function(data)
 				{
 					ajaxNotify( data );
 					if( typeof data.id !== 'undefined' )
@@ -281,7 +281,7 @@ $(function()
 			{
 				// TODO: error detect
 				$.post(
-					"?do=ajax&file=admin&del=1&id="+id,
+					"ajax/admin?del=1&id="+id,
 					{del: $(this).closest("li").find("a.block").data("id")},
 					function(data)
 					{
@@ -309,7 +309,7 @@ $(function()
 				$(this).next().load( function()
 				{
 					var div = $(this).prev();
-					div.load("?do=ajax&file=files&id="+div.data("id")+"&gallery="+div.data("gallery"), function()
+					div.load("ajax/files?id="+div.data("id")+"&gallery="+div.data("gallery"), function()
 					{
 						// Выделить все файлы
 						div.find("input.files_sel").click( function()
@@ -338,7 +338,7 @@ $(function()
 					});
 					
 					// Сохранение сортировки
-					$.ajax("?do=ajax&file=admin&file_sort=1"+list);
+					$.ajax("ajax/admin?file_sort=1"+list);
 				},
 				start: function(event, ui)
 				{
