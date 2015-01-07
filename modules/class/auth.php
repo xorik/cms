@@ -63,6 +63,11 @@ class Auth
 				Session::set( "dev", null );
 			}
 
+			header( "HTTP/1.0 403 Forbidden" );
+
+			if( Router::$type == PAGE_TYPE_AJAX )
+				die( "Authentication required" );
+
 			// Return logon formlogin
 			return "modules/templates/login.tpl";
 		}
