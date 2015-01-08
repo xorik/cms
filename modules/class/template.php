@@ -5,7 +5,7 @@ class Template
 {
 	static protected $dir;
 
-	static public function show( $file, $heap=false, $recursive_check=0 )
+	static public function show( $file, $recursive_check=0, $heap=false )
 	{
 		if( !file_exists($file) )
 			throw new Exception( "Template file is not found: $file" );
@@ -56,10 +56,10 @@ class Template
 		error_reporting( E_ALL );
 	}
 
-	static public function get( $file, $heap=false, $recursive_check=0 )
+	static public function get( $file, $recursive_check=0, $heap=false )
 	{
 		ob_start();
-		self::show( $file, $heap, $recursive_check );
+		self::show( $file, $recursive_check, $heap );
 		return ob_get_clean();
 	}
 

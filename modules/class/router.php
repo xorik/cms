@@ -87,7 +87,7 @@ class Router
 		}
 
 		// Content template
-		$content = Template::get( $tpl );
+		$content = Template::get( $tpl, self::$type==PAGE_TYPE_CONTENT );
 		// TODO: save content for hook
 
 		echo Head::get();
