@@ -86,7 +86,7 @@ class Template
 			"/{\/IF}/i",
 			"/{EACH ([^}]+)}/i", // FOREACH
 			"/{\/EACH}/i",
-			"/{(.+?)}/", // Echo variable, func, method etc
+			"/{([^\s].+?)}/", // Echo variable, func, method etc
 			"/{{/", // PHP code
 			"/}}/",
 			"/\/\*.*?\*\//s" // Comment
