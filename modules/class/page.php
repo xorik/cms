@@ -65,12 +65,24 @@ class Page
 
 	static public function path( $id )
 	{
-		if( $id == Config::get("main") )
+		if( !$id )
 			return Router::$root;
+
+		// Check in cache
+		if( isset(self::$cache[$id]["path"]) )
+			return self::$cache[$id]["path"];
+
+		if( $id == Config::get("main") )
+			$out = "";
 		if( $path = self::prop($id, "path") )
-			return Router::$root . $path;
+			$out = $path;
 		else
-			return Router::$root ."?id=". $id;
+			$out = "?id=". $id;
+
+		$out = Router::$root . $out;
+		self::$cache[$id]["path"] = $out;
+
+		return $out;
 	}
 
 	static public function prop( $id, $key, $value=null )
