@@ -176,4 +176,61 @@ class Page
 		else
 			return false;
 	}
+
+	static public function crumb( $sep="&gt", $id=null )
+	{
+		$id = $id ? (int)$id : self::$id;
+
+		if( !$id || !($level = self::level( $id )) )
+			return "";
+
+		$out = array();
+
+		// Add main page to root
+		if( Router::$type==PAGE_TYPE_CONTENT )
+		{
+			// Not main page or its sub-page
+			if( !isset(self::$cache[$id]["gids"][1]) || self::$cache[$id]["gids"][1]!=Config::get("main") )
+			{
+				$row = self::get( Config::get("main") );
+				$out[] = "<a href='". Router::$root ."'>{$row["title"]}</a>";
+			}
+		}
+
+		if( $id == Config::get("main") )
+			return $out[0];
+
+		foreach( self::$cache[$id]["titles"] as $k=>$v )
+		{
+			$i = $k >= $level-1 ? $id : self::$cache[$id]["gids"][$k+1];
+			$path = self::path( $i );
+			$out[] = "<a href='$path'>$v</a>";
+		}
+
+		return implode( " $sep ", $out );
+	}
+
+	static public function menu( $gid, $tpl="[]" )
+	{
+		if( !self::$id || !self::level( self::$id ) )
+			$gids = array();
+
+		// Current page and its parents IDs
+		else
+		{
+			$gids = self::$cache[self::$id]["gids"];
+			$gids[] = self::$id;
+		}
+
+		$out = "";
+		$rows = DB::all( "SELECT id, title FROM page WHERE hide=0 AND gid=". DB::escape($gid) );
+		foreach( $rows as $row )
+		{
+			$sel = in_array($row["id"], $gids) ? " class='sel'" : "";
+			$tmp = "<a href='". self::path($row["id"]) ."'$sel>{$row["title"]}</a> ";
+			$out .= str_replace( "[]", $tmp, $tpl );
+		}
+
+		return $out;
+	}
 }
