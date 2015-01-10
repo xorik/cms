@@ -245,4 +245,25 @@ class Page
 
 		return $out;
 	}
+
+	static public function delete( $id )
+	{
+		// Delete sub-pages
+		$list = DB::column( "SELECT id FROM page WHERE gid=$id" );
+		foreach( $list as $v )
+		{
+			self::delete( $v );
+		}
+
+		// Page and prop
+		DB::delete( "page", "id=$id" );
+		DB::delete( "prop", "id=$id" );
+
+		// Files
+		$list = DB::column( "SELECT id FROM file WHERE gid=$id" );
+		foreach( $list as $v )
+			File::delete( $v );
+
+		Hook::run( "del", $id );
+	}
 }
