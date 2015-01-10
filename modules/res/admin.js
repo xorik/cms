@@ -16,7 +16,7 @@ $(function()
 	// Загрузить контент
 	function loadContent()
 	{
-		$("#content").addLoad().load("ajax/admin?base=1&id="+id, function()
+		$("#content").addLoad().load("ajax/admin?base&id="+id, function()
 		{
 			$(this).trigger("ready").removeLoad();
 		});
@@ -69,7 +69,7 @@ $(function()
 					
 					// id раздела
 					var id = 0;
-					if( $("#nav li.last:first").parent().prev().is("li") );
+					if( $("#nav li.last:first").parent().prev().is("li") )
 					{
 						id = $("#nav li.last:first").parent().prev().find("a.block").data("id");
 					}
@@ -86,10 +86,10 @@ $(function()
 					}
 					
 					// Сохранение сортировки
-					$.ajax("ajax/admin?page_sort=1&id="+id+list);
+					$.ajax("ajax/admin?page_sort&id="+id+list);
 				}
 			});
-			aj
+
 			// id для сортировки
 			$("#nav div.sub").each( function()
 			{
@@ -227,7 +227,7 @@ $(function()
 			e.preventDefault();
 			$(this).trigger("submit");
 			$.post(
-				"ajax/admin?save=1&id="+id,
+				"ajax/admin?save&id="+id,
 				$(this).closest("form").serialize(),
 				function(data)
 				{
@@ -250,7 +250,7 @@ $(function()
 			var title = prompt( "Название новой страницы:", $(this).data("type") );
 			if( title != null)
 			{
-				$.post("ajax/admin?add=1&id="+$(this).data("gid"), {title: title}, function(data)
+				$.post("ajax/admin?add&id="+$(this).data("gid"), {title: title}, function(data)
 				{
 					ajaxNotify( data );
 					if( typeof data.id !== 'undefined' )
@@ -281,7 +281,7 @@ $(function()
 			{
 				// TODO: error detect
 				$.post(
-					"ajax/admin?del=1&id="+id,
+					"ajax/admin?del&id="+id,
 					{del: $(this).closest("li").find("a.block").data("id")},
 					function(data)
 					{
@@ -338,7 +338,7 @@ $(function()
 					});
 					
 					// Сохранение сортировки
-					$.ajax("ajax/admin?file_sort=1"+list);
+					$.ajax("ajax/admin?file_sort"+list);
 				},
 				start: function(event, ui)
 				{

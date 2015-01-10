@@ -1,6 +1,7 @@
 <?php
 
 Hook::add( "init", "Auth::init", 200 );
+Module::load( "admin" );
 Hook::run( "init" );
 
 // Show current level

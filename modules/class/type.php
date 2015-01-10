@@ -3,7 +3,6 @@
 // Root and simple page type
 define( "DEFAULT_PAGE_TYPE", "Страница" );
 Types::set( DEFAULT_PAGE_TYPE, "Обычная страница с текстом и картинками" );
-Types::set( "root", "", array(DEFAULT_PAGE_TYPE) );
 
 
 class Type
