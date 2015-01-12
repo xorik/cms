@@ -53,7 +53,7 @@ class Auth
 
 		// Check session
 		$hash = Session::get( "hash" );
-		if( $hash != Config::get("admin", "hash") )
+		if( !$hash || $hash != Config::get("admin", "hash") )
 		{
 			// Reset admin and dev if password changed
 			if( $hash )
