@@ -208,7 +208,7 @@ class File
 		// Not found
 		if( !$path = self::path($id) )
 		{
-			header( "HTTP/1.0 404 Not Found" );
+			Http::header( HTTP_ERROR_NOT_FOUND );
 			echo "File not found";
 			return;
 		}

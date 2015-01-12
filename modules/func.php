@@ -1,15 +1,6 @@
 <?php
 
 
-function clear_post()
-{
-	Hook::run( "shutdown" );
-
-	header( "Location: {$_SERVER["REQUEST_URI"]}" );
-	die;
-}
-
-
 function cur_dir( $file )
 {
 	$base = str_replace( "index.php", "", $_SERVER["SCRIPT_FILENAME"] );

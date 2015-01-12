@@ -41,7 +41,7 @@ class Router
 		{
 			if( !isset(LocalCache::$ajax[$m[1]]) || !is_file($file=LocalCache::$ajax[$m[1]]) )
 			{
-				header( "HTTP/1.0 404 Not Found" );
+				Http::header( HTTP_ERROR_NOT_FOUND );
 				echo "Ajax handler for request '{$m[1]}' is not found";
 
 				return;

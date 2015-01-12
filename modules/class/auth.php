@@ -34,7 +34,7 @@ class Auth
 				if( $_POST["admin_login"] == DEVELOPER_LOGIN )
 					Session::set( "dev", 1 );
 
-				clear_post();
+				Http::reload();
 			}
 			while( 0 );
 		}
@@ -47,7 +47,7 @@ class Auth
 			Session::set( "dev", null );
 			Session::save();
 
-			header( "Location: ". Router::$root );
+			Http::redirect( Router::$root );
 			die;
 		}
 
@@ -63,7 +63,7 @@ class Auth
 				Session::set( "dev", null );
 			}
 
-			header( "HTTP/1.0 403 Forbidden" );
+			Http::header( HTTP_ERROR_FORBIDDEN );
 
 			if( Router::$type == PAGE_TYPE_AJAX )
 				die( "Authentication required" );
