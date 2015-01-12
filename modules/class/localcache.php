@@ -122,7 +122,10 @@ Class Module
 
 		foreach( LocalCache::$modules[$module] as $module )
 		{
-			require_once( $module );
+			if( is_file( $module ) )
+				require_once( $module );
+			else
+				LocalCache::scan();
 		}
 
 		return true;
