@@ -137,7 +137,7 @@ Class Hook
 {
 	static protected $hooks = array();
 
-	static public function add( $hook, $func, $pos=500, $data=null )
+	static public function add( $hook, $func, $pos=500 )
 	{
 		if( !is_callable($func) )
 			throw new Exception( "$func is not callable" );
@@ -150,6 +150,9 @@ Class Hook
 				$pos++;
 			}
 		}
+
+		$data = array_slice( func_get_args(), 3 );
+
 		self::$hooks[$hook][$pos] = array( "func"=>$func, "data"=>$data );
 	}
 
@@ -180,7 +183,8 @@ Class Hook
 
 		foreach( self::$hooks[$hook] as $hook )
 		{
-			$res = call_user_func( $hook["func"], $arg, $hook["data"] );
+			$a = array_merge( array($arg), $hook["data"] );
+			$res = call_user_func_array( $hook["func"], $a );
 			
 			if( $res !== null )
 				return $res;
