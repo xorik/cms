@@ -21,7 +21,7 @@ class Router
 		// Parse URL
 		$tmp = self::$root = str_replace( "index.php", "", $_SERVER["PHP_SELF"] );
 		Heap::set( "root", self::$root );
-		$tmp = str_replace( $tmp, "", $_SERVER["REQUEST_URI"] );
+		$tmp = preg_replace( "/". preg_quote($tmp, "/") ."/", "", $_SERVER["REQUEST_URI"], 1 );
 		$tmp = explode( "?", $tmp );
 		self::$path = $tmp[0];
 
@@ -33,7 +33,7 @@ class Router
 	
 	static public function default_route( $path )
 	{
-		if( isset($_GET["id"]) )
+		if( isset($_GET["id"]) && $_GET["id"] )
 			Hook::add( "init", "Page::init", 60, 0 );
 
 		// Ajax handler
@@ -78,7 +78,7 @@ class Router
 		else
 		{
 			self::$type = PAGE_TYPE_CONTENT;
-			if( !isset($_GET["id"]) )
+			if( !isset($_GET["id"]) || !$_GET["id"] )
 				Hook::add( "init", "Page::init", 60, 1 );
 
 			Module::load( "content" );
