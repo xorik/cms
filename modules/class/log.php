@@ -37,7 +37,7 @@ class Log
 		return DB::delete( "log", "id=$id" );
 	}
 
-	static public function get( $type, $lim=100, $asc=false )
+	static public function get( $type, $time_format=null, $lim=100, $asc=false )
 	{
 		$order = $asc ? "ASC" : "DESC";
 		$rows = DB::all( "SELECT id, UNIX_TIMESTAMP(date) as date, `count`, data FROM log WHERE type=". DB::escape($type) ." ORDER BY id $order LIMIT $lim" );
@@ -47,6 +47,9 @@ class Log
 		{
 			if( $row["data"][0] == "{" )
 				$row["data"] = json( $row["data"] );
+
+			if( $time_format )
+				$row["date"] = date( $time_format, $row["date"] );
 		}
 
 		return $rows;
