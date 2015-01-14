@@ -329,15 +329,26 @@ div.round.hide {
 	color: #999;
 }
 
-/* Редактор свойств страницы */
-table.base {
-	width: 100%;
+#base > div {
+	padding: 2px;
+}
+#base > div.padding {
+	padding-top: 20px;
 }
 
-table.base td:first-child {
-	vertical-align: top;
-	padding-top: 8px;
+#base > div > div {
+	padding-left: 150px;
 }
+
+/* Field description */
+#base div.descr {
+	float: left;
+	clear: left;
+	width: 150px;
+	padding-top: 8px;
+	padding-left: 0;
+}
+
 
 /* Полосатая таблица */
 table.zebra,
@@ -415,13 +426,8 @@ input.auto {
 	width: auto;
 }
 
-/* Описание типа */
-td.descr {
-	font-size: 10px;
-}
-
 /* Редактор */
-textarea.editor {
+textarea.long {
 	width: 100%;
     resize: vertical;
 }
