@@ -118,7 +118,7 @@ class Page
 		return self::$cache[$id]["gids"][$level];
 	}
 
-	static public function title( $level, $id=null )
+	static public function title( $level=null, $id=null )
 	{
 		$id = $id ? (int)$id : self::$id;
 		if( !$level )
@@ -134,7 +134,7 @@ class Page
 		return self::$cache[$id]["titles"][$level];
 	}
 
-	static public function type( $level, $id=null )
+	static public function type( $level=null, $id=null )
 	{
 		$id = $id ? (int)$id : self::$id;
 		if( !$level )
@@ -211,10 +211,10 @@ class Page
 				$row = self::get( Config::get("main") );
 				$out[] = "<a href='". Router::$root ."'>{$row["title"]}</a>";
 			}
-		}
 
-		if( $id == Config::get("main") )
-			return $out[0];
+			if( $id == Config::get("main") )
+				return $out[0];
+		}
 
 		foreach( self::$cache[$id]["titles"] as $k=>$v )
 		{
@@ -226,7 +226,7 @@ class Page
 		return implode( " $sep ", $out );
 	}
 
-	static public function menu( $gid, $tpl="[]" )
+	static public function menu( $gid=0, $tpl="[]" )
 	{
 		if( !self::$id || !self::level( self::$id ) )
 			$gids = array();
