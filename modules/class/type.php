@@ -37,8 +37,11 @@ class Types {
 		self::$types[$title] = $type;
 	}
 
-	static public function get( $title )
+	static public function get( $title=null )
 	{
+		if( !$title )
+			$title = Heap::get( "type" );
+
 		if( isset(self::$types[$title]) )
 			return self::$types[$title];
 		elseif( isset(self::$types[DEFAULT_PAGE_TYPE]) )
