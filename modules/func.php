@@ -1,12 +1,15 @@
 <?php
 
 
-function cur_dir( $file )
+function cur_dir( $file, $filename=0 )
 {
-	$base = str_replace( "index.php", "", $_SERVER["SCRIPT_FILENAME"] );
-	$file = preg_replace( "|/[\w\d\._-]+$|", "", $file );
+	// Path of root directory
+	$root = str_replace( "index.php", "", $_SERVER["SCRIPT_FILENAME"] );
+	// Full path
+	$file = $filename ? realpath($file) : pathinfo( realpath($file), PATHINFO_DIRNAME );
 
-	return str_replace( $base, "", $file );
+	// Remove root from path
+	return str_replace( $root, "", $file );
 }
 
 

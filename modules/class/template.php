@@ -11,8 +11,8 @@ class Template
 			throw new Exception( "Template file is not found: $file" );
 
 		// Cache filename
-		$cache_file = $file[0]=="/" ? cur_dir( $file ) : $file;
-		$cache_file = "cache/". str_replace( "/", ".", $cache_file ) .".php";
+		$cache_file = cur_dir( $file, 1 );
+		$cache_file = "cache/". str_replace( array(".tpl", "/"), array(".php", "."), $cache_file );
 
 		// Cache level
 		$cache = Config::get("cache");
