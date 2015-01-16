@@ -1,49 +1,70 @@
 <?php
-	run( "auth" );
-	hook( "init", "files_init" );
-	hook( "files_show", "default_files_show" );
-	hook( "files_action", "select_files_action", 10 );
-	hook( "files_action", "del_files_action", 90 );
-	
-	load_modules( "files" );
-	
-	// Показать элемент галереи
-	function default_files_show( $f )
+
+// TODO: delete
+
+Hook::add( "init", "Auth::init", 200 );
+
+Hook::add( "init", "files_init", 900 );
+Hook::add( "file_show", "default_file_show" );
+Hook::add( "files_action", "select_files_action", 100 );
+Hook::add( "files_action", "del_files_action", 900 );
+
+Module::load( "files" );
+Hook::run( "init" );
+
+
+function files_init()
+{
+	$id = Heap::get("id");
+	if( !$id || !isset($_GET["gallery"]) )
 	{
-		if( $f["type"]=="png" || $f["type"]=="jpg" || $f["type"]=="jpeg" || $f["type"]=="gif" )
-			echo "<img src='files/{$f["id"]}_.jpg' class='pic'><br>";
-		else
-			echo "<img src='modules/res/img/file.png'> {$f["filename"]}";
+		Http::header( HTTP_ERROR_NOT_FOUND );
+		return;
 	}
-	
-	
-	// Выделить всё
-	function select_files_action()
+
+	// Delete selected files
+	if( isset($_POST["del"]) )
 	{
-		echo "<label><input type='checkbox' class='files_sel'> <small>Выделить все</small> </label>";
-	}
-	
-	
-	// Кнопка "удалить выбранные" файлы
-	function del_files_action()
-	{
-		echo "<input type='submit' name='del' value='Удалить выбранные' class='confirm' data-title='Удалить выбранные файлы?'>\n";
-	}
-	
-	
-	function files_init()
-	{
-		// Удаление выбранных
-		if( !$_POST["del"] )
-			return;
-		
 		foreach( $_POST as $id => $v )
 			if( $v == "on" )
-				delete_file( $id );
+				File::delete( $id );
+
+		return;
 	}
-	
-	run( "init" );
-	
-	$files = db_select( "SELECT id, type, gallery, filename FROM file WHERE gid=$id AND gallery=". db_escape($_GET["gallery"]) ." ORDER BY pos, id" );
-	
-	template( "modules/templates/files_ajax.tpl" );
+
+	$files = DB::all( "SELECT id, type, gallery, filename FROM file WHERE gid=$id AND gallery=". DB::escape($_GET["gallery"]) ." ORDER BY pos, id" );
+	if( !$files )
+		return;
+
+	Heap::set( "files", $files );
+	Template::show( "modules/templates/files_ajax.tpl" );
+}
+
+
+function default_file_show( $f )
+{
+	if( Img::is_image_type( $f["type"] && is_file($prev=File::path($f["id"], "", "jpg")) ) )
+	{
+		$text = "<img src='". File::path($f["id"]) ."'>";
+		$html = "<img src='$prev' class='pic'>";
+	}
+	else
+	{
+		$text = "<a href='file/{$f["id"]}'>{$f["filename"]}</a>";
+		$html = "<i class='i-file'></i> {$f["filename"]}";
+	}
+
+	echo "<a href='#' data-text=\"$text\">$html</a>";
+}
+
+
+function select_files_action()
+{
+	echo "<label><input type='checkbox' class='files_sel'> <small>Выделить все</small> </label>";
+}
+
+
+function del_files_action()
+{
+	echo "<input type='submit' name='del' value='Удалить выбранные' class='confirm' data-title='Удалить выбранные файлы?'>";
+}

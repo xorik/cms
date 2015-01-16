@@ -76,6 +76,11 @@ class Img
 		return false;
 	}
 
+	static public function is_image_type( $type )
+	{
+		return in_array( $type, array("jpg", "jpeg", "png", "gif") );
+	}
+
 	static public function size( $file )
 	{
 		return getimagesize( $file );

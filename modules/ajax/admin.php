@@ -88,7 +88,6 @@ elseif( isset($_GET["page_sort"]) )
 }
 
 // Files sort
-// TODO: test
 elseif( isset($_GET["file_sort"]) )
 {
 	// TODO: use POST

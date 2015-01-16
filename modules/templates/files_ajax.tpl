@@ -1,18 +1,18 @@
-<form action='?do=ajax&file=files&id={$id}&gallery={$_GET[gallery]}' method='post' target='upload-{$_GET[gallery]}'>
+<form action='{Router::$root}ajax/files?id={$id}&gallery={$_GET["gallery"]}' method='post' target='upload-{$_GET["gallery"]}'>
 	{if count($files) > 1}
 		<small><br>Файлы сортируются мышкой: захватите и перетащите</small>
 	{/if}
 	
 	<div>
-	{each $files as $file}
-		<div id='{$file[id]}' class='block'>
-			<input type='checkbox' name='{$file[id]}'>
-			{{run( "files_show", array("id"=>$file["id"], "type"=>$file["type"], "filename"=>$file["filename"], "gallery"=>$file["gallery"]) )}}
+	{each $files as $f}
+		<div id='{$f[id]}' class='block'>
+			<input type='checkbox' name='{$f[id]}'>
+			{Hook::run( "file_show", $f )}
 		</div>
 	{/each}
 	</div>
 	
 	{if count($files) > 0}
-		{run( "files_action" )}
+		{Hook::run( "files_action" )}
 	{/if}
 </form>
