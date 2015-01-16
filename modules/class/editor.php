@@ -39,7 +39,7 @@ class Editor
 			</div>";
 	}
 
-	static public function textarea( $id, $title, $key="text", $rich=1, $cols=80, $rows=20, $long=1, $two_col=0 )
+	static public function textarea( $id, $title, $key="text", $rich=1, $cols=80, $rows=20, $long=1 )
 	{
 		if( $key == "text" )
 			$value = Page::text( $id );
@@ -48,15 +48,11 @@ class Editor
 
 		$value = htmlspecialchars( $value );
 
-		echo "<div class='padding'>";
-		if( $two_col )
-			echo "$title:<br>";
-		else
-			echo "<div class='descr'>$title:</div><div>";
 
 		$class = $rich ? "rich" : "";
 		if( $long ) $class .= " long";
 
-		echo "<textarea name='$key' class='$class' cols='$cols' rows='$rows'>$value</textarea><div>";
+		echo "<div class='padding'><div class='descr'>$title:</div>";
+		echo "<div><textarea name='$key' class='$class' cols='$cols' rows='$rows'>$value</textarea></div></div>";
 	}
 }

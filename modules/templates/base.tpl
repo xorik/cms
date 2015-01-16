@@ -6,7 +6,7 @@
 			<a href='{Page::path($id)}' class='goto'>Посмотреть страницу</a>
 		{/if}
 	<h2>{Page::title()}</h2>
-	<div id='base'>
+	<div class='fields'>
 		{Hook::run( "show", $id )}
 	</div>
 </form>

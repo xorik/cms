@@ -329,19 +329,18 @@ div.round.hide {
 	color: #999;
 }
 
-#base > div {
+#content div.fields > div {
 	padding: 2px;
 }
-#base > div.padding {
+#content div.fields > div.padding {
 	padding-top: 20px;
 }
 
-#base > div > div {
+#content div.fields > div > div {
 	padding-left: 150px;
 }
 
-/* Field description */
-#base div.descr {
+#content div.fields div.descr {
 	float: left;
 	clear: left;
 	width: 150px;
