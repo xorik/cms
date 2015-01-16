@@ -1,14 +1,18 @@
-<h3>Изображения и файлы</h3>
-<div>
-	<form action='?do=ajax&file=upload&id={$id}' method='post' enctype='multipart/form-data' target='upload-gallery'>
-		Загрузить: <input type='file' name='gallery[]' multiple='true'>
-		{if $CONFIG["load_url"]}
-			или по ссылке: <input type='text' name='url' placeholder='Ссылки на файлы в Интернете (через пробел)'>
-		{/if}
-		<input type='submit' class='btn' value='Загрузить'>
-		<input type='hidden' name='gallery' value='gallery'>
-		<small>(Максимум: {ini_get("upload_max_filesize")}b)</small>
-	</form>
-	<div class='files' data-id='{$id}' data-gallery='gallery'></div>
-	<iframe name='upload-gallery' src='#' style='display:none'></iframe>
-</div>
+<form action='{Router::$root}ajax/files?id={$id}&gallery={$_GET["gallery"]}' method='post' target='upload-{$_GET["gallery"]}'>
+	{if count($files) > 1}
+		<small><br>Файлы сортируются мышкой: захватите и перетащите</small>
+	{/if}
+	
+	<div>
+	{each $files as $f}
+		<div id='{$f[id]}' class='block'>
+			<input type='checkbox' name='{$f[id]}'>
+			{Hook::run( "file_show", $f )}
+		</div>
+	{/each}
+	</div>
+	
+	{if count($files) > 0}
+		{Hook::run( "files_action" )}
+	{/if}
+</form>

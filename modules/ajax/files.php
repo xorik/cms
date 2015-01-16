@@ -37,7 +37,7 @@ function files_init()
 		return;
 
 	Heap::set( "files", $files );
-	Template::show( "modules/templates/files_ajax.tpl" );
+	Template::show( "modules/templates/files.tpl" );
 }
 
 
