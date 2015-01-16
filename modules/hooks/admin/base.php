@@ -13,6 +13,7 @@ function base_init()
 	Hook::add( "show", "Editor::input", 170, "Тип", "type" );
 	Hook::add( "show", "Editor::hide", 200 );
 	Hook::add( "show", "Editor::textarea", 600, "Текст" );
+	Hook::add( "content", "Editor::files", 800, "Изображения и файлы" );
 
 
 	Hook::add( "content", function()

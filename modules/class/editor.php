@@ -55,4 +55,30 @@ class Editor
 		echo "<div class='padding'><div class='descr'>$title:</div>";
 		echo "<div><textarea name='$key' class='$class' cols='$cols' rows='$rows'>$value</textarea></div></div>";
 	}
+
+
+	static public function files( $id, $title, $gallery="gallery" )
+	{
+		if( Config::get("files", "url") )
+			$url = "или по ссылке: <input type='text' name='url' placeholder='Ссылки на файлы в Интернете (через пробел)'>";
+		else
+			$url = "";
+
+		echo "<div class='fields'>
+				<div class='padding'>
+					<div class='descr'>$title:</div>
+					<div>
+						<form action='". Router::$root ."ajax/upload?id=$id' method='post' enctype='multipart/form-data' target='upload-$gallery'>
+							<input type='file' name='{$gallery}[]' multiple='true'>
+							$url
+							<input type='submit' class='btn' value='Загрузить'>
+							<input type='hidden' name='gallery' value='gallery'>
+							<small>(Максимум: ". ini_get("upload_max_filesize") ."b)</small>
+						</form>
+						<div class='files' data-id='$id' data-gallery='$gallery'></div>
+						<iframe name='upload-$gallery' src='#' style='display:none'></iframe>
+					</div>
+				</div>
+			</div>";
+	}
 }
