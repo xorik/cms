@@ -16,12 +16,10 @@ class File
 	static protected $file_id;
 
 
-	static public function upload($url=null, $gallery=null, $path_callback=self::DEFAULT_CALLBACK )
+	static public function upload($url=null, $gallery="gallery", $path_callback=self::DEFAULT_CALLBACK )
 	{
 		if( $path_callback && !is_callable($path_callback) )
 			throw new Exception( "Path callback is not callable" );
-
-		Module::load( "upload" );
 
 		$status = array();
 
