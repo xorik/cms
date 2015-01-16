@@ -78,7 +78,7 @@ class Page
 
 		if( $id == Config::get("main") )
 			$out = "";
-		if( $path = self::prop($id, "path") )
+		elseif( $path = self::prop($id, "path") )
 			$out = $path;
 		else
 			$out = "?id=". $id;
