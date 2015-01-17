@@ -58,6 +58,16 @@ class Session
 		self::$changed = true;
 	}
 
+	static public function delete( $key )
+	{
+		if( !isset(self::$sess[$key]) )
+			return;
+
+		unset( self::$sess[$key] );
+		self::$changed = true;
+	}
+
+
 	static public function save()
 	{
 		if( self::$changed )

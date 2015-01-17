@@ -18,10 +18,7 @@ class Page
 			{
 				// Reload to path
 				if( Router::$type==PAGE_TYPE_CONTENT && $id!=Config::get("main") && $path=self::prop($id, "path") )
-				{
 					Http::redirect( Router::$root . $path );
-					die;
-				}
 			}
 			else
 				$id = null;

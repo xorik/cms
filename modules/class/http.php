@@ -49,4 +49,14 @@ class Http
 
 		header( $_SERVER["SERVER_PROTOCOL"] ." ". $code ." ". $text[$code] );
 	}
+
+	static public function ipua()
+	{
+		static $ipua = false;
+		if( $ipua )
+			return $ipua;
+
+		$ipua = md5( $_SERVER["REMOTE_ADDR"] . $_SERVER["HTTP_USER_AGENT"] );
+		return $ipua;
+	}
 }

@@ -30,6 +30,7 @@ class Auth
 					break;
 
 				Session::set( "hash", Config::get("admin", "hash") );
+				Session::set( "ipua", Http::ipua() );
 				Session::set( "admin", 1 );
 				if( $_POST["admin_login"] == DEVELOPER_LOGIN )
 					Session::set( "dev", 1 );
@@ -42,26 +43,17 @@ class Auth
 		// Logout
 		if( isset($_GET["logout"]) )
 		{
-			Session::set( "hash", null );
-			Session::set( "admin", null );
-			Session::set( "dev", null );
-			Session::save();
-
+			self::reset_admin();
 			Http::redirect( Router::$root );
-			die;
 		}
 
 		// Check session
 		$hash = Session::get( "hash" );
-		if( !$hash || $hash != Config::get("admin", "hash") )
+		if( !$hash || $hash != Config::get("admin", "hash") || Http::ipua()!=Session::get("ipua") )
 		{
 			// Reset admin and dev if password changed
 			if( $hash )
-			{
-				Session::set( "hash", null );
-				Session::set( "admin", null );
-				Session::set( "dev", null );
-			}
+				self::reset_admin();
 
 			Http::header( HTTP_ERROR_FORBIDDEN );
 			Head::$title = Config::get("title") ." - вход в страницу администратора";
@@ -72,6 +64,14 @@ class Auth
 			// Return logon formlogin
 			return "modules/templates/login.tpl";
 		}
+	}
+
+	static public function reset_admin()
+	{
+		Session::delete( "hash" );
+		Session::delete( "ipua" );
+		Session::delete( "admin" );
+		Session::delete( "dev" );
 	}
 
 	static public function password_check( $pass )
