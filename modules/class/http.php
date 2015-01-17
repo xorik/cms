@@ -18,10 +18,7 @@ class Http
 
 	static public function reload()
 	{
-		Hook::run( "shutdown" );
-
-		header( "Location: {$_SERVER["REQUEST_URI"]}" );
-		die;
+		self::redirect( $_SERVER["REQUEST_URI"] );
 	}
 
 	static public function redirect( $url, $code=HTTP_MOVED_TEMP )
