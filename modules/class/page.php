@@ -7,7 +7,7 @@ class Page
 	static protected $cache = null;
 
 
-	static public function init( $tmp, $reload )
+	static public function init()
 	{
 		// Get page id from $_GET[id] or main page
 		if( isset($_GET["id"]) || !Router::$path )
@@ -17,9 +17,9 @@ class Page
 			if( $row )
 			{
 				// Reload to path
-				if( $reload && $id!=Config::get("main") && $path=self::prop($id, "path") )
+				if( Router::$type==PAGE_TYPE_CONTENT && $id!=Config::get("main") && $path=self::prop($id, "path") )
 				{
-					header( "Location: ". Router::$root . $path );
+					Http::redirect( Router::$root . $path );
 					die;
 				}
 			}

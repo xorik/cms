@@ -34,7 +34,7 @@ class Router
 	static public function default_route( $path )
 	{
 		if( isset($_GET["id"]) && $_GET["id"] )
-			Hook::add( "init", "Page::init", 60, 0 );
+			Hook::add( "init", "Page::init", 60 );
 
 		// Ajax handler
 		if( preg_match("|ajax/(.+)|", $path, $m) )
@@ -79,7 +79,7 @@ class Router
 		{
 			self::$type = PAGE_TYPE_CONTENT;
 			if( !isset($_GET["id"]) || !$_GET["id"] )
-				Hook::add( "init", "Page::init", 60, 1 );
+				Hook::add( "init", "Page::init", 60 );
 
 			Module::load( "content" );
 			$res = Hook::run( "init" );
