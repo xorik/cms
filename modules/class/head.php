@@ -11,6 +11,7 @@ class Head
 	static public $css = array();
 	static public $script = array();
 	static public $new_js = false;
+	static public $title = null;
 
 
 	static public function js( $file )
@@ -46,6 +47,19 @@ class Head
 		self::$css = array_unique( self::$css );
 
 		$head = "<!DOCTYPE html>\n<head>\n";
+
+		// If title isn't set - set default title
+		if( self::$title === null )
+		{
+			if( Router::$type == PAGE_TYPE_ADMIN )
+				self::$title = "Страница администратора - ". Config::get("title");
+			elseif( Router::$type == PAGE_TYPE_CONTENT )
+				self::$title = Config::get("title") ." - ". Page::title();
+		}
+
+		if( self::$title )
+			$head .= "\t<title>". self::$title ."</title>\n";
+
 		foreach( self::$head as $v )
 		{
 			$head .= "\t$v\n";

@@ -64,6 +64,7 @@ class Auth
 			}
 
 			Http::header( HTTP_ERROR_FORBIDDEN );
+			Head::$title = Config::get("title") ." - вход в страницу администратора";
 
 			if( Router::$type == PAGE_TYPE_AJAX )
 				die( "Authentication required" );
