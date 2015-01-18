@@ -34,19 +34,19 @@ class Types {
 		$type->virt = $virt;
 		$type->reverse = $reverse;
 
-		self::$types[$title] = $type;
+		self::$types[base64_encode($title)] = $type;
 	}
 
 	static public function get( $title=null )
 	{
-		if( !$title )
+		if( $title === null )
 			$title = Heap::get( "type" );
+
+		$title = base64_encode($title);
 
 		if( isset(self::$types[$title]) )
 			return self::$types[$title];
-		elseif( isset(self::$types[DEFAULT_PAGE_TYPE]) )
-			return self::$types[DEFAULT_PAGE_TYPE];
 		else
-			return false;
+			return self::$types[base64_encode(DEFAULT_PAGE_TYPE)];
 	}
 }

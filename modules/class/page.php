@@ -134,6 +134,11 @@ class Page
 	static public function type( $level=null, $id=null )
 	{
 		$id = $id ? (int)$id : self::$id;
+
+		// Root type
+		if( $level === 0 )
+			return "root";
+
 		if( !$level )
 		{
 			$row = self::get( $id );

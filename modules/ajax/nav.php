@@ -16,6 +16,7 @@ function nav_level( $nid, $level, $type )
 	$rows = DB::all( "SELECT id, title, type, hide FROM page WHERE gid=$nid ORDER BY $order" );
 	foreach( $rows as $row )
 	{
+		$type = Types::get( $row["type"] );
 		// Hidden page
 		$show = $row["hide"] ? "hide" : "show";
 		echo "<li><i class='i-sort'></i>";
@@ -25,7 +26,7 @@ function nav_level( $nid, $level, $type )
 			echo "<div class='indent'></div>";
 		}
 		// Removable
-		if( Types::get($row["type"])->removable )
+		if( $type->removable )
 		{
 			echo "<a href='#' class='round del' data-title='Удалить \"{$row["title"]}\" вместе с подразделами?'><i class='i-del'></i></a>";
 		}
@@ -43,11 +44,11 @@ function nav_level( $nid, $level, $type )
 		echo "</a></li>";
 
 		// Sub-pages
-		if( !empty(Types::get($row["type"])->sub) )
+		if( !empty( $type->sub) )
 		{
 			echo "<div class='sub'>";
 			// Add button
-			$type = Types::get($row["type"])->sub[0];
+			$type = $type->sub[0];
 			echo "<div class='add'>Добавить подраздел <a href='#' data-gid='{$row["id"]}' data-type='$type'><i class='i-plus'></i></a></div>";
 			nav_level( $row["id"], $level+1, $row["type"] );
 			echo "<hr></div>";
