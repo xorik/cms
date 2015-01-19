@@ -49,4 +49,17 @@ class Types {
 		else
 			return self::$types[base64_encode(DEFAULT_PAGE_TYPE)];
 	}
+
+	static public function brothers( $id=null )
+	{
+		if( !$id )
+			$id = Heap::get( "id" );
+
+		// Parent's type
+		$res = self::get( Page::type(Page::level()-1) );
+		$res = $res->sub;
+		$res[] = Heap::get( "type" );
+
+		return array_unique( $res );
+	}
 }

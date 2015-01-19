@@ -56,6 +56,25 @@ class Editor
 		echo "<div><textarea name='$key' class='$class' cols='$cols' rows='$rows'>$value</textarea></div></div>";
 	}
 
+	static public function select( $id, $title, $name, $list, $current="" )
+	{
+		// Convert array to assoc
+		if( isset($list[0]) )
+			$list = array_combine( $list, $list );
+
+		echo "<div><div class='descr'>$title:</div><select name='$name'>";
+		foreach( $list as $k=>$v )
+		{
+			$sel = $k==$current ? "selected" : "";
+			echo "<option value='$k' $sel>$v</option>";
+		}
+		echo "</select></div>";
+	}
+
+	static public function hidden( $id, $name, $value )
+	{
+		echo "<input type='hidden' name='$name' value='$value'>";
+	}
 
 	static public function files( $id, $title, $gallery="gallery" )
 	{
