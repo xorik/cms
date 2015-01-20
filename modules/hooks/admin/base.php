@@ -24,15 +24,19 @@ function base_init()
 	{
 		// Types list
 		$bro = Types::brothers();
-		if( count($bro)<2 || $type->lock_type )
-			Hook::add( "show", "Editor::hidden", 170, "type", Heap::get("type") );
-		else
+		if( count($bro)>1 && !$type->lock_type )
 			Hook::add( "show", "Editor::select", 170, "Тип", "type", $bro, Heap::get("type") );
 	}
 
 	Hook::add( "show", "Editor::hide", 200 );
-	Hook::add( "show", "Editor::textarea", 600, "Текст" );
-	Hook::add( "content", "Editor::files", 800, "Изображения и файлы" );
+
+	// Editor
+	if( $type->editor )
+		Hook::add( "show", "Editor::textarea", 600, "Текст" );
+
+	// Files
+	if( $type->files )
+		Hook::add( "content", "Editor::files", 800, "Изображения и файлы" );
 
 
 	Hook::add( "content", function()

@@ -23,10 +23,18 @@ elseif( isset($_GET["save"]) )
 	if( !$id )
 		throw new Exception( "Id isn't set or page isn't exists" );
 
-	$res = DB::update( "page", array("title"=>$_POST["title"], "text"=>$_POST["text"], "type"=>$_POST["type"], "hide"=>(int)$_POST["hide"]), "id=$id" );
+	$a = array("title"=>$_POST["title"], "hide"=>(int)$_POST["hide"]);
+
+	if( isset($_POST["text"]) )
+		$a["text"] = $_POST["text"];
+	if( isset($_POST["type"]) )
+		$a["type"] = $_POST["type"];
+
+	$res = DB::update( "page", $a, "id=$id" );
 
 	// Page path
-	Page::prop( $id, "path", str_replace(" ", "_", $_POST["path"]) );
+	if( isset($_POST["path"]) )
+		Page::prop( $id, "path", str_replace(" ", "_", $_POST["path"]) );
 
 	// Run hooks
 	Hook::run( "save", $id );
