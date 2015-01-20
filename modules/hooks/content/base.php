@@ -1,34 +1,27 @@
 <?php
-	hook( "content", "base_content" );
-	
-	function base_content()
-	{
-		global $id, $CONFIG;
-		
-		if( !$id )
-		{
-			if( $CONFIG["404_page"] )
-				echo get_text( $CONFIG["404_page"] );
-			else
-				echo "<h3>Ошибка 404: Страница \"". urldecode($_SERVER["REQUEST_URI"]) ."\" не найдена!</h3>";
-			
-			return;
-		}
-		
-		echo get_text( $id );
-	}
 
 
-	// Ссылка на страницу
-	function admin_goto( $id, $short )
+Hook::add( "content", "base_content" );
+Hook::add( "content", "admin_goto", 900 );
+
+
+function base_content()
+{
+	if( $id=Heap::get("id") )
 	{
-		global $ADMIN_URL;
-		
-		if( $id && $_SESSION["admin"] )
-		{
-			if( $short )
-				return "<a href='{$ADMIN_URL}id=$id'>Редактировать</a>";
-			else
-				return "<br><br><a href='{$ADMIN_URL}id=$id'>Перейти к редактированию</a>";
-		}
+		$text = Page::text($id);
+		if( strpos(Router::$path, "/")!==false )
+			$text = preg_replace( '/"(files?\/\d+[_\w]*\.?[\w]*)"/', Router::$root."\\1", $text );
+
+		echo $text;
 	}
+	else
+		echo "<h3>Ошибка 404</h3><p>Страница \"". Router::$path ."\" не найдена</p>";
+}
+
+
+function admin_goto()
+{
+	if( Session::get("admin") && $id=Heap::get("id") )
+		echo "<br><br><a href='". Router::$root ."admin?id=$id'>Перейти к редактированию</a>";
+}

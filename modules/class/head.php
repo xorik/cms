@@ -54,7 +54,12 @@ class Head
 			if( Router::$type == PAGE_TYPE_ADMIN )
 				self::$title = "Страница администратора - ". Config::get("title");
 			elseif( Router::$type == PAGE_TYPE_CONTENT )
-				self::$title = Config::get("title") ." - ". Page::title();
+			{
+				if( Heap::get("id") )
+					self::$title = Config::get("title") ." - ". Page::title();
+				else
+					self::$title = Config::get("title") ." - Страница не найдена";
+			}
 		}
 
 		if( self::$title )
