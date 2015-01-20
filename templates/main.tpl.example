@@ -1,11 +1,9 @@
 {{
-	$CSS[] = "style.css";
-	$CSS[] = "content.css";
+	Head::css( "style.css" );
+	Head::css( "content.css" );
 }}
-<!DOCTYPE html>
-<head>
-	{head()}
-</head>
 <body>
-	{run( "content" )}
+	{Hook::run( "content" )}
+
+{Head::scripts()}
 </body>
