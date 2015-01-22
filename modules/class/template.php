@@ -51,11 +51,10 @@ class Template
 			self::cache_update( $file, $cache_file, time() );
 
 		extract( $heap ? $heap : Heap::$heap, EXTR_REFS );
-		$error_level = error_reporting();
-		// Disable notices
-		error_reporting( $error_level & ~E_NOTICE );
+
+		Error::$ingonre_notices = 1;
 		require( $cache_file );
-		error_reporting( $error_level );
+		Error::$ingonre_notices = 0;
 	}
 
 	static public function get( $file, $recursive_check=0, $heap=false )

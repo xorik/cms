@@ -15,7 +15,9 @@ if( Config::get("cache") === CACHE_LEVEL_OFF )
 	LocalCache::scan();
 
 // Connect to database
-Hook::add( "init", "DB::init", 50 );
+DB::init();
+// Error handler
+Error::init();
 
 // Load session, if session cookie is set
 if( isset($_COOKIE[Session::SESSION_COOKIE]) )
