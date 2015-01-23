@@ -1,9 +1,12 @@
 <?php
 
 
-// TODO: store error level (notice, warning, etc)
-// TODO: internal error/warning function
 // TODO: template for user, debug for developer + 500 header in case of fatal error
+
+define( "ERROR_TYPE_DEBUG", "debug" );
+define( "ERROR_TYPE_NOTICE", "notice" );
+define( "ERROR_TYPE_WARNING", "warning" );
+define( "ERROR_TYPE_ERROR", "error" );
 
 
 class Error
@@ -25,7 +28,7 @@ class Error
 		ini_set( "display_errors", 0 );
 	}
 
-	static public function log( $errno, $msg, $file, $line, $trace, $trace_skip=0 )
+	static protected function log( $errno, $msg, $file, $line, $trace, $trace_skip=0 )
 	{
 		if( $errno==E_NOTICE && self::$ingonre_notices )
 			return;
@@ -53,7 +56,9 @@ class Error
 			$t = array( cur_dir($t["file"], 1), $t["line"], $class.$t["function"] , $t["args"]);
 		}
 
-		$error = array("msg"=>$msg, "file"=>$file, "line"=>$line, "trace"=>$trace);
+		$errtype = self::error_type($errno);
+
+		$error = array("type"=>$errtype, "msg"=>$msg, "file"=>$file, "line"=>$line, "trace"=>$trace);
 		$hash = md5( json($error) );
 
 		// Error already logged
@@ -74,6 +79,11 @@ class Error
 			require( "modules/class/log.php" );
 
 		Log::add( self::LOG_TYPE, $error, $hash, 1 );
+		if( $errtype == ERROR_TYPE_ERROR )
+		{
+			Http::header(HTTP_ERROR_INTERNAL);
+			die;
+		}
 	}
 
 	static public function error_handler( $errno, $msg, $file, $line )
@@ -83,7 +93,7 @@ class Error
 
 	static public function exception_handler( Exception $e )
 	{
-		self::log( E_ERROR, "Exception: ". $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace() );
+		self::log( E_USER_ERROR, "Exception: ". $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace() );
 	}
 
 	static public function shutdown_handler()
@@ -97,5 +107,43 @@ class Error
 		self::log( $e["type"], $e["message"], $e["file"], $e["line"], array() );
 
 		die;
+	}
+
+	static protected function usermsg( $errno, $msg )
+	{
+		$trace = debug_backtrace();
+		self::log( $errno, $msg, $trace[1]["file"], $trace[1]["line"], $trace, 1 );
+	}
+
+	static public function debug( $msg )
+	{
+		self::usermsg( E_USER_NOTICE, $msg );
+	}
+
+	static public function warning( $msg )
+	{
+		self::usermsg( E_USER_WARNING, $msg );
+	}
+
+	static public function err( $msg )
+	{
+		self::usermsg( E_USER_ERROR, $msg );
+	}
+
+	static protected function error_type( $errno )
+	{
+		$errors = array( E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR, E_STRICT, E_RECOVERABLE_ERROR, E_DEPRECATED, E_USER_DEPRECATED );
+		$warnings = array( E_WARNING, E_CORE_WARNING, E_COMPILE_WARNING, E_USER_WARNING );
+
+		if( in_array($errno, $errors) )
+			return ERROR_TYPE_ERROR;
+		elseif( in_array($errno, $warnings) )
+			return ERROR_TYPE_WARNING;
+		elseif( $errno == E_NOTICE )
+			return ERROR_TYPE_NOTICE;
+		elseif( $errno == E_USER_NOTICE )
+			return ERROR_TYPE_DEBUG;
+		else
+			throw new Exception( "Incorrect errno: $errno" );
 	}
 }
