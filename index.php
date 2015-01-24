@@ -4,6 +4,7 @@
 header( "Content-type: text/html; charset=utf-8" );
 error_reporting( E_ALL );
 ini_set( "display_errors", 1 );
+ob_start();
 
 // Load and init basic modules
 require( "modules/func.php" );
@@ -21,7 +22,7 @@ Error::init();
 
 // Load session, if session cookie is set
 if( isset($_COOKIE[Session::SESSION_COOKIE]) )
-	Hook::add( "init", "Session::init", 100 );
+	Session::init();
 
 Module::load( "all" );
 Router::init();

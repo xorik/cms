@@ -1,8 +1,6 @@
 <?php
 
 
-// TODO: template for user, debug for developer + 500 header in case of fatal error
-
 define( "ERROR_TYPE_DEBUG", "debug" );
 define( "ERROR_TYPE_NOTICE", "notice" );
 define( "ERROR_TYPE_WARNING", "warning" );
@@ -74,14 +72,16 @@ class Error
 		if( !empty($_POST) )
 			$error["post"] = $_POST;
 
-		// Workaround, if log class isn't loaded
-		if( !class_exists("Log") )
-			require( "modules/class/log.php" );
+		$id = Log::add( self::LOG_TYPE, $error, $hash, 1 );
 
-		Log::add( self::LOG_TYPE, $error, $hash, 1 );
+		// If error - show error template
 		if( $errtype == ERROR_TYPE_ERROR )
 		{
-			Http::header(HTTP_ERROR_INTERNAL);
+			while( ob_get_level() )
+				ob_get_clean();
+
+			Http::header( HTTP_ERROR_INTERNAL );
+			Template::show( "modules/templates/error.tpl", 0, array("error"=>$error, "id"=>$id) );
 			die;
 		}
 	}
@@ -104,6 +104,7 @@ class Error
 		if( !$e || !($e["type"] & (E_ERROR|E_PARSE)) )
 			return;
 
+		chdir( Router::$fs_root );
 		self::log( $e["type"], $e["message"], $e["file"], $e["line"], array() );
 
 		die;

@@ -40,7 +40,7 @@ class DB
 		elseif( is_null($var) )
 			return "NULL";
 
-		trigger_error( "Unknown type for escaping: ". print_r($var, true) );
+		Error::warning( "Unknown type for escaping: ". print_r($var, true) );
 		return "''";
 	}
 
@@ -55,10 +55,7 @@ class DB
 		$res = self::$db->query( $query );
 
 		if( $res === false )
-		{
-			trigger_error( "Error running query '$query'<br>". self::$db->error );
-			return false;
-		}
+			Error::warning( "Error running query '$query'<br>". self::$db->error );
 
 		return $res;
 	}

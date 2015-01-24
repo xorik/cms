@@ -20,5 +20,5 @@ function json( $str, $pretty=0 )
 	elseif( is_string($str) )
 		return json_decode( $str, true );
 	else
-		trigger_error( "json: expect string or array" );
+		Error::warning( "json: expect string or array" );
 }
