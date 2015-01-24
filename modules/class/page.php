@@ -38,7 +38,6 @@ class Page
 		if( !$id )
 		{
 			Http::header( HTTP_ERROR_NOT_FOUND );
-			// TODO: 404 page template
 			return;
 		}
 

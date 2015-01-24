@@ -1,6 +1,5 @@
 <?php
 
-// TODO: delete
 
 Hook::add( "init", "Auth::init", 200 );
 

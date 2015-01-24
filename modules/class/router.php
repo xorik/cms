@@ -20,6 +20,7 @@ class Router
 	static public function init()
 	{
 		// Parse URL
+		// TODO: move to index, save to defines (root, fs_root, http_root)
 		$tmp = self::$root = str_replace( "index.php", "", $_SERVER["PHP_SELF"] );
 		self::$fs_root = str_replace( "index.php", "", $_SERVER["SCRIPT_FILENAME"] );
 		Heap::set( "root", self::$root );
