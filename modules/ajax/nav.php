@@ -4,17 +4,38 @@ Hook::add( "init", "Auth::init", 200 );
 Module::load( "admin" );
 Hook::run( "init" );
 
-// Show current level
-function nav_level( $nid, $level, $type )
+echo "<div id='nav_title'>";
+$type = isset(Types::get("root")->sub[0]) ? Types::get("root")->sub[0] : DEFAULT_PAGE_TYPE;
+echo "<a href='#' class='add' data-gid='0' data-type='$type'><i class='i-plus'></i></a>";
+echo "<a href='". Router::$root ."admin' data-id='0'>Разделы</a></div>";
+
+// Pages list
+global $list;
+$list = array();
+
+$rows = DB::all( "SELECT gid, id, title, type, hide FROM page ORDER BY pos,id" );
+foreach( $rows as $row )
 {
+	$list[$row["gid"]][] = $row;
+}
+unset( $rows );
+nav_level( 0, 1, "root" );
+
+
+
+// Show current level
+function nav_level( $id, $level, $type )
+{
+	global $list;
+
+	if( !isset($list[$id]) )
+		return;
+
 	// Sorting order
 	if( Types::get($type)->reverse )
-		$order = "pos DESC, id DESC";
-	else
-		$order = "pos, id";
+		$list[$id] = array_reverse( $list[$id] );
 
-	$rows = DB::all( "SELECT id, title, type, hide FROM page WHERE gid=$nid ORDER BY $order" );
-	foreach( $rows as $row )
+	foreach( $list[$id] as $row )
 	{
 		$type = Types::get( $row["type"] );
 		// Hidden page
@@ -44,23 +65,17 @@ function nav_level( $nid, $level, $type )
 		echo "</a></li>";
 
 		// Sub-pages
-		if( !empty( $type->sub) )
+		if( !empty( $type->sub) || !empty($list[$row["id"]]) )
 		{
 			echo "<div class='sub'>";
 			// Add button
-			$type = $type->sub[0];
-			echo "<div class='add'>Добавить подраздел <a href='#' data-gid='{$row["id"]}' data-type='$type'><i class='i-plus'></i></a></div>";
+			if( !empty( $type->sub) )
+			{
+				$type = $type->sub[0];
+				echo "<div class='add'>Добавить подраздел <a href='#' data-gid='{$row["id"]}' data-type='$type'><i class='i-plus'></i></a></div>";
+			}
 			nav_level( $row["id"], $level+1, $row["type"] );
 			echo "<hr></div>";
 		}
 	}
 }
-
-echo "<div id='nav_title'>";
-$type = isset(Types::get("root")->sub[0]) ? Types::get("root")->sub[0] : DEFAULT_PAGE_TYPE;
-echo "<a href='#' class='add' data-gid='0' data-type='$type'><i class='i-plus'></i></a>";
-echo "<a href='". Router::$root ."admin' data-id='0'>Разделы</a></div>";
-
-// Root list
-nav_level( 0, 1, "" );
-
