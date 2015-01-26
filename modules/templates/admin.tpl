@@ -10,7 +10,7 @@
 <body>
 	<div id='top'>
 		<a href='{$root}admin' class='logo'></a>
-		<span>сайта <a href='.'>{Config::get("title")}</a></span>
+		<span>сайта <a href='{$root}'>{Config::get("title")}</a></span>
 		<div>
 			<a href='{$root}config'>Настройки</a> |
 			<a href='{$root}admin?logout'>Выход</a>
@@ -18,10 +18,12 @@
 	</div>
 	<div id='main'>
 		<div id='nav'>
-			{Hook::run( "nav" )}
+			{if $content=="config"}
+				{Hook::run( "nav" )}
+			{/if}
 		</div>
 		<div id='content'>
-			{if Router::$path=="config"}
+			{if $content=="config"}
 				<div id='crumb'>
 					<a href='{$root}admin'>Разделы</a>
 				</div>

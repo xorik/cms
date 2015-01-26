@@ -68,11 +68,14 @@ class Router
 		Head::$head[] = "<meta charset='utf-8'>";
 
 		// Admin or config site
-		if( $path == "admin" || $path == "config" )
+		if( $path == "admin" || strpos($path, "config")===0 )
 		{
 			self::$type = PAGE_TYPE_ADMIN;
 			Hook::add( "init", "Auth::init", 200 );
-			Module::load( $path );
+
+			$content = $path=="admin" ? "admin" : "config";
+			Module::load( $content );
+			Heap::set( "content", $content );
 			$res = Hook::run( "init" );
 			$tpl = $res ? $res : "modules/templates/admin.tpl";
 		}
