@@ -18,7 +18,7 @@ function base_init()
 
 	// Editable type for developer
 	// TODO: enable/disable in config or by button
-	if( Session::get("dev") )
+	if( Session::dev() )
 		Hook::add( "show", "Editor::input", 170, "Тип", "type" );
 	else
 	{

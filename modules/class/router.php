@@ -71,7 +71,6 @@ class Router
 		if( $path == "admin" || $path == "config" )
 		{
 			self::$type = PAGE_TYPE_ADMIN;
-			Session::init();
 			Hook::add( "init", "Auth::init", 200 );
 			Module::load( $path );
 			$res = Hook::run( "init" );

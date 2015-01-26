@@ -13,8 +13,6 @@ class Auth
 
 	static public function init()
 	{
-		Session::init();
-
 		// Logon
 		if( isset($_POST["admin_login"]) && isset($_POST["admin_pass"]) )
 		{
@@ -29,11 +27,11 @@ class Auth
 				if( !self::password_check($_POST["admin_pass"]) )
 					break;
 
-				Session::set( "hash", Config::get("admin", "hash") );
-				Session::set( "ipua", Http::ipua() );
-				Session::set( "admin", 1 );
+				Session::hash( Config::get("admin", "hash") );
+				Session::ipua( Http::ipua() );
+				Session::admin( 1 );
 				if( $_POST["admin_login"] == DEVELOPER_LOGIN )
-					Session::set( "dev", 1 );
+					Session::dev( 1 );
 
 				Http::reload();
 			}
@@ -48,8 +46,8 @@ class Auth
 		}
 
 		// Check session
-		$hash = Session::get( "hash" );
-		if( !$hash || $hash != Config::get("admin", "hash") || Http::ipua()!=Session::get("ipua") )
+		$hash = Session::hash();
+		if( !$hash || $hash != Config::get("admin", "hash") || Http::ipua()!=Session::ipua() )
 		{
 			// Reset admin and dev if password changed
 			if( $hash )

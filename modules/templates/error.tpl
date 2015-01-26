@@ -8,13 +8,13 @@
 	{if $id}<p>ID ошибки: <b>{$id}</b></p>{/if}
 
 	/* Admin and dev */
-	{if Session::get("admin")}
+	{if Session::admin()}
 		<h3>Дополнительная информация:</h3>
 		<p>Сообщение: <b>{$error["msg"]}</b></p>
 		<p>Файл: <b>{$error["file"]}:{$error["line"]}</b></p>
 	{/if}
 
-	{if Session::get("dev") && $error["trace"]}
+	{if Session::dev() && $error["trace"]}
 		<h3>Trace:</h3>
 		<table border='1'>
 			{each $error["trace"] as $t}

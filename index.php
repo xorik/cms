@@ -17,9 +17,6 @@ Config::init();
 if( Config::get("cache") === CACHE_LEVEL_OFF )
 	LocalCache::scan();
 
-// Load session, if session cookie is set
-if( isset($_COOKIE["sess"]) )
-	Session::init();
 
 Module::load( "all" );
 Router::init();

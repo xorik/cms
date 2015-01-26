@@ -47,20 +47,6 @@ class Session
 		self::$init = true;
 	}
 
-	static public function get( $key )
-	{
-		if( isset(self::$sess[$key]) )
-			return self::$sess[$key];
-		else
-			return false;
-	}
-
-	static public function set( $key, $value )
-	{
-		self::$sess[$key] = $value;
-		self::$changed = true;
-	}
-
 	static public function delete( $key )
 	{
 		if( !isset(self::$sess[$key]) )
@@ -98,5 +84,20 @@ class Session
 					unlink( $file );
 			}
 		}
+	}
+
+	static public function __callStatic( $name, $args )
+	{
+		// Set
+		if( count($args) == 1 )
+		{
+			self::$sess[$name] = $args[0];
+			self::$changed = true;
+		}
+		// Get
+		elseif( count($args)==0 && isset(self::$sess[$name]) )
+			return self::$sess[$name];
+		else
+			return false;
 	}
 }

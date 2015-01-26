@@ -22,6 +22,6 @@ function base_content()
 
 function admin_goto()
 {
-	if( Session::get("admin") && $id=Heap::get("id") )
+	if( isset($_COOKIE["sess"]) && Session::admin() && $id=Heap::get("id") )
 		echo "<br><br><a href='". Router::$root ."admin?id=$id'>Перейти к редактированию</a>";
 }
