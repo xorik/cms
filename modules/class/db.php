@@ -1,9 +1,13 @@
 <?php
 
 
+DB::init();
+
+
 class DB
 {
 	static protected $db = null;
+	static public $connected = false;
 
 
 	/**
@@ -19,6 +23,7 @@ class DB
 			throw new Exception( "MySQL connect error" );
 
 		self::query( "SET NAMES UTF8" );
+		self::$connected = true;
 	}
 
 	/**

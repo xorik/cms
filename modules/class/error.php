@@ -72,7 +72,9 @@ class Error
 		if( !empty($_POST) )
 			$error["post"] = $_POST;
 
-		$id = Log::add( self::LOG_TYPE, $error, $hash, 1 );
+		$id = null;
+		if( DB::$connected )
+			$id = Log::add( self::LOG_TYPE, $error, $hash, 1 );
 
 		// If error - show error template
 		if( $errtype == ERROR_TYPE_ERROR )

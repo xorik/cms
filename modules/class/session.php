@@ -4,6 +4,9 @@
 // TODO: custom timeout
 
 
+Session::init();
+
+
 class Session
 {
 	const SESSION_COOKIE = "sess";
