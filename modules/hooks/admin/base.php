@@ -23,7 +23,7 @@ function base_init()
 	else
 	{
 		// Types list
-		$bro = Types::brothers();
+		$bro = Types::parent_types();
 		if( count($bro)>1 && !$type->lock_type )
 			Hook::add( "show", "Editor::select", 170, "Тип", "type", $bro, Heap::get("type") );
 	}
