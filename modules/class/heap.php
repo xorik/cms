@@ -4,16 +4,15 @@ class Heap
 {
 	static public $heap = array();
 
-	static public function get( $key )
+	static public function __callStatic( $name, $args )
 	{
-		if( isset(self::$heap[$key]) )
-			return self::$heap[$key];
-
-		return null;
-	}
-
-		static public function set( $key, $value )
-	{
-		self::$heap[$key] = $value;
+		// Set
+		if( count($args) == 1 )
+			self::$heap[$name] = $args[0];
+		// Get
+		elseif( count($args)==0 && isset(self::$heap[$name]) )
+			return self::$heap[$name];
+		else
+			return null;
 	}
 }

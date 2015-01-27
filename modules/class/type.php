@@ -40,7 +40,7 @@ class Types {
 	static public function get( $title=null )
 	{
 		if( $title === null )
-			$title = Heap::get( "type" );
+			$title = Heap::type();
 
 		$title = base64_encode($title);
 
@@ -53,12 +53,12 @@ class Types {
 	static public function parent_types( $id=null )
 	{
 		if( !$id )
-			$id = Heap::get( "id" );
+			$id = Heap::id();
 
 		// Parent's type
 		$res = self::get( Page::type(Page::level($id)-1) );
 		$res = $res->sub;
-		$res[] = Heap::get( "type" );
+		$res[] = Heap::type();
 
 		return array_unique( $res );
 	}

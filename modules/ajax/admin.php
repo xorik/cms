@@ -4,7 +4,7 @@ Hook::add( "init", "Auth::init", 200 );
 Module::load( "admin" );
 Hook::run( "init" );
 
-$id = Heap::get("id");
+$id = Heap::id();
 
 // Show page content
 if( isset($_GET["base"]) )
@@ -48,7 +48,7 @@ elseif( isset($_GET["save"]) )
 // Add new page
 elseif( isset($_GET["add"]) )
 {
-	$type = Heap::get( "type" );
+	$type = Heap::type();
 	// Root
 	if( !$type )
 	{
@@ -62,7 +62,7 @@ elseif( isset($_GET["add"]) )
 	$id = DB::insert( "page", array("gid"=>$id, "title"=>$_POST["title"], "text"=>"", "type"=>$type) );
 	if( !$id )
 		throw new Exception( "Can't add page" );
-	Heap::set( "type", $type );
+	Heap::type( $type );
 
 	// Run add page hooks
 	Hook::run( "add", $id );
@@ -84,7 +84,8 @@ elseif( isset($_GET["del"]) )
 elseif( isset($_GET["page_sort"]) )
 {
 	// Reverse sorting
-	if( Types::get(Heap::get("type"))->reverse )
+	// TODO: check in php 5.3
+	if( Types::get(Heap::type())->reverse )
 		$_GET["p"] = array_reverse( $_GET["p"] );
 
 

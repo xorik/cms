@@ -23,7 +23,7 @@ class Router
 		// TODO: move to index, save to defines (root, fs_root, http_root)
 		$tmp = self::$root = str_replace( "index.php", "", $_SERVER["PHP_SELF"] );
 		self::$fs_root = str_replace( "index.php", "", $_SERVER["SCRIPT_FILENAME"] );
-		Heap::set( "root", self::$root );
+		Heap::root( self::$root );
 		$tmp = preg_replace( "/". preg_quote($tmp, "/") ."/", "", $_SERVER["REQUEST_URI"], 1 );
 		$tmp = explode( "?", $tmp );
 		self::$path = $tmp[0];
@@ -75,7 +75,7 @@ class Router
 
 			$content = $path=="admin" ? "admin" : "config";
 			Module::load( $content );
-			Heap::set( "content", $content );
+			Heap::content( $content );
 			$res = Hook::run( "init" );
 			$tpl = $res ? $res : "modules/templates/admin.tpl";
 		}

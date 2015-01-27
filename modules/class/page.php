@@ -34,15 +34,15 @@ class Page
 		}
 
 		self::$id = $id;
-		Heap::set( "id", $id );
+		Heap::id( $id );
 		if( !$id )
 		{
 			Http::header( HTTP_ERROR_NOT_FOUND );
 			return;
 		}
 
-		Heap::set( "title", $row["title"] );
-		Heap::set( "type", $row["type"] );
+		Heap::title( $row["title"] );
+		Heap::type( $row["type"] );
 	}
 
 	static public function get( $id )

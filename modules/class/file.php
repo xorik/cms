@@ -161,11 +161,11 @@ class File
 
 	static public function default_path( $filename, $gallery )
 	{
-		if( !Heap::get("id") )
+		if( !Heap::id() )
 			throw new Exception( "Heap id is not set for upload" );
 
 		$ext = self::ext( $filename );
-		$id = self::$file_id = DB::insert( "file", array("gid"=>Heap::get("id"), "filename"=>$filename, "type"=>$ext, "gallery"=>$gallery) );
+		$id = self::$file_id = DB::insert( "file", array("gid"=>Heap::id(), "filename"=>$filename, "type"=>$ext, "gallery"=>$gallery) );
 
 		return "files/$id". ($ext?".$ext":"");
 	}

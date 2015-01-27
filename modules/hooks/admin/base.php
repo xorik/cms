@@ -4,7 +4,7 @@ Hook::add( "init", "base_init", 800 );
 
 function base_init()
 {
-	if( !Router::$type==PAGE_TYPE_AJAX || !isset($_GET["base"]) || !($id=Heap::get("id")) )
+	if( !Router::$type==PAGE_TYPE_AJAX || !isset($_GET["base"]) || !($id=Heap::id()) )
 		return;
 
 	$type = Types::get();
@@ -25,7 +25,7 @@ function base_init()
 		// Types list
 		$bro = Types::parent_types();
 		if( count($bro)>1 && !$type->lock_type )
-			Hook::add( "show", "Editor::select", 170, "Тип", "type", $bro, Heap::get("type") );
+			Hook::add( "show", "Editor::select", 170, "Тип", "type", $bro, Heap::type() );
 	}
 
 	Hook::add( "show", "Editor::hide", 200 );

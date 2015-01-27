@@ -55,7 +55,7 @@ class Head
 				self::$title = "Страница администратора - ". Config::get("title");
 			elseif( Router::$type == PAGE_TYPE_CONTENT )
 			{
-				if( Heap::get("id") )
+				if( Heap::id() )
 					self::$title = Config::get("title") ." - ". Page::title();
 				else
 					self::$title = Config::get("title") ." - Страница не найдена";

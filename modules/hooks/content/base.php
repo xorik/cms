@@ -7,7 +7,7 @@ Hook::add( "content", "admin_goto", 900 );
 
 function base_content()
 {
-	if( $id=Heap::get("id") )
+	if( $id=Heap::id() )
 	{
 		$text = Page::text($id);
 		if( strpos(Router::$path, "/")!==false )
@@ -22,6 +22,6 @@ function base_content()
 
 function admin_goto()
 {
-	if( isset($_COOKIE["sess"]) && Session::admin() && $id=Heap::get("id") )
+	if( isset($_COOKIE["sess"]) && Session::admin() && $id=Heap::id() )
 		echo "<br><br><a href='". Router::$root ."admin?id=$id'>Перейти к редактированию</a>";
 }

@@ -14,7 +14,7 @@ Hook::run( "init" );
 
 function files_init()
 {
-	$id = Heap::get("id");
+	$id = Heap::id();
 	if( !$id || !isset($_GET["gallery"]) )
 	{
 		Http::header( HTTP_ERROR_NOT_FOUND );
@@ -35,8 +35,7 @@ function files_init()
 	if( !$files )
 		return;
 
-	Heap::set( "files", $files );
-	Template::show( "modules/templates/files.tpl" );
+	Template::show( "modules/templates/files.tpl", 0, array("files"=>$files, "id"=>$id) );
 }
 
 
