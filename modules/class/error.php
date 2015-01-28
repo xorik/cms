@@ -83,7 +83,11 @@ class Error
 				ob_get_clean();
 
 			Http::header( HTTP_ERROR_INTERNAL );
-			Template::show( "modules/templates/error.tpl", 0, array("error"=>$error, "id"=>$id) );
+			if( Router::$type == PAGE_TYPE_JSON )
+				echo json( array("error"=>Session::admin()?$msg:"Internal error") );
+			else
+				Template::show( "modules/templates/error.tpl", 0, array("error"=>$error, "id"=>$id) );
+
 			die;
 		}
 	}

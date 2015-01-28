@@ -40,9 +40,9 @@ elseif( isset($_GET["save"]) )
 	Hook::run( "save", $id );
 
 	if( $res === false )
-		echo '{"error": "Ошибка сохранения страницы!"}';
+		echo json( array("error"=>"Ошибка сохранения страницы!") );
 	else
-		echo '{"success": "Страница сохранена"}';
+		echo json( array("success"=>"Страница сохранена") );
 }
 
 // Add new page
@@ -77,7 +77,7 @@ elseif( isset($_GET["del"]) )
 	Page::delete( $id );
 
 	// TODO: return new id, if current removed
-	echo "{}";
+	echo json( array() );
 }
 
 // Sort pages

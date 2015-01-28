@@ -5,7 +5,8 @@ define( "PAGE_TYPE_UNKNOWN", 0 );
 define( "PAGE_TYPE_CONTENT", 1 );
 define( "PAGE_TYPE_ADMIN", 2 );
 define( "PAGE_TYPE_AJAX", 3 );
-define( "PAGE_TYPE_FILE", 4 );
+define( "PAGE_TYPE_JSON", 4 );
+define( "PAGE_TYPE_FILE", 5 );
 
 
 
@@ -40,17 +41,22 @@ class Router
 			Hook::add( "init", "Page::init", 60 );
 
 		// Ajax handler
-		if( preg_match("|ajax/(.+)|", $path, $m) )
+		if( preg_match("/(ajax|json)\/(.+)/", $path, $m) )
 		{
-			if( !isset(LocalCache::$ajax[$m[1]]) || !is_file($file=LocalCache::$ajax[$m[1]]) )
+			$json = $m[1] == "json";
+			if( $json )
+				header( "Content-Type: application/json; charset=utf-8" );
+
+			if( !isset(LocalCache::$ajax[$m[2]]) || !is_file($file=LocalCache::$ajax[$m[2]]) )
 			{
 				Http::header( HTTP_ERROR_NOT_FOUND );
-				echo "Ajax handler for request '{$m[1]}' is not found";
+				$msg = "Ajax handler for request '{$m[2]}' is not found";
+				echo $json ? json(array("error"=>$msg)) : $msg;
 
 				return;
 			}
 
-			self::$type = PAGE_TYPE_AJAX;
+			self::$type = $json ? PAGE_TYPE_JSON : PAGE_TYPE_AJAX;
 			require( $file );
 
 			return;

@@ -227,7 +227,7 @@ $(function()
 			e.preventDefault();
 			$(this).trigger("submit");
 			$.post(
-				"ajax/admin?save&id="+id,
+				"json/admin?save&id="+id,
 				$(this).closest("form").serialize(),
 				function(data)
 				{
@@ -250,7 +250,7 @@ $(function()
 			var title = prompt( "Название новой страницы:", $(this).data("type") );
 			if( title != null)
 			{
-				$.post("ajax/admin?add&id="+$(this).data("gid"), {title: title}, function(data)
+				$.post("json/admin?add&id="+$(this).data("gid"), {title: title}, function(data)
 				{
 					ajaxNotify( data );
 					if( typeof data.id !== 'undefined' )
@@ -281,7 +281,7 @@ $(function()
 			{
 				// TODO: error detect
 				$.post(
-					"ajax/admin?del&id="+id,
+					"json/admin?del&id="+id,
 					{del: $(this).closest("li").find("a.block").data("id")},
 					function(data)
 					{
