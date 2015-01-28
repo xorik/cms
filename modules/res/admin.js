@@ -16,8 +16,11 @@ $(function()
 	// Загрузить контент
 	function loadContent()
 	{
-		$("#content").addLoad().load("ajax/admin?base&id="+id, function()
+		$("#content").addLoad().load("ajax/admin?base&id="+id, function(response, status, xhr)
 		{
+			if( status == "error" )
+				$("#content").html( xhr.responseText )
+
 			$(this).trigger("ready").removeLoad();
 		});
 	}
@@ -372,10 +375,21 @@ $(function()
 	
 	$(document).ajaxError( function(event, jqXHR, ajaxSettings)
 	{
+		var msg ="Произошла ошибка при обработке запроса: <b>"+ajaxSettings.url+"</b>: ";
+		if( jqXHR.getResponseHeader('Content-type') == "application/json; charset=utf-8" )
+		{
+			var data =  $.parseJSON(jqXHR.responseText);
+			if( data.error )
+			{
+				data.error = msg + data.error;
+				ajaxNotify( data );
+				return;
+			}
+		}
+
 		noty({
 			type: "warning",
-			text: "Произошла ошибка при обработке запроса: <b>"+
-				ajaxSettings.url+"</b>: "+jqXHR.statusText,
+			text: msg+jqXHR.statusText,
 			timeout: 5000}
 		);
 	});

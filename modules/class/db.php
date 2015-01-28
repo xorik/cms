@@ -20,7 +20,7 @@ class DB
 		$db = Config::get( "db" );
 		self::$db = new mysqli( $db["host"], $db["user"], $db["pass"], $db["db"] );
 		if( self::$db->connect_errno )
-			throw new Exception( "MySQL connect error" );
+			throw new Exception( "MySQL connect error: ". self::$db->connect_error );
 
 		self::query( "SET NAMES UTF8" );
 		self::$connected = true;

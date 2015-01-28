@@ -1,8 +1,15 @@
 <style>
-
+	div.debug table {
+		border-collapse: collapse;
+	}
+	div.debug table td {
+		padding: 2px 1em;
+		font-family: monospace;
+		border: 1px solid #666;
+	}
 </style>
 
-<div>
+<div class='debug'>
 	<h2>Ошибка сервера</h2>
 	<p>При обработки страницы произошла ошибка</p>
 	{if $id}<p>ID ошибки: <b>{$id}</b></p>{/if}
@@ -16,7 +23,7 @@
 
 	{if Session::dev() && $error["trace"]}
 		<h3>Trace:</h3>
-		<table border='1'>
+		<table>
 			{each $error["trace"] as $t}
 				<tr>
 					<td>{$t[0]}:{$t[1]}</td>

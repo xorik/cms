@@ -12,6 +12,7 @@ class Error
 	const LOG_TYPE = "debug";
 
 	static protected $errors_hash = array();
+	static protected $active = false;
 	static public $ingonre_notices = 0;
 
 	static public function init()
@@ -28,8 +29,10 @@ class Error
 
 	static protected function log( $errno, $msg, $file, $line, $trace, $trace_skip=0 )
 	{
-		if( $errno==E_NOTICE && self::$ingonre_notices )
+		if( ($errno==E_NOTICE && self::$ingonre_notices) || self::$active )
 			return;
+
+		self::$active = true;
 
 		$file = cur_dir( $file, 1 );
 
@@ -61,7 +64,10 @@ class Error
 
 		// Error already logged
 		if( in_array($hash, self::$errors_hash) )
+		{
+			self::$active = false;
 			return;
+		}
 
 		self::$errors_hash[] = $hash;
 
@@ -73,8 +79,14 @@ class Error
 			$error["post"] = $_POST;
 
 		$id = null;
-		if( DB::$connected )
-			$id = Log::add( self::LOG_TYPE, $error, $hash, 1 );
+
+		// Workaround if DB connect fails
+		try
+		{
+			if( DB::$connected )
+				$id = Log::add( self::LOG_TYPE, $error, $hash, 1 );
+		}
+		catch( Exception $e ) {}
 
 		// If error - show error template
 		if( $errtype == ERROR_TYPE_ERROR )
@@ -86,10 +98,19 @@ class Error
 			if( Router::$type == PAGE_TYPE_JSON )
 				echo json( array("error"=>Session::admin()?$msg:"Internal error") );
 			else
+			{
+				if( Router::$type != PAGE_TYPE_AJAX )
+				{
+					Head::$title = Config::get("title") ." - Ошибка сервера";
+					echo Head::get();
+				}
 				Template::show( "modules/templates/error.tpl", 0, array("error"=>$error, "id"=>$id) );
+			}
 
 			die;
 		}
+
+		self::$active = false;
 	}
 
 	static public function error_handler( $errno, $msg, $file, $line )
