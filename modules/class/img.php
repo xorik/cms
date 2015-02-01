@@ -134,7 +134,6 @@ class Img
 		if( self::$bg_fill === false )
 			return $dest;
 
-		$c = self::$bg_fill === null ? array(0, 0, 0, 127) : self::$bg_fill;
 		if( self::$bg_fill === null )
 			$c = array( 0, 0, 0, 127 );
 		elseif( self::$bg_fill === true )
