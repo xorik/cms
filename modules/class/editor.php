@@ -87,15 +87,19 @@ class Editor
 				<div class='padding'>
 					<div class='descr'>$title:</div>
 					<div>
-						<form action='". Router::$root ."ajax/upload?id=$id' method='post' enctype='multipart/form-data' target='upload-$gallery'>
-							<input type='file' name='{$gallery}[]' multiple='true'>
+						<form method='post' enctype='multipart/form-data'>
+							<input type='file' name='{$gallery}[]' multiple>
 							$url
-							<input type='submit' class='btn' value='Загрузить'>
-							<input type='hidden' name='gallery' value='gallery'>
+							<button class='btn'>Загрузить</button>
 							<small>(Максимум: ". ini_get("upload_max_filesize") ."b)</small>
+							<div class='progress'>
+								<div>
+									<progress value='0'></progress>
+								</div>
+								<a href='#'>Отменить загрузку</a>
+							</div>
 						</form>
 						<div class='files' data-id='$id' data-gallery='$gallery'></div>
-						<iframe name='upload-$gallery' src='#' style='display:none'></iframe>
 					</div>
 				</div>
 			</div>";

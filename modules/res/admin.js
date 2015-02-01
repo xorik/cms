@@ -187,6 +187,38 @@ $(function()
 	}
 	
 	
+	function loadFiles( e )
+	{
+		var url = "ajax/files?id="+$(e).data("id")+"&gallery="+$(e).data("gallery");
+		$(e).load(url, function()
+		{
+			// Выделить все файлы
+			var div = $(e);
+			div.find("input.files_sel").click( function()
+			{
+				div.find("div :checkbox").prop("checked", $(this).is(":checked"));
+			});
+
+			// Submit files actions (delete etc)
+			div.find("form input[type=submit]").click( function()
+			{
+				var a = $(this).closest("form").serialize()+"&"+$(this).attr("name")+"=1";
+				// TODO: json with noty
+				// TODO: fix confirm
+				$.post(url, a, function()
+				{
+					loadFiles(div);
+				});
+				return false;
+			});
+			div.find("form").submit( function()
+			{
+				return false;
+			});
+		});
+	}
+
+
 	// Навигация и контент в админке
 	if( $("#nav >").size() == 0 )
 	{
@@ -309,18 +341,56 @@ $(function()
 		{
 			$("div.files").each( function()
 			{
-				$(this).next().load( function()
+				// Load gallery
+				var div = this;
+				var form = $(this).prev();
+				var progress = form.find("progress");
+				var progress_div = form.find("div.progress");
+
+				// Upload handler
+				form.submit( function()
 				{
-					var div = $(this).prev();
-					div.load("ajax/files?id="+div.data("id")+"&gallery="+div.data("gallery"), function()
+					progress_div.attr({max: 0}).show();
+					var formData = new FormData(form[0]);
+					xhr = $.ajax(
 					{
-						// Выделить все файлы
-						div.find("input.files_sel").click( function()
+						url: "json/upload?id="+id,
+						type: "POST",
+						xhr: function()
 						{
-							div.find("div :checkbox").prop("checked", $(this).is(":checked"));
-						});
+							var myXhr = $.ajaxSettings.xhr();
+							if(myXhr.upload)
+							{
+								myXhr.upload.addEventListener('progress',function(e)
+								{
+									if(e.lengthComputable)
+										$(progress).attr({ value:e.loaded,max:e.total });
+								}, false);
+							}
+							return myXhr;
+						},
+						success: function( data )
+						{
+							form[0].reset();
+							//show_notify( data );
+							loadFiles( div );
+						},
+						complete: function()
+						{
+							progress_div.hide();
+						},
+						// Form data
+						data: formData,
+						dataType: "json",
+						cache: false,
+						contentType: false,
+						processData: false
 					});
-				}).load();
+
+					return false;
+				});
+
+				loadFiles( div );
 			});
 			
 			// Сортировка файлов

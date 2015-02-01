@@ -348,6 +348,29 @@ div.round.hide {
 	padding-left: 0;
 }
 
+/* Progress */
+div.progress {
+	display: none;
+}
+
+div.progress a {
+	display: table-cell;
+	padding-left: 10px;
+	white-space: nowrap;
+}
+
+div.progress div {
+	display: table-cell;
+	width: 100%;
+}
+
+div.progress progress {
+	width: 100%;
+	color: #3C68A5;
+	border: 1px solid #3C68A5;
+	height: 6px;;
+}
+
 
 /* Полосатая таблица */
 table.zebra,
