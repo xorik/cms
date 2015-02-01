@@ -40,9 +40,11 @@ elseif( isset($_GET["save"]) )
 	Hook::run( "save", $id );
 
 	if( $res === false )
-		echo json( array("error"=>"Ошибка сохранения страницы!") );
+		Noty::err( "Ошибка сохранения страницы!" );
 	else
-		echo json( array("success"=>"Страница сохранена") );
+		Noty::success( "Страница сохранена" );
+
+	echo json(Noty::get());
 }
 
 // Add new page

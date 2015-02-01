@@ -189,8 +189,8 @@ $(function()
 	
 	function loadFiles( e )
 	{
-		var url = "ajax/files?id="+$(e).data("id")+"&gallery="+$(e).data("gallery");
-		$(e).load(url, function()
+		var url = "/files?id="+$(e).data("id")+"&gallery="+$(e).data("gallery");
+		$(e).load("ajax"+url, function()
 		{
 			// Выделить все файлы
 			var div = $(e);
@@ -203,12 +203,11 @@ $(function()
 			div.find("form input[type=submit]").click( function()
 			{
 				var a = $(this).closest("form").serialize()+"&"+$(this).attr("name")+"=1";
-				// TODO: json with noty
 				// TODO: fix confirm
-				$.post(url, a, function()
+				$.post("json"+url, a, function()
 				{
 					loadFiles(div);
-				});
+				}, "json");
 				return false;
 			});
 			div.find("form").submit( function()
@@ -264,13 +263,9 @@ $(function()
 			$.post(
 				"json/admin?save&id="+id,
 				$(this).closest("form").serialize(),
-				function(data)
+				function()
 				{
-					ajaxNotify( data );
-					if( !data.error )
-					{
-						loadNav( false );
-					}
+					loadNav( false );
 				},
 				"json"
 			);
@@ -287,7 +282,6 @@ $(function()
 			{
 				$.post("json/admin?add&id="+$(this).data("gid"), {title: title}, function(data)
 				{
-					ajaxNotify( data );
 					if( typeof data.id !== 'undefined' )
 					{
 						id = data.id;
@@ -372,7 +366,6 @@ $(function()
 						success: function( data )
 						{
 							form[0].reset();
-							//show_notify( data );
 							loadFiles( div );
 						},
 						complete: function()
@@ -433,16 +426,6 @@ $(function()
 	
 	
 	// Уведомления
-	$.extend( $.noty.defaults, {timeout: 2000, type: "information"} );
-	
-	window.show_notify = function( notify )
-	{
-		for( var i in notify )
-		{
-			noty( notify[i] );
-		}
-	}
-	
 	$(document).ajaxError( function(event, jqXHR, ajaxSettings)
 	{
 		var msg ="Произошла ошибка при обработке запроса: <b>"+ajaxSettings.url+"</b>: ";
@@ -451,8 +434,7 @@ $(function()
 			var data =  $.parseJSON(jqXHR.responseText);
 			if( data.error )
 			{
-				data.error = msg + data.error;
-				ajaxNotify( data );
+				noty({type: "warning", text: msg+data.error, timeout: 5000});
 				return;
 			}
 		}
@@ -462,18 +444,15 @@ $(function()
 			text: msg+jqXHR.statusText,
 			timeout: 5000}
 		);
-	});
-	
-	
-	function ajaxNotify( data )
+	})
+	.ajaxSuccess( function(event, jqXHR, ajaxSettings, data)
 	{
-		if( data.success )
-			noty({type: "success", text: data.success, timeout: 2000});
-		
-		if( data.info )
-			noty({type: "information", text: data.info, timeout: 2000});
-		
-		if( data.error )
-			noty({type: "warning", text: data.error, timeout: 5000});
-	}
+		if( data.noty )
+		{
+			for( var i in data.noty )
+			{
+				noty( data.noty[i] );
+			}
+		}
+	});
 });

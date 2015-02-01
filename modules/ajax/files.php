@@ -28,6 +28,12 @@ function files_init()
 			if( $v == "on" )
 				File::delete( $id );
 
+		if( count($_POST) == 1 )
+			Noty::err( "Файлы не выбраны" );
+		else
+			Noty::success( "Выбранные файлы удалены" );
+
+		echo json( Noty::get() );
 		return;
 	}
 
