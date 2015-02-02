@@ -70,5 +70,5 @@ function select_files_action()
 
 function del_files_action()
 {
-	echo "<input type='submit' name='del' value='Удалить выбранные' class='confirm' data-title='Удалить выбранные файлы?'>";
+	echo "<input type='submit' name='del' value='Удалить выбранные' data-title='Удалить выбранные файлы?'>";
 }

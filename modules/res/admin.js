@@ -202,8 +202,12 @@ $(function()
 			// Submit files actions (delete etc)
 			div.find("form input[type=submit]").click( function()
 			{
+				if( $(this).attr("name")=="del" )
+				{
+					if( !confirm($(this).data("title")) )
+						return false;
+				}
 				var a = $(this).closest("form").serialize()+"&"+$(this).attr("name")+"=1";
-				// TODO: fix confirm
 				$.post("json"+url, a, function()
 				{
 					loadFiles(div);
