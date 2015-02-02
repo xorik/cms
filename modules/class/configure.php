@@ -11,7 +11,7 @@ class Configure
 
 	static public function add( $key, $title, $dev_only=false )
 	{
-		if( !$dev_only || ($dev_only && Session::dev()) )
+		if( !$dev_only || Session::dev() )
 			self::$list[$key] = $title;
 	}
 

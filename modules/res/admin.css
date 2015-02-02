@@ -329,18 +329,18 @@ div.round.hide {
 	color: #999;
 }
 
-#content div.fields > div {
+#content .fields > div {
 	padding: 2px;
 }
-#content div.fields > div.padding {
+#content .fields > div.padding {
 	padding-top: 20px;
 }
 
-#content div.fields > div > div {
+#content .fields > div > div {
 	padding-left: 150px;
 }
 
-#content div.fields div.descr {
+#content .fields div.descr {
 	float: left;
 	clear: left;
 	width: 150px;
@@ -441,10 +441,12 @@ select {
 	padding: 4px 0;
 }
 
-input.small {
+input.small,
+select.small {
 	width: 50px;
 }
-input.auto {
+input.auto,
+select.auto {
 	width: auto;
 }
 
