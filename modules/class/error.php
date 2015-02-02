@@ -102,6 +102,7 @@ class Error
 				if( Router::$type != PAGE_TYPE_AJAX )
 				{
 					Head::$title = Config::get("title") ." - Ошибка сервера";
+					Head::$css = Head::$js = Head::$script = array();
 					echo Head::get();
 				}
 				Template::show( "modules/templates/error.tpl", 0, array("error"=>$error, "id"=>$id) );
