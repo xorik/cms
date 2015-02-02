@@ -59,7 +59,7 @@ function nav_level( $id, $level, $type )
 		echo "<div class='round $show'><i class='i-'></i></div>";
 		echo "<a href='?id={$row["id"]}' class='block' data-id='{$row["id"]}' title='{$row["title"]}'>{$row["title"]}";
 		// Arrow
-		if( !empty($PAGE_TYPE[$row["type"]]["sub"]) )
+		if( !empty( $type->sub) || !empty($list[$row["id"]]) )
 			echo "<i class='i-arrow'></i>";
 
 		echo "</a></li>";
