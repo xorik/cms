@@ -10,7 +10,8 @@
 	"admin": {
 		"login": "admin",
 		"salt": "LTE4Njc5NDMwMg==",
- 		"hash": "b6393a4d636bfdf31f7fc3d3cfa7a13bdd1d8ec9"
+ 		"hash": "b6393a4d636bfdf31f7fc3d3cfa7a13bdd1d8ec9",
+ 		"timeout": 7200
 	},
 	"cache": 0
 }

@@ -18,6 +18,7 @@ class Session
 	static protected $init = false;
 	static protected $sess = array();
 	static protected $changed = false;
+	static public $mtime = 0;
 
 
 	static public function init()
@@ -33,6 +34,7 @@ class Session
 		if( isset($_COOKIE[self::SESSION_COOKIE]) && is_file($file=self::SESSION_DIR ."/sess-".$_COOKIE[self::SESSION_COOKIE]) )
 		{
 			self::$sess = json( file_get_contents($file) );
+			self::$mtime = filemtime( $file );
 		}
 		// Create new session
 		else
@@ -41,10 +43,16 @@ class Session
 			setcookie( self::SESSION_COOKIE, $key, null, Router::$root );
 			$_COOKIE[self::SESSION_COOKIE] = $key;
 			self::$changed = true;
+			self::$mtime = time();
 		}
 
 		Hook::add( "shutdown", "Session::save", 900 );
 		self::$init = true;
+	}
+
+	static public function touch()
+	{
+		touch( self::SESSION_DIR ."/sess-".$_COOKIE[self::SESSION_COOKIE] );
 	}
 
 	static public function delete( $key )

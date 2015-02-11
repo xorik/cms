@@ -47,7 +47,10 @@ class Auth
 
 		// Check session
 		$hash = Session::hash();
-		if( !$hash || $hash != Config::get("admin", "hash") || Http::ipua()!=Session::ipua() )
+		$timeout = Config::get( "admin", "timeout" );
+		// get from config or 15 min if isn't set
+		$max_time = Session::$mtime + ($timeout?$timeout:900);
+		if( !$hash || $hash != Config::get("admin", "hash") || Http::ipua()!=Session::ipua() || time()>$max_time )
 		{
 			// Reset admin and dev if password changed
 			if( $hash )
@@ -59,9 +62,13 @@ class Auth
 			if( Router::$type == PAGE_TYPE_AJAX )
 				die( "Authentication required" );
 
-			// Return logon formlogin
+			// Return logon form
 			return "modules/templates/login.tpl";
 		}
+
+		// Update session if half of max time expired
+		if( time() > Session::$mtime + ($timeout?$timeout:900)/2 )
+			Session::touch();
 	}
 
 	static public function reset_admin()
