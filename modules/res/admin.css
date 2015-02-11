@@ -467,9 +467,11 @@ div.files div.block {
 }
 
 /* Список файлов (галерея) */
+div.files form > div.scroll {
+	white-space: nowrap;
+}
 div.files form > div {
 	overflow: auto;
-	white-space: nowrap;
 }
 div.files div.block,
 div.files div.placeholder {

@@ -3,7 +3,7 @@
 		<small><br>Файлы сортируются мышкой: захватите и перетащите</small>
 	{/if}
 	
-	<div>
+	<div {if Config::get("files", "scroll")}class='scroll'{/if}>
 	{each $files as $f}
 		<div id='{$f[id]}' class='block'>
 			<input type='checkbox' name='{$f[id]}'>
