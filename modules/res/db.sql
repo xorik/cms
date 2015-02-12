@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `file` (
 	`gallery` TEXT NOT NULL COMMENT 'Название галереи',
 	`filename` TEXT NOT NULL COMMENT 'Имя исходного файла',
 	`type` TEXT NOT NULL COMMENT 'Тип файла',
-	`pos` INT NOT NULL DEFAULT '0' COMMENT 'Позиция при сортировке'
+	`pos` INT NOT NULL DEFAULT '100500' COMMENT 'Позиция при сортировке'
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
 

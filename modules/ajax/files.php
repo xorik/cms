@@ -37,7 +37,8 @@ function files_init()
 		return;
 	}
 
-	$files = DB::all( "SELECT id, type, gallery, filename FROM file WHERE gid=$id AND gallery=". DB::escape($_GET["gallery"]) ." ORDER BY pos, id" );
+	$order = Config::get("files", "order")=="desc" ? "pos DESC, id DESC" : "pos, id";
+	$files = DB::all( "SELECT id, type, gallery, filename FROM file WHERE gid=$id AND gallery=". DB::escape($_GET["gallery"]) ." ORDER BY $order" );
 	if( !$files )
 		return;
 
