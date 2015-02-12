@@ -2,7 +2,7 @@
 	Head::css( "modules/res/login.css" );
 }}
 <body>
-	<a href='{$root}' id='admin_logo'></a>
+	<a href='{$root}' id='admin_logo' {if is_file($file="files/logo.png")}style='background-image:url({$root}{$file})'{/if}></a>
 	<form method='post' id='admin_login'>
 		<b>Вход в админку сайта</b><br>
 		<a href='{$root}'>{Config::get("title")}</a><br>
