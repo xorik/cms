@@ -61,7 +61,8 @@ elseif( isset($_GET["add"]) )
 	// Sub-page type
 	$type = isset(Types::get($type)->sub[0]) ? Types::get($type)->sub[0] : DEFAULT_PAGE_TYPE;
 
-	$id = DB::insert( "page", array("gid"=>$id, "title"=>$_POST["title"], "text"=>"", "type"=>$type) );
+	$hide = Config::get("hide_new" ) ? 1 : 0;
+	$id = DB::insert( "page", array("gid"=>$id, "title"=>$_POST["title"], "text"=>"", "type"=>$type, "hide"=>$hide) );
 	if( !$id )
 		throw new Exception( "Can't add page" );
 	Heap::type( $type );
