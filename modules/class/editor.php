@@ -67,6 +67,13 @@ class Editor
 		echo "</select>$postfix</div>";
 	}
 
+	static public function checkbox( $title, $key, $value, $label, $checked=false )
+	{
+		$title = $title ? "$title:" : "";
+		$checked = $checked ? "checked" : "";
+		echo "<div class='descr'>$title</div><div><label><input type='checkbox' name='$key' value='$value' $checked> $label</label></div>";
+	}
+
 	static public function hidden( $name, $value )
 	{
 		echo "<input type='hidden' name='$name' value='$value'>";
