@@ -16,11 +16,14 @@ class Config
 			throw new Exception( "Config file parse error" );
 	}
 	
-	static public function save()
+	static public function save( $noty = true )
 	{
 		$res = file_put_contents( self::CONFIG_FILE, json(self::$config, 1) );
 		if( !$res )
 			throw new Exception( "Can't save to ". self::CONFIG_FILE );
+
+		if( $noty )
+			Noty::success( "Настройки сохранены" );
 	}
 	
 	static public function get( $key, $subkey=false )

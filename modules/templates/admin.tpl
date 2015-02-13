@@ -1,7 +1,7 @@
 {{
 	Head::css( "modules/res/admin.css" );
 
-	Head::noty();
+	Noty::js();
 	Head::js( "modules/res/jquery-ui.js" );
 	if( Router::$path == "admin" )
 		Head::script( "var id=". (int)$_GET["id"] .", admin_url = '". Router::$root ."admin?';" );
