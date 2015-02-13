@@ -19,7 +19,11 @@ class Auth
 			do
 			{
 				// Incorrect login
-				if( $_POST["admin_login"]!=Config::get("admin", "login") && $_POST["admin_login"]!=DEVELOPER_LOGIN )
+				$login = Config::get("admin", "login");
+				if( !$login )
+					$login = DEFAULT_LOGIN;
+
+				if( $_POST["admin_login"]!=$login && $_POST["admin_login"]!=DEVELOPER_LOGIN )
 					break;
 
 
@@ -79,18 +83,20 @@ class Auth
 		Session::delete( "dev" );
 	}
 
-	static public function password_check( $pass )
+	static public function password_check( $pass, $salt=null, $hash=null )
 	{
-		return sha1( $pass . Config::get("admin", "salt") ) == Config::get("admin", "hash");
+		if( !$salt )
+			$salt = Config::get( "admin", "salt" );
+		if( !$hash )
+			$hash = Config::get( "admin", "hash" );
+
+		return sha1( $pass . $salt ) == $hash;
 	}
 
-	static public function password_set( $pass )
+	static public function password_hash( $pass, &$salt=null )
 	{
-		$admin = Config::get( "admin" );
-		$salt = base64_encode( crc32(time()) );;
-		$admin["salt"] = $salt;
-		$admin["hash"] = sha1( $pass . $salt );
-		Config::set( "admin", $admin );
-		Config::save();
+		$salt = base64_encode( crc32(time()) );
+
+		return sha1( $pass . $salt );
 	}
 }

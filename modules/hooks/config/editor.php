@@ -19,7 +19,7 @@ function editor_config_init()
 		"max_img"=>array($_POST["max_w"], $_POST["max_h"]),
 		"order"=>$_POST["order"],
 		"scroll"=>(int)$_POST["scroll"],
-		"url"=>(int)$_POST["url"]
+		"url"=>isset($_POST["url"]) ? 1 : 0
 	));
 
 	Config::save();
