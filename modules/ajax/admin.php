@@ -73,14 +73,33 @@ elseif( isset($_GET["add"]) )
 }
 elseif( isset($_GET["del"]) )
 {
-	$id = (int)$_POST["del"];
-	if( !Page::get($id) )
-		throw new Exception( "Page $id isn't exists" );
+	$del = (int)$_POST["del"];
+	if( !Page::get($del) )
+		throw new Exception( "Page $del isn't exists" );
 
-	Page::delete( $id );
+	Page::delete( $del );
 
-	// TODO: return new id, if current removed
-	echo json( array() );
+	// Check if current or it's parent was removed
+	$id = (int)$_GET["id"];
+	$list = array();
+
+	do
+	{
+		$list[] = $id;
+
+		$row = Page::get( $id );
+		if( isset($row["gid"]) && $row["gid"] )
+			$id = $row["gid"];
+		else
+			break;
+	}
+	while(1);
+
+	$pos = array_search( $del, $list );
+	if( $pos !== false )
+		echo json( array("id"=>isset($list[$pos+1]) ? $list[$pos+1] : 0) );
+	else
+		echo json(array());
 }
 
 // Sort pages
