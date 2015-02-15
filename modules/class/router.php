@@ -27,12 +27,12 @@ class Router
 		Heap::root( self::$root );
 		$tmp = preg_replace( "/". preg_quote($tmp, "/") ."/", "", $_SERVER["REQUEST_URI"], 1 );
 		$tmp = explode( "?", $tmp );
-		self::$path = $tmp[0];
+		self::$path = urldecode( $tmp[0] );
 
 		// Route hooks
 		Hook::add( "route", "Router::default_route", 999 );
 		Module::load( "route" );
-		Hook::run( "route", urldecode(self::$path) );
+		Hook::run( "route", self::$path );
 	}
 	
 	static public function default_route( $path )
