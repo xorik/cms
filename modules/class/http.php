@@ -50,6 +50,21 @@ class Http
 		header( $_SERVER["SERVER_PROTOCOL"] ." ". $code ." ". $text[$code] );
 	}
 
+	static public function ip()
+	{
+		return $_SERVER["REMOTE_ADDR"];
+	}
+
+	static public function ua()
+	{
+		return $_SERVER["HTTP_USER_AGENT"];
+	}
+
+	static public function host()
+	{
+		return $_SERVER["HTTP_HOST"];
+	}
+
 	static public function ipua()
 	{
 		static $ipua = false;
