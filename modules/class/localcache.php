@@ -9,7 +9,7 @@ define( "CACHE_LEVEL_FORCE", 2 );
 // Autoloader, hooks, class and ajax files cache
 class LocalCache
 {
-	const CACHE_FILE = "cache/localcache.php";
+	const CACHE_FILE = "cache/localcache.json";
 
 	static public $class;
 	static public $modules;
