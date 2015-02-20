@@ -132,7 +132,7 @@ class Error
 		if( !$e || !($e["type"] & (E_ERROR|E_PARSE)) )
 			return;
 
-		chdir( Router::$fs_root );
+		chdir( FS_ROOT );
 		self::log( $e["type"], $e["message"], $e["file"], $e["line"], array() );
 
 		die;

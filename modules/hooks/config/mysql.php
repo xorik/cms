@@ -30,7 +30,7 @@ function mysql_config_init()
 		// TODO: check status
 		DB::file( "modules/res/db.sql" );
 		Noty::success( "Таблицы успешно созданы" );
-		Http::redirect( Router::$root . Router::$path );
+		Http::redirect( ROOT . Router::$path );
 	}
 
 	// Check DB connect

@@ -12,8 +12,6 @@ define( "PAGE_TYPE_FILE", 5 );
 
 class Router
 {
-	static public $root;
-	static public $fs_root;
 	static public $path;
 	static public $type = PAGE_TYPE_UNKNOWN;
 
@@ -21,11 +19,7 @@ class Router
 	static public function init()
 	{
 		// Parse URL
-		// TODO: move to index, save to defines (root, fs_root, http_root)
-		$tmp = self::$root = str_replace( "index.php", "", $_SERVER["PHP_SELF"] );
-		self::$fs_root = str_replace( "index.php", "", $_SERVER["SCRIPT_FILENAME"] );
-		Heap::root( self::$root );
-		$tmp = preg_replace( "/". preg_quote($tmp, "/") ."/", "", $_SERVER["REQUEST_URI"], 1 );
+		$tmp = preg_replace( "/". preg_quote(ROOT, "/") ."/", "", $_SERVER["REQUEST_URI"], 1 );
 		$tmp = explode( "?", $tmp );
 		self::$path = urldecode( $tmp[0] );
 

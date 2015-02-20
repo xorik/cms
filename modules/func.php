@@ -3,13 +3,16 @@
 
 function cur_dir( $file, $filename=0 )
 {
-	// Path of root directory
-	$root = str_replace( "index.php", "", $_SERVER["SCRIPT_FILENAME"] );
-	// Full path
-	$file = $filename ? realpath($file) : pathinfo( realpath($file), PATHINFO_DIRNAME );
+	// Real path
+	if( strpos($file, "..") )
+		$file = realpath( $file );
+
+	// Directory name
+	if( !$filename )
+		$file =  pathinfo( $file, PATHINFO_DIRNAME );
 
 	// Remove root from path
-	return str_replace( $root, "", $file );
+	return str_replace( FS_ROOT, "", $file );
 }
 
 

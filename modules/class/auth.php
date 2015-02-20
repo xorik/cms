@@ -46,7 +46,7 @@ class Auth
 		if( isset($_GET["logout"]) )
 		{
 			self::reset_admin();
-			Http::redirect( Router::$root );
+			Http::redirect( ROOT );
 		}
 
 		// Check session

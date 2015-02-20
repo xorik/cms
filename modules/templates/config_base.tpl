@@ -6,7 +6,7 @@
 		<div class='descr'>Логотип формы входа:</div>
 		<div class='padding'>
 			{if $logo}
-				<img src='{$root}{$logo}' style='vertical-align: bottom'>
+				<img src='{ROOT}{$logo}' style='vertical-align: bottom'>
 				<label>
 					<input type='checkbox' name='rm_logo' value='1'>
 					Удалить

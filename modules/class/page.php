@@ -18,7 +18,7 @@ class Page
 			{
 				// Reload to path
 				if( Router::$type==PAGE_TYPE_CONTENT && $id!=Config::get("main") && $path=self::prop($id, "path") )
-					Http::redirect( Router::$root . $path );
+					Http::redirect( ROOT . $path );
 			}
 			else
 				$id = null;
@@ -66,7 +66,7 @@ class Page
 	static public function path( $id )
 	{
 		if( !$id )
-			return Router::$root;
+			return ROOT;
 
 		// Check in cache
 		if( isset(self::$cache[$id]["path"]) )
@@ -79,7 +79,7 @@ class Page
 		else
 			$out = "?id=". $id;
 
-		$out = Router::$root . $out;
+		$out = ROOT . $out;
 		self::$cache[$id]["path"] = $out;
 
 		return $out;
@@ -210,7 +210,7 @@ class Page
 			if( !isset(self::$cache[$id]["gids"][1]) || self::$cache[$id]["gids"][1]!=Config::get("main") )
 			{
 				$row = self::get( Config::get("main") );
-				$out[] = "<a href='". Router::$root ."'>{$row["title"]}</a>";
+				$out[] = "<a href='". ROOT ."'>{$row["title"]}</a>";
 			}
 
 			if( $id == Config::get("main") )

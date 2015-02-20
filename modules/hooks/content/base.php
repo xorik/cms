@@ -11,7 +11,7 @@ function base_content()
 	{
 		$text = Page::text($id);
 		if( strpos(Router::$path, "/")!==false )
-			$text = preg_replace( '/"(files?\/\d+[_\w]*\.?[\w]*)"/', Router::$root."\\1", $text );
+			$text = preg_replace( '/"(files?\/\d+[_\w]*\.?[\w]*)"/', ROOT."\\1", $text );
 
 		echo $text;
 	}
@@ -23,5 +23,5 @@ function base_content()
 function admin_goto()
 {
 	if( isset($_COOKIE["sess"]) && Session::admin() && $id=Heap::id() )
-		echo "<br><br><a href='". Router::$root ."admin?id=$id'>Перейти к редактированию</a>";
+		echo "<br><br><a href='". ROOT ."admin?id=$id'>Перейти к редактированию</a>";
 }

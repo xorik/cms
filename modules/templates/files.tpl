@@ -1,4 +1,4 @@
-<form action='{Router::$root}ajax/files?id={$id}&gallery={$_GET["gallery"]}' method='post' target='upload-{$_GET["gallery"]}'>
+<form action='{ROOT}ajax/files?id={$id}&gallery={$_GET["gallery"]}' method='post' target='upload-{$_GET["gallery"]}'>
 	{if count($files) > 1}
 		<small><br>Файлы сортируются мышкой: захватите и перетащите</small>
 	{/if}

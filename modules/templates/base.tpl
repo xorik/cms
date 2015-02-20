@@ -1,4 +1,4 @@
-<div id='crumb'><a href='{$root}admin'>Разделы</a> &gt; {Page::crumb()}</div>
+<div id='crumb'><a href='{ROOT}admin'>Разделы</a> &gt; {Page::crumb()}</div>
 <form method='post'>
 	<input type='submit' value='Сохранить' class='save'>
 		/* Не виртуальная страница */

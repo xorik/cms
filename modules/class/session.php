@@ -40,7 +40,7 @@ class Session
 		else
 		{
 			$key =  sha1( microtime(true) . rand() );
-			setcookie( self::SESSION_COOKIE, $key, null, Router::$root );
+			setcookie( self::SESSION_COOKIE, $key, null, ROOT );
 			$_COOKIE[self::SESSION_COOKIE] = $key;
 			self::$changed = true;
 			self::$mtime = time();

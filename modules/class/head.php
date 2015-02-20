@@ -73,7 +73,7 @@ class Head
 		foreach( self::$css as $v )
 		{
 			if( strpos($v, "//")===false )
-				$v = Router::$root . $v;
+				$v = ROOT . $v;
 			$head .= "\t<link rel='stylesheet' href='$v'>\n";
 		}
 
@@ -93,7 +93,7 @@ class Head
 		foreach( self::$js as $v )
 		{
 			if( strpos($v, "//")===false )
-				$v = Router::$root . $v;
+				$v = ROOT . $v;
 			$script .= "\t<script src='$v'></script>\n";
 		}
 

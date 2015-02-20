@@ -7,7 +7,7 @@ Hook::run( "init" );
 echo "<div id='nav_title'>";
 $type = isset(Types::get("root")->sub[0]) ? Types::get("root")->sub[0] : DEFAULT_PAGE_TYPE;
 echo "<a href='#' class='add' data-gid='0' data-type='$type'><i class='i-plus'></i></a>";
-echo "<a href='". Router::$root ."admin' data-id='0'>Разделы</a></div>";
+echo "<a href='". ROOT ."admin' data-id='0'>Разделы</a></div>";
 
 // Pages list
 global $list;
