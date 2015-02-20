@@ -74,4 +74,9 @@ class Http
 		$ipua = md5( $_SERVER["REMOTE_ADDR"] . $_SERVER["HTTP_USER_AGENT"] );
 		return $ipua;
 	}
+
+	static public function url()
+	{
+		return "http". ((isset($_SERVER["HTTPS"])&&$_SERVER["HTTPS"])?"s":"") ."://". $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+	}
 }
