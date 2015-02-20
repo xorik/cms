@@ -1,6 +1,7 @@
 {{
 	Head::css( "modules/res/admin.css" );
 
+	Head::jquery();
 	Noty::js();
 	Head::js( "modules/res/jquery-ui.js" );
 	if( Router::$path == "admin" )
