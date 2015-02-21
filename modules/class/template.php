@@ -90,6 +90,7 @@ class Template
 			"/{(\S.+?)}/", // Echo variable, func, method etc
 			"/{{/", // PHP code
 			"/}}/",
+			"/\[([a-zA-Z][\w_-]*)\]/", // $x[wtf] => $x['wtf']
 			"/\/\*.*?\*\//s" // Comment
 		);
 		$replace = array(
@@ -102,6 +103,7 @@ class Template
 			"<?php echo \\1 ?>",
 			"<?php ",
 			"?>",
+			"['\\1']",
 			""
 		);
 
