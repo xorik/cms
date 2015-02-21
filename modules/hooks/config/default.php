@@ -17,6 +17,8 @@ function base_config_init()
 		return;
 
 	Config::set( "title", $_POST["title"] );
+	if( Session::dev() )
+		Config::set( "main", (int)$_POST["main"] );
 	Config::save();
 
 	// Logo upload and resize

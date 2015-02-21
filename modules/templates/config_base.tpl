@@ -2,6 +2,9 @@
 
 <form method='post' enctype='multipart/form-data' class='long fields'>
 	{Editor::input( "Заголовок сайта", "title", Config::get("title") )}
+	{if Session::dev()}
+		{Editor::input("id главной страницы", "main", Config::get("main"), "small")}
+	{/if}
 	<div>
 		<div class='descr'>Логотип формы входа:</div>
 		<div class='padding'>
