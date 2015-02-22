@@ -5,6 +5,7 @@ class Head
 {
 	const jquery = "modules/res/jquery.js";
 	const noty = "modules/res/jquery.noty.js";
+	const fonawesome = "modules/res/font-awesome.css";
 
 	static public $head = array();
 	static public $js = array();
@@ -40,6 +41,11 @@ class Head
 	{
 		self::jquery();
 		self::$js[] = self::noty;
+	}
+
+	static public function fontawesome()
+	{
+		self::$css[] = self::fonawesome;
 	}
 
 	static public function get()
