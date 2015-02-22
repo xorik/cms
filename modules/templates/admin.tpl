@@ -3,10 +3,16 @@
 	Head::fontawesome();
 
 	Head::jquery();
-	Noty::js();
-	Head::js( "modules/res/jquery-ui.js" );
+
 	if( Router::$path == "admin" )
+	{
+		Head::js( "modules/res/jquery-ui.js" );
+		Head::noty();
 		Head::script( "var id=". (int)$_GET["id"] .", admin_url = '". ROOT ."admin?';" );
+	}
+	else
+		Noty::js();
+
 	Head::js( "modules/res/admin.js" );
 }}
 <body>
