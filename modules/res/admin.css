@@ -259,6 +259,27 @@ i.fa-minus-circle {
 	height: 31px;
 }
 
+/* Config */
+#nav h3 {
+	margin: 10px 0 5px 0;
+	color: #333;
+}
+#nav h3 i.fa {
+	color: #888;
+}
+#nav li i.config {
+	float: left;
+	line-height: 31px;
+	margin: 0 10px 0 30px;
+	color: #888;
+}
+#nav li.sel i.config {
+	color: #fff;
+}
+#nav li i.config.hidden {
+	height: 31px;
+}
+
 
 #nav div.add {
 	height: 15px;

@@ -1,6 +1,7 @@
 <?php
 
 
+Configure::add( "base", "Основные настройки", "gear" );
 Hook::add( "nav", "default_nav" );
 
 
@@ -59,6 +60,6 @@ function base_config_content()
 
 function default_nav()
 {
-	$a = array( "list"=>Configure::$list, "current"=>Configure::current() );
+	$a = array( "list"=>Configure::$list, "groups"=>Configure::$groups, "current"=>Configure::current() );
 	Template::show( "modules/templates/config_nav.tpl", 0, $a );
 }

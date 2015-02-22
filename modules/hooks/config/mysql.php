@@ -1,6 +1,6 @@
 <?php
 
-Configure::add( "mysql", "MySQL", true );
+Configure::add( "mysql", "MySQL", "database", "server", true );
 
 if( Configure::current() == "mysql" )
 {

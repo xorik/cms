@@ -1,7 +1,7 @@
 <?php
 
 
-Configure::add( "security", "Безопасность" );
+Configure::add( "security", "Безопасность", "shield", "admin" );
 
 
 if( Configure::current() == "security" )

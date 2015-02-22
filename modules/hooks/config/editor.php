@@ -1,6 +1,6 @@
 <?php
 
-Configure::add( "editor", "Редактирование" );
+Configure::add( "editor", "Редактирование", "pencil", "admin" );
 
 if( Configure::current() == "editor" )
 {
