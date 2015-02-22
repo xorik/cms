@@ -1,5 +1,6 @@
 {{
 	Head::css( "modules/res/admin.css" );
+	Head::fontawesome();
 
 	Head::jquery();
 	Noty::js();
@@ -13,8 +14,8 @@
 		<a href='{ROOT}admin' class='logo'></a>
 		<span>сайта <a href='{ROOT}'>{Config::get("title")}</a></span>
 		<div>
-			<a href='{ROOT}config'>Настройки</a> |
-			<a href='{ROOT}admin?logout'>Выход</a>
+			<a href='{ROOT}config'><i class='fa fa-wrench'></i> Настройки</a> |
+			<a href='{ROOT}admin?logout'><i class='fa fa-sign-out'></i> Выход</a>
 		</div>
 	</div>
 	<div id='main'>

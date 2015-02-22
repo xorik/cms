@@ -105,12 +105,14 @@ class Editor
 		echo "<div>
 				<div class='descr'></div>
 				<label>
-					<input type='radio' name='hide' value='0' $c1> Страница видна всем
-					(<div class='round show'><i class='i-'></i></div>)
+					<input type='radio' name='hide' value='0' $c1>
+					<i class='fa fa-check-circle fa-lg'></i>
+					Страница видна всем
 				</label>
 				<label>
-					<input type='radio' name='hide' value='1' $c2> Скрывать страницу в меню
-					(<div class='round hide'><i class='i-'></i></div>)
+					<input type='radio' name='hide' value='1' $c2>
+					<i class='fa fa-minus-circle fa-lg'></i>
+					Скрывать страницу в меню
 				</label>
 			</div>";
 	}
@@ -144,7 +146,7 @@ class Editor
 						<form method='post' enctype='multipart/form-data'>
 							<input type='file' name='{$gallery}[]' multiple>
 							$url
-							<button class='btn'>Загрузить</button>
+							<button class='btn'><i class='fa fa-upload'></i> Загрузить</button>
 							<small>(Максимум: ". ini_get("upload_max_filesize") ."b)</small>
 							<div class='progress'>
 								<div>

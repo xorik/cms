@@ -58,7 +58,7 @@ $(function()
 				opacity: 0.6,
 				containment: "#nav",
 				tolerance: "pointer",
-				handle: "i.i-sort",
+				handle: "i.fa-sort",
 				distance: 5,
 				placeholder: "placeholder",
 				stop: function(event, ui)
@@ -260,7 +260,7 @@ $(function()
 		
 		
 		// Сохранение
-		$("#content").on( "click", "input.save", function( e )
+		$("#content").on( "click", "button.save", function( e )
 		{
 			e.preventDefault();
 			$(this).trigger("submit");

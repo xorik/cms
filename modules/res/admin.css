@@ -63,10 +63,15 @@ h3 {
 }
 #top span a {
 	color: #000;
-	text-decoration: none;
 }
 #top span a:hover {
 	color: #3c68a5;
+}
+
+#top a {
+	text-decoration: none;
+}
+#top a:hover {
 	text-decoration: underline;
 }
 
@@ -115,7 +120,7 @@ h3 {
 	border: 2px solid #888;
 	border-radius: 2px;
 	color: #ddd;
-	font-size: 18px;
+	font-size: 14px;
 }
 
 #nav li {
@@ -161,33 +166,39 @@ h3 {
 	display: none;
 }
 
-#nav li i.i-sort:before {
-	margin: 9px 10px 0;
+#nav li i.fa-sort {
 	float: left;
+}
+#nav li i.fa-sort:before {
+	margin: 9px 10px 0;
 	color: #ccc;
 	font-size: 10px;
+	vertical-align: middle;
 }
-#nav li.sel i.i-sort:before {
+#nav li.sel i.fa-sort:before {
 	color: #fff !important;
 }
-#nav li.last i.i-sort:before {
+#nav li.last i.fa-sort:before {
 	color: #666;
 }
 
-#nav li i.i-arrow:before {
-	content: '\e800';
+#nav li i.sub:before {
 	font-size: 16px;
 	vertical-align: top;
 	margin-left: 10px;
 	color: #bbb;
 }
 
-#nav li.sel i.i-arrow:before {
+#nav li.sel i.sub:before {
 	color: #fff;
 }
 
-#nav li.open i.i-arrow:before {
-	content: '\e801';
+#nav li i.sub {
+	transform-origin: 90% 50%;
+	transition-duration: 0.4s;
+}
+#nav li.open i.sub {
+	transform: rotate(90deg);
 }
 
 #nav li:last-child {
@@ -208,70 +219,46 @@ h3 {
 	position: relative;
 }
 
-/* Круги */
-.round {
-	width: 11px; height: 11px;
-	line-height: 11px;
-	font-size: 9px;
-	display: block;
-	border-radius: 10px;
-	text-align: center;
-}
-a.round {
-	text-decoration: none;
-}
 
-#nav .round {
+#nav a.del,
+#nav a.hide {
 	float: right;
-	margin: 10px 0 0 10px;
+	margin-right: 5px;
+	font-size: 1.2em;
+	line-height: 31px;
 }
-#nav li a.round.del {
-	margin-right: 10px;
+#nav a.hide {
+	cursor: default;
+}
+#nav li a.del {
+	color: #aaa;
+}
+#nav li a.del:hover {
+	color: #9f6060;
+}
+#nav li a.del.hidden {
+	visibility: hidden;
+}
+#nav li.sel a.del {
+	color: #2b416d;
+}
+#nav li.sel a.del:hover {
 	color: #fff;
-	background: #aaa;
 }
-#nav li.sel a.round.del {
-	background: #2b416d;
-	color: #fff;
+#nav li.sel a.hide i {
+	color: #fff !important;
 }
-#nav li div.lock {
-	background: none;
-	margin-right: 10px;
+i.fa-check-circle {
+	color: #6b9e60;
 }
-#nav li div.round.show,
-#nav li div.round.hide {
-	background: #fff;
-}
-#nav li.sel div.round.show,
-#nav li.sel div.round.hide {
-	background: #fff;
-	color: #3c68a5;
-}
-div.round.show i:before {
-	content: '\e803';
-}
-div.round.show {
-	color: #3c68a5;
-}
-div.round.hide i:before {
-	content: '\e805';
-}
-div.round.hide {
-	color: #bbb;
+i.fa-minus-circle {
+	color: #9f6060;
 }
 
 #nav li.placeholder {
 	height: 31px;
 }
 
-#content div.round {
-	display: inline-block;
-	vertical-align: middle;
-	background: #ccc;
-}
-#content div.round.hide {
-	color: #999;
-}
 
 #nav div.add {
 	height: 15px;
@@ -404,19 +391,26 @@ table.zebra th {
 /* Шрифт и размер в кнопке сохранить и текстовом поле ввода */
 input[type=text],
 select,
-input.save,
+button.save,
 .btn {
 	font-family: Arial, Sans-serif;
 	font-size: 13px;
 }
 
 /* Кнопка и сссылка справа от заголовка */
-input.save,
+button.save,
 a.goto {
 	float: right;
 }
 
-input.save,
+a.goto {
+	text-decoration: none;
+}
+a.goto:hover {
+	text-decoration: underline;
+}
+
+button.save,
 .btn {
 	padding: 5px 10px;
 	background: #3c68a5;
@@ -424,7 +418,7 @@ input.save,
 	border: none;
 	border-radius: 2px;
 }
-input.save {
+button.save {
 	padding: 8px 25px;
 	position: relative;
 	bottom: 8px;
@@ -469,7 +463,7 @@ textarea.long {
 }
 
 /* Таскалки */
-#nav li.last i.i-sort,
+#nav li.last i.fa-sort,
 div.files div.block {
 	cursor: move;
 }
@@ -508,10 +502,9 @@ div.files div.placeholder {
 	height: 64px;
 	background: #555;
 }
-div.files i.i-file {
+div.files i.fa {
 	color: #888;
 	font-size: 24px;
-	vertical-align: top;
 }
 
 /* Подвал */
@@ -539,28 +532,6 @@ div.files i.i-file {
 #bottom span {
 	float: right;
 }
-/* Значки */
-@font-face {
-	font-family: 'admin';
-	src: url('admin.eot?69648603');
-	src: url('admin.eot?#iefix') format('embedded-opentype'),
-		url('admin.ttf') format('truetype');
-	font-style: normal;
-	font-weight: normal;
-}
-
-[class^="i-"]:before,
-[class*=" i-"]:before {
-	font-family: "admin";
-	display: inline-block;
-	font-style: normal;
-	font-weight: normal;
-}
-
-.i-file:before { content: '\e802'; }
-.i-plus:before { content: '\e808'; }
-.i-del:before { content: '\e804'; }
-.i-sort:before { content: '\e806\e806'; letter-spacing: -0.1em; }
 
 .save_right {
 	position: relative;

@@ -56,7 +56,7 @@ function default_file_show( $f )
 	else
 	{
 		$text = "<a href='file/{$f["id"]}'>{$f["filename"]}</a>";
-		$html = "<i class='i-file'></i> {$f["filename"]}";
+		$html = "<i class='fa fa-file-text-o'></i> {$f["filename"]}";
 	}
 
 	echo "<a href='#' data-text=\"$text\">$html</a>";

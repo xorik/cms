@@ -1,6 +1,6 @@
 <form method='post' class='long fields'>
 
-	<input type='submit' value='Сохранить' class='save'>
+	<button class='save'>Сохранить</button>
 	<h3>Редактирование страниц</h3>
 
 	<div>

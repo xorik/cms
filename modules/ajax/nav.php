@@ -6,7 +6,7 @@ Hook::run( "init" );
 
 echo "<div id='nav_title'>";
 $type = isset(Types::get("root")->sub[0]) ? Types::get("root")->sub[0] : DEFAULT_PAGE_TYPE;
-echo "<a href='#' class='add' data-gid='0' data-type='$type'><i class='i-plus'></i></a>";
+echo "<a href='#' class='add' data-gid='0' data-type='$type'><i class='fa fa-plus'></i></a>";
 echo "<a href='". ROOT ."admin' data-id='0'>Разделы</a></div>";
 
 // Pages list
@@ -39,28 +39,23 @@ function nav_level( $id, $level, $type )
 	{
 		$type = Types::get( $row["type"] );
 		// Hidden page
-		$show = $row["hide"] ? "hide" : "show";
-		echo "<li><i class='i-sort'></i>";
+		$show = $row["hide"] ? "minus" : "check";
+		$show_title = $row["hide"] ? "Скрытая страница": "Видимая страница";
+		echo "<li><i class='fa fa-sort fa-2x'></i>";
 		// Ident
 		for( $i=0; $i<$level-1; $i++ )
 		{
 			echo "<div class='indent'></div>";
 		}
 		// Removable
-		if( $type->removable )
-		{
-			echo "<a href='#' class='round del' data-title='Удалить \"{$row["title"]}\" вместе с подразделами?'><i class='i-del'></i></a>";
-		}
-		// Non-removable
-		else
-		{
-			echo "<div class='round lock'></div>";
-		}
-		echo "<div class='round $show'><i class='i-'></i></div>";
+		$rm = $type->removable ? "" : " hidden";
+			echo "<a href='#' class='del$rm' data-title='Удалить \"{$row["title"]}\" вместе с подразделами?' title='Удалить'><i class='fa fa-times-circle'></i></a>";
+
+		echo "<a class='hide' title='$show_title'><i class='fa fa-$show-circle'></i></a>";
 		echo "<a href='?id={$row["id"]}' class='block' data-id='{$row["id"]}' title='{$row["title"]}'>{$row["title"]}";
 		// Arrow
 		if( !empty( $type->sub) || !empty($list[$row["id"]]) )
-			echo "<i class='i-arrow'></i>";
+			echo "<i class='sub fa fa-caret-right'></i>";
 
 		echo "</a></li>";
 
@@ -72,7 +67,7 @@ function nav_level( $id, $level, $type )
 			if( !empty( $type->sub) )
 			{
 				$type = $type->sub[0];
-				echo "<div class='add'>Добавить подраздел <a href='#' data-gid='{$row["id"]}' data-type='$type'><i class='i-plus'></i></a></div>";
+				echo "<div class='add'>Добавить подраздел <a href='#' data-gid='{$row["id"]}' data-type='$type'><i class='fa fa-plus'></i></a></div>";
 			}
 			nav_level( $row["id"], $level+1, $row["type"] );
 			echo "<hr></div>";
