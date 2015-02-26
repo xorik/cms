@@ -248,8 +248,11 @@ h3 {
 #nav li.sel a.hide i {
 	color: #fff !important;
 }
-i.fa-check-circle {
+#content i.fa-check-circle {
 	color: #6b9e60;
+}
+#nav i.fa-check-circle {
+	color: #bbb;
 }
 i.fa-minus-circle {
 	color: #9f6060;
