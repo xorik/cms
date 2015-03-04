@@ -195,6 +195,27 @@ Class Hook
 
 	static public function dump()
 	{
-		var_dump( self::$hooks );
+		$tmp = array();
+		foreach( self::$hooks as $name=>$list )
+		{
+			$a = "<b>$name</b><br>";
+			foreach( $list as $pos=>$l )
+			{
+				if( is_string($l["func"]) )
+					$v = $l["func"];
+				else
+				{
+					$r = new ReflectionFunction( $l["func"] );
+					$v = "Closure:". cur_dir($r->getFileName(), 1) ." (". $r->getStartLine() ."-". $r->getEndLine() .")";
+				}
+				$a .= "$pos => $v<br>";
+			}
+
+			$tmp[] = $a;
+		}
+
+		echo "<pre>";
+		echo implode( "<br><br>", $tmp );
+		echo "</pre>";
 	}
 }

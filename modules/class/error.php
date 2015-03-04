@@ -129,7 +129,7 @@ class Error
 		$e = error_get_last();
 
 		// Hasn't fatal error, nothing to do
-		if( !$e || !($e["type"] & (E_ERROR|E_PARSE)) )
+		if( !$e || !($e["type"] & (E_ERROR|E_PARSE|E_COMPILE_ERROR)) )
 			return;
 
 		chdir( FS_ROOT );
