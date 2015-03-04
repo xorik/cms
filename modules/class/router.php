@@ -74,6 +74,7 @@ class Router
 			Hook::add( "init", "Auth::init", 200 );
 
 			$content = $path=="admin" ? "admin" : "config";
+			Module::load( "secure" );
 			Module::load( $content );
 			Heap::content( $content );
 			$res = Hook::run( "init" );

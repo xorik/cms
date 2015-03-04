@@ -20,18 +20,19 @@
 		<a href='{ROOT}admin' class='logo'></a>
 		<span>сайта <a href='{ROOT}'>{Config::get("title")}</a></span>
 		<div>
-			<a href='{ROOT}config'><i class='fa fa-wrench'></i> Настройки</a> |
+			{Hook::run("menu")}
+			<a href='{ROOT}config'><i class='fa fa-wrench'></i> Настройки</a>
 			<a href='{ROOT}admin?logout'><i class='fa fa-sign-out'></i> Выход</a>
 		</div>
 	</div>
 	<div id='main'>
 		<div id='nav'>
-			{if $content=="config"}
+			{if $content!="admin"}
 				{Hook::run( "nav" )}
 			{/if}
 		</div>
 		<div id='content'>
-			{if $content=="config"}
+			{if $content!="admin"}
 				<div id='crumb'>
 					<a href='{ROOT}admin'>Разделы</a>
 				</div>

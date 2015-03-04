@@ -79,6 +79,9 @@ h3 {
 	float: right;
 	padding-top: 10px;
 }
+#top div a {
+	margin-left: 20px;
+}
 
 #main {
 	background: #ededed;
