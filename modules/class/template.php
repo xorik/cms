@@ -85,6 +85,8 @@ class Template
 			"/{ELSEIF ([^}]+)}/i",
 			"/{ELSE}/i",
 			"/{\/IF}/i",
+			"/{FOR ([^}]+)}/i", // FOR
+			"/{\/FOR}/i",
 			"/{EACH ([^}]+)}/i", // FOREACH
 			"/{\/EACH}/i",
 			"/{(\S.+?)}/", // Echo variable, func, method etc
@@ -98,6 +100,8 @@ class Template
 			"<?php elseif(\\1): ?>",
 			"<?php else: ?>",
 			"<?php endif ?>",
+			"<?php for(\\1): ?>",
+			"<?php endfor ?>",
 			"<?php foreach(\\1): ?>",
 			"<?php endforeach ?>",
 			"<?php echo \\1 ?>",
