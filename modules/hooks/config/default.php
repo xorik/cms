@@ -1,7 +1,6 @@
 <?php
 
 
-Configure::add( "base", "Основные настройки", "gear" );
 Hook::add( "nav", "default_nav" );
 
 

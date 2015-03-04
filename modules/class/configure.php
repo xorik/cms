@@ -6,6 +6,7 @@ Configure::group( "admin", "Админка", "lock" );
 Configure::group( "server", "Окружение", "server" );
 Configure::group( "dev", "Разработка", "gears" );
 Configure::group( "stat", "Статистика", "line-chart" );
+Configure::add( "base", "Основные настройки", "gear" );
 
 
 class Configure
