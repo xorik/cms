@@ -271,4 +271,27 @@ class Page
 
 		Hook::run( "del", $id );
 	}
+
+	static public function files( $id=null, $limit=1, $postfix=null, $new_ext=null, $gallery="gallery", $raw=false )
+	{
+		$id = $id ? (int)$id : self::$id;
+		$lim = $limit ? "LIMIT 0,$limit" : "";
+		$rows = DB::all( "SELECT id, type FROM file WHERE gid=$id AND gallery=". DB::escape($gallery) ." ORDER BY pos,id $lim" );
+
+		if( empty($rows) )
+			return $limit==1 ? "" : array();
+
+		if( $raw )
+			return $limit==1 ? $rows[0] : $rows;
+
+		$tmp = array();
+		foreach( $rows as $row )
+		{
+			$ext = $new_ext ? $new_ext : $row["type"];
+			$tmp[] = "files/{$row["id"]}". ($postfix===null?"":"_$postfix") . ($ext?".$ext":"");
+		}
+
+
+		return $limit==1 ? $tmp[0] : $tmp;
+	}
 }
