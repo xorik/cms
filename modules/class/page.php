@@ -276,7 +276,8 @@ class Page
 	{
 		$id = $id ? (int)$id : self::$id;
 		$lim = $limit ? "LIMIT 0,$limit" : "";
-		$rows = DB::all( "SELECT id, type FROM file WHERE gid=$id AND gallery=". DB::escape($gallery) ." ORDER BY pos,id $lim" );
+		$name = $raw ? ", filename" : "";
+		$rows = DB::all( "SELECT id, type $name FROM file WHERE gid=$id AND gallery=". DB::escape($gallery) ." ORDER BY pos,id $lim" );
 
 		if( empty($rows) )
 			return $limit==1 ? "" : array();
