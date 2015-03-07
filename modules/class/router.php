@@ -93,13 +93,7 @@ class Router
 		}
 
 		// Content template
-		$content = Template::get( $tpl, self::$type==PAGE_TYPE_CONTENT );
+		Template::html( $tpl, self::$type==PAGE_TYPE_CONTENT );
 		// TODO: save content for hook
-
-		echo Head::get();
-		echo $content;
-
-		if( Head::$new_js )
-			echo Head::scripts();
 	}
 }

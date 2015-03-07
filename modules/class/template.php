@@ -64,6 +64,13 @@ class Template
 		return ob_get_clean();
 	}
 
+	static public function html( $file, $recursive_check=0, $heap=false )
+	{
+		$content = self::get( $file, $recursive_check, $heap );
+		echo Head::get();
+		echo $content;
+	}
+
 	static public function cache_update( $file, $cache_file, $mtime )
 	{
 		self::$dir = dirname( $file );
