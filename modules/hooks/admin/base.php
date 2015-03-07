@@ -1,6 +1,6 @@
 <?php
 
-Hook::add( "init", "base_init", 800 );
+Hook::add( "init", "base_init", 400 );
 
 function base_init()
 {
