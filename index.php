@@ -18,9 +18,8 @@ LocalCache::init();
 // Error handler
 Error::init();
 
-Config::init();
-
-if( Config::get("cache") === CACHE_LEVEL_OFF )
+// Rescan cache, if developer
+if( isset($_COOKIE["sess"]) && Session::dev() )
 	LocalCache::scan();
 
 

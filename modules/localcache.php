@@ -1,11 +1,6 @@
 <?php
 
 
-define( "CACHE_LEVEL_OFF", 0 );
-define( "CACHE_LEVEL_CHECK", 1 );
-define( "CACHE_LEVEL_FORCE", 2 );
-
-
 // Autoloader, hooks, class and ajax files cache
 class LocalCache
 {

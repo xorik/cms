@@ -14,12 +14,8 @@ class Template
 		$cache_file = cur_dir( $file, 1 );
 		$cache_file = "cache/". str_replace( array(".tpl", "/"), array(".php", "."), $cache_file );
 
-		// Cache level
-		$cache = Config::get("cache");
-
-		// Update cache if needed
-		if( $cache == CACHE_LEVEL_FORCE && file_exists($cache_file) );
-		elseif( $cache == CACHE_LEVEL_CHECK )
+		// Update cache if needed and user is developer
+		if( isset($_COOKIE["sess"]) && Session::dev() )
 		{
 			$cache_time = is_file( $cache_file ) ? filemtime( $cache_file ) : 0;
 
@@ -47,10 +43,10 @@ class Template
 			}
 		}
 		// Not exists or cache is off
-		else
+		elseif( !file_exists($cache_file) )
 			self::cache_update( $file, $cache_file, time() );
 
-		extract( $heap ? $heap : Heap::$heap, EXTR_REFS );
+		extract( $heap ? $heap : Heap::$heap );
 
 		Error::$ingonre_notices = 1;
 		require( $cache_file );

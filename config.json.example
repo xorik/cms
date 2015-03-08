@@ -18,6 +18,5 @@
 		"scroll": 1,
 		"order": "asc",
 		"max_img": [2000, 2000]
-	},
-	"cache": 0
+	}
 }
