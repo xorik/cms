@@ -46,7 +46,7 @@ class Router
 			Hook::add( "init", "Page::init", 60 );
 
 		// Ajax handler
-		if( preg_match("/(ajax|json)\/(.+)/", $path, $m) )
+		if( preg_match("/^(ajax|json)\/(.+)$/", $path, $m) )
 		{
 			$json = $m[1] == "json";
 			if( $json )
@@ -67,7 +67,7 @@ class Router
 			return;
 		}
 		// Get file
-		elseif( preg_match("|file/(.+)|", $path, $m) )
+		elseif( preg_match("|^file/(\d+)$|", $path, $m) )
 		{
 			self::$type = PAGE_TYPE_FILE;
 			Hook::run( "init" );
