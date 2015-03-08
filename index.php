@@ -12,7 +12,7 @@ ob_start();
 
 // Load and init basic modules
 require( "modules/func.php" );
-require( "modules/class/localcache.php" );
+require( "modules/localcache.php" );
 LocalCache::init();
 
 // Error handler
