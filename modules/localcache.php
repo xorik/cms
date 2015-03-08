@@ -14,6 +14,7 @@ class LocalCache
 	static public $class;
 	static public $modules;
 	static public $ajax;
+	static public $route;
 	static private $scan_complete = false;
 
 
@@ -25,6 +26,7 @@ class LocalCache
 			self::$class = $tmp["class"];
 			self::$modules = $tmp["modules"];
 			self::$ajax = $tmp["ajax"];
+			self::$route = $tmp["route"];
 		}
 		else
 			self::scan();
@@ -38,7 +40,7 @@ class LocalCache
 		if( self::$scan_complete )
 			return;
 
-		$class = $modules = $ajax = array();
+		$class = $modules = $ajax = $route = array();
 
 		// Scan class
 		foreach( array("extra/*/class/*.php", "modules/class/*.php") as $glob )
@@ -62,7 +64,7 @@ class LocalCache
 		{
 			foreach( glob($glob) as $file )
 			{
-				if( preg_match("/\/([\w_-]+)\/[\w_-]+\.php$/", $file, $m) && $m[1]!="class" && $m[1]!="ajax" )
+				if( preg_match("/\/([\w_-]+)\/[\w_-]+\.php$/", $file, $m) && $m[1]!="class" && $m[1]!="ajax" && $m[1]!="route" )
 				{
 					$modules[$m[1]][] = $file;
 				}
@@ -81,10 +83,28 @@ class LocalCache
 			}
 		}
 
+		// Scan router rules
+		foreach( glob("extra/*/route/route") as $file )
+		{
+			foreach( explode("\n", file_get_contents($file)) as $line )
+			{
+				if( !trim($line) )
+					continue;
+
+				$a = explode(" ", $line);
+				if( count($a) < 2 )
+					throw new Exception( "Incorrect route line: '$line' in file '$file'" );
+
+				$route[] = $a[0];
+				$route[] = cur_dir($file) ."/". $a[1];
+			}
+		}
+
 		self::$class = $class;
 		self::$modules = $modules;
 		self::$ajax = $ajax;
-		file_put_contents( self::CACHE_FILE, json(array("class"=>$class, "modules"=>$modules, "ajax"=>$ajax), 1) );
+		self::$route = $route;
+		file_put_contents( self::CACHE_FILE, json(array("class"=>$class, "modules"=>$modules, "ajax"=>$ajax, "route"=>$route), 1) );
 		self::$scan_complete = true;
 	}
 

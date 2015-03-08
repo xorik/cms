@@ -25,7 +25,18 @@ class Router
 
 		// Route hooks
 		Hook::add( "route", "Router::default_route", 999 );
-		Module::load( "route" );
+		$route = LocalCache::$route;
+		for( $i=0; $i<count($route); $i+=2 )
+		{
+			if( $route[$i][0] == "/" )
+			{
+				if( preg_match($route[$i], self::$path) )
+					require_once( $route[$i+1] );
+			}
+			elseif( $route[$i] == self::$path )
+				require_once( $route[$i+1] );
+		}
+
 		Hook::run( "route", self::$path );
 	}
 	
