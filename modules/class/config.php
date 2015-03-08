@@ -1,6 +1,9 @@
 <?php
 
 
+Config::init();
+
+
 class Config
 {
 	const CONFIG_FILE = "config.json";
