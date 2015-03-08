@@ -10,7 +10,7 @@ class LocalCache
 	static public $modules;
 	static public $ajax;
 	static public $route;
-	static private $scan_complete = false;
+	static private $init = false;
 
 
 	static public function init()
@@ -32,7 +32,7 @@ class LocalCache
 
 	static public function scan()
 	{
-		if( self::$scan_complete )
+		if( self::$init )
 			return;
 
 		$class = $modules = $ajax = $route = array();
@@ -100,7 +100,7 @@ class LocalCache
 		self::$ajax = $ajax;
 		self::$route = $route;
 		file_put_contents( self::CACHE_FILE, json(array("class"=>$class, "modules"=>$modules, "ajax"=>$ajax, "route"=>$route), 1) );
-		self::$scan_complete = true;
+		self::$init = true;
 	}
 
 	static public function autoload( $class )
@@ -117,7 +117,7 @@ class LocalCache
 			}
 		}
 
-		if( !self::$scan_complete )
+		if( !self::$init )
 		{
 			self::scan();
 			return self::autoload( $class );
@@ -140,6 +140,7 @@ Class Module
 			if( is_file( $module ) )
 				require_once( $module );
 			else
+				// TODO: fix me
 				LocalCache::scan();
 		}
 
