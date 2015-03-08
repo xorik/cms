@@ -272,12 +272,16 @@ class Page
 		Hook::run( "del", $id );
 	}
 
-	static public function files( $id=null, $limit=1, $postfix=null, $new_ext=null, $gallery="gallery", $raw=false )
+	static public function files( $id=null, $limit=1, $postfix=null, $gallery="gallery", $raw=false )
 	{
+		// Prepare query
 		$id = $id ? (int)$id : self::$id;
 		$lim = $limit ? "LIMIT 0,$limit" : "";
-		$name = $raw ? ", filename" : "";
-		$rows = DB::all( "SELECT id, type $name FROM file WHERE gid=$id AND gallery=". DB::escape($gallery) ." ORDER BY pos,id $lim" );
+		$select = "";
+		if( $raw || !$postfix ) $select .= ",type";
+		if( $raw ) $select .= ",filename";
+
+		$rows = DB::all( "SELECT id $select FROM file WHERE gid=$id AND gallery=". DB::escape($gallery) ." ORDER BY pos,id $lim" );
 
 		if( empty($rows) )
 			return $limit==1 ? "" : array();
@@ -288,8 +292,7 @@ class Page
 		$tmp = array();
 		foreach( $rows as $row )
 		{
-			$ext = $new_ext ? $new_ext : $row["type"];
-			$tmp[] = "files/{$row["id"]}". ($postfix===null?"":"_$postfix") . ($ext?".$ext":"");
+			$tmp[] = $postfix ? "files/{$row["id"]}_{$postfix}" : "files/{$row["id"]}.{$row["type"]}";
 		}
 
 

@@ -12,7 +12,7 @@ function gallery_upload( $f )
 	if( $type == "png" )
 		Img::$bg_fill = array( 245, 245, 245, 0 );
 
-	Img::resize( $f["path"], 300, 64, RESIZE_METHOD_MAX_SIDE, File::path($f["id"], "", "jpg") );
+	Img::resize( $f["path"], 300, 64, RESIZE_METHOD_MAX_SIDE, File::path($f["id"], ".jpg") );
 
 	// Max image size
 	$max = Config::get( "files", "max_img" );

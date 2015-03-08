@@ -167,7 +167,7 @@ class File
 		$ext = self::ext( $filename );
 		$id = self::$file_id = DB::insert( "file", array("gid"=>Heap::id(), "filename"=>$filename, "type"=>$ext, "gallery"=>$gallery) );
 
-		return "files/$id". ($ext?".$ext":"");
+		return "files/$id.$ext";
 	}
 
 	static public function delete( $id )
@@ -190,15 +190,14 @@ class File
 		return strtolower( pathinfo($file, PATHINFO_EXTENSION) );
 	}
 
-	static public function path( $id, $postfix=null, $new_ext=null )
+	static public function path( $id, $postfix=null )
 	{
+		if( $postfix )
+			return "files/{$id}_{$postfix}";
+
 		$row = DB::row( "SELECT id, type FROM file WHERE id=". DB::escape($id) );
-		if( !$row )
-			return false;
 
-		$ext = $new_ext ? $new_ext : $row["type"];
-
-		return "files/{$row["id"]}". ($postfix===null?"":"_$postfix") . ($ext?".$ext":"");
+		return $row ? "files/{$row["id"]}.{$row["ext"]}" : false;
 	}
 
 	static public function download( $id )

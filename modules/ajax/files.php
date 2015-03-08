@@ -48,7 +48,7 @@ function files_init()
 
 function default_file_show( $f )
 {
-	if( Img::is_image_type( $f["type"] && is_file($prev=File::path($f["id"], "", "jpg")) ) )
+	if( Img::is_image_type( $f["type"] && is_file($prev=File::path($f["id"], ".jpg")) ) )
 	{
 		$text = "<img src='". File::path($f["id"]) ."'>";
 		$html = "<img src='$prev' class='pic'>";
