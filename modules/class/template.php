@@ -72,7 +72,7 @@ class Template
 		self::$dir = dirname( $file );
 
 		$res = file_put_contents( $cache_file, self::template_parse(file_get_contents($file)) );
-		if( !$res )
+		if( $res === false )
 			throw new Exception( "Can't create cache file: $cache_file" );
 
 		touch( $cache_file, $mtime );
