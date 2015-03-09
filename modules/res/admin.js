@@ -223,7 +223,7 @@ $(function()
 
 
 	// Навигация и контент в админке
-	if( $("#nav >").size() == 0 )
+	if( $("#nav >").size() == 0 && typeof(id)!="undefined" )
 	{
 		history.replaceState({id: id}, "", admin_url+"id="+id);
 		
