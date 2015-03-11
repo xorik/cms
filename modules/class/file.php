@@ -197,7 +197,7 @@ class File
 
 		$row = DB::row( "SELECT id, type FROM file WHERE id=". DB::escape($id) );
 
-		return $row ? "files/{$row["id"]}.{$row["ext"]}" : false;
+		return $row ? "files/{$row["id"]}.{$row["type"]}" : false;
 	}
 
 	static public function download( $id )
