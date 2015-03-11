@@ -65,6 +65,8 @@ class Auth
 
 			if( Router::$type == PAGE_TYPE_AJAX )
 				die( "Authentication required" );
+			elseif( Router::$type == PAGE_TYPE_JSON )
+				die( json(array("error"=>"Auth required")) );
 
 			// Return logon form
 			return "modules/templates/login.tpl";
