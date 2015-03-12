@@ -19,7 +19,8 @@ function cur_dir( $file, $filename=0 )
 function json( $str, $pretty=0 )
 {
 	if( is_array($str) )
-		return json_encode( $str, $pretty?(256|128):256 );
+		// JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE and JSON_PRETTY_PRINT if $pretty
+		return json_encode( $str, $pretty?448:320 );
 	elseif( is_string($str) )
 		return json_decode( $str, true );
 	else
