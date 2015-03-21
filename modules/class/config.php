@@ -6,7 +6,7 @@ Config::init();
 
 class Config
 {
-	const CONFIG_FILE = "config.json";
+	const CONFIG_FILE = "config/config.json";
 	static private $config;
 	
 	static public function init()
