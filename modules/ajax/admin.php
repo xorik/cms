@@ -106,7 +106,6 @@ elseif( isset($_GET["del"]) )
 elseif( isset($_GET["page_sort"]) )
 {
 	// Reverse sorting
-	// TODO: check in php 5.3
 	if( Types::get(Heap::type())->reverse )
 		$_GET["p"] = array_reverse( $_GET["p"] );
 

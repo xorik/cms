@@ -139,8 +139,8 @@ class Editor
 		else
 			$url = "";
 
-		echo "<div class='fields'>
-				<div class='padding'>
+		echo "<hr><div class='fields'>
+				<div>
 					<div class='descr'>$title:</div>
 					<div>
 						<form method='post' enctype='multipart/form-data'>

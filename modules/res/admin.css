@@ -28,6 +28,12 @@ h3 {
 	color: #555;
 }
 
+hr {
+	border: none;
+	background: #aaa;
+	height: 1px;
+}
+
 .load {
 	background: url("img/load.gif") no-repeat scroll center center rgba(255, 255, 255, 0.5);
 	content: "";
