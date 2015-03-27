@@ -85,6 +85,25 @@ class DB
 	}
 
 	/**
+	 * Get array with first column as key, and other columns as value
+	 *
+	 * @param string $query
+	 * @return array|false
+	 */
+	static public function hash( $query )
+	{
+		$res = self::query( $query );
+		if( !$res ) return false;
+
+		$rows = array();
+		while( $row = $res->fetch_assoc() )
+			$rows[array_shift($row)] = (count($row) == 1) ? current($row) : $row;
+
+		$res->free();
+		return $rows;
+	}
+
+	/**
 	 * Get one row from query result
 	 *
 	 * @param string $query
