@@ -349,6 +349,14 @@ i.fa-minus-circle {
 	color: #999;
 }
 
+#crumb.goto a {
+	color: #3c68a5;
+	text-decoration: none;
+}
+#crumb.goto a:hover {
+	text-decoration: underline;
+}
+
 #content .fields > div {
 	padding: 2px;
 }

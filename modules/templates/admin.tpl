@@ -33,8 +33,8 @@
 		</div>
 		<div id='content'>
 			{if $content!="admin"}
-				<div id='crumb'>
-					<a href='{ROOT}admin'>Разделы</a>
+				<div id='crumb' class='goto'>
+					<a href='{ROOT}admin'><i class='fa fa-arrow-left'></i> Вернуться к разделам сайта</a>
 				</div>
 				{Hook::run( "content" )}
 			{/if}
