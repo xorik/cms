@@ -16,11 +16,8 @@ $(function()
 	// Загрузить контент
 	function loadContent()
 	{
-		$("#content").addLoad().load("ajax/admin?base&id="+id, function(response, status, xhr)
+		$("#content").addLoad().load("ajax/admin?base&id="+id, function()
 		{
-			if( status == "error" )
-				$("#content").html( xhr.responseText )
-
 			$(this).trigger("ready").removeLoad();
 		});
 	}
