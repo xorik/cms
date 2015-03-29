@@ -4,6 +4,7 @@
 class Template
 {
 	static protected $dir;
+	static protected $level = 0;
 
 	static public function show( $file, $recursive_check=0, $heap=false )
 	{
@@ -48,9 +49,13 @@ class Template
 
 		extract( $heap ? $heap : Heap::$heap );
 
-		Error::$ingonre_notices = 1;
+		if( self::$level++ == 0 )
+			Error::$ingonre_notices = 1;
+
 		require( $cache_file );
-		Error::$ingonre_notices = 0;
+
+		if( --self::$level == 0 )
+			Error::$ingonre_notices = 0;
 	}
 
 	static public function get( $file, $recursive_check=0, $heap=false )
