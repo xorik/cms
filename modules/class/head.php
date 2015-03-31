@@ -11,12 +11,14 @@ class Head
 	static public $js = array();
 	static public $css = array();
 	static public $script = array();
+	static public $raw_js = array();
 	static public $new_js = false;
 	static public $title = null;
 
 
 	static public function js( $file )
 	{
+		self::$new_js = true;
 		self::$js[] = $file;
 	}
 
@@ -25,10 +27,16 @@ class Head
 		self::$css[] = $file;
 	}
 
-	static public function script( $file )
+	static public function script( $script )
 	{
 		self::$new_js = true;
-		self::$script[] = $file;
+		self::$script[] = $script;
+	}
+
+	static public function raw_js( $script )
+	{
+		self::$new_js = true;
+		self::$raw_js[] = $script;
 	}
 
 	static public function jquery()
@@ -107,8 +115,18 @@ class Head
 		{
 			$script .= "\t<script>\n";
 			foreach( self::$script as $v )
+			{
 				$script .= "$v\n";
+			}
 			$script .= "\t</script>\n";
+		}
+
+		if( count(self::$raw_js) )
+		{
+			foreach( self::$raw_js as $v )
+			{
+				$script .= "$v\n";
+			}
 		}
 
 		return $script;
