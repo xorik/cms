@@ -408,7 +408,19 @@ div.progress progress {
 	width: 100%;
 	color: #3C68A5;
 	border: 1px solid #3C68A5;
-	height: 6px;;
+	height: 6px;
+}
+
+div.progress progress[value="0"] {
+	background-size: 30px 30px;
+	background-image: linear-gradient(135deg, #3C68A5 25%, #54A1F6 25%,
+	#54A1F6 50%, #3C68A5 50%, #3C68A5 75%,
+	#54A1F6 75%, #54A1F6);
+	animation: animate-stripes 3s linear infinite;
+}
+
+@keyframes animate-stripes {
+	0% {background-position: 0 0;} 100% {background-position: 60px 0;}
 }
 
 

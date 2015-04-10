@@ -341,6 +341,7 @@ $(function()
 				var form = $(this).prev();
 				var progress = form.find("progress");
 				var progress_div = form.find("div.progress");
+				var timer = null;
 
 				// Upload handler
 				form.submit( function()
@@ -358,8 +359,14 @@ $(function()
 							{
 								myXhr.upload.addEventListener('progress',function(e)
 								{
+									clearTimeout( timer );
+									timer = setTimeout( function()
+									{
+										progress.attr({ value:0,max:"" });
+									}, 500);
+
 									if(e.lengthComputable)
-										$(progress).attr({ value:e.loaded,max:e.total });
+										progress.attr({ value:e.loaded,max:e.total });
 								}, false);
 							}
 							return myXhr;
