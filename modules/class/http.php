@@ -4,6 +4,7 @@
 define( "HTTP_STATUS_OK", 200 );
 define( "HTTP_MOVED_PERM", 301 );
 define( "HTTP_MOVED_TEMP", 302 );
+define( "HTTP_ERROR_REQUEST", 400 );
 define( "HTTP_ERROR_FORBIDDEN", 403 );
 define( "HTTP_ERROR_NOT_FOUND", 404 );
 define( "HTTP_ERROR_INTERNAL", 500 );
@@ -36,6 +37,7 @@ class Http
 			200=>"OK",
 			301=>"Moved Permanently",
 			302=>"Moved Temporarily",
+			400=>"Bad Request",
 			403=>"Forbidden",
 			404=>"Not Found",
 			500=>"Internal Server Error",
