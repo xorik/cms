@@ -99,7 +99,10 @@ class LocalCache
 		self::$modules = $modules;
 		self::$ajax = $ajax;
 		self::$route = $route;
-		file_put_contents( self::CACHE_FILE, json(array("class"=>$class, "modules"=>$modules, "ajax"=>$ajax, "route"=>$route), 1) );
+		$res = file_put_contents( self::CACHE_FILE, json(array("class"=>$class, "modules"=>$modules, "ajax"=>$ajax, "route"=>$route), 1) );
+		if( $res === false )
+			throw new Exception( "Error saving cache file" );
+
 		self::$init = true;
 	}
 

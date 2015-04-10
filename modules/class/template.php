@@ -67,6 +67,8 @@ class Template
 
 	static public function html( $file, $recursive_check=0, $heap=false )
 	{
+		Head::$head[] = "<meta charset='utf-8'>";
+
 		$content = self::get( $file, $recursive_check, $heap );
 		echo Head::get();
 		echo $content;

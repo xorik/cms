@@ -76,8 +76,6 @@ class Router
 			return;
 		}
 
-		Head::$head[] = "<meta charset='utf-8'>";
-
 		// Admin or config site
 		if( $path == "admin" || strpos($path, "config")===0 )
 		{
