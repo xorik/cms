@@ -14,6 +14,7 @@ class File
 {
 	const DEFAULT_CALLBACK="self::default_path";
 
+	static public $context_opt = array( "ignore_errors"=>true );
 	static protected $file_id;
 
 
@@ -117,7 +118,9 @@ class File
 			// Load from URL
 			if( $url )
 			{
-				$res = @file_get_contents( $path );
+				$context = stream_context_create( array("http"=>self::$context_opt) );
+
+				$res = file_get_contents( $path, false, $context );
 				if( !$res )
 				{
 					$error = UPLOAD_STATUS_NETWORK_ERROR;
