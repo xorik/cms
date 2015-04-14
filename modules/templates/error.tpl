@@ -17,7 +17,7 @@
 	/* Admin and dev */
 	{if Session::admin()}
 		<h3>Дополнительная информация:</h3>
-		<p>Сообщение: <b>{$error["msg"]}</b></p>
+		<p>Сообщение: <b>{htmlspecialchars($error["msg"])}</b></p>
 		<p>Файл: <b>{$error["file"]}:{$error["line"]}</b></p>
 	{/if}
 
