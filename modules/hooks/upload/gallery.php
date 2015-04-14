@@ -6,13 +6,8 @@ Hook::add( "upload", "gallery_upload" );
 
 function gallery_upload( $f )
 {
-	if( !$f["id"] || !($type=Img::type($f["path"])) )
+	if( !$type = Img::type($f["path"]) )
 		return;
-
-	if( $type == "png" )
-		Img::$bg_fill = array( 245, 245, 245, 0 );
-
-	Img::resize( $f["path"], 300, 64, RESIZE_METHOD_MAX_SIDE, File::path($f["id"], ".jpg") );
 
 	// Max image size
 	$max = Config::get( "files", "max_img" );
@@ -24,5 +19,15 @@ function gallery_upload( $f )
 
 		Img::resize( $f["path"], $max[0], $max[1], RESIZE_METHOD_MAX_SIDE, false, $type );
 	}
+	Img::$bg_fill = false;
+
+	if( !$f["id"] )
+		return;
+
+	if( $type == "png" )
+		Img::$bg_fill = array( 245, 245, 245, 0 );
+
+	Img::resize( $f["path"], 300, 64, RESIZE_METHOD_MAX_SIDE, File::path($f["id"], ".jpg") );
+
 	Img::$bg_fill = false;
 }
