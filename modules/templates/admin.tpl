@@ -10,8 +10,7 @@
 		Head::noty();
 		Head::script( "var id=". (int)$_GET["id"] .", admin_url = '". ROOT ."admin?';" );
 	}
-	else
-		Noty::js();
+	Noty::js();
 
 	Head::js( "modules/res/admin.js" );
 }}
