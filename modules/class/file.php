@@ -7,6 +7,7 @@ define( "UPLOAD_STATUS_SIZE_EXCEED", "size_exceed" );
 define( "UPLOAD_STATUS_INTERNAL", "internal" );
 define( "UPLOAD_STATUS_EMPTY", "empty" );
 define( "UPLOAD_STATUS_NETWORK_ERROR", "network_error" );
+define( "UPLOAD_STATUS_INVALID", "invalid" );
 
 
 class File
@@ -154,7 +155,17 @@ class File
 		chmod( $dest, 0644 );
 
 		$id = $path_callback==self::DEFAULT_CALLBACK ? self::$file_id : null;
-		Hook::run( "upload", array("path"=>$dest, "gallery"=>$gallery, "filename"=>$filename, "id"=>$id) );
+		$res = Hook::run( "upload", array("path"=>$dest, "gallery"=>$gallery, "filename"=>$filename, "id"=>$id) );
+
+		if( $res !== null )
+		{
+			if( $path_callback == self::DEFAULT_CALLBACK )
+				self::delete( self::$file_id );
+			else
+				unlink( $dest );
+
+			return UPLOAD_STATUS_INVALID;
+		}
 
 		return UPLOAD_STATUS_OK;
 	}
