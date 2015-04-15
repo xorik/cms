@@ -64,12 +64,16 @@ class Auth
 			Head::$title = Config::get("title") ." - вход в страницу администратора";
 
 			if( Router::$type == PAGE_TYPE_AJAX )
-				Http::end( HTTP_ERROR_FORBIDDEN, "Authentication required" );
+				Http::end( "Authentication required" );
 			elseif( Router::$type == PAGE_TYPE_JSON )
-				Http::end( HTTP_ERROR_FORBIDDEN, json(array("error"=>"Auth required")) );
+				Http::end( json(array("error"=>"Auth required")) );
 
-			// Return logon form
-			return "modules/templates/login.tpl";
+			// Show logon form
+			Head::css( "modules/res/login.css" );
+			Head::fontawesome();
+			Template::html( "modules/templates/login.tpl" );
+
+			Http::end();
 		}
 
 		// Update session if half of max time expired

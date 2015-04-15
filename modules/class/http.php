@@ -31,14 +31,16 @@ class Http
 		die;
 	}
 
-	static public function end( $code=HTTP_STATUS_OK, $msg=null )
+	static public function end( $msg=null, $code=null )
 	{
 		Hook::run( "shutdown" );
+
+		if( $code )
+			self::header( $code );
 
 		if( $msg )
 			echo $msg;
 
-		self::header( $code );
 		die;
 	}
 

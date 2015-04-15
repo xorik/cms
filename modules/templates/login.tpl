@@ -1,7 +1,3 @@
-{{
-	Head::css( "modules/res/login.css" );
-	Head::fontawesome();
-}}
 <body>
 	<a href='{ROOT}' id='admin_logo' {if is_file($file="files/logo.png")}style='background-image:url({ROOT}{$file})'{/if}></a>
 	<form method='post' id='admin_login'>
