@@ -36,15 +36,8 @@ class Session
 			self::$sess = json( file_get_contents($file) );
 			self::$mtime = filemtime( $file );
 		}
-		// Create new session
 		else
-		{
-			$key =  sha1( microtime(true) . rand() );
-			setcookie( self::SESSION_COOKIE, $key, null, ROOT );
-			$_COOKIE[self::SESSION_COOKIE] = $key;
-			self::$changed = true;
 			self::$mtime = time();
-		}
 
 		Hook::add( "shutdown", "Session::save", 900 );
 		self::$init = true;
@@ -69,17 +62,35 @@ class Session
 	{
 		if( self::$changed )
 		{
-			// Create directory
-			if( !is_dir(self::SESSION_DIR) )
+			// Create new session
+			if( self::$sess )
 			{
-				$res = mkdir( self::SESSION_DIR, 0700 );
-				if( !$res )
-					throw new Exception( "Can't create directory ". self::SESSION_DIR );
-			}
+				if( !isset($_COOKIE[self::SESSION_COOKIE]) )
+				{
+					$key =  sha1( microtime(true) . rand() );
+					setcookie( self::SESSION_COOKIE, $key, null, ROOT );
+					$_COOKIE[self::SESSION_COOKIE] = $key;
+				}
 
-			$res = file_put_contents( self::SESSION_DIR ."/sess-".$_COOKIE[self::SESSION_COOKIE], json(self::$sess) );
-			if( !$res )
-				throw new Exception( "Can't save session" );
+				// Create directory
+				if( !is_dir(self::SESSION_DIR) )
+				{
+					$res = mkdir( self::SESSION_DIR, 0700 );
+					if( !$res )
+						throw new Exception( "Can't create directory ". self::SESSION_DIR );
+				}
+
+				$res = file_put_contents( self::SESSION_DIR ."/sess-".$_COOKIE[self::SESSION_COOKIE], json(self::$sess) );
+				if( !$res )
+					throw new Exception( "Can't save session" );
+			}
+			// Clean cookie
+			elseif( isset($_COOKIE[self::SESSION_COOKIE]) )
+			{
+				setcookie( self::SESSION_COOKIE, "" );
+				if( is_file($file=self::SESSION_DIR ."/sess-".$_COOKIE[self::SESSION_COOKIE]) )
+					unlink( $file );
+			}
 		}
 
 		// Cleanup
