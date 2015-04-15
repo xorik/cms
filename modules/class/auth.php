@@ -64,9 +64,9 @@ class Auth
 			Head::$title = Config::get("title") ." - вход в страницу администратора";
 
 			if( Router::$type == PAGE_TYPE_AJAX )
-				die( "Authentication required" );
+				Http::end( HTTP_ERROR_FORBIDDEN, "Authentication required" );
 			elseif( Router::$type == PAGE_TYPE_JSON )
-				die( json(array("error"=>"Auth required")) );
+				Http::end( HTTP_ERROR_FORBIDDEN, json(array("error"=>"Auth required")) );
 
 			// Return logon form
 			return "modules/templates/login.tpl";
