@@ -42,7 +42,7 @@ elseif( isset($_GET["save"]) )
 	if( $res === false )
 		Noty::err( "Ошибка сохранения страницы!" );
 	else
-		Noty::success( "Страница сохранена" );
+		Noty::success( "Страница сохранена", 2 );
 
 	echo json(Noty::get());
 }

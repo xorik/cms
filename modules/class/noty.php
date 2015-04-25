@@ -8,6 +8,8 @@ class Noty
 
 	static protected function add( $type, $text, $timeout )
 	{
+		$timeout = $timeout >= 1000 ? $timeout : $timeout*1000;
+
 		self::$list[] = array( "type"=>$type, "text"=>$text, "timeout"=>$timeout );
 
 		if( self::$init )
@@ -55,17 +57,17 @@ class Noty
 		self::$list = array();
 	}
 
-	static public function success( $text, $timeout=2000 )
+	static public function success( $text, $timeout=5 )
 	{
 		self::add( "success", $text, $timeout );
 	}
 
-	static public function info( $text, $timeout=2000 )
+	static public function info( $text, $timeout=5 )
 	{
 		self::add( "information", $text, $timeout );
 	}
 
-	static public function err( $text, $timeout=5000 )
+	static public function err( $text, $timeout=10 )
 	{
 		self::add( "warning", $text, $timeout );
 	}

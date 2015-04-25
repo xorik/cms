@@ -21,7 +21,7 @@ function upload_init()
 	// Upload ok
 	elseif( count($status)==1 && isset($status[UPLOAD_STATUS_OK]) )
 	{
-		Noty::success( count($status[UPLOAD_STATUS_OK])>1 ? "Файлы успешно загружены" : "Файл успешно загружен" );
+		Noty::success( count($status[UPLOAD_STATUS_OK])>1 ? "Файлы успешно загружены" : "Файл успешно загружен", 3 );
 	}
 	// Upload with errors
 	else

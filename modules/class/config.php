@@ -26,7 +26,7 @@ class Config
 			throw new Exception( "Can't save to ". self::CONFIG_FILE );
 
 		if( $noty )
-			Noty::success( "Настройки сохранены" );
+			Noty::success( "Настройки сохранены", 2 );
 	}
 	
 	static public function get( $key, $subkey=false )

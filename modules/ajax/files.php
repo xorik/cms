@@ -31,7 +31,7 @@ function files_init()
 		if( count($_POST) == 1 )
 			Noty::err( "Файлы не выбраны" );
 		else
-			Noty::success( "Выбранные файлы удалены" );
+			Noty::success( "Выбранные файлы удалены", 3 );
 
 		echo json( Noty::get() );
 		return;
