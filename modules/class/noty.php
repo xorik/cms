@@ -54,6 +54,7 @@ class Noty
 			return;
 
 		Session::noty( self::$list );
+		Session::save();
 		self::$list = array();
 	}
 
