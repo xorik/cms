@@ -50,7 +50,7 @@ class Router
 		{
 			$json = $m[1] == "json";
 			if( $json )
-				header( "Content-Type: application/json; charset=utf-8" );
+				Http::json();
 
 			if( !isset(LocalCache::$ajax[$m[2]]) || !is_file($file=LocalCache::$ajax[$m[2]]) )
 			{

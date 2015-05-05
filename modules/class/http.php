@@ -16,6 +16,10 @@ class Http
 {
 	static public $status = HTTP_STATUS_OK;
 
+	static public function json()
+	{
+		header( "Content-Type: application/json; charset=utf-8" );
+	}
 
 	static public function reload()
 	{

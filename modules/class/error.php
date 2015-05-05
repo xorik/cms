@@ -97,7 +97,7 @@ class Error
 			Http::header( HTTP_ERROR_INTERNAL );
 			if( Router::$type==PAGE_TYPE_JSON || Router::$type==PAGE_TYPE_AJAX )
 			{
-				header( "Content-Type: application/json; charset=utf-8" );
+				Http::json();
 				echo json( array("error"=>Session::admin()?$msg:"Internal error") );
 			}
 			else
