@@ -96,6 +96,6 @@ class Http
 
 	static public function url()
 	{
-		return "http". ((isset($_SERVER["HTTPS"])&&$_SERVER["HTTPS"])?"s":"") ."://". $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+		return "http". (empty($_SERVER["HTTPS"])?"":"s") ."://". $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 	}
 }
