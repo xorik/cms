@@ -4,18 +4,19 @@
 // TODO: custom timeout
 
 
-Session::init();
+$class = Config::get("session");
+call_user_func( array($class?$class:"Session", "init") );
 
 
 class Session
 {
-	const SESSION_COOKIE = "sess";
-	const SESSION_COOKIE_PREG = "/\w{40}/";
-	const SESSION_DIR = "cache/sess";
+	const COOKIE = "sess";
+	const COOKIE_PREG = '/\w{40}/';
+	const COOKIE_TTL = 0;
+	const SESSION_PREFIX = "cache/sess/sess-";
 	const CLEANUP_TIME = 86400;
 	const CLEANUP_CHANCE = 1000;
 
-	static protected $init = false;
 	static protected $sess = array();
 	static protected $changed = false;
 	static public $mtime = 0;
@@ -23,15 +24,12 @@ class Session
 
 	static public function init()
 	{
-		if( self::$init )
-			return;
-
 		// Incorrect cookie should be reset
-		if( isset($_COOKIE[self::SESSION_COOKIE]) && !preg_match(self::SESSION_COOKIE_PREG, $_COOKIE[self::SESSION_COOKIE]) )
-			unset( $_COOKIE[self::SESSION_COOKIE] );
+		if( isset($_COOKIE[static::COOKIE]) && !preg_match(self::COOKIE_PREG, $_COOKIE[static::COOKIE]) )
+			unset( $_COOKIE[static::COOKIE] );
 
 		// Load session
-		if( isset($_COOKIE[self::SESSION_COOKIE]) && is_file($file=self::SESSION_DIR ."/sess-".$_COOKIE[self::SESSION_COOKIE]) )
+		if( isset($_COOKIE[static::COOKIE]) && is_file($file=static::SESSION_PREFIX.$_COOKIE[static::COOKIE]) )
 		{
 			self::$sess = json( file_get_contents($file) );
 			self::$mtime = filemtime( $file );
@@ -39,13 +37,12 @@ class Session
 		else
 			self::$mtime = time();
 
-		Hook::add( "shutdown", "Session::save", 900 );
-		self::$init = true;
+		Hook::add( "shutdown", get_called_class()."::save", 900 );
 	}
 
 	static public function touch()
 	{
-		touch( self::SESSION_DIR ."/sess-".$_COOKIE[self::SESSION_COOKIE] );
+		touch( static::SESSION_PREFIX.$_COOKIE[static::COOKIE] );
 	}
 
 	static public function delete( $key )
@@ -65,39 +62,40 @@ class Session
 			// Create new session
 			if( self::$sess )
 			{
-				if( !isset($_COOKIE[self::SESSION_COOKIE]) )
+				if( !isset($_COOKIE[static::COOKIE]) )
 				{
 					$key =  sha1( microtime(true) . rand() );
-					setcookie( self::SESSION_COOKIE, $key, null, ROOT );
-					$_COOKIE[self::SESSION_COOKIE] = $key;
+					$ttl = static::COOKIE_TTL ? time()+static::COOKIE_TTL : 0;
+					setcookie( static::COOKIE, $key, $ttl, ROOT );
+					$_COOKIE[static::COOKIE] = $key;
 				}
 
 				// Create directory
-				if( !is_dir(self::SESSION_DIR) )
+				if( !is_dir($dir=dirname(static::SESSION_PREFIX)) )
 				{
-					$res = mkdir( self::SESSION_DIR, 0700 );
+					$res = mkdir( $dir, 0700, true );
 					if( !$res )
-						throw new Exception( "Can't create directory ". self::SESSION_DIR );
+						throw new Exception( "Can't create directory $dir" );
 				}
 
-				$res = file_put_contents( self::SESSION_DIR ."/sess-".$_COOKIE[self::SESSION_COOKIE], json(self::$sess) );
+				$res = file_put_contents( static::SESSION_PREFIX.$_COOKIE[static::COOKIE], json(self::$sess) );
 				if( !$res )
 					throw new Exception( "Can't save session" );
 			}
 			// Clean cookie
-			elseif( isset($_COOKIE[self::SESSION_COOKIE]) )
+			elseif( isset($_COOKIE[static::COOKIE]) )
 			{
-				setcookie( self::SESSION_COOKIE, "" );
-				if( is_file($file=self::SESSION_DIR ."/sess-".$_COOKIE[self::SESSION_COOKIE]) )
+				setcookie( static::COOKIE, "" );
+				if( is_file($file=static::SESSION_PREFIX.$_COOKIE[static::COOKIE]) )
 					unlink( $file );
 			}
 		}
 
 		// Cleanup
-		if( rand(1, self::CLEANUP_CHANCE)==1 )
+		if( static::CLEANUP_CHANCE && rand(1, static::CLEANUP_CHANCE)==1 )
 		{
-			$mintime = time() - self::CLEANUP_TIME;
-			foreach( glob(self::SESSION_DIR ."/sess-*") as $file )
+			$mintime = time() - static::CLEANUP_TIME;
+			foreach( glob(static::SESSION_PREFIX."*") as $file )
 			{
 				if( filemtime($file) < $mintime )
 					unlink( $file );
@@ -108,13 +106,15 @@ class Session
 	static public function __callStatic( $name, $args )
 	{
 		// Set
-		if( count($args) == 1 )
+		if( count($args) )
 		{
 			self::$sess[$name] = $args[0];
 			self::$changed = true;
+
+			return null;
 		}
 		// Get
-		elseif( count($args)==0 && isset(self::$sess[$name]) )
+		elseif( isset(self::$sess[$name]) )
 			return self::$sess[$name];
 		else
 			return false;

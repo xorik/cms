@@ -54,7 +54,8 @@ class Noty
 			return;
 
 		Session::noty( self::$list );
-		Session::save();
+		$class = Config::get("session");
+		call_user_func( array($class?$class:"Session", "save") );
 		self::$list = array();
 	}
 
