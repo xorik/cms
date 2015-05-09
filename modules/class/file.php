@@ -209,7 +209,7 @@ class File
 		if( $postfix )
 			return "files/{$id}_{$postfix}";
 
-		$row = DB::row( "SELECT id, type FROM file WHERE id=". DB::escape($id) );
+		$row = DB::row( "SELECT id, type FROM file WHERE id=$1", $id );
 
 		return $row ? "files/{$row["id"]}.{$row["type"]}" : false;
 	}
@@ -225,7 +225,7 @@ class File
 		}
 
 		// Original filename
-		$name = DB::one( "SELECT filename FROM file WHERE id=". DB::escape($id) );
+		$name = DB::one( "SELECT filename FROM file WHERE id=$1", $id );
 
 		header( "Content-type: application/octet-stream" );
 		header( "Content-Disposition: attachment; filename=\"$name\"" );

@@ -93,7 +93,7 @@ class Editor
 
 	static public function admin_hide( $id )
 	{
-		$hide = DB::one( "SELECT hide FROM page WHERE id=$id" );
+		$hide = DB::one( "SELECT hide FROM page WHERE id=$1", $id );
 		if( $hide )
 		{
 			$c1 = ""; $c2 = "checked";

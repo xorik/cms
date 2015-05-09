@@ -14,7 +14,7 @@ class Log
 		// Increment, if exists with updating data
 		if( $inc )
 		{
-			$id = DB::one( "SELECT id FROM log WHERE type=". DB::escape($type) ." AND hash=". DB::escape($hash) );
+			$id = DB::one( "SELECT id FROM log WHERE type=$1 AND hash=$2", $type, $hash );
 			if( $id )
 			{
 				self::inc( $type, $hash );
@@ -40,7 +40,7 @@ class Log
 	static public function get( $type, $time_format=null, $lim=100, $asc=false )
 	{
 		$order = $asc ? "ASC" : "DESC";
-		$rows = DB::all( "SELECT id, UNIX_TIMESTAMP(date) as date, `count`, data FROM log WHERE type=". DB::escape($type) ." ORDER BY id $order LIMIT $lim" );
+		$rows = DB::all( "SELECT id, UNIX_TIMESTAMP(date) as date, `count`, data FROM log WHERE type=$1 ORDER BY id $order LIMIT $lim", $type );
 
 		// Auto decode json
 		foreach( $rows as &$row )
@@ -57,6 +57,6 @@ class Log
 
 	static public function count( $type )
 	{
-		return DB::one( "SELECT COUNT(*) FROM log WHERE type=". DB::escape($type) );
+		return DB::one( "SELECT COUNT(*) FROM log WHERE type=$1",$type );
 	}
 }

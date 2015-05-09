@@ -26,7 +26,7 @@ class Page
 		// Get page id from path
 		else
 		{
-			$id = DB::one( "SELECT id FROM prop WHERE field='path' AND value=". DB::escape(Router::$path) );
+			$id = DB::one( "SELECT id FROM prop WHERE field='path' AND value=$1", Router::$path );
 			if( $id )
 				$row = self::get( $id );
 			else
@@ -50,7 +50,7 @@ class Page
 		if( isset(self::$cache[$id]["gid"]) )
 			return self::$cache[$id];
 
-		$res = DB::row( "SELECT gid, type, title FROM page WHERE id=". DB::escape($id) );
+		$res = DB::row( "SELECT gid, type, title FROM page WHERE id=$1", $id );
 
 		if( $res )
 			self::$cache[$id] = $res;
@@ -60,7 +60,7 @@ class Page
 
 	static public function text( $id )
 	{
-		return DB::one( "SELECT text FROM page WHERE id=". DB::escape($id) );
+		return DB::one( "SELECT text FROM page WHERE id=$1", $id );
 	}
 
 	static public function path( $id )
@@ -87,7 +87,7 @@ class Page
 
 	static public function prop( $id, $key, $value=null )
 	{
-		$where = "id=". DB::escape($id) ." AND field=". DB::escape($key);
+		$where = DB::prepare( array("id=$1 AND field=$2", $id, $key) ) ;
 		// Get prop
 		if( $value === null )
 			return DB::one( "SELECT value FROM prop WHERE $where" );
@@ -240,7 +240,7 @@ class Page
 		}
 
 		$out = "";
-		$rows = DB::all( "SELECT id, title FROM page WHERE hide=0 AND gid=". DB::escape($gid) );
+		$rows = DB::all( "SELECT id, title FROM page WHERE hide=0 AND gid=$1", $gid );
 		foreach( $rows as $row )
 		{
 			$sel = in_array($row["id"], $gids) ? " class='sel'" : "";
@@ -281,7 +281,7 @@ class Page
 		if( $raw || !$postfix ) $select .= ",type";
 		if( $raw ) $select .= ",filename";
 
-		$rows = DB::all( "SELECT id $select FROM file WHERE gid=$id AND gallery=". DB::escape($gallery) ." ORDER BY pos,id $lim" );
+		$rows = DB::all( "SELECT id $select FROM file WHERE gid=$id AND gallery=$1 ORDER BY pos,id $lim", $gallery );
 
 		if( empty($rows) )
 			return $limit==1 ? "" : array();

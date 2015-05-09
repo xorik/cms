@@ -50,6 +50,27 @@ class DB
 	}
 
 	/**
+	 * Auto escape like in postgreSQL
+	 *
+	 * @param array $list first element is query, other is values to escape
+	 * @return string query with replace $1, $2 etc to escaped $list values
+	 */
+	static public function prepare( $list )
+	{
+		$query = $list[0];
+
+		foreach( $list as $k=>$v )
+		{
+			if( $k == 0 )
+				continue;
+
+			$query = str_replace( "\$$k", self::escape($v), $query );
+		}
+
+		return $query;
+	}
+
+	/**
 	 * Run MySQL query
 	 *
 	 * @param string $query
@@ -73,6 +94,9 @@ class DB
 	 */
 	static public function all( $query )
 	{
+		if( func_num_args() > 1 )
+			$query = self::prepare( func_get_args() );
+
 		$res = self::query( $query );
 		if( !$res ) return false;
 
@@ -92,6 +116,9 @@ class DB
 	 */
 	static public function hash( $query )
 	{
+		if( func_num_args() > 1 )
+			$query = self::prepare( func_get_args() );
+
 		$res = self::query( $query );
 		if( !$res ) return false;
 
@@ -111,6 +138,9 @@ class DB
 	 */
 	static public function row( $query )
 	{
+		if( func_num_args() > 1 )
+			$query = self::prepare( func_get_args() );
+
 		$res = self::query( $query );
 		if( !$res ) return false;
 
@@ -127,6 +157,9 @@ class DB
 	 */
 	static public function column( $query )
 	{
+		if( func_num_args() > 1 )
+			$query = self::prepare( func_get_args() );
+
 		$res = self::query( $query );
 		if( !$res ) return false;
 
@@ -149,6 +182,9 @@ class DB
 	 */
 	static public function one( $query )
 	{
+		if( func_num_args() > 1 )
+			$query = self::prepare( func_get_args() );
+
 		$res = self::query( $query );
 		if( !$res ) return false;
 
