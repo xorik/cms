@@ -53,6 +53,14 @@ class Error
 			$t["line"] = isset($t["line"]) ? $t["line"]: null;
 			$t["args"] = isset($t["args"]) ? $t["args"]: null;
 
+			if( $t["args"] )
+			{
+				foreach( $t["args"] as &$a )
+				{
+					if( is_resource($a) ) $a = "Resource ".get_resource_type($a);
+				}
+			}
+
 			$class = isset($t["class"]) ? $t["class"].$t["type"] : "";
 			$t = array( cur_dir($t["file"], 1), $t["line"], $class.$t["function"] , $t["args"]);
 		}
