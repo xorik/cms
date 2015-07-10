@@ -42,15 +42,18 @@ class LocalCache
 		{
 			foreach( glob($glob) as $file )
 			{
-				if( preg_match_all("/^class ([\w_]+)\s/m", file_get_contents($file), $m) )
+				$data = file_get_contents( $file );
+				$ns = preg_match('/^namespace\s+([\w\\\\]+)/m', $data, $m) ? $m[1]."\\" : "";
+				if( preg_match_all('/^(abstract\s+|)(class|interface|trait)\s+([\w_]+)\s/m', $data, $m) )
 				{
-					foreach( $m[1] as $c )
+					foreach( $m[3] as $c )
 					{
-						$c = strtolower( $c );
+						$c = strtolower( $ns.$c );
 						if( !isset($class[$c]) )
 							$class[$c] = $file;
 					}
 				}
+				unset($data);
 			}
 		}
 
