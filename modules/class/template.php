@@ -34,7 +34,7 @@ class Template
 			{
 				// Max mtime
 				$mtime = 0;
-				foreach( glob(dirname($file) ."/*.tpl") as $f )
+				foreach( mask_search(cur_dir($file), "*.tpl") as $f )
 				{
 					$mtime = max( $mtime, filemtime($f) );
 				}
@@ -88,7 +88,7 @@ class Template
 	static public function template_parse( $text )
 	{
 		// Include
-		$text = preg_replace_callback( "/{include ([\w_-]+)}/i", __CLASS__ ."::include_callback", $text );
+		$text = preg_replace_callback( '/{include ([\w\/_-]+)}/i', __CLASS__ ."::include_callback", $text );
 
 		$regex = array(
 			"/{IF ([^}]+)}/i", // IF, ELSE, ELSEIF

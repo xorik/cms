@@ -38,23 +38,21 @@ class LocalCache
 		$class = $modules = $ajax = $route = array();
 
 		// Scan class
-		foreach( array("extra/*/class/*.php", "modules/class/*.php") as $glob )
+		$dirs = array_merge( glob("extra/*/class"), array("modules/class") );
+		foreach( mask_search($dirs, "*.php") as $file )
 		{
-			foreach( glob($glob) as $file )
+			$data = file_get_contents( $file );
+			$ns = preg_match('/^namespace\s+([\w\\\\]+)/m', $data, $m) ? $m[1]."\\" : "";
+			if( preg_match_all('/^(abstract\s+|)(class|interface|trait)\s+([\w_]+)\s/m', $data, $m) )
 			{
-				$data = file_get_contents( $file );
-				$ns = preg_match('/^namespace\s+([\w\\\\]+)/m', $data, $m) ? $m[1]."\\" : "";
-				if( preg_match_all('/^(abstract\s+|)(class|interface|trait)\s+([\w_]+)\s/m', $data, $m) )
+				foreach( $m[3] as $c )
 				{
-					foreach( $m[3] as $c )
-					{
-						$c = strtolower( $ns.$c );
-						if( !isset($class[$c]) )
-							$class[$c] = $file;
-					}
+					$c = strtolower( $ns.$c );
+					if( !isset($class[$c]) )
+						$class[$c] = $file;
 				}
-				unset($data);
 			}
+			unset($data);
 		}
 
 		// Scan modules

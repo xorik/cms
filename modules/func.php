@@ -26,3 +26,30 @@ function json( $str, $pretty=0 )
 	else
 		Error::warning( "json: expect string or array" );
 }
+
+
+function mask_search( $dirs, $file_mask )
+{
+	if( !is_array($dirs) )
+		$dirs = array( $dirs );
+
+	$list = array();
+
+	foreach( $dirs as $dir )
+	{
+		// Search dirs
+		if( $x = glob("$dir/*", GLOB_ONLYDIR) )
+		{
+			if( $x = mask_search($x, $file_mask) )
+				$list = array_merge( $list, $x );
+		}
+
+		foreach( glob("$dir/$file_mask") as $file )
+		{
+			if( is_file($file) )
+				$list[] = $file;
+		}
+	}
+
+	return $list;
+}
