@@ -162,9 +162,9 @@ Class Module
 			return false;
 
 		// Check all files are exist
-		foreach( LocalCache::$modules[$module] as $module )
+		foreach( LocalCache::$modules[$module] as $m )
 		{
-			if( is_file( $module ) )
+			if( is_file( $m ) )
 				continue;
 
 			LocalCache::scan();
@@ -172,9 +172,9 @@ Class Module
 		}
 
 		// include files
-		foreach( LocalCache::$modules[$module] as $module )
+		foreach( LocalCache::$modules[$module] as $m )
 		{
-			require_once( $module );
+			require_once( $m );
 		}
 
 		return true;
