@@ -101,18 +101,17 @@ class LocalCache
 		if( isset(self::$class[$class__]) && is_file(self::$class[$class__]) )
 		{
 			require( self::$class[$class__] );
-			if( class_exists($class__) )
-				return;
+			if( class_exists($class__, false) )
+				return true;
 		}
 
 		if( !self::$scan_class )
 		{
 			self::scan_class();
-			self::autoload( $class__ );
-			return;
+			return self::autoload( $class__ );
 		}
 
-		throw new Exception( "Class $class__ is not found" );
+		return false;
 	}
 
 	static protected function scan_class()
