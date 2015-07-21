@@ -82,10 +82,14 @@ class LocalCache
 			}
 		}
 
-		self::$modules = $modules;
-		self::$ajax = $ajax;
-		self::$route = $route;
-		self::save();
+		// Save if changed
+		if( self::$modules != $modules || self::$ajax != $ajax || self::$route != $route )
+		{
+			self::$modules = $modules;
+			self::$ajax = $ajax;
+			self::$route = $route;
+			self::save();
+		}
 
 		self::$scan = true;
 	}
@@ -131,8 +135,12 @@ class LocalCache
 			unset($data);
 		}
 
-		self::$class = $class;
-		self::save();
+		// Save if changed
+		if( self::$class != $class )
+		{
+			self::$class = $class;
+			self::save();
+		}
 
 		self::$scan_class = true;
 	}
