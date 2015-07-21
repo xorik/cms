@@ -10,7 +10,8 @@ class LocalCache
 	static public $modules;
 	static public $ajax;
 	static public $route;
-	static private $init = false;
+	static private $scan = false;
+	static private $scan_class = false;
 
 
 	static public function init()
@@ -24,7 +25,10 @@ class LocalCache
 			self::$route = $tmp["route"];
 		}
 		else
+		{
 			self::scan();
+			self::scan_class();
+		}
 
 		spl_autoload_register( __CLASS__. "::autoload" );
 	}
@@ -32,35 +36,17 @@ class LocalCache
 
 	static public function scan()
 	{
-		if( self::$init )
+		if( self::$scan )
 			return;
 
-		$class = $modules = $ajax = $route = array();
-
-		// Scan class
-		$dirs = array_merge( glob("extra/*/class"), array("modules/class") );
-		foreach( mask_search($dirs, "*.php") as $file )
-		{
-			$data = file_get_contents( $file );
-			$ns = preg_match('/^namespace\s+([\w\\\\]+)/m', $data, $m) ? $m[1]."\\" : "";
-			if( preg_match_all('/^(abstract\s+|)(class|interface|trait)\s+([\w_]+)\s/m', $data, $m) )
-			{
-				foreach( $m[3] as $c )
-				{
-					$c = strtolower( $ns.$c );
-					if( !isset($class[$c]) )
-						$class[$c] = $file;
-				}
-			}
-			unset($data);
-		}
+		$modules = $ajax = $route = array();
 
 		// Scan modules
 		foreach( array("extra/*/*/*.php", "modules/hooks/*/*.php") as $glob )
 		{
 			foreach( glob($glob) as $file )
 			{
-				if( preg_match("/\/([\w_-]+)\/[\w_-]+\.php$/", $file, $m) && $m[1]!="class" && $m[1]!="ajax" && $m[1]!="route" )
+				if( preg_match('/\/([\w_-]+)\/[\w_-]+\.php$/', $file, $m) && $m[1]!="class" && $m[1]!="ajax" && $m[1]!="route" )
 				{
 					$modules[$m[1]][] = $file;
 				}
@@ -72,7 +58,7 @@ class LocalCache
 		{
 			foreach( glob($glob) as $file )
 			{
-				if( preg_match("/\/([\w_-]+)\.php$/", $file, $m) )
+				if( preg_match('/\/([\w_-]+)\.php$/', $file, $m) )
 				{
 					$ajax[$m[1]] = $file;
 				}
@@ -96,38 +82,66 @@ class LocalCache
 			}
 		}
 
-		self::$class = $class;
 		self::$modules = $modules;
 		self::$ajax = $ajax;
 		self::$route = $route;
-		$res = file_put_contents( self::CACHE_FILE, json(array("class"=>$class, "modules"=>$modules, "ajax"=>$ajax, "route"=>$route), 1) );
-		if( $res === false )
-			throw new Exception( "Error saving cache file" );
+		self::save();
 
-		self::$init = true;
+		self::$scan = true;
 	}
 
 	static public function autoload( $class )
 	{
-		$class = strtolower($class);
+		$class__ = strtolower($class);
 
-		if( isset(self::$class[$class]) )
+		if( isset(self::$class[$class__]) && is_file(self::$class[$class__]) )
 		{
-			if( is_file((self::$class[$class])) )
+			require( self::$class[$class__] );
+			if( class_exists($class__) )
+				return;
+		}
+
+		if( !self::$scan_class )
+		{
+			self::scan_class();
+			self::autoload( $class__ );
+			return;
+		}
+
+		throw new Exception( "Class $class__ is not found" );
+	}
+
+	static protected function scan_class()
+	{
+		$class = array();
+		$dirs = array_merge( glob("extra/*/class"), array("modules/class") );
+		foreach( mask_search($dirs, "*.php") as $file )
+		{
+			$data = file_get_contents( $file );
+			$ns = preg_match('/^namespace\s+([\w\\\\]+)/m', $data, $m) ? $m[1]."\\" : "";
+			if( preg_match_all('/^(abstract\s+|)(class|interface|trait)\s+([\w_]+)\s/m', $data, $m) )
 			{
-				require_once( self::$class[$class] );
-				if( class_exists($class) )
-					return true;
+				foreach( $m[3] as $c )
+				{
+					$c = strtolower( $ns.$c );
+					if( !isset($class[$c]) )
+						$class[$c] = $file;
+				}
 			}
+			unset($data);
 		}
 
-		if( !self::$init )
-		{
-			self::scan();
-			return self::autoload( $class );
-		}
+		self::$class = $class;
+		self::save();
 
-		return false;
+		self::$scan_class = true;
+	}
+
+	static protected function save()
+	{
+		$res = file_put_contents( self::CACHE_FILE, json(array("class"=>self::$class, "modules"=>self::$modules, "ajax"=>self::$ajax, "route"=>self::$route), 1) );
+		if( $res === false )
+			throw new Exception( "Error saving cache file" );
 	}
 }
 
@@ -139,13 +153,20 @@ Class Module
 		if( empty(LocalCache::$modules[$module]) )
 			return false;
 
+		// Check all files are exist
 		foreach( LocalCache::$modules[$module] as $module )
 		{
 			if( is_file( $module ) )
-				require_once( $module );
-			else
-				// TODO: fix me
-				LocalCache::scan();
+				continue;
+
+			LocalCache::scan();
+			break;
+		}
+
+		// include files
+		foreach( LocalCache::$modules[$module] as $module )
+		{
+			require_once( $module );
 		}
 
 		return true;
